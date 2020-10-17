@@ -1,0 +1,158 @@
+## Default values for RabbitMq deployment
+
+## RabbitMQ docker image
+## use arm64v8/rabbitmq for the same image on ARM64v8
+image:
+  repository: rabbitmq
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Number of replicas
+replicaCount: 1
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options
+podSecurityContext: {}
+
+podManagementPolicy: OrderedReady
+
+updateStrategyType: RollingUpdate
+
+## Default security options to run RabbitMq as read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+## Default RabbitMq service ports (default: AMQP port 5672, Management UI port 15672)
+service:
+  amqp:
+    port: 5672
+  mgmt:
+    port: 15672
+
+## Ingress configuration
+ingress:
+  enabled: false
+  
+  ## Additional ingress annotations  
+  annotations:
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  
+  ## Hosts
+  hosts:
+    - host:
+        paths:
+          - /
+#  tls:
+#    - hosts:
+#      - rabbitmq.local
+
+## Resource limits and requests
+resources: {}
+# limits:
+#    cpu: 100m
+#    memory: 512Mi
+# requests:
+#    cpu: 100m
+#    memory: 128Mi
+
+## Default node type for the image
+## use arm64v8 for the arm64v8/rabbitmq image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+tolerations: []
+affinity: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 120
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 6
+  successThreshold: 1
+
+## Default startup probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 5
+  successThreshold: 1
+
+## Service account (necessary in cluster mode)
+serviceAccount:
+  create: true
+  ## The name of the ServiceAccount to use. (If not set and create is true, a name is generated using the rabbitmq.fullname template)
+  # name:
+
+## Create RBAC (necessary in cluster mode)
+rbac:
+  create: true
+
+## Additional environment variables
+env: []
+
+## Default Kubernetes cluster domain
+clusterDomain: cluster.local
+
+# Comma separated list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
+plugins: rabbitmq_management,rabbitmq_peer_discovery_k8s
+
+# High memory watermark option is described at https://www.rabbitmq.com/memory.html
+options:
+  memoryHighWatermark:
+    enabled: false
+    type: "relative"
+    value: 0.4
+
+# Default user and erlang cookie
+# The erlang cookie is important for clustered or container based usage
+# Find more information about it at https://hub.docker.com/_/rabbitmq and https://www.rabbitmq.com/clustering.html#erlang-cookie
+# If password of erlang cookie not provided in configuration random values will be generated
+authentication:
+  ## Initial user name
+  user: admin
+  
+  ## Initial password (default: random alphanumeric 10 characters)
+  password:
+
+  ## Erlang cookie (default: Random base64 value)
+  erlangCookie:
+
+## Clustering settings
+clustering:
+  ## Cluster address type (default: hostname)
+  addressType: hostname
+  ## Rebalance queues with master when new replica is created
+  rebalance: true
+
+## Storage parameters
+storage:
+  ## Set persistentVolumenClaimName to reference an existing PVC
+  # persistentVolumeClaimName: <own-pvc-name>
+  
+  ## Alternative set requestedSize to define a size for a dynamically created PVC
+  # requestedSize: <volume-size>
+  
+  ## the storage class name
+  # className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
