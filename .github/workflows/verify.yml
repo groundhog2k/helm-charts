@@ -1,0 +1,19 @@
+name: Lint test charts
+
+## Lint helm chart on every pull requests
+on:
+  pull_request:
+    paths:
+      - 'charts/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Run lint
+        uses: helm/chart-testing-action@master
+        with:
+          command: lint
+          config: .github/test-config.yaml
