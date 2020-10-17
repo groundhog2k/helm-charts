@@ -1,0 +1,121 @@
+## Default values for MariaDB deployment
+
+## MariaDB docker image
+## use arm64v8/mariadb for the same image on ARM64v8
+image:
+  repository: mariadb
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Default node type for the image
+## use arm64v8 for the arm64v8/mariadb image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options
+podSecurityContext: {}
+
+## Default security options to run MariaDB as non-root, read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+## Default database service port (default MySQL/MariaDB port)
+service:
+  port: 3306
+
+## Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+tolerations: []
+
+affinity: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 120
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Additional environment variables
+env: []
+
+## Database configuration
+settings:
+  ## Arguments for the container entrypoint process
+  arguments:
+  #  - --character-set-server=utf8mb4
+  #  - --collation-server=utf8mb4_unicode_ci
+
+  ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+  rootPassword:
+
+## Optional user database which is created during first startup with user and password
+userDatabase: {}
+  ## Name of the user database
+  # name:
+
+  ## Database user with full access rights
+  # user:
+
+  ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+  # password:
+
+## Optional custom configuration block that will be mounted as file in /etc/mysql/conf.d/custom.cnf
+customConfig: |-
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  # persistentVolumeClaimName: <own-pvc-name>
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  # requestedSize: <volume-size>
+
+  ## the storage class name
+  # className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce

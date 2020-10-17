@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "rabbitmq.fullname" . }}
+  labels:
+    {{- include "rabbitmq.labels" . | nindent 4 }}
+    type: LoadBalancer
+spec:
+  ports:
+    - port: {{ .Values.service.amqp.port }}
+      targetPort: amqp
+      name: amqp
+    - port: {{ .Values.service.mgmt.port }}
+      targetPort: mgmt
+      name: mgmt
+  selector:
+    {{- include "rabbitmq.selectorLabels" . | nindent 4 }}
