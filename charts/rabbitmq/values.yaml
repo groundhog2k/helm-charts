@@ -1,4 +1,4 @@
-## Default values for RabbitMQ deployment
+## Default values for the RabbitMQ deployment
 
 ## RabbitMQ docker image
 ## use arm64v8/rabbitmq for the same image on ARM64v8
