@@ -1,0 +1,55 @@
+apiVersion: v1
+entries:
+  mariadb:
+  - apiVersion: v2
+    appVersion: 10.4.14
+    created: "2020-10-17T18:59:42.48363925Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: 482ad4761edf005f680b58163d9a5643b042cdeceff9a72300d770f53f120905
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.1.0/mariadb-0.1.0.tgz
+    version: 0.1.0
+  postgres:
+  - apiVersion: v2
+    appVersion: "12.4"
+    created: "2020-10-17T18:59:42.583062766Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: 2d9f82b5cf564f5585e8fb518f8f528f34a8eb9e652cad77378ff26c9dd74775
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
+    version: 0.1.0
+  rabbitmq:
+  - apiVersion: v2
+    appVersion: 3.8.5
+    created: "2020-10-17T18:59:42.670735174Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 9da8b5463ee768b3dc804cef29b346992316df9a5897df9edd1411985ca4dc0b
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.1.0/rabbitmq-0.1.0.tgz
+    version: 0.1.0
+  redis:
+  - apiVersion: v2
+    appVersion: 6.0.8
+    created: "2020-10-17T18:59:42.77391056Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: 4c30362e7f02fa7149f5ad0b4543976ac07911701e37d9ed15d676fb7204a935
+    maintainers:
+    - name: groundhog2k
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.1.0/redis-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-10-17T18:59:42.357946042Z"
