@@ -104,7 +104,7 @@ userDatabase: {}
   # user:
 
   ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-  # password:  
+  # password:
 
 ## Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf
 customConfig: |-

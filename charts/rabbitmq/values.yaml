@@ -45,12 +45,12 @@ service:
 ## Ingress configuration
 ingress:
   enabled: false
-  
-  ## Additional ingress annotations  
+
+  ## Additional ingress annotations
   annotations:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
-  
+
   ## Hosts
   hosts:
     - host:
@@ -128,7 +128,7 @@ options:
 authentication:
   ## Initial user name
   user: admin
-  
+
   ## Initial password (default: random alphanumeric 10 characters)
   password:
 
@@ -146,10 +146,10 @@ clustering:
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
   # persistentVolumeClaimName: <own-pvc-name>
-  
+
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   # requestedSize: <volume-size>
-  
+
   ## the storage class name
   # className:
 
