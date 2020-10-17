@@ -1,0 +1,103 @@
+## Default values for Redis deployment
+
+## Redis docker image
+## use arm64v8/redis for the same image on ARM64v8
+image:
+  repository: redis
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Default node type for the image
+## use arm64v8 for the arm64v8/redis image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options
+podSecurityContext: {}
+
+## Default security options to run Redis as non-root, read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 999
+  runAsGroup: 999
+
+## Default redis service port (default Redis port 6379)
+service:
+  port: 6379
+
+## Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+tolerations: []
+
+affinity: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Additional environment variables
+env: []
+
+## Arguments for the container entrypoint process
+arguments:
+
+# Custom redis.conf
+redisConfig: |
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  # persistentVolumeClaimName: <own-pvc-name>
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  # requestedSize: <volume-size>
+
+  ## the storage class name
+  # className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce

@@ -1,0 +1,23 @@
+{{- if or (.Values.customConfig) (.Values.userDatabase) }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "postgres.fullname" . }}
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+data:
+{{- if .Values.customConfig }}
+  custom.cnf: |-
+    {{- .Values.database.customConfig | nindent 4 }}
+{{- end }}
+{{- with .Values.userDatabase }}
+  init-user-db.sh: |-
+    #!/bin/bash
+    set -e
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -v USERDBNAME="$USERDB_NAME" -v USERDBUSER="$USERDB_USER" -v USERDBPASSWORD="'$USERDB_PASSWORD'" <<-EOSQL
+      CREATE USER :USERDBUSER WITH PASSWORD :USERDBPASSWORD;
+      CREATE DATABASE :USERDBNAME;
+      GRANT ALL PRIVILEGES ON DATABASE :USERDBNAME TO :USERDBUSER;
+    EOSQL
+{{- end }}
+{{- end }}
