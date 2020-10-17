@@ -39,6 +39,7 @@ securityContext:
 service:
   amqp:
     port: 5672
+
   mgmt:
     port: 15672
 
