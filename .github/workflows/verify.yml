@@ -16,4 +16,4 @@ jobs:
         uses: helm/chart-testing-action@master
         with:
           command: lint
-          config: .github/test-config.yaml
+          config: .github/verify-config.yaml
