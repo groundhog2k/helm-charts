@@ -11,14 +11,13 @@ $ helm repo update
 ## Introduction
 
 This repository contains various helm charts for some famous open source projects.
-Goal was to create some universal charts that use the original docker images from [Docker hub](https://hub.docker.com) instead of the modified version which Bitnami offers.
-The advantage is that most of these charts here are platform independent and will run on x64/amd64 and arm64v8 (Raspberry Pi 3/4) Kubernetes clusters.
+Goal was to create some universal charts that use the original docker images from [Docker Hub](https://hub.docker.com) instead of the modified version which Bitnami offers.
+
+The advantage is that most of these charts are platform independent and will run on x64/amd64 and arm64v8 (Raspberry Pi 3/4) Kubernetes clusters just by changing the image tag.
 
 ## Prerequisites
 
-- Kubernetes 1.12+
 - Helm 3.x
-- PV provisioner support in the underlying infrastructure
 
 ## Adding this helm repository
 
