@@ -95,7 +95,7 @@ readinessProbe:
 env: []
 
 ## External database settings (is used when postgres.enabled is false)
-externalDatabase:  
+externalDatabase:
   ## Name of the database (default: commento)
   name: commento
 
@@ -107,7 +107,7 @@ externalDatabase:
 
   ## Database host
   host:
-  
+
   ## Database port (default: 5432)
   port: 5432
 
@@ -128,10 +128,10 @@ settings:
 
     ## SMTP host
     host:
-    
+
     ## SMTP port (default: 465)
     port: 465
-    
+
     ## SMTP user name
     name:
 
@@ -157,7 +157,7 @@ settings:
       enabled: false
       key:
       secret:
-    
+
     ## Gitlab OAuth
     gitlab:
       enabled: false
@@ -177,7 +177,7 @@ postgres:
 
   ## Database configuration
   settings:
-  
+
     ## The superuser password (default: a 10 char. alpahnumerical random password will be generated)
     superuserPassword:
 
@@ -189,7 +189,7 @@ postgres:
     user:
     ## Database password (default: 10 alphanum. random characters)
     password:
-  
+
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
@@ -200,4 +200,3 @@ postgres:
 
     ## the storage class name
     # className:
-  
