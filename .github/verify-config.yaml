@@ -1,3 +1,5 @@
 helm-extra-args: --timeout 600
 check-version-increment: true
 debug: true
+chart-repos:
+  - groundhog2k=https://groundhog2k.github.io/helm-charts
