@@ -1,0 +1,43 @@
+{{- $createNcPvc := and (empty .Values.storage.nextcloud.persistentVolumeClaimName) (.Values.storage.nextcloud.requestedSize) }}
+{{- if $createNcPvc }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nextcloud.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.storage.nextcloud }}
+  accessModes:
+    {{- toYaml .accessModes | nindent 4 }}
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .requestedSize }}
+  {{- if .storageClassName }}
+  storageClassName: {{ .storageClassName }}
+  {{- end }}
+  {{- end }}  
+{{- end }}
+{{- $createDataPvc := and (empty .Values.storage.nextcloudData.persistentVolumeClaimName) (.Values.storage.nextcloudData.requestedSize) }}
+{{- if $createDataPvc }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nextcloud.fullname" . }}-data
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.storage.nextcloudData }}
+  accessModes:
+    {{- toYaml .accessModes | nindent 4 }}
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .requestedSize }}
+  {{- if .storageClassName }}
+  storageClassName: {{ .storageClassName }}
+  {{- end }}
+  {{- end }}  
+{{- end }}

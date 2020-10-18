@@ -1,0 +1,171 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nextcloud.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "nextcloud.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "nextcloud.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "nextcloud.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          # set Nextcloud directories to 770 and allow access only by www-data
+          command: ['sh', '-c', 'mkdir -p /var/datavolume/data && chmod 770 /var/datavolume/data && chown www-data:www-data /var/datavolume/data']
+          volumeMounts:
+            - mountPath: /var/datavolume
+              name: nextcloud-data-vol
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.settings.update }}
+          lifecycle:
+            postStart:
+              exec:
+                command: ["bash", "-c", "/scripts/initdb.sh"]
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "nextcloud.fullname" . }}
+          env:
+            - name: NEXTCLOUD_DATA_DIR
+              value: /var/datavolume/data
+            {{- include "nextcloud.environment" . | nindent 12 }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort  }}
+              protocol: TCP
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerPort  }}
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerPort  }}
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: nextcloud-vol
+            - mountPath: /var/datavolume
+              name: nextcloud-data-vol
+            - mountPath: /scripts
+              name: scripts
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run
+              name: run
+            - mountPath: /etc/apache2/ports.conf
+              subPath: ports.conf
+              name: extended
+            - mountPath: /etc/apache2/000-default.conf
+              subPath: 000-default.conf
+              name: extended
+            - mountPath: /usr/local/etc/php/conf.d/custom.ini
+              subPath: custom.ini
+              name: extended
+            - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+              subPath: redis-session.ini
+              name: extended
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: run
+          emptyDir: {}
+        - name: extended
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-extended
+        - name: scripts
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-scripts
+            defaultMode: 0555
+        - name: nextcloud-vol
+        {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.nextcloud.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.nextcloud.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "nextcloud.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}
+        - name: nextcloud-data-vol
+        {{- if .Values.storage.nextcloudData.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.nextcloudData.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.nextcloudData.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "nextcloud.fullname" . }}-data
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}

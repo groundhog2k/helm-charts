@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "nextcloud.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+stringData:
+{{- if .Values.mariadb.enabled }}
+  MYSQL_HOST: {{ include "mariadb.servicename" . }}
+  {{- with .Values.mariadb.userDatabase }}
+  MYSQL_DATABASE: {{ .name }}
+  MYSQL_USER: {{ .user }}
+  MYSQL_PASSWORD: {{ .password }}
+  {{- end }}
+{{- else }}
+{{- if .Values.postgres.enabled }}
+  POSTGRES_HOST: {{ include "postgres.servicename" . }}
+  {{- with .Values.postgres.userDatabase }}
+  POSTGRES_DB: {{ .name }}
+  POSTGRES_USER: {{ .user }}
+  POSTGRES_PASSWORD: {{ .password }}
+  {{- end }}
+{{- else }}
+{{- with .Values.externalDatabase }}
+  {{- if or (eq .type "mariadb") (eq .type "mysql") }}
+  MYSQL_DATABASE: {{ .name }}
+  MYSQL_USER: {{ .user }}
+  MYSQL_PASSWORD: {{ .password }}
+  MYSQL_HOST: {{ .host }}
+  {{- else if eq .type "postgres" }}
+  POSTGRES_DB: {{ .name }}
+  POSTGRES_USER: {{ .user }}
+  POSTGRES_PASSWORD: {{ .password }}
+  POSTGRES_HOST: {{ .host }}
+  {{- else if eq .type "sqlite" }}
+  SQLITE_DATABASE: {{ .name }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.redis.enabled }}
+  REDIS_HOST: {{ include "redis.servicename" . }}
+  REDIS_HOST_PORT: {{ .Values.redis.service.port | quote }}
+  {{- if .Values.redis.password }}
+  REDIS_HOST_PASSWORD: {{ .Values.redis.password | quote }}
+  {{- else }}
+  REDIS_HOST_PASSWORD: ""
+  {{- end }}
+{{- else }}
+  {{- with .Values.externalCache }}
+  {{- if .enabled }}
+  REDIS_HOST: {{ .host }}
+  REDIS_HOST_PORT: {{ .port | quote }}
+  {{- if .password }}
+  REDIS_HOST_PASSWORD: {{ .password | quote }}
+  {{- else }}
+  REDIS_HOST_PASSWORD: ""
+  {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- with .Values.settings.admin }}
+  {{- if .name }}
+  NEXTCLOUD_ADMIN_USER: {{ .name }}
+  NEXTCLOUD_ADMIN_PASSWORD: {{ .password | default (randAlphaNum 10) }}
+  {{- end }}
+{{- end }}
+{{- with .Values.settings.smtp }}
+  {{- if .enabled }}
+  SMTP_HOST: {{ .host }}
+  SMTP_PORT: {{ .port | quote }}
+  {{- if .secure }}
+  SMTP_SECURE: "ssl"
+  {{- end }}
+  SMTP_AUTHTYPE: {{ .authType }}
+  SMTP_NAME: {{ .name }}
+  SMTP_PASSWORD: {{ .password | quote }}
+  {{- if .from }}
+  MAIL_FROM_ADDRESS: {{ .from }}
+  {{- end }}
+  {{- if .domain }}
+  MAIL_DOMAIN: {{ .domain }}
+  {{- end }}
+  {{- end }}  
+{{- end }}

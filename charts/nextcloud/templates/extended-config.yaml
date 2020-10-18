@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nextcloud.fullname" . }}-extended
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+data:
+  000-default.conf: |
+    {{- if .Values.apacheDefaultSiteConfig }}
+    {{ .Values.apacheDefaultSiteConfig | nindent 4 }}
+    {{- else }}
+    <VirtualHost *:{{ .Values.containerPort }}>
+            ServerAdmin webmaster@localhost
+            DocumentRoot /var/www/html
+
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+    {{- end }}
+  ports.conf: |
+    {{- if .Values.apachePortsConfig }}
+    {{ .Values.apachePortsConfig | nindent 4 }}
+    {{- else }}
+    Listen {{ .Values.containerPort }}
+    {{- end }}
+  redis-session.ini: |
+    {{- if .Values.redis.enabled }}
+    session.save_handler = redis
+    {{- if .Values.redis.password }}
+    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.port }}?auth={{ .Values.redis.password }}"
+    {{- else }}
+    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.port }}"
+    {{- end }}
+    {{- else }}
+    {{- with .Values.externalCache }}
+    {{- if .enabled }}
+    session.save_handler = redis
+    {{- if .password }}
+    session.save_path="tcp://{{ .host }}:{{ .port }}?auth={{ .password }}"
+    {{- else }}
+    session.save_path="tcp://{{ .host }}:{{ .port }}"
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  custom.ini: |
+    {{ .Values.customPhpConfig | nindent 4 }}

@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "nextcloud.fullname" . }}
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ .Chart.Name }}-cron
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              image: "{{ .Values.cronJobImage.repository }}:{{ .Values.cronJobImage.tag }}"
+              imagePullPolicy: {{ .Values.cronJobImage.pullPolicy }}
+              args:
+                - /bin/sh
+                - -c
+                - wget -qO- http://{{ include "nextcloud.fullname" . }}:{{ .Values.service.port }}/cron.php
+              
