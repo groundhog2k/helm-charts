@@ -126,7 +126,7 @@ externalDatabase:
   host:
 
 ## Ghost specific configuration
-settings:  
+settings:
   ## Default URL (for generated links)
   url:
 
