@@ -1,0 +1,202 @@
+## Default values for Commento deployment
+
+## Commento image
+image:
+  repository: registry.gitlab.com/commento/commento
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options (Run as nobody)
+podSecurityContext:
+  fsGroup: 65534
+  runAsUser: 65534
+  runAsNonRoot: true
+
+## Default security options to run Commento as non-root, read only container without privilege escalation
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  privileged: false
+
+## Number of replicas
+replicaCount: 1
+
+## Default service port
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  host:
+  tls: {}
+    # secretName: chart-example-tls
+
+## Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Default node type for the image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+tolerations: []
+
+affinity: {}
+
+containerPort: 8080
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+  periodSeconds: 10
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+  periodSeconds: 30
+
+## Additional environment variables
+env: []
+
+## External database settings (is used when postgres.enabled is false)
+externalDatabase:
+  ## Name of the database (default: commento)
+  name: commento
+
+  ## Database user
+  user:
+
+  ## Database password
+  password:
+
+  ## Database host
+  host:
+
+  ## Database port (default: 5432)
+  port: 5432
+
+settings:
+  ## Protocol for generated links (default: https)
+  protocol: https
+
+  ## Forbid new owners
+  forbidNewOwners: false
+
+  ## Serve static content GZIP compressed to client
+  gzipStaticContent: false
+
+  ## SMTP configuration
+  smtp:
+    ## Enable SMTP (default: false)
+    enabled: false
+
+    ## SMTP host
+    host:
+
+    ## SMTP port (default: 465)
+    port: 465
+
+    ## SMTP user name
+    name:
+
+    ## SMTP password
+    password:
+
+    ## SMTP from address
+    from:
+
+  ## Optional Akismet key
+  akismetKey:
+
+  ## Support for OAuth authentification for different providers
+  oauth:
+    ## Google OAuth
+    google:
+      enabled: false
+      key:
+      secret:
+
+    ## Github OAuth
+    github:
+      enabled: false
+      key:
+      secret:
+
+    ## Gitlab OAuth
+    gitlab:
+      enabled: false
+      key:
+      secret:
+
+    # Twitter OAuth
+    twitter:
+      enabled: false
+      key:
+      secret:
+
+## PostgreSQL configuration
+postgres:
+  ## Enable PostgreSQL helm chart for deployment (default: false)
+  enabled: false
+
+  ## Database configuration
+  settings:
+
+    ## The superuser password (default: a 10 char. alpahnumerical random password will be generated)
+    superuserPassword:
+
+  ## User database which is created during first startup with user and password
+  userDatabase:
+    ## Database name
+    name:
+    ## Database user
+    user:
+    ## Database password (default: 10 alphanum. random characters)
+    password:
+
+  # Storage parameters
+  storage:
+    ## Set persistentVolumenClaimName to reference an existing PVC
+    # persistentVolumeClaimName: <own-pvc-name>
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    # requestedSize: <volume-size>
+
+    ## the storage class name
+    # className:
