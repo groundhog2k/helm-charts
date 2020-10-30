@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+      - name: Fetch history
+        run: git fetch --prune --unshallow        
       - name: Run lint
-        uses: helm/chart-testing-action@master
+        uses: helm/chart-testing-action@v1.2.0
         with:
           command: lint
           config: .github/verify-config.yaml
