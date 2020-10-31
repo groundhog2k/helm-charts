@@ -3,6 +3,23 @@ entries:
   commento:
   - apiVersion: v2
     appVersion: v1.8.0
+    created: "2020-10-31T09:05:48.548355159Z"
+    dependencies:
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.1
+    description: A Helm chart for Commento on Kubernetes
+    digest: d2ddaab1601f6ca8b9aedc3ee63a35c7aa738c3f19c5c8b01e0d19d9379be715
+    maintainers:
+    - name: groundhog2k
+    name: commento
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/commento-0.1.1/commento-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v1.8.0
     created: "2020-10-18T10:23:05.051574687Z"
     dependencies:
     - condition: postgres.enabled
