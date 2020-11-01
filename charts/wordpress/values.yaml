@@ -54,7 +54,7 @@ service:
 ingress:
   ## Enable ingress endpoint
   enabled: false
-  
+
   ## Maximal body size (default: 64m - increase if uploads to Wordpress failing)
   maxBodySize: 64m
 
@@ -62,12 +62,12 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  
+
   ## Hosts
   hosts:
     - host:
       paths: []
-  
+
   ## TLS settings for hosts
   tls: []
   #  - secretName: chart-example-tls
