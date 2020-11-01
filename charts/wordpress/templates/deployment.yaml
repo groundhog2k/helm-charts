@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wordpress.fullname" . }}
+  labels:
+    {{- include "wordpress.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "wordpress.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "wordpress.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "wordpress.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "wordpress.fullname" . }}
+          env:
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /wp-admin/install.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerPort  }}
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /wp-login.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerPort  }}
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: wordpress-vol
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run
+              name: run
+            - mountPath: /etc/apache2/ports.conf
+              subPath: ports.conf
+              name: extended
+            - mountPath: /etc/apache2/000-default.conf
+              subPath: 000-default.conf
+              name: extended
+            - mountPath: /usr/local/etc/php/conf.d/custom.ini
+              subPath: custom.ini
+              name: extended              
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: run
+          emptyDir: {}
+        - name: extended
+          configMap:
+            name: {{ include "wordpress.fullname" . }}-extended
+        - name: wordpress-vol
+        {{- if .Values.storage.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "wordpress.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}
