@@ -353,4 +353,22 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.1.0/redis-0.1.0.tgz
     version: 0.1.0
+  wordpress:
+  - apiVersion: v2
+    appVersion: 5.5.1-apache
+    created: "2020-11-01T16:43:37.23813355Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.3
+    description: A Helm chart for Wordpress on Kubernetes
+    digest: 38ea1cca400bd6ebda8ccdac174a4036ad78772d92485f633d4c0234f619afcc
+    maintainers:
+    - name: groundhog2k
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
+    version: 0.1.0
 generated: "2020-10-17T18:59:42.357946042Z"
