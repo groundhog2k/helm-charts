@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "wordpress.fullname" . }}
+  labels:
+    {{- include "wordpress.labels" . | nindent 4 }}
+stringData:
+{{- if .Values.mariadb.enabled }}
+  WORDPRESS_DB_HOST: {{ include "mariadb.servicename" . }}
+  {{- with .Values.mariadb.userDatabase }}
+  WORDPRESS_DB_NAME: {{ .name }}
+  WORDPRESS_DB_USER: {{ .user }}
+  WORDPRESS_DB_PASSWORD: {{ .password }}
+  {{- end }}
+{{- else }}
+{{- with .Values.externalDatabase }}
+  WORDPRESS_DB_NAME: {{ .name }}
+  WORDPRESS_DB_USER: {{ .user }}
+  WORDPRESS_DB_PASSWORD: {{ .password }}
+  WORDPRESS_DB_HOST: {{ .host }}
+{{- end }}
+{{- end }}
+{{- with .Values.settings }}
+  {{- if .tablePrefix }}
+  WORDPRESS_TABLE_PREFIX: {{ .tablePrefix }}
+  {{- end }}
+{{- end }}
