@@ -127,7 +127,10 @@ externalDatabase:
 
 ## Wordpress specific settings
 settings:
+  ## Database table name prefix
   tablePrefix:
+  ## Maximum file upload size (default: 64M)
+  maxFileUploadSize: 64M
 
 ## Additional PHP custom.ini
 customPhpConfig: |
