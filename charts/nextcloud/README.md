@@ -152,6 +152,7 @@ $ helm uninstall my-release
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update (set `true` when upgrading nextcloud version with `helm upgrade`) |
 | settings.databaseUpdateDelay | int | `30` | Delay for database update after nextcloud upgrade |
+| settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |
 | settings.trustedDomains | string | `""` | List of trusted domains separated by blank space |
 | settings.trustedProxies | string | `"10.0.0.0/8"` | Trusted proxies |

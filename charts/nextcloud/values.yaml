@@ -160,6 +160,8 @@ settings:
   update: false
   ## Delay before database update steps are initiated (default: 30 seconds)
   databaseUpdateDelay: 30
+  ## Maximum file upload size (default: 64M)
+  maxFileUploadSize: 64M
 
   ## Nextcloud administrative user
   admin:
