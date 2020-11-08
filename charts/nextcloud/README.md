@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 19.0.3-apache](https://img.shields.io/badge/AppVersion-19.0.3-apache-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.1-apache](https://img.shields.io/badge/AppVersion-20.0.1-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.1.0 |
-| @groundhog2k | postgres | 0.1.0 |
-| @groundhog2k | redis | 0.1.0 |
+| @groundhog2k | mariadb | 0.1.3 |
+| @groundhog2k | postgres | 0.1.1 |
+| @groundhog2k | redis | 0.1.1 |
 
 ## Common parameters
 
@@ -59,7 +59,7 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"registry.gitlab.com/commento/commento"` | Image name |
+| image.repository | string | `"nextcloud"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
