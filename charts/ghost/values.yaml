@@ -50,6 +50,9 @@ ingress:
   ## Enable ingress endpoint
   enabled: false
 
+  ## Maximal body size (default: 2m - increase if uploads failing)
+  maxBodySize: 2m
+
   ## Additional ingress annotations
   annotations: {}
    # kubernetes.io/ingress.class: nginx

@@ -93,6 +93,7 @@ $ helm uninstall my-release
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0] | string | `"/"` | Path of the Ghost UI |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
+| ingress.maxBodySize | string | `"2m"` | Maximum body size for post requests |
 
 ## Storage parameters
 
