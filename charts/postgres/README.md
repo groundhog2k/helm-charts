@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 12.4](https://img.shields.io/badge/AppVersion-12.4-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.0](https://img.shields.io/badge/AppVersion-13.0-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -52,7 +52,7 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"mariadb"` | Image name |
+| image.repository | string | `"postgres"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
