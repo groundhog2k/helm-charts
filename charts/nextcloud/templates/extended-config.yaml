@@ -44,4 +44,8 @@ data:
     {{- end }}
     {{- end }}
   custom.ini: |
+    {{- if .Values.customPhpConfig }}
     {{ .Values.customPhpConfig | nindent 4 }}
+    {{- else }}
+    upload_max_filesize = {{ .Values.settings.maxFileUploadSize }}
+    {{- end }}
