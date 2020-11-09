@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.1-apache](https://img.shields.io/badge/AppVersion-20.0.1-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.1-apache](https://img.shields.io/badge/AppVersion-20.0.1-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -148,11 +148,13 @@ $ helm uninstall my-release
 | apacheDefaultSiteConfig | string | `""` | Overwrite default apache 000-default.conf |
 | apachePortsConfig | string | `""` | Overwrite default apache ports.conf |
 | customPhpConfig | string | `""` | Additional PHP custom.ini |
+| memoryLimitConfig | string | `""` | Additional PHP memory-limit.ini |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update (set `true` when upgrading nextcloud version with `helm upgrade`) |
 | settings.databaseUpdateDelay | int | `30` | Delay for database update after nextcloud upgrade |
 | settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
+| settings.memoryLimit | string | `512M` | PHP memory limit |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |
 | settings.trustedDomains | string | `""` | List of trusted domains separated by blank space |
 | settings.trustedProxies | string | `"10.0.0.0/8"` | Trusted proxies |

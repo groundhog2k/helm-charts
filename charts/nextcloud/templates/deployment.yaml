@@ -118,6 +118,9 @@ spec:
             - mountPath: /usr/local/etc/php/conf.d/custom.ini
               subPath: custom.ini
               name: extended
+            - mountPath: /usr/local/etc/php/conf.d/memory-limit.ini
+              subPath: memory-limit.ini
+              name: extended
             - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
               subPath: redis-session.ini
               name: extended

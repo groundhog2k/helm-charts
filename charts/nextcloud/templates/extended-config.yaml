@@ -49,3 +49,9 @@ data:
     {{- else }}
     upload_max_filesize = {{ .Values.settings.maxFileUploadSize }}
     {{- end }}
+  memory-limit.ini: |
+    {{- if .Values.memoryLimitConfig }}
+    {{ .Values.memoryLimitConfig | nindent 4 }}
+    {{- else }}
+    memory_limit = {{ .Values.settings.memoryLimit }}
+    {{- end }}
