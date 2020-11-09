@@ -162,6 +162,8 @@ settings:
   databaseUpdateDelay: 30
   ## Maximum file upload size (default: 64M)
   maxFileUploadSize: 64M
+  ## PHP memory limit (default: 512M)
+  memoryLimit: 512M
 
   ## Nextcloud administrative user
   admin:
@@ -219,6 +221,9 @@ settings:
 
 ## Additional PHP custom.ini
 customPhpConfig: |
+
+## Additional PHP memory-limit.ini
+memoryLimitConfig: |
 
 ## Overwrite default apache ports.conf
 apachePortsConfig: |
