@@ -8,13 +8,13 @@ maintainers:
   - name: groundhog2k
 
 # This is the chart version
-version: 0.1.2
+version: 0.1.3
 
 # This is the version number of the application being deployed.
 appVersion: v1.8.0
 
 dependencies:
   - name: postgres
-    version: 0.1.1
+    version: 0.1.2
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: postgres.enabled
