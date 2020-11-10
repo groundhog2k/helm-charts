@@ -8,10 +8,10 @@ maintainers:
   - name: groundhog2k
 
 # This is the chart version
-version: 0.1.4
+version: 0.1.5
 
 # This is the version number of the application being deployed.
-appVersion: "3.36.0"
+appVersion: "3.37.1"
 
 dependencies:
   - name: mariadb
