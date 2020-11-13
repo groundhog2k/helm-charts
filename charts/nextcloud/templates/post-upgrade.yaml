@@ -1,0 +1,92 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "nextcloud.fullname" . }}-postupgrade
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Chart.Name }}-postupgrade
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "nextcloud.fullname" . }}
+          env:
+            - name: NEXTCLOUD_DATA_DIR
+              value: /var/datavolume/data
+            {{- include "nextcloud.environment" . | nindent 12 }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          args:
+            - /bin/sh
+            - -c
+            - /scripts/initdb.sh
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: nextcloud-vol
+            - mountPath: /var/datavolume
+              name: nextcloud-data-vol
+            - mountPath: /scripts
+              name: scripts                  
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run
+              name: run
+      restartPolicy: OnFailure
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: run
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-scripts
+            defaultMode: 0555              
+        - name: nextcloud-vol
+        {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.nextcloud.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.nextcloud.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "nextcloud.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}
+        - name: nextcloud-data-vol
+        {{- if .Values.storage.nextcloudData.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.nextcloudData.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.nextcloudData.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "nextcloud.fullname" . }}-data
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}

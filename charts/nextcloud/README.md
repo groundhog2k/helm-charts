@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.1-apache](https://img.shields.io/badge/AppVersion-20.0.1-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.1-apache](https://img.shields.io/badge/AppVersion-20.0.1-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -81,13 +81,18 @@ $ helm uninstall my-release
 | initImage.repository | string | `"busybox"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
 
-## Cron job
+## Cron jobs
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| cronJobImage.pullPolicy | string | `"IfNotPresent"` | Cron job container image pull policy|
-| cronJobImage.repository | string | `"busybox"` | Default cron job container image |
-| cronJobImage.tag | string | `"latest"` | Cron job container image tag |
+| defaultCronJobs | list | '[1]' | Internal planned default cron job |
+| defaultCronJobs[1].name | string | `"cronphp"` | Name of the default cron job |
+| defaultCronJobs[1].schedule | string | `"*/5 * * * *"` | Schedule for the default cron job (5 minutes) |
+| defaultCronJobs[1].command | string | `"php -f /var/www/html/cron.php"` | Command for default cron.php job |
+| cronJobs | list | `[]` | List of additional planned cron jobs |
+| cronJobs[].name | string | `nil` | Name of the cron job |
+| cronJobs[].schedule | string | `nil` | Schedule for the cron job |
+| cronJobs[].command | string | `nil` | Command for planned execution |
 
 ## Service paramters
 
@@ -151,7 +156,7 @@ $ helm uninstall my-release
 | memoryLimitConfig | string | `""` | Additional PHP memory-limit.ini |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
-| settings.update | bool | `false` | Enable update (set `true` when upgrading nextcloud version with `helm upgrade`) |
+| settings.update | bool | `false` | Enable update |
 | settings.databaseUpdateDelay | int | `30` | Delay for database update after nextcloud upgrade |
 | settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
 | settings.memoryLimit | string | `512M` | PHP memory limit |

@@ -8,6 +8,6 @@ data:
   initdb.sh: |
     #!/bin/bash
     sleep {{ .Values.settings.databaseUpdateDelay }}
-    php occ db:add-missing-indices
-    php occ db:add-missing-columns
-    php occ db:convert-filecache-bigint
+    php -f /var/www/html/occ db:add-missing-indices
+    php -f /var/www/html/occ db:add-missing-columns
+    php -f /var/www/html/occ db:convert-filecache-bigint
