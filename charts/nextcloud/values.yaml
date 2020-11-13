@@ -14,16 +14,22 @@ initImage:
   pullPolicy: IfNotPresent
   tag: "latest"
 
-# Default CronJob container image
-cronJobImage:
-  repository: busybox
-  pullPolicy: IfNotPresent
-  tag: "latest"
-
 ## Pull secrets and name override options
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+## Internal default cron jobs (cron.php)
+defaultCronJobs:
+  - name: cronphp
+    schedule: "*/5 * * * *"
+    command: "php -f /var/www/html/cron.php"
+
+## Additional cron jobs
+cronJobs:
+#  - name: imagepregen
+#    schedule: "*/30 * * * *"
+#    command: "php -f /var/www/html/occ preview:pre-generate"
 
 ## Number of replicas
 replicas: 1

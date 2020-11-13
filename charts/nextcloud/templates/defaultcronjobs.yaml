@@ -1,0 +1,93 @@
+{{- $fullname := include "nextcloud.fullname" . }}
+{{- $labels := include "nextcloud.labels" . }}
+{{- $environment := include "nextcloud.environment" . }}
+{{- range $job := .Values.defaultCronJobs }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $fullname }}-{{ $job.name }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: {{ $job.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            {{- toYaml $.Values.podSecurityContext | nindent 12 }}
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ $.Chart.Name }}-{{ .name }}
+              securityContext:
+                {{- toYaml $.Values.securityContext | nindent 16 }}
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
+              envFrom:
+                - secretRef:
+                    name: {{ $fullname }}
+              env:
+                - name: NEXTCLOUD_DATA_DIR
+                  value: /var/datavolume/data
+                {{- $environment | nindent 16 }}
+              {{- with $.Values.env }}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              args:
+                - /bin/sh
+                - -c
+                - {{ $job.command }}
+              volumeMounts:
+                - mountPath: /var/www/html
+                  name: nextcloud-vol
+                - mountPath: /var/datavolume
+                  name: nextcloud-data-vol
+                - mountPath: /tmp
+                  name: tmp
+                - mountPath: /var/run
+                  name: run
+          {{- with $.Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with $.Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with $.Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumes:
+            - name: tmp
+              emptyDir: {}
+            - name: run
+              emptyDir: {}
+            - name: nextcloud-vol
+            {{- if $.Values.storage.nextcloud.persistentVolumeClaimName }}
+              persistentVolumeClaim:
+                claimName: {{ $.Values.storage.nextcloud.persistentVolumeClaimName }}
+            {{- else }}
+            {{- if $.Values.storage.nextcloud.requestedSize }}
+              persistentVolumeClaim:
+                claimName: {{ $fullname }}
+            {{- else }}
+              emptyDir: {}
+            {{- end }}
+            {{- end }}
+            - name: nextcloud-data-vol
+            {{- if $.Values.storage.nextcloudData.persistentVolumeClaimName }}
+              persistentVolumeClaim:
+                claimName: {{ $.Values.storage.nextcloudData.persistentVolumeClaimName }}
+            {{- else }}
+            {{- if $.Values.storage.nextcloudData.requestedSize }}
+              persistentVolumeClaim:
+                claimName: {{ $fullname }}-data
+            {{- else }}
+              emptyDir: {}
+            {{- end }}
+            {{- end }}
+---
+{{- end }}

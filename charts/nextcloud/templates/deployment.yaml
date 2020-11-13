@@ -44,12 +44,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.settings.update }}
-          lifecycle:
-            postStart:
-              exec:
-                command: ["bash", "-c", "/scripts/initdb.sh"]
-          {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "nextcloud.fullname" . }}
@@ -103,8 +97,6 @@ spec:
               name: nextcloud-vol
             - mountPath: /var/datavolume
               name: nextcloud-data-vol
-            - mountPath: /scripts
-              name: scripts
             - mountPath: /tmp
               name: tmp
             - mountPath: /var/run
@@ -144,10 +136,6 @@ spec:
         - name: extended
           configMap:
             name: {{ include "nextcloud.fullname" . }}-extended
-        - name: scripts
-          configMap:
-            name: {{ include "nextcloud.fullname" . }}-scripts
-            defaultMode: 0555
         - name: nextcloud-vol
         {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
           persistentVolumeClaim:
