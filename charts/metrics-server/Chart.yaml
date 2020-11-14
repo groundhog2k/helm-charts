@@ -4,4 +4,6 @@ description: DEPRECATED - Metrics Server is a cluster-wide aggregator of resourc
 name: metrics-server
 version: 2.11.4
 keywords:
-- metrics-server
+  - metrics-server
+maintainers:
+  - name: groundhog2k
