@@ -1,0 +1,7 @@
+apiVersion: v1
+appVersion: 0.3.6
+description: DEPRECATED - Metrics Server is a cluster-wide aggregator of resource usage data.
+name: metrics-server
+version: 2.11.4
+keywords:
+- metrics-server
