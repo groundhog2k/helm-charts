@@ -131,6 +131,8 @@ settings:
   tablePrefix:
   ## Maximum file upload size (default: 64M)
   maxFileUploadSize: 64M
+  ## PHP memory limit (default: 128M)
+  memoryLimit: 128M
 
 ## Additional PHP custom.ini
 customPhpConfig: |
