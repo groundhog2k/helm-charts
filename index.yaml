@@ -250,6 +250,21 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.1.0/mariadb-0.1.0.tgz
     version: 0.1.0
+  metrics-server:
+  - apiVersion: v1
+    appVersion: 0.3.6
+    created: "2020-11-14T11:38:45.660662132Z"
+    description: DEPRECATED - Metrics Server is a cluster-wide aggregator of resource
+      usage data.
+    digest: 0c00891e53d7cb8d8d3a5443637ba072f867d0ccafb4112c7ea2f0f1c0d63ae5
+    keywords:
+    - metrics-server
+    maintainers:
+    - name: groundhog2k
+    name: metrics-server
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.11.4/metrics-server-2.11.4.tgz
+    version: 2.11.4
   nextcloud:
   - apiVersion: v2
     appVersion: 20.0.1-apache
