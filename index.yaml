@@ -466,6 +466,22 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.1.0/nextcloud-0.1.0.tgz
     version: 0.1.0
+  nfs-client-provisioner:
+  - apiVersion: v1
+    appVersion: 3.1.0
+    created: "2020-11-14T11:42:05.822577789Z"
+    description: nfs-client is an automatic provisioner that used your *already configured*
+      NFS server, automatically creating Persistent Volumes.
+    digest: 8629f92339e68e7bbd0f24e0b12b5b2dc5a18a93f095bac19223ed7810f4c559
+    keywords:
+    - nfs
+    - storage
+    maintainers:
+    - name: groundhog2k
+    name: nfs-client-provisioner
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nfs-client-provisioner-1.2.11/nfs-client-provisioner-1.2.11.tgz
+    version: 1.2.11
   postgres:
   - apiVersion: v2
     appVersion: "13.0"
