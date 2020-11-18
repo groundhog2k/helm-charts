@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "gitea.fullname" . }}
+  labels:
+    {{- include "gitea.labels" . | nindent 4 }}
+stringData:
+  app.ini: |-
+    {{- if not (hasKey .Values.gitea.config "database") -}}
+    {{- $_ := set .Values.gitea.config "database" dict -}}
+    {{- end -}}
+    {{- if not (hasKey .Values.gitea.config "cache") -}}
+    {{- $_ := set .Values.gitea.config "cache" dict -}}
+    {{- end -}}
+    {{- if not (hasKey .Values.gitea.config "server") -}}
+    {{- $_ := set .Values.gitea.config "server" dict -}}
+    {{- end -}}
+    {{- if not (hasKey .Values.gitea.config "security") -}}
+    {{- $_ := set .Values.gitea.config "security" dict -}}
+    {{- end -}}
+  {{- if .Values.mariadb.enabled }}
+    {{- $_ := set .Values.gitea.config.database "DB_TYPE" "mysql" -}}
+    {{- $_ := set .Values.gitea.config.database "HOST" (include "mariadb.servicename" .) -}}
+    {{- $_ := set .Values.gitea.config.database "NAME" .Values.mariadb.userDatabase.name -}}
+    {{- $_ := set .Values.gitea.config.database "USER" .Values.mariadb.userDatabase.user -}}
+    {{- $_ := set .Values.gitea.config.database "PASSWD" .Values.mariadb.userDatabase.password -}}
+  {{- else }}
+  {{- if .Values.postgres.enabled }}
+    {{- $_ := set .Values.gitea.config.database "DB_TYPE" "postgres" -}}
+    {{- $_ := set .Values.gitea.config.database "HOST" (include "postgres.servicename" .) -}}
+    {{- $_ := set .Values.gitea.config.database "NAME" .Values.postgres.userDatabase.name -}}
+    {{- $_ := set .Values.gitea.config.database "USER" .Values.postgres.userDatabase.user -}}
+    {{- $_ := set .Values.gitea.config.database "PASSWD" .Values.postgres.userDatabase.password -}}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.redis.enabled }}
+    {{- $_ := set .Values.gitea.config.cache "ENABLED" "true" -}}
+    {{- $_ := set .Values.gitea.config.cache "ADAPTER" "redis" -}}
+    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "redis://:%s@%s:%s/0" (.Values.redis.password | default "") (include "redis.servicename" .) (toString .Values.redis.service.port)) -}}
+  {{- end }}
+    {{- if not .Values.gitea.config.server.ROOT_URL -}}
+    {{- if .Values.ingress.enabled -}}
+    {{- if gt (len .Values.ingress.tls) 0 -}}
+    {{- $_ := set .Values.gitea.config.server "ROOT_URL" (printf "%s://%s" .Values.gitea.config.server.PROTOCOL (index (index .Values.ingress.tls 0).hosts 0)) -}}
+    {{- else -}}
+    {{- $_ := set .Values.gitea.config.server "ROOT_URL" (printf "%s://%s" .Values.gitea.config.server.PROTOCOL (index .Values.ingress.hosts 0)) -}}
+    {{- end -}}
+    {{- else -}}
+    {{- $_ := set .Values.gitea.config.server "ROOT_URL" (printf "%s://%s" .Values.gitea.config.server.PROTOCOL .Values.gitea.config.server.DOMAIN) -}}
+    {{- end -}}
+    {{- end -}}
+    {{- if not .Values.gitea.config.server.SSH_DOMAIN -}}
+    {{- $_ := set .Values.gitea.config.server "SSH_DOMAIN" .Values.gitea.config.server.DOMAIN -}}
+    {{- end -}}
+    {{- if not (hasKey .Values.gitea.config.server "SSH_LISTEN_PORT") -}}
+    {{- $_ := set .Values.gitea.config.server "SSH_LISTEN_PORT" .Values.gitea.config.server.SSH_PORT -}}
+    {{- end -}}
+    {{- if not .Values.gitea.config.security.INSTALL_LOCK -}}
+    {{- $_ := set .Values.gitea.config.security "INSTALL_LOCK" "true" -}}
+    {{- end -}}
+
+    {{- /* autogenerate app.ini */ -}}
+    {{- range $key, $value := .Values.gitea.config  }}
+    {{- if kindIs "map" $value }}
+    {{- if gt (len $value) 0 }}
+    [{{ $key }}]
+    {{- range $n_key, $n_value := $value }}
+    {{ $n_key | upper }} = {{ $n_value }}
+    {{- end }}
+    {{- end }}
+    {{- else }}
+    {{ $key | upper }} = {{ $value }}
+    {{- end }}
+    {{- end }}

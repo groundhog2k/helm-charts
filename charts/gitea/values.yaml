@@ -1,0 +1,219 @@
+## Default values for Nextcloud deployment
+
+## Gitea docker image
+## use tag *-linux-arm64 for the same image on ARM64v8
+image:
+  repository: gitea/gitea
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Number of replicas
+replicaCount: 1
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options (default: fsGroup)
+podSecurityContext:
+  fsGroup: 1000
+
+## Default security options to run Gitea as read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 1000
+  runAsUser: 1000
+
+## Default Gitea service ports (default web and ssh port)
+service:
+  type: ClusterIP
+  httpPort: 80
+  sshPort: 22
+
+## Ingress configuration
+ingress:
+  enabled: false
+
+  ## Maximal body size (default: 64m - increase if uploads to gitea failing)
+  maxBodySize: 64m
+
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+## Resource limits and requests
+resources: {}
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+  periodSeconds: 10
+
+## Default startup probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+  periodSeconds: 30
+
+## Default node type for the image
+## use arm64v8 for the *-linux-arm64 image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+tolerations: []
+
+affinity: {}
+
+## Internal container HTTP port (default: 8000)
+containerHttpPort: 8000
+## Internal container SSH port (default: 8022)
+containerSshPort: 8022
+
+## Additional environment variables
+env: []
+
+## Arguments for the container entrypoint process
+arguments: {}
+
+## Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/
+gitea:
+  config:
+    APP_NAME: "Gitea: Git with a cup of tea"
+    RUN_MODE: "prod"
+
+## Gitea storage parameters
+storage:
+  ## Set persistentVolumenClaimName to reference an existing PVC
+  # persistentVolumeClaimName: <own-pvc-name>
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  # requestedSize: <volume-size>
+
+  ## the storage class name
+  # className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
+
+## MariaDB configuration
+mariadb:
+  ## Enable MariaDB helm chart for deployment (default: false)
+  enabled: true
+
+  ## Database configuration
+  settings:
+    ## Database startup arguments (enable UTF8MB4 and Unicode support)
+    arguments:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+    rootPassword:
+
+  ## Optional user database which is created during first startup with user and password
+  userDatabase:
+    ## Name of the user database
+    name: giteadb
+    ## Database user with full access rights
+    user: giteauser
+    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+    password: giteapwd
+
+  # Storage parameters
+  storage:
+    ## Set persistentVolumenClaimName to reference an existing PVC
+    # persistentVolumeClaimName: <own-pvc-name>
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    # requestedSize: <volume-size>
+
+    ## the storage class name
+    # className:
+
+## PostgreSQL configuration
+postgres:
+  ## Enable PostgreSQL helm chart for deployment (default: false)
+  enabled: false
+
+  ## Database configuration
+  settings:
+
+    ## The superuser password (default: a 10 char. alpahnumerical random password will be generated)
+    superuserPassword:
+
+  ## User database which is created during first startup with user and password
+  userDatabase:
+    ## Database name
+    name:
+    ## Database user
+    user:
+    ## Database password (default: 10 alphanum. random characters)
+    password:
+
+  # Storage parameters
+  storage:
+    ## Set persistentVolumenClaimName to reference an existing PVC
+    # persistentVolumeClaimName: <own-pvc-name>
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    # requestedSize: <volume-size>
+
+    ## the storage class name
+    # className:
+
+## Redis configuration
+redis:
+  ## Enable Redis helm chart for deployment (default: false)
+  enabled: true
+
+  # Storage parameters
+  storage:
+    ## Set persistentVolumenClaimName to reference an existing PVC
+    # persistentVolumeClaimName: <own-pvc-name>
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    # requestedSize: <volume-size>
+
+    ## the storage class name
+    # className:
