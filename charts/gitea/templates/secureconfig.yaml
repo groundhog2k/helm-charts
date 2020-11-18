@@ -53,7 +53,14 @@ stringData:
     {{- $_ := set .Values.gitea.config.server "SSH_DOMAIN" .Values.gitea.config.server.DOMAIN -}}
     {{- end -}}
     {{- if not (hasKey .Values.gitea.config.server "SSH_LISTEN_PORT") -}}
+    {{- $_ := set .Values.gitea.config.server "SSH_LISTEN_PORT" .Values.containerSshPort -}}
+    {{- else -}}
     {{- $_ := set .Values.gitea.config.server "SSH_LISTEN_PORT" .Values.gitea.config.server.SSH_PORT -}}
+    {{- end -}}
+    {{- if not (hasKey .Values.gitea.config.server "HTTP_PORT") -}}
+    {{- $_ := set .Values.gitea.config.server "HTTP_PORT" .Values.containerHttpPort -}}
+    {{- else -}}
+    {{- $_ := set .Values.gitea.config.server "HTTP_PORT" .Values.gitea.config.server.HTTP_PORT -}}
     {{- end -}}
     {{- if not .Values.gitea.config.security.INSTALL_LOCK -}}
     {{- $_ := set .Values.gitea.config.security "INSTALL_LOCK" "true" -}}

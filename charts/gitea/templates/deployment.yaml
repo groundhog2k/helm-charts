@@ -25,6 +25,23 @@ spec:
       serviceAccountName: {{ include "gitea.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}         
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: [ "/scripts/init.sh" ]
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run
+              name: run          
+            - name: scripts
+              mountPath: /scripts
+            - name: config
+              mountPath: /config
+            - name: gitea-vol
+              mountPath: /data
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -33,18 +50,62 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.containerHttpPort }}
               protocol: TCP
+            - name: ssh
+              containerPort: {{ .Values.containerSshPort }}
+              protocol: TCP
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.arguments }}
+          args:
+            {{- range .Values.arguments }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerHttpPort  }}
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
               path: /
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerHttpPort  }}
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run
+              name: run
+            - name: gitea-vol
+              mountPath: /data
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -57,3 +118,27 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: run
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ include "gitea.fullname" . }}-scripts
+            defaultMode: 0555
+        - name: config
+          secret:
+            secretName: {{ include "gitea.fullname" . }}
+        - name: gitea-vol
+        {{- if .Values.storage.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "gitea.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}

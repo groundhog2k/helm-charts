@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "gitea.fullname" . }}-scripts
+  labels:
+    {{- include "gitea.labels" . | nindent 4 }}
+data:
+  init.sh: |
+    #!/bin/bash
+    mkdir -p /data/gitea/conf
+    cp /config/app.ini /data/gitea/conf/app.ini
+    chmod a+rwx /data/gitea/conf/app.ini
