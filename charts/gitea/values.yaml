@@ -79,16 +79,16 @@ resources: {}
 
 ## Default liveness probe
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 30
   timeoutSeconds: 5
   failureThreshold: 6
   successThreshold: 1
   periodSeconds: 10
 
-## Default startup probe
+## Default readiness probe
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 30
   timeoutSeconds: 5
   failureThreshold: 5
@@ -120,6 +120,8 @@ gitea:
   config:
     APP_NAME: "Gitea: Git with a cup of tea"
     RUN_MODE: "prod"
+    server:
+      APP_DATA_PATH: /data
 
 ## Gitea storage parameters
 storage:
@@ -127,7 +129,7 @@ storage:
   # persistentVolumeClaimName: <own-pvc-name>
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: 64Mi
 
   ## the storage class name
   # className:
@@ -139,7 +141,7 @@ storage:
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)
-  enabled: true
+  enabled: false
 
   ## Database configuration
   settings:
@@ -154,11 +156,11 @@ mariadb:
   ## Optional user database which is created during first startup with user and password
   userDatabase:
     ## Name of the user database
-    name: giteadb
+    name:
     ## Database user with full access rights
-    user: giteauser
+    user:
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    password: giteapwd
+    password:
 
   # Storage parameters
   storage:
@@ -205,7 +207,7 @@ postgres:
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
-  enabled: true
+  enabled: false
 
   # Storage parameters
   storage:
