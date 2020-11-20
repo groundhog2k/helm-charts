@@ -18,6 +18,9 @@ stringData:
     {{- if not (hasKey .Values.gitea.config "security") -}}
     {{- $_ := set .Values.gitea.config "security" dict -}}
     {{- end -}}
+    {{- if not (hasKey .Values.gitea.config "log") -}}
+    {{- $_ := set .Values.gitea.config "log" dict -}}
+    {{- end -}}
   {{- if .Values.mariadb.enabled }}
     {{- $_ := set .Values.gitea.config.database "DB_TYPE" "mysql" -}}
     {{- $_ := set .Values.gitea.config.database "HOST" (include "mariadb.servicename" .) -}}
@@ -31,6 +34,8 @@ stringData:
     {{- $_ := set .Values.gitea.config.database "NAME" .Values.postgres.userDatabase.name -}}
     {{- $_ := set .Values.gitea.config.database "USER" .Values.postgres.userDatabase.user -}}
     {{- $_ := set .Values.gitea.config.database "PASSWD" .Values.postgres.userDatabase.password -}}
+  {{- else }}
+    {{- $_ := set .Values.gitea.config.database "DB_TYPE" "sqlite3" -}}
   {{- end }}
   {{- end }}
   {{- if .Values.redis.enabled }}
@@ -54,6 +59,8 @@ stringData:
     {{- end -}}
     {{- if not (hasKey .Values.gitea.config.server "SSH_LISTEN_PORT") -}}
     {{- $_ := set .Values.gitea.config.server "SSH_LISTEN_PORT" .Values.containerSshPort -}}
+    {{- $_ := set .Values.gitea.config.server "SSH_PORT" .Values.service.sshPort -}}
+    {{- $_ := set .Values.gitea.config.server "START_SSH_SERVER" "true" -}}
     {{- else -}}
     {{- $_ := set .Values.gitea.config.server "SSH_LISTEN_PORT" .Values.gitea.config.server.SSH_PORT -}}
     {{- end -}}
@@ -62,9 +69,10 @@ stringData:
     {{- else -}}
     {{- $_ := set .Values.gitea.config.server "HTTP_PORT" .Values.gitea.config.server.HTTP_PORT -}}
     {{- end -}}
-    {{- if not .Values.gitea.config.security.INSTALL_LOCK -}}
-    {{- $_ := set .Values.gitea.config.security "INSTALL_LOCK" "true" -}}
-    {{- end -}}
+
+    {{- $_ := set .Values.gitea.config.server "SSH_ROOT_PATH" "/data/ssh" -}}
+    {{- $_ := set .Values.gitea.config.server "APP_DATA_PATH" "/data/gitea" -}}
+    {{- $_ := set .Values.gitea.config.log "ROOT_PATH" "/data/log" -}}
 
     {{- /* autogenerate app.ini */ -}}
     {{- range $key, $value := .Values.gitea.config  }}
