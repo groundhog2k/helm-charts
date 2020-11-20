@@ -1,124 +1,37 @@
-## Default values for Nextcloud deployment
-
-## Gitea docker image
-## use tag *-linux-arm64 for the same image on ARM64v8
-image:
-  repository: gitea/gitea
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-## Number of replicas
 replicaCount: 1
-
-## Pull secrets and name override options
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-## Optional service account
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: false
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-## Additional pod annotations
-podAnnotations: {}
-
-## Pod security options (default: fsGroup)
-podSecurityContext:
-  fsGroup: 1000
-
-## Default security options to run Gitea as read only container without privilege escalation
-securityContext:
-  allowPrivilegeEscalation: false
-  privileged: false
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
-  runAsGroup: 1000
-  runAsUser: 1000
-
-## Default Gitea service ports (default web and ssh port)
-service:
-  type: ClusterIP
-  httpPort: 80
-  sshPort: 22
 
 ## Ingress configuration
 ingress:
-  enabled: false
+  enabled: true
 
   ## Maximal body size (default: 64m - increase if uploads to gitea failing)
   maxBodySize: 64m
 
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca
 
   hosts:
-    - host: chart-example.local
-      paths: []
-
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-## Resource limits and requests
-resources: {}
-# limits:
-#   cpu: 100m
-#   memory: 128Mi
-# requests:
-#   cpu: 100m
-#   memory: 128Mi
-
-## Default liveness probe
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 6
-  successThreshold: 1
-  periodSeconds: 10
-
-## Default readiness probe
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 5
-  successThreshold: 1
-  periodSeconds: 10
-
-## Default node type for the image
-## use arm64v8 for the *-linux-arm64 image
-nodeSelector:
-  kubernetes.io/arch: amd64
-
-tolerations: []
-
-affinity: {}
+    - host: dev.k8.local
+      paths:
+        - /
+  tls:
+    - secretName: dev-k8-local
+      hosts:
+        - dev.k8.local
 
 ## Internal container HTTP port (default: 8000)
 containerHttpPort: 8000
 ## Internal container SSH port (default: 8022)
 containerSshPort: 8022
 
-## Additional environment variables
-env: []
-
-## Arguments for the container entrypoint process
-arguments: {}
 
 ## Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/
 gitea:
   config:
-    RUN_MODE: "prod"
+    APP_NAME: "Home Git"
+    server:
+      PROTOCOL: http
+      ROOT_URL: https://dev.k8.local
 
 ## Gitea storage parameters
 storage:
@@ -126,7 +39,7 @@ storage:
   # persistentVolumeClaimName: <own-pvc-name>
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: 64Mi
 
   ## the storage class name
   # className:
@@ -173,7 +86,7 @@ mariadb:
 ## PostgreSQL configuration
 postgres:
   ## Enable PostgreSQL helm chart for deployment (default: false)
-  enabled: false
+  enabled: true
 
   ## Database configuration
   settings:
@@ -184,11 +97,11 @@ postgres:
   ## User database which is created during first startup with user and password
   userDatabase:
     ## Database name
-    name:
+    name: gitea
     ## Database user
-    user:
+    user: giteadbuser
     ## Database password (default: 10 alphanum. random characters)
-    password:
+    password: giteadbpasswd
 
   # Storage parameters
   storage:
@@ -196,7 +109,7 @@ postgres:
     # persistentVolumeClaimName: <own-pvc-name>
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: 64Mi
 
     ## the storage class name
     # className:

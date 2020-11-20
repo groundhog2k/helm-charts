@@ -32,16 +32,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           command: [ "/scripts/init.sh" ]
           volumeMounts:
-            - mountPath: /etc/s6
-              name: s6
-            - mountPath: /var/run
-              name: run          
             - name: scripts
               mountPath: /scripts
             - name: config
               mountPath: /config
-            - name: gitea-vol
-              mountPath: /etc/ssh
             - name: gitea-vol
               mountPath: /data
       containers:
@@ -50,6 +44,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "/app/gitea/gitea" ]
           ports:
             - name: http
               containerPort: {{ .Values.containerHttpPort }}
@@ -58,7 +53,6 @@ spec:
               containerPort: {{ .Values.containerSshPort }}
               protocol: TCP
           {{- with .Values.env }}
-          env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if .Values.arguments }}
@@ -102,12 +96,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /etc/s6
-              name: s6
-            - mountPath: /var/run
-              name: run          
-            - name: gitea-vol
-              mountPath: /etc/ssh
+            - name: run
+              mountPath: /var/run
             - name: gitea-vol
               mountPath: /data
       {{- with .Values.nodeSelector }}
@@ -123,8 +113,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: s6
-          emptyDir: {}
         - name: run
           emptyDir: {}
         - name: scripts
