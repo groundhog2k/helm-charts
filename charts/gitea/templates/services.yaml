@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gitea.fullname" . }}-http
+  labels:
+    {{- include "gitea.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.services.http.type }}
+  ports:
+    - port: {{ .Values.services.http.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "gitea.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gitea.fullname" . }}-ssh
+  labels:
+    {{- include "gitea.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.services.ssh.type }}
+  ports:
+    - port: {{ .Values.services.ssh.port }}
+      targetPort: ssh
+      protocol: TCP
+      name: ssh
+      {{- if and (eq .Values.services.ssh.type "NodePort") (.Values.services.ssh.nodePort) }}
+      nodePort: {{ .Values.services.ssh.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.services.ssh.type "LoadBalancer") (.Values.services.ssh.clusterIP) }}
+  clusterIP: {{ .Values.services.ssh.clusterIP }}
+  {{- end }}
+  selector:
+    {{- include "gitea.selectorLabels" . | nindent 4 }}
