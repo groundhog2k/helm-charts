@@ -15,4 +15,6 @@ data:
       mkdir -p /data/log
       cp /config/app.ini /data/gitea/conf/app.ini
       chmod u+rw /data/gitea/conf/app.ini
+
+      /app/gitea/gitea admin user create --username root --password admin --email test@test.com --admin
     fi

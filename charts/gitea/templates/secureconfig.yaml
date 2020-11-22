@@ -12,6 +12,9 @@ stringData:
     {{- if not (hasKey .Values.gitea.config "cache") -}}
     {{- $_ := set .Values.gitea.config "cache" dict -}}
     {{- end -}}
+    {{- if not (hasKey .Values.gitea.config "session") -}}
+    {{- $_ := set .Values.gitea.config "session" dict -}}
+    {{- end -}}
     {{- if not (hasKey .Values.gitea.config "server") -}}
     {{- $_ := set .Values.gitea.config "server" dict -}}
     {{- end -}}
@@ -23,6 +26,7 @@ stringData:
     {{- end -}}
   {{- if .Values.mariadb.enabled }}
     {{- $_ := set .Values.gitea.config.database "DB_TYPE" "mysql" -}}
+    {{- $_ := set .Values.gitea.config.database "CHARSET" "utf8mb4" -}}
     {{- $_ := set .Values.gitea.config.database "HOST" (include "mariadb.servicename" .) -}}
     {{- $_ := set .Values.gitea.config.database "NAME" .Values.mariadb.userDatabase.name -}}
     {{- $_ := set .Values.gitea.config.database "USER" .Values.mariadb.userDatabase.user -}}
@@ -41,7 +45,9 @@ stringData:
   {{- if .Values.redis.enabled }}
     {{- $_ := set .Values.gitea.config.cache "ENABLED" "true" -}}
     {{- $_ := set .Values.gitea.config.cache "ADAPTER" "redis" -}}
-    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "redis://:%s@%s:%s/0" (.Values.redis.password | default "") (include "redis.servicename" .) (toString .Values.redis.service.port)) -}}
+    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (toString .Values.redis.service.port)) -}}
+    {{- $_ := set .Values.gitea.config.session "PROVIDER" "redis" -}}
+    {{- $_ := set .Values.gitea.config.session "PROVIDER_CONFIG" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (toString .Values.redis.service.port)) -}}
   {{- end }}
     {{- if not .Values.gitea.config.server.ROOT_URL -}}
     {{- if .Values.ingress.enabled -}}
