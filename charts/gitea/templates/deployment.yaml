@@ -52,14 +52,11 @@ spec:
             - name: ssh
               containerPort: {{ .Values.containerSshPort }}
               protocol: TCP
+          {{- if .Values.env }}
+          env:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.arguments }}
-          args:
-            {{- range .Values.arguments }}
-            - {{ . }}
-            {{- end }}
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:

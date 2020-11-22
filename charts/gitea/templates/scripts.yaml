@@ -15,6 +15,13 @@ data:
       mkdir -p /data/log
       cp /config/app.ini /data/gitea/conf/app.ini
       chmod u+rw /data/gitea/conf/app.ini
-
-      /app/gitea/gitea admin user create --username root --password admin --email test@test.com --admin
+    fi
+  createdefaultadmin.sh: |
+    #!/bin/bash
+    if [ ! -f /data/gitea/conf/.post-install-done ]; then
+      sleep {{ .Values.settings.postInstallDelay }}
+      {{- with .Values.settings.defaultAdmin }}
+      /app/gitea/gitea admin create-user --username {{ .user }} --password {{ .password }} --email {{ .email }} --admin --must-change-password
+      {{- end }}
+      touch /data/gitea/conf/.post-install-done
     fi

@@ -11,8 +11,7 @@ maintainers:
 version: 0.1.0
 
 # This is the version number of the application being deployed.
-# Use the 1.12.5-linux-arm64 image for support of ARM64v8 platform
-appVersion: "1.12.5"
+appVersion: "1.12.6"
 
 dependencies:
   - name: mariadb

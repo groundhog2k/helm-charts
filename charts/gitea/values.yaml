@@ -1,4 +1,4 @@
-## Default values for Nextcloud deployment
+## Default values for Gitea deployment
 
 ## Gitea docker image
 ## use tag *-linux-arm64 for the same image on ARM64v8
@@ -43,10 +43,15 @@ securityContext:
   runAsUser: 1000
 
 ## Default Gitea service ports (default web and ssh port)
-service:
-  type: ClusterIP
-  httpPort: 80
-  sshPort: 22
+services:
+  http:
+    type: ClusterIP
+    port: 80
+  ssh:
+    type: ClusterIP
+    port: 22
+    # nodePort:
+    # clusterIP:
 
 ## Ingress configuration
 ingress:
@@ -55,14 +60,17 @@ ingress:
   ## Maximal body size (default: 64m - increase if uploads to gitea failing)
   maxBodySize: 64m
 
+  ## Additional ingress annotations
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+#   kubernetes.io/ingress.class: nginx
+#   kubernetes.io/tls-acme: "true"
 
+  ## Hosts
   hosts:
     - host: chart-example.local
       paths: []
-
+  
+  ## TLS settings for hosts
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -112,16 +120,89 @@ containerSshPort: 8022
 ## Additional environment variables
 env: []
 
-## Arguments for the container entrypoint process
-arguments: {}
+## Additional Gitea settings defined in this chart
+settings:
+  ## Delay after installation before adminstrative user gets created (Database must be ready and connected)
+  postInstallDelay: 60
+  ## Defines the default administrator (first user) - Password must be changed after first login!
+  defaultAdmin:
+    user: root
+    password: admin
+    email: root@admin.local
 
 ## Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/
+## More values and sections can be added - All values will only be created once during install!
 gitea:
   config:
     RUN_MODE: "prod"
-  indexer:
-    ## Increase startup timeout for indexer to prevent restart with multiple replicas
-    STARTUP_TIMEOUT: 300
+    APP_NAME: "Gitea: Git with a cup of tea"
+    
+    database:
+      PATH: "/data/gitea/gitea.db"
+
+    log:
+      ROOT_PATH: "/data/log"
+      MODE: "file"
+      LEVEL: "info"
+      
+    server:
+      PROTOCOL: http
+      DISABLE_SSH: "false"
+      START_SSH_SERVER: "true"
+      LFS_START_SERVER: "true"
+      LFS_CONTENT_PATH: "/data/gitea/lfs"
+      OFFLINE_MODE: "false"
+      # LFS_JWT_SECRET:
+
+      SSH_ROOT_PATH: "/data/ssh"
+      APP_DATA_PATH: "/data/gitea"
+
+    security:
+      INSTALL_LOCK: "true"
+      # Internal secret and token or random value
+      # SECRET_KEY:
+      # INTERNAL_TOKEN:
+
+    repositories:
+      ROOT: "/data/git/gitea-repositories"
+
+    service:
+      REGISTER_EMAIL_CONFIRM: "false"
+      ENABLE_NOTIFY_MAIL: "false"
+      DISABLE_REGISTRATION: "true"
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: "false"
+      ENABLE_CAPTCHA: "false"
+      REQUIRE_SIGNIN_VIEW: "false"
+      DEFAULT_KEEP_EMAIL_PRIVATE: "true"
+      DEFAULT_ALLOW_CREATE_ORGANIZATION: "true"
+      DEFAULT_ENABLE_TIMETRACKING: "true"
+      NO_REPLY_ADDRESS: "noreply.dev.k8.local"
+
+    openid:
+      ENABLE_OPENID_SIGNIN: "false"
+      ENABLE_OPENID_SIGNUP: "false"
+
+    picture:
+      DISABLE_GRAVATAR: "false"
+      ENABLE_FEDERATED_AVATAR: "true"
+
+    # OAuth2 JWT secrent or random value
+    # oauth2:
+      # JWT_SECRET:
+    
+    mailer:
+      ENABLED: "false"
+      # HOST:
+      # FROM:
+      # USER:
+      # PASSWD:
+
+    # Indexer prevents scaling Gitea with replicas option and instances (>1) will crash - as a workaround the indexer STARTUP_TIMEOUT can be set to infinite
+    # This workaround is working but not fully tested
+    # Session cache must enabled and database must be MySQL/MariaDB or PostgreSQL!
+    # Try at your own risk!
+    # indexer:
+      # STARTUP_TIMEOUT: 0
 
 ## Gitea storage parameters
 storage:

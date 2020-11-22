@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "gitea.fullname" . }}-postinstall
+  labels:
+    {{- include "gitea.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Chart.Name }}-postinstall
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "gitea.fullname" . }}
+          {{- if .Values.env }}
+          env:
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          args:
+            - /bin/sh
+            - -c
+            - /scripts/createdefaultadmin.sh
+          volumeMounts:
+            - name: gitea-vol
+              mountPath: /data
+            - name: scripts
+              mountPath: /scripts
+      restartPolicy: OnFailure
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: run
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ include "gitea.fullname" . }}-scripts
+            defaultMode: 0555
+        - name: config
+          secret:
+            secretName: {{ include "gitea.fullname" . }}
+        - name: gitea-vol
+        {{- if .Values.storage.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "gitea.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}

@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "gitea.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "gitea.fullname" . }}:{{ .Values.services.http.port }}']
   restartPolicy: Never
