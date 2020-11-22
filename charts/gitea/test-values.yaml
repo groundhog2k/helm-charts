@@ -29,9 +29,36 @@ containerSshPort: 8022
 gitea:
   config:
     APP_NAME: "Home Git"
+    log:
+      ROOT_PATH: "/data/log"
+      MODE: "file"
+      LEVEL: "info"
+      
     server:
       PROTOCOL: http
       ROOT_URL: https://dev.k8.local
+      DOMAIN: "dev.k8.local"
+      DISABLE_SSH: "false"
+      LFS_START_SERVER: "true"
+      LFS_CONTENT_PATH: "/data/gitea/lfs"
+      OFFLINE_MODE: "false"
+
+    security:
+      INSTALL_LOCK: "true"
+
+    repositories:
+      ROOT: "/data/git/gitea-repositories"
+    service:
+      REGISTER_EMAIL_CONFIRM: "false"
+      ENABLE_NOTIFY_MAIL: "false"
+      DISABLE_REGISTRATION: "true"
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: "false"
+      ENABLE_CAPTCHA: "false"
+      REQUIRE_SIGNIN_VIEW: "false"
+      DEFAULT_KEEP_EMAIL_PRIVATE: "true"
+      DEFAULT_ALLOW_CREATE_ORGANIZATION: "true"
+      DEFAULT_ENABLE_TIMETRACKING: "true"
+      NO_REPLY_ADDRESS: "noreply.dev.k8.local"
 
 ## Gitea storage parameters
 storage:
@@ -51,7 +78,7 @@ storage:
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)
-  enabled: false
+  enabled: true
 
   ## Database configuration
   settings:
@@ -61,16 +88,16 @@ mariadb:
       - --collation-server=utf8mb4_unicode_ci
 
     ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
-    rootPassword:
+    rootPassword: giteadbrootpwd
 
   ## Optional user database which is created during first startup with user and password
   userDatabase:
     ## Name of the user database
-    name:
+    name: gitea
     ## Database user with full access rights
-    user:
+    user: giteadbuser
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    password:
+    password: giteadbpwd
 
   # Storage parameters
   storage:
@@ -78,7 +105,7 @@ mariadb:
     # persistentVolumeClaimName: <own-pvc-name>
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: 64Mi
 
     ## the storage class name
     # className:
@@ -86,7 +113,7 @@ mariadb:
 ## PostgreSQL configuration
 postgres:
   ## Enable PostgreSQL helm chart for deployment (default: false)
-  enabled: true
+  enabled: false
 
   ## Database configuration
   settings:
@@ -117,10 +144,10 @@ postgres:
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
-  enabled: false
+  enabled: true
 
   # Storage parameters
-  storage:
+  storage: {}
     ## Set persistentVolumenClaimName to reference an existing PVC
     # persistentVolumeClaimName: <own-pvc-name>
 
