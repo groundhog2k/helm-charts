@@ -69,7 +69,7 @@ ingress:
   hosts:
     - host: chart-example.local
       paths: []
-  
+
   ## TLS settings for hosts
   tls: []
   #  - secretName: chart-example-tls
@@ -136,7 +136,7 @@ gitea:
   config:
     RUN_MODE: "prod"
     APP_NAME: "Gitea: Git with a cup of tea"
-    
+
     database:
       PATH: "/data/gitea/gitea.db"
 
@@ -144,7 +144,7 @@ gitea:
       ROOT_PATH: "/data/log"
       MODE: "file"
       LEVEL: "info"
-      
+
     server:
       PROTOCOL: http
       DISABLE_SSH: "false"
@@ -189,7 +189,7 @@ gitea:
     # OAuth2 JWT secrent or random value
     # oauth2:
       # JWT_SECRET:
-    
+
     mailer:
       ENABLED: "false"
       # HOST:
