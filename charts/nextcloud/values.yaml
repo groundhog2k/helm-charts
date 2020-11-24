@@ -172,8 +172,8 @@ externalCache:
 settings:
   ## Enable update processing (default: false - set to true when "helm upgrade .." is used)
   update: false
-  ## Delay before database update steps are initiated (default: 30 seconds)
-  databaseUpdateDelay: 480
+  ## Delay before database update steps are initiated (default: 120 seconds)
+  databaseUpdateDelay: 120
   ## Maximum file upload size (default: 64M)
   maxFileUploadSize: 64M
   ## PHP memory limit (default: 512M)

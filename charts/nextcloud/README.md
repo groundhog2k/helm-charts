@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.2-apache](https://img.shields.io/badge/AppVersion-20.0.2-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.2-apache](https://img.shields.io/badge/AppVersion-20.0.2-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -161,7 +161,7 @@ $ helm uninstall my-release
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update |
-| settings.databaseUpdateDelay | int | `30` | Delay for database update after nextcloud upgrade |
+| settings.databaseUpdateDelay | int | `120` | Delay for database update after nextcloud upgrade |
 | settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
 | settings.memoryLimit | string | `512M` | PHP memory limit |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |
