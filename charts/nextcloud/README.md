@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.2-apache](https://img.shields.io/badge/AppVersion-20.0.2-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.2-apache](https://img.shields.io/badge/AppVersion-20.0.2-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -93,6 +93,10 @@ $ helm uninstall my-release
 | cronJobs[].name | string | `nil` | Name of the cron job |
 | cronJobs[].schedule | string | `nil` | Schedule for the cron job |
 | cronJobs[].command | string | `nil` | Command for planned execution |
+| cronJobs[].affinity | object | `{}` | Affinity for pod assignment |
+| cronJobs[].tolerations | list | `[]` | Tolerations for pod assignment |
+| cronJobs[].nodeSelector | object | `{}` | Deployment node selector |
+| cronJobs[].resources | object | `{}` | Resource limits and requests |
 
 ## Service paramters
 

@@ -24,12 +24,20 @@ defaultCronJobs:
   - name: cronphp
     schedule: "*/5 * * * *"
     command: "php -f /var/www/html/cron.php"
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    resources: {}
 
 ## Additional cron jobs
 cronJobs:
 #  - name: imagepregen
 #    schedule: "*/30 * * * *"
 #    command: "php -f /var/www/html/occ preview:pre-generate"
+#    nodeSelector: {}
+#    tolerations: []
+#    affinity: {}
+#    resources: {}
 
 ## Number of replicas
 replicas: 1
@@ -165,7 +173,7 @@ settings:
   ## Enable update processing (default: false - set to true when "helm upgrade .." is used)
   update: false
   ## Delay before database update steps are initiated (default: 30 seconds)
-  databaseUpdateDelay: 30
+  databaseUpdateDelay: 480
   ## Maximum file upload size (default: 64M)
   maxFileUploadSize: 64M
   ## PHP memory limit (default: 512M)
