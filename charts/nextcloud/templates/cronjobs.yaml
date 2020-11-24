@@ -48,15 +48,24 @@ spec:
                   name: tmp
                 - mountPath: /var/run
                   name: run
+              resources:
+                {{- toYaml $job.resources | nindent 18 }}
+          {{- if $job.nodeSelector -}}
+          {{- with $job.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
           {{- with $.Values.nodeSelector }}
           nodeSelector:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with $.Values.affinity }}
+          {{- end }}
+          {{- with $job.affinity }}
           affinity:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with $.Values.tolerations }}
+          {{- with $job.tolerations }}
           tolerations:
             {{- toYaml . | nindent 12 }}
           {{- end }}
