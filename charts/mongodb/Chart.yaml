@@ -1,0 +1,9 @@
+apiVersion: v2
+name: mongodb
+description: A Helm chart to deploy MongoDB
+
+type: application
+
+version: 0.1.0
+
+appVersion: 4.2.11

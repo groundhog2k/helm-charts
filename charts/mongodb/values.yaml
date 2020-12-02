@@ -1,0 +1,109 @@
+# Default values for mongodb.
+
+image:
+  repository: mongo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 999
+
+podManagementPolicy: OrderedReady
+
+updateStrategyType: RollingUpdate
+
+replicaCount: 1
+
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+service:
+  type: ClusterIP
+  port: 27017
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 5
+  successThreshold: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+args: {}
+
+env: []
+
+settings:
+  ## The root username (default: admin)
+  rootUsername: admin
+  ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+  rootPassword:
+  ## Custom configuration (use instead of command args)
+  customConfig: |
+
+## Initializes a user database with name from dbName (default connected to test database if no dbName is specified)
+initUserDatabase:
+  ## Database name for init
+  dbName: {}
+  ## JavaScript for initialization of new database
+  script: |
+        
+# Storage parameters
+# When a persistentVolumenClaimName is configured the requestedSize and accessModes will be ignored and the existing PVC based on the name will be used
+# otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
+# If both parameters are missing a volatile emtpyDir volume will be used as RabbitMQ storage
+storage:
+  # Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName: {}
+  # Alternative set requestedSize to define a size for a dynamically created PVC
+  requestedSize: {}
+  accessModes:
+    - ReadWriteOnce
+  className: {}
