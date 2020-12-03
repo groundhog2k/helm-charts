@@ -1,0 +1,120 @@
+# Default values for mongodb.
+
+## MongoDB docker image
+## use arm64v8/redis for the same image on ARM64v8
+image:
+  repository: mongo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+## Pod security options
+podSecurityContext:
+  fsGroup: 999
+
+## Don't touch - no other options supported in V0.1.0 of this chart
+podManagementPolicy: OrderedReady
+updateStrategyType: RollingUpdate
+replicaCount: 1
+
+## Default security options to run Redis as non-root, read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+service:
+  type: ClusterIP
+  port: 27017
+
+## Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 6
+  successThreshold: 1
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 20
+  periodSeconds: 30
+  failureThreshold: 5
+  successThreshold: 1
+
+## Default node type for the image
+## use arm64v8 for the arm64v8/mongo image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+## Pod tolerations
+tolerations: []
+
+## Pod affinity
+affinity: {}
+
+## Additional arguments for the container entrypoint process
+args: {}
+
+## Additional environment variables
+env: []
+
+settings:
+  ## The root username (default: admin)
+  rootUsername: "admin"
+  ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+  rootPassword:
+  ## Custom configuration (use instead of command args)
+  customConfig: |
+
+## Initializes a user database with name from dbName (default connected to test database if no dbName is specified)
+initUserDatabase:
+  ## Database name for init
+  dbName: {}
+  ## JavaScript for initialization of new database
+  script: |
+
+# Storage parameters
+# When a persistentVolumenClaimName is configured the requestedSize and accessModes will be ignored and the existing PVC based on the name will be used
+# otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
+# If both parameters are missing a volatile emtpyDir volume will be used as RabbitMQ storage
+storage:
+  # Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName: {}
+  # Alternative set requestedSize to define a size for a dynamically created PVC
+  requestedSize: {}
+  accessModes:
+    - ReadWriteOnce
+  className: {}
