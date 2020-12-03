@@ -105,7 +105,7 @@ initUserDatabase:
   dbName: {}
   ## JavaScript for initialization of new database
   script: |
-        
+
 # Storage parameters
 # When a persistentVolumenClaimName is configured the requestedSize and accessModes will be ignored and the existing PVC based on the name will be used
 # otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
