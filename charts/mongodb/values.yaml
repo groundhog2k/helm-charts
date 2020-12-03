@@ -1,15 +1,19 @@
 # Default values for mongodb.
 
+## MongoDB docker image
+## use arm64v8/redis for the same image on ARM64v8
 image:
   repository: mongo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+## Pull secrets and name override options
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -21,15 +25,16 @@ serviceAccount:
 
 podAnnotations: {}
 
+## Pod security options
 podSecurityContext:
   fsGroup: 999
 
+## Don't touch - no other options supported in V0.1.0 of this chart
 podManagementPolicy: OrderedReady
-
 updateStrategyType: RollingUpdate
-
 replicaCount: 1
 
+## Default security options to run Redis as non-root, read only container without privilege escalation
 securityContext:
   allowPrivilegeEscalation: false
   privileged: false
@@ -42,11 +47,8 @@ service:
   type: ClusterIP
   port: 27017
 
+## Resource limits and requests
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -54,6 +56,7 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Default liveness probe
 livenessProbe:
   enabled: true
   initialDelaySeconds: 30
@@ -62,6 +65,7 @@ livenessProbe:
   failureThreshold: 6
   successThreshold: 1
 
+## Default readiness probe
 readinessProbe:
   enabled: true
   initialDelaySeconds: 30
@@ -70,19 +74,26 @@ readinessProbe:
   failureThreshold: 5
   successThreshold: 1
 
-nodeSelector: {}
+## Default node type for the image
+## use arm64v8 for the arm64v8/mongo image
+nodeSelector:
+  kubernetes.io/arch: amd64
 
+## Pod tolerations
 tolerations: []
 
+## Pod affinity
 affinity: {}
 
+## Additional arguments for the container entrypoint process
 args: {}
 
+## Additional environment variables
 env: []
 
 settings:
   ## The root username (default: admin)
-  rootUsername: admin
+  rootUsername: "admin"
   ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
   rootPassword:
   ## Custom configuration (use instead of command args)

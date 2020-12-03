@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/mongodb
 
 This chart uses the original [MongoDB image from Docker Hub](https://hub.docker.com/_/mongo/) to deploy a stateful MongoDB instance in a Kubernetes cluster.
 
-It allows fully supports the deployment of the [ARM64v8 image of MongoDB](https://hub.docker.com/r/arm64v8/mongo/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
+It fully supports the deployment of the [ARM64v8 image of MongoDB](https://hub.docker.com/r/arm64v8/mongo/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
 
 
 ## Prerequisites
@@ -52,7 +52,7 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"postgres"` | Image name |
+| image.repository | string | `"mongo"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
@@ -63,17 +63,21 @@ $ helm uninstall my-release
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | object | `{}` | Additional container command arguments |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
-| affinity | object | `{}` |  |
-| tolerations | list | `[]` |  |
+| affinity | object | `{}` | Pod affinity |
+| tolerations | list | `[]` | Pod tolerations |
+| podManagementPolicy | string | `OrderedReady` | Pod management policy |
+| updateStrategyType | string | `RollingUpdate` | Update strategy |
+| replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
 
 ## Service paramters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| service.port | int | `5432` | PostreSQL service port |
+| service.port | int | `27017` | MongoDB service port |
 
 ## Storage parameters
 
@@ -84,16 +88,13 @@ $ helm uninstall my-release
 | storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `""` | Storage class name |
 
-## PostgreSQL parameters
+## MongoDB parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| arguments | string | `nil` | Arguments for the container entrypoint process |
-| customConfig | string | `""` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
-| settings.authMethod | string | `"md5"` | Postgres database authentication method |
-| settings.initDbArgs | string | `nil` | Optional init database arguments |
-| settings.superuserPassword | string | `nil` | Password of superuser (Random value if not specified) |
-| userDatabase | object | `{}` | Optional PostgreSQL user database |
-| userDatabase.name | string | `""` | Name of the user database |
-| userDatabase.user | string | `""` | User name with full access to user database|
-| userDatabase.password | string | `""` | Password of created user (Random value if not specified) |
+| settings.customConfig | string | `""` | Custom MongoDB configuration block that will be mounted as file in /etc/mongo/custom.conf |
+| settings.rootUsername | string | `admin` | The root username |
+| settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
+| initUserDatabase | object | `{}` | Optional user database initialization script support |
+| initUserDatabase.dbName | string | `""` | Name of the user database |
+| initUserDatabase.script | string | `""` | Javascript block to initialize the user database |

@@ -79,7 +79,8 @@ spec:
             - {{ . }}
             {{- end }}
             {{- if .Values.settings.customConfig }}
-            - --config /etc/mongo/custom.conf
+            - --config 
+            - /etc/mongo/custom.conf
             {{- end }}
           volumeMounts:
             - name: tmp
