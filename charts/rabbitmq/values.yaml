@@ -1,7 +1,6 @@
 ## Default values for the RabbitMQ deployment
 
 ## RabbitMQ docker image
-## use arm64v8/rabbitmq for the same image on ARM64v8
 image:
   repository: rabbitmq
   pullPolicy: IfNotPresent
@@ -70,7 +69,7 @@ resources: {}
 #    memory: 128Mi
 
 ## Default node type for the image
-## use arm64v8 for the arm64v8/rabbitmq image
+## use arm64 for the arm64v8 image
 nodeSelector:
   kubernetes.io/arch: amd64
 
@@ -80,16 +79,16 @@ affinity: {}
 ## Default liveness probe
 livenessProbe:
   enabled: true
-  initialDelaySeconds: 120
+  initialDelaySeconds: 60
   timeoutSeconds: 20
   periodSeconds: 30
-  failureThreshold: 6
+  failureThreshold: 5
   successThreshold: 1
 
 ## Default startup probe
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   timeoutSeconds: 20
   periodSeconds: 30
   failureThreshold: 5
