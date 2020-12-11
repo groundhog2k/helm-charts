@@ -105,6 +105,23 @@ entries:
     version: 0.1.0
   ghost:
   - apiVersion: v2
+    appVersion: 3.40.0
+    created: "2020-12-11T17:54:23.350036312Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.0
+    description: A Helm chart for Ghost on Kubernetes
+    digest: f9d16ab2ae39bbfa5305a1ea71cb47488bf08b0f4e70b62f7040e8ae4a625373
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.2.0/ghost-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 3.39.3
     created: "2020-12-10T16:27:16.960641018Z"
     dependencies:
