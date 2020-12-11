@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/rabbitmq
 
 This chart uses the original [RabbitMQ image from Docker Hub](https://hub.docker.com/_/rabbitmq) to deploy a stateful RabbitMQ cluster in Kubernetes.
 
-It allows fully supports the deployment of the [ARM64v8 image of RabbitMQ](https://hub.docker.com/r/arm64v8/rabbitmq) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
 
 ## Prerequisites
 
