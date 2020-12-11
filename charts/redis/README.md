@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
 
 A Helm chart for Redis on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/redis
 
 This chart uses the original [Redis image from Docker Hub](https://hub.docker.com/_/redis/) to deploy a stateful Redis instance in a Kubernetes cluster.
 
-It allows fully supports the deployment of the [ARM64v8 image of Redis](https://hub.docker.com/r/arm64v8/redis/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
 
 ## Prerequisites
 
