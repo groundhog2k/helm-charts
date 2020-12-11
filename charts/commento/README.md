@@ -1,6 +1,6 @@
 # Commento
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
 
 A Helm chart for Commento on Kubernetes
 
@@ -15,6 +15,7 @@ $ helm install my-release groundhog2k/commento
 
 This chart uses the original [Commmento from Gitlab](https://gitlab.com/commento/commento/container_registry) to deploy Commento in Kubernetes.
 
+**Commento only supports amd64 architecture!**
 
 ## Prerequisites
 
@@ -42,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | postgres | 0.1.3 |
+| @groundhog2k | postgres | 0.2.0 |
 
 ## Common parameters
 
