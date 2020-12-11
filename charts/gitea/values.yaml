@@ -1,7 +1,6 @@
 ## Default values for Gitea deployment
 
 ## Gitea docker image
-## use tag *-linux-arm64 for the same image on ARM64v8
 image:
   repository: gitea/gitea
   pullPolicy: IfNotPresent
@@ -104,7 +103,7 @@ readinessProbe:
   periodSeconds: 10
 
 ## Default node type for the image
-## use arm64v8 for the *-linux-arm64 image
+## use arm64 for the arm64 image
 nodeSelector:
   kubernetes.io/arch: amd64
 

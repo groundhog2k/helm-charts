@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/gitea
 
 This chart uses the original [Gitea from Docker](https://hub.docker.com/r/gitea/gitea) to deploy Gitea in Kubernetes.
 
-It allows fully supports deployment of the [ARM64v8 image of Gitea](https://hub.docker.com/layers/gitea/gitea/linux-arm64/images/sha256-21cf22dace8dcd3ccd3188a65380ae028b9dc891a9385caeb0db27b62c3d7a42?context=explore) on a ARM64 based Kubernetes cluster just by exchanging the existing `node.selector` value.
+It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
 
 ## Prerequisites
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.1.5 |
-| @groundhog2k | postgres | 0.1.3 |
-| @groundhog2k | redis | 0.1.2 |
+| @groundhog2k | mariadb | 0.2.0 |
+| @groundhog2k | postgres | 0.2.0 |
+| @groundhog2k | redis | 0.2.0 |
 
 ## Common parameters
 
