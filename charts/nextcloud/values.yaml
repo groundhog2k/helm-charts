@@ -1,7 +1,6 @@
 ## Default values for Nextcloud deployment
 
 ## Netxcloud docker image
-## use arm64v8/nextcloud for the same image on ARM64v8
 image:
   repository: nextcloud
   pullPolicy: IfNotPresent
@@ -53,7 +52,7 @@ serviceAccount:
   name: ""
 
 ## Default node type for the image
-## use arm64v8 for the arm64v8/nextcloud image
+## use arm64 for the arm64v8 image
 nodeSelector:
   kubernetes.io/arch: amd64
 
@@ -114,7 +113,7 @@ livenessProbe:
   enabled: true
   initialDelaySeconds: 120
   timeoutSeconds: 5
-  failureThreshold: 6
+  failureThreshold: 5
   successThreshold: 1
   periodSeconds: 10
 
