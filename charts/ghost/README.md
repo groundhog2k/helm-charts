@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.39.3](https://img.shields.io/badge/AppVersion-3.39.3-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.40.0](https://img.shields.io/badge/AppVersion-3.40.0-informational?style=flat-square)
 
 A Helm chart for Ghost blog on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/ghost
 
 This chart uses the original [Ghost image from Docker Hub](https://hub.docker.com/_/ghost) to deploy a Ghost blog in Kubernetes.
 
-It allows fully supports the deployment of the [ARM64v8 image of Ghost](https://hub.docker.com/r/arm64v8/ghost) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: arm64` (default is `amd64`)
 
 ## Prerequisites
 
@@ -44,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.1.5 |
+| @groundhog2k | mariadb | 0.2.0 |
 
 ## Common parameters
 
