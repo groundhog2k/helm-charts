@@ -1,7 +1,6 @@
 ## Default values for PostgreSQL deployment
 
 ## PostgreSQL docker image
-## use arm64v8/postgres for the same image on ARM64v8
 image:
   repository: postgres
   pullPolicy: IfNotPresent
@@ -52,7 +51,7 @@ resources: {}
   #   memory: 128Mi
 
 ## Default node type for the image
-## use arm64v8 for the arm64v8/postgres image
+## use arm64 for arm64v8
 nodeSelector:
   kubernetes.io/arch: amd64
 
@@ -72,7 +71,7 @@ livenessProbe:
 ## Default readiness probe
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
