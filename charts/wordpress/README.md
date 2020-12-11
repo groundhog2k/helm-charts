@@ -1,6 +1,6 @@
 #  Wordpress
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.5.3-apache](https://img.shields.io/badge/AppVersion-5.5.3-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.6.0-apache](https://img.shields.io/badge/AppVersion-5.5.3-informational?style=flat-square)
 
 A Helm chart for Wordpress on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/wordpress
 
 This chart uses the original [Wordpress from Docker](https://hub.docker.com/_/wordpress) to deploy Wordpress in Kubernetes.
 
-It fully supports the deployment of the [ARM64v8 image of Wordpress](https://hub.docker.com/r/arm64v8/wordpress) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
+It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.1.5 |
+| @groundhog2k | mariadb | 0.2.0 |
 
 ## Common parameters
 
