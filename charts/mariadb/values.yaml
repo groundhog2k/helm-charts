@@ -1,7 +1,6 @@
 ## Default values for MariaDB deployment
 
 ## MariaDB docker image
-## use arm64v8/mariadb for the same image on ARM64v8
 image:
   repository: mariadb
   pullPolicy: IfNotPresent
@@ -24,7 +23,7 @@ serviceAccount:
   name: ""
 
 ## Default node type for the image
-## use arm64v8 for the arm64v8/mariadb image
+## use arm64 for the arm64v8 image
 nodeSelector:
   kubernetes.io/arch: amd64
 
