@@ -10,4 +10,5 @@ data:
     sleep {{ .Values.settings.databaseUpdateDelay }}
     php -f /var/www/html/occ db:add-missing-indices
     php -f /var/www/html/occ db:add-missing-columns
+    php -f /var/www/html/occ db:add-missing-primary-keys
     php -f /var/www/html/occ db:convert-filecache-bigint
