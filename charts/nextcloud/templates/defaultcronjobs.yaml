@@ -16,13 +16,17 @@ spec:
     spec:
       template:
         spec:
+          {{- with $.Values.podSecurityContext }}
           securityContext:
-            {{- toYaml $.Values.podSecurityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: OnFailure
           containers:
             - name: {{ $.Chart.Name }}-{{ .name }}
+              {{- with $.Values.securityContext }}
               securityContext:
-                {{- toYaml $.Values.securityContext | nindent 16 }}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
               image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
               imagePullPolicy: {{ $.Values.image.pullPolicy }}
               envFrom:
