@@ -735,6 +735,31 @@ entries:
   nextcloud:
   - apiVersion: v2
     appVersion: 20.0.3-apache
+    created: "2020-12-13T19:54:14.249628792Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.2
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.3
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.2
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: bcf514a32fc3c5ed8cf4431f0aab47fab068709c29f7a8aa147ea69178f154d3
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.3.2/nextcloud-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 20.0.3-apache
     created: "2020-12-12T15:36:54.920561736Z"
     dependencies:
     - condition: mariadb.enabled
