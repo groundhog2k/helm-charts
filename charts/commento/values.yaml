@@ -44,6 +44,10 @@ replicaCount: 1
 service:
   type: ClusterIP
   port: 80
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
 ingress:
   enabled: false
@@ -193,10 +197,10 @@ postgres:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}
