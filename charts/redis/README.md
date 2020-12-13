@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
 
 A Helm chart for Redis on Kubernetes
 
@@ -61,8 +61,8 @@ $ helm uninstall my-release
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `{}` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
-| env | object | `[]` | Additional container environmment variables |
-| args | object | `[]` | Additional container command arguments |
+| env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Additional container command arguments |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
@@ -73,7 +73,10 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `6379` | Redis service port |
+| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
