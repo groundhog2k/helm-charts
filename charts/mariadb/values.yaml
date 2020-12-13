@@ -22,10 +22,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Default node type for the image
-## use arm64 for the arm64v8 image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 ## Additional pod annotations
 podAnnotations: {}
@@ -44,9 +42,14 @@ securityContext:
 
 ## Default database service port (default MySQL/MariaDB port)
 service:
+  type: ClusterIP
   port: 3306
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
-## Resource limits and requests
+# Resource limits and requests
 resources: {}
   # limits:
   #   cpu: 100m
@@ -83,7 +86,7 @@ env: []
 ## Database configuration
 settings:
   ## Arguments for the container entrypoint process
-  arguments:
+  arguments: []
   #  - --character-set-server=utf8mb4
   #  - --collation-server=utf8mb4_unicode_ci
 
@@ -107,13 +110,13 @@ customConfig: |-
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName: {}
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: {}
 
   ## the storage class name
-  # className:
+  className: {}
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
