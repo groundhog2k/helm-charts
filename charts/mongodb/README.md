@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
 
 A Helm chart for MongoDB on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/mongodb
 
 This chart uses the original [MongoDB image from Docker Hub](https://hub.docker.com/_/mongo/) to deploy a stateful MongoDB instance in a Kubernetes cluster.
 
-It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
