@@ -463,6 +463,18 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 10.5.8
+    created: "2020-12-13T14:18:42.205057008Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: ceb326fcb9cbfb65b70746f17379a4a21b656fc096fdf386e4eb3e05a6662f2a
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.2.1/mariadb-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 10.5.8
     created: "2020-12-11T16:44:43.654394643Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: 60a5bd5b62395746fa0e6434fdbe14e8edd6c81de2bb4fa410a988805e1500aa
