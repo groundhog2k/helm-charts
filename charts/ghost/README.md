@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.40.1](https://img.shields.io/badge/AppVersion-3.40.1-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.40.1](https://img.shields.io/badge/AppVersion-3.40.1-informational?style=flat-square)
 
 A Helm chart for Ghost blog on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/ghost
 
 This chart uses the original [Ghost image from Docker Hub](https://hub.docker.com/_/ghost) to deploy a Ghost blog in Kubernetes.
 
-It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: arm64` (default is `amd64`)
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.0 |
+| @groundhog2k | mariadb | 0.2.2 |
 
 ## Common parameters
 
@@ -63,11 +63,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Arguments for the container entrypoint process |
 | rbac.create | bool | `true` | Enable creation of RBAC |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
@@ -82,6 +83,8 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | service.port | int | `80` | Ghost HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
 
 ## Ingress parameters
 
@@ -99,9 +102,9 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## Ghost parameters
 
