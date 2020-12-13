@@ -84,8 +84,10 @@ spec:
             periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - mountPath: /var/www/html
               name: wordpress-vol
