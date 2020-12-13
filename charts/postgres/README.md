@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -58,11 +58,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | string | `[]` | Arguments for the container entrypoint process |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
@@ -80,16 +81,15 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## PostgreSQL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| arguments | string | `nil` | Arguments for the container entrypoint process |
-| customConfig | string | `""` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
+| customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
 | settings.authMethod | string | `"md5"` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
 | settings.superuserPassword | string | `nil` | Password of superuser (Random value if not specified) |
