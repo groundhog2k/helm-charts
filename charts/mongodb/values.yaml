@@ -28,7 +28,7 @@ podAnnotations: {}
 podSecurityContext:
   fsGroup: 999
 
-## Don't touch - no other options supported in V0.1.0 of this chart
+## Don't touch - no other options supported in this chart version
 podManagementPolicy: OrderedReady
 updateStrategyType: RollingUpdate
 replicaCount: 1
@@ -45,6 +45,10 @@ securityContext:
 service:
   type: ClusterIP
   port: 27017
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
 ## Resource limits and requests
 resources: {}
@@ -73,10 +77,8 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
-## Default node type for the image
-## use arm64 for the arm64v8 image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 ## Pod tolerations
 tolerations: []
@@ -85,7 +87,7 @@ tolerations: []
 affinity: {}
 
 ## Additional arguments for the container entrypoint process
-args: {}
+args: []
 
 ## Additional environment variables
 env: []
