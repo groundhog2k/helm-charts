@@ -25,12 +25,16 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "nextcloud.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           # set Nextcloud directories to 770 and allow access only by www-data
@@ -40,8 +44,10 @@ spec:
               name: nextcloud-data-vol
       containers:
         - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -90,8 +96,16 @@ spec:
             periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args:
+            {{- range .Values.args }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}          
           volumeMounts:
             - mountPath: /var/www/html
               name: nextcloud-vol
