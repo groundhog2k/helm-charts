@@ -43,6 +43,10 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
 ## Ingress configuration
 ingress:
@@ -78,10 +82,8 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-## Default node type for the image
-## use arm64 for the arm64v8 image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 tolerations: []
 
@@ -109,7 +111,7 @@ readinessProbe:
 env: []
 
 ## Arguments for the container entrypoint process
-arguments:
+args: []
 
 externalDatabase:
   ## Type of database ("mysql" or "mariadb" - default: sqlite)
@@ -138,13 +140,13 @@ settings:
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName: {}
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: {}
 
   ## the storage class name
-  # className:
+  className: {}
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -172,10 +174,10 @@ mariadb:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}
