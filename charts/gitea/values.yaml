@@ -47,7 +47,7 @@ services:
     type: ClusterIP
     port: 80
     nodePort: {}
-    clusterIP: {}  
+    clusterIP: {}
   ssh:
     type: ClusterIP
     port: 22
