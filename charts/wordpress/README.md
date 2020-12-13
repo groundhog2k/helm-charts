@@ -1,6 +1,6 @@
 #  Wordpress
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.6.0-apache](https://img.shields.io/badge/AppVersion-5.5.3-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.6.0-apache](https://img.shields.io/badge/AppVersion-5.5.3-informational?style=flat-square)
 
 A Helm chart for Wordpress on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/wordpress
 
 This chart uses the original [Wordpress from Docker](https://hub.docker.com/_/wordpress) to deploy Wordpress in Kubernetes.
 
-It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.0 |
+| @groundhog2k | mariadb | 0.2.2 |
 
 ## Common parameters
 
@@ -63,11 +63,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Arguments for the container entrypoint process |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
@@ -80,8 +81,10 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| service.port | int | `80` | Commento HTTP service port |
+| service.port | int | `80` | Wordpress HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
 
 ## Ingress parameters
 
@@ -124,6 +127,6 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
