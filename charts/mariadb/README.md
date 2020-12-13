@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.8](https://img.shields.io/badge/AppVersion-10.5.8-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.8](https://img.shields.io/badge/AppVersion-10.5.8-informational?style=flat-square)
 
 A Helm chart for MariaDB on Kubernetes
 
@@ -72,7 +72,10 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `3306` | MariaDB service port |
+| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
