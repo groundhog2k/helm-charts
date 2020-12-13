@@ -11,5 +11,11 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      {{- if and (eq .Values.service.type "NodePort") (.Values.service.nodePort) }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.clusterIP) }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{- end }}
   selector:
     {{- include "commento.selectorLabels" . | nindent 4 }}

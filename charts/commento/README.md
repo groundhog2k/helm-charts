@@ -1,6 +1,6 @@
 # Commento
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
 
 A Helm chart for Commento on Kubernetes
 
@@ -43,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | postgres | 0.2.0 |
+| @groundhog2k | postgres | 0.2.3 |
 
 ## Common parameters
 
@@ -82,6 +82,8 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | service.port | int | `80` | Commento HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
 
 ## Ingress parameters
 
