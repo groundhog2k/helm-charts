@@ -11,6 +11,12 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      {{- if and (eq .Values.services.http.type "NodePort") (.Values.services.http.nodePort) }}
+      nodePort: {{ .Values.services.http.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.services.http.type "LoadBalancer") (.Values.services.http.clusterIP) }}
+  clusterIP: {{ .Values.services.http.clusterIP }}
+  {{- end }}
   selector:
     {{- include "gitea.selectorLabels" . | nindent 4 }}
 ---
