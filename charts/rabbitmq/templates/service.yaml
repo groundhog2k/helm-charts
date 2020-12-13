@@ -10,8 +10,17 @@ spec:
     - port: {{ .Values.service.amqp.port }}
       targetPort: amqp
       name: amqp
+      {{- if and (eq .Values.service.type "NodePort") (.Values.service.amqp.nodePort) }}
+      nodePort: {{ .Values.service.amqp.nodePort }}
+      {{- end }}
     - port: {{ .Values.service.mgmt.port }}
       targetPort: mgmt
       name: mgmt
+      {{- if and (eq .Values.service.type "NodePort") (.Values.service.mgmt.nodePort) }}
+      nodePort: {{ .Values.service.mgmt.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.clusterIP) }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{- end }}      
   selector:
     {{- include "rabbitmq.selectorLabels" . | nindent 4 }}
