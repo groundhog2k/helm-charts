@@ -22,10 +22,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Default node type for the image
-## use arm64 for the arm64v8/redis image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 ## Additional pod annotations
 podAnnotations: {}
@@ -44,7 +42,12 @@ securityContext:
 
 ## Default redis service port (default Redis port 6379)
 service:
+  type: ClusterIP
   port: 6379
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
 ## Resource limits and requests
 resources: {}
@@ -81,7 +84,7 @@ readinessProbe:
 env: []
 
 ## Arguments for the container entrypoint process
-arguments:
+args: []
 
 # Custom redis.conf
 redisConfig: |
@@ -89,13 +92,13 @@ redisConfig: |
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName: {}
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: {}
 
   ## the storage class name
-  # className:
+  className: {}
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
