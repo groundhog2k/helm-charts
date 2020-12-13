@@ -46,11 +46,13 @@ services:
   http:
     type: ClusterIP
     port: 80
+    nodePort: {}
+    clusterIP: {}  
   ssh:
     type: ClusterIP
     port: 22
-    # nodePort:
-    # clusterIP:
+    nodePort: {}
+    clusterIP: {}
 
 ## Ingress configuration
 ingress:
@@ -102,10 +104,8 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
-## Default node type for the image
-## use arm64 for the arm64 image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 tolerations: []
 
@@ -118,6 +118,9 @@ containerSshPort: 8022
 
 ## Additional environment variables
 env: []
+
+## Arguments for the container entrypoint process
+args: []
 
 ## Additional Gitea settings defined in this chart
 settings:
@@ -151,6 +154,7 @@ gitea:
       LFS_START_SERVER: "true"
       LFS_CONTENT_PATH: "/data/gitea/lfs"
       OFFLINE_MODE: "false"
+      # LFS JWT secret or random value
       # LFS_JWT_SECRET:
 
       SSH_ROOT_PATH: "/data/ssh"
@@ -206,13 +210,13 @@ gitea:
 ## Gitea storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName: {}
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: {}
 
   ## the storage class name
-  # className:
+  className: {}
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -245,13 +249,13 @@ mariadb:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}
 
 ## PostgreSQL configuration
 postgres:
@@ -276,13 +280,13 @@ postgres:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}
 
 ## Redis configuration
 redis:
@@ -292,10 +296,10 @@ redis:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}

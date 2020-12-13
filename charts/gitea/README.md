@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/gitea
 
 This chart uses the original [Gitea from Docker](https://hub.docker.com/r/gitea/gitea) to deploy Gitea in Kubernetes.
 
-It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.0 |
-| @groundhog2k | postgres | 0.2.0 |
-| @groundhog2k | redis | 0.2.0 |
+| @groundhog2k | mariadb | 0.2.2 |
+| @groundhog2k | postgres | 0.2.3 |
+| @groundhog2k | redis | 0.2.2 |
 
 ## Common parameters
 
@@ -65,11 +65,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Arguments for the container entrypoint process |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
@@ -85,6 +86,8 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | services.http.type | string | `"ClusterIP"` | Service type |
 | services.http.port | int | `80` | Gitea HTTP service port |
+| services.http.nodePort | int | `nil` | Gitea HTTP NodePort (if type NodePort is used) |
+| services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (if type LoadBalancer is used) |
 | services.ssh.type | string | `"ClusterIP"` | Service type |
 | services.ssh.port | int | `22` | Gitea SSH service port |
 | services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (if type NodePort is used) |
@@ -142,6 +145,6 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | storage | object | `{}` | Gitea data storage |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
