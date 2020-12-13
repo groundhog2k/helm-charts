@@ -7,5 +7,5 @@ metadata:
     {{- include "redis.labels" . | nindent 4 }}
 data:
   redis.conf: |
-  {{ .Values.redisConfig | nindent 4 }}
+    {{- .Values.redisConfig | nindent 4 }}
 {{- end }}
