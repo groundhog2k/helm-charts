@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/postgres
 
 This chart uses the original [PostgreSQL image from Docker Hub](https://hub.docker.com/_/postgres/) to deploy a stateful PostgreSQL instance in a Kubernetes cluster.
 
-It fully supports deployment of arm64v8 and amd64 multi-architecture docker image. Just set the `nodeSelector` value to `kubernetes.io/arch: "arm64"` (default is `"amd64"`)
+It fully supports deployment of the multi-architecture docker image.
 
 
 ## Prerequisites
