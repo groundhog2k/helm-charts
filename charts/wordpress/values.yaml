@@ -25,10 +25,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Default node type for the image
-## use arm64 for the arm64v8 image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 ## Additional pod annotations
 podAnnotations: {}
@@ -48,6 +46,10 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
+  ## The node port (only relevant for type NodePort)
+  nodePort: {}
+  ## The cluster ip address (only relevant for type LoadBalancer)
+  clusterIP: {}
 
 ## Ingress configuration
 ingress:
@@ -110,6 +112,9 @@ containerPort: 8000
 ## Additional environment variables
 env: []
 
+## Additional arguments for the container entrypoint process
+args: []
+
 ## External database settings (is used when mariadb.enabled is false)
 externalDatabase:
   ## Name of the database (default: wordpress)
@@ -145,13 +150,13 @@ apacheDefaultSiteConfig: |
 ## Storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName: {}
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize: {}
 
   ## the storage class name
-  # className:
+  className: {}
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -179,10 +184,10 @@ mariadb:
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName: {}
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize: {}
 
     ## the storage class name
-    # className:
+    className: {}
