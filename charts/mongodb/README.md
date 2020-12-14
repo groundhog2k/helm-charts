@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
 
 A Helm chart for MongoDB on Kubernetes
 
@@ -78,8 +78,9 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `27017` | MongoDB service port |
-| service.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
-| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
