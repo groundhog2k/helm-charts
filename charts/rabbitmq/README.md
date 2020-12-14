@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -77,11 +77,12 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | service.type | string | `"ClusterIP"` | Service type |
-| service.clusterIP | string | `nil` | Service cluster IP (only relevant for type LoadBalancer) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.amqp.port | int | `5672` | AMQP port |
-| service.amqp.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.amqp.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.mgmt.port | int | `15672` | Management UI port |
-| service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type NodePort) |
+| service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 
 ## Storage parameters
 

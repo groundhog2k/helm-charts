@@ -11,10 +11,13 @@ spec:
       targetPort: postgres
       protocol: TCP
       name: postgres
-      {{- if and (eq .Values.service.type "NodePort") (.Values.service.nodePort) }}
+      {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
-  {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.clusterIP) }}
+  {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
+  {{- if .Values.service.clusterIP }}
   clusterIP: {{ .Values.service.clusterIP }}
   {{- end }}
   selector:
