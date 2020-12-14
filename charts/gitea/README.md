@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.0](https://img.shields.io/badge/AppVersion-1.13.0-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.3 |
-| @groundhog2k | postgres | 0.2.4 |
-| @groundhog2k | redis | 0.2.3 |
+| @groundhog2k | mariadb | 0.2.4 |
+| @groundhog2k | postgres | 0.2.5 |
+| @groundhog2k | redis | 0.2.4 |
 
 ## Common parameters
 
@@ -86,12 +86,14 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | services.http.type | string | `"ClusterIP"` | Service type |
 | services.http.port | int | `80` | Gitea HTTP service port |
-| services.http.nodePort | int | `nil` | Gitea HTTP NodePort (if type NodePort is used) |
-| services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (if type LoadBalancer is used) |
+| services.http.nodePort | int | `nil` | Gitea HTTP NodePort (only relevant for type LoadBalancer or NodePort) |
+| services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (only relevant for type LoadBalancer or NodePort) |
+| services.http.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | services.ssh.type | string | `"ClusterIP"` | Service type |
 | services.ssh.port | int | `22` | Gitea SSH service port |
-| services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (if type NodePort is used) |
-| services.ssh.clusterIP | int | `nil` | Gitea SSH ClusterIP (if type LoadBalancer is used) |
+| services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (only relevant for type LoadBalancer or NodePort) |
+| services.ssh.clusterIP | int | `nil` | Gitea SSH ClusterIP (only relevant for type LoadBalancer or NodePort)  |
+| services.ssh.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Ingress parameters
 

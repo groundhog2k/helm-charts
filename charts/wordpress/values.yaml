@@ -46,10 +46,12 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
-  ## The node port (only relevant for type NodePort)
+  ## The node port (only relevant for type LoadBalancer or NodePort)
   nodePort:
-  ## The cluster ip address (only relevant for type LoadBalancer)
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
   clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
 
 ## Ingress configuration
 ingress:
