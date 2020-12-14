@@ -43,9 +43,9 @@ service:
   type: ClusterIP
   port: 5432
   ## The node port (only relevant for type NodePort)
-  nodePort: {}
+  nodePort:
   ## The cluster ip address (only relevant for type LoadBalancer)
-  clusterIP: {}
+  clusterIP:
 
 resources: {}
   # limits:
@@ -114,13 +114,13 @@ customConfig: |-
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  persistentVolumeClaimName: {}
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  requestedSize: {}
+  requestedSize:
 
   ## the storage class name
-  className: {}
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
