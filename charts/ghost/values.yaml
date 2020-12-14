@@ -44,9 +44,9 @@ service:
   type: ClusterIP
   port: 80
   ## The node port (only relevant for type NodePort)
-  nodePort: {}
+  nodePort:
   ## The cluster ip address (only relevant for type LoadBalancer)
-  clusterIP: {}
+  clusterIP:
 
 ## Ingress configuration
 ingress:
@@ -140,13 +140,13 @@ settings:
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  persistentVolumeClaimName: {}
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  requestedSize: {}
+  requestedSize:
 
   ## the storage class name
-  className: {}
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -163,21 +163,21 @@ mariadb:
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
-  userDatabase:
+  userDatabase: {}
     ## Name of the user database
-    name:
+    # name:
     ## Database user with full access rights
-    user:
+    # user:
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    password:
+    # password:
 
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    persistentVolumeClaimName: {}
+    persistentVolumeClaimName:
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    requestedSize: {}
+    requestedSize:
 
     ## the storage class name
-    className: {}
+    className:

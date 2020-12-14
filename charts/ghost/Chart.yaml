@@ -13,6 +13,6 @@ appVersion: "3.40.1"
 
 dependencies:
   - name: mariadb
-    version: 0.2.2
+    version: 0.2.3
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mariadb.enabled
