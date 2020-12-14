@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -97,6 +97,6 @@ $ helm uninstall my-release
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
 | settings.superuserPassword | string | `nil` | Password of superuser (Random value if not specified) |
 | userDatabase | object | `{}` | Optional PostgreSQL user database |
-| userDatabase.name | string | `""` | Name of the user database |
-| userDatabase.user | string | `""` | User name with full access to user database|
-| userDatabase.password | string | `""` | Password of created user (Random value if not specified) |
+| userDatabase.name | string | `nil` | Name of the user database |
+| userDatabase.user | string | `nil` | User name with full access to user database|
+| userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |

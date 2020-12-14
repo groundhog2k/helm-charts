@@ -46,9 +46,9 @@ service:
   type: ClusterIP
   port: 27017
   ## The node port (only relevant for type NodePort)
-  nodePort: {}
+  nodePort:
   ## The cluster ip address (only relevant for type LoadBalancer)
-  clusterIP: {}
+  clusterIP:
 
 ## Resource limits and requests
 resources: {}
@@ -103,7 +103,7 @@ settings:
 ## Initializes a user database with name from dbName (default connected to test database if no dbName is specified)
 initUserDatabase:
   ## Database name for init
-  dbName: {}
+  dbName:
   ## JavaScript for initialization of new database
   script: |
 
@@ -112,10 +112,15 @@ initUserDatabase:
 # otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
 # If both parameters are missing a volatile emtpyDir volume will be used as RabbitMQ storage
 storage:
-  # Set persistentVolumenClaimName to reference an existing PVC
-  persistentVolumeClaimName: {}
-  # Alternative set requestedSize to define a size for a dynamically created PVC
-  requestedSize: {}
+  ## Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Alternative set requestedSize to define a size for a dynamically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
-  className: {}
