@@ -45,9 +45,9 @@ service:
   type: ClusterIP
   port: 80
   ## The node port (only relevant for type NodePort)
-  nodePort: {}
+  nodePort:
   ## The cluster ip address (only relevant for type LoadBalancer)
-  clusterIP: {}
+  clusterIP:
 
 ingress:
   enabled: false
@@ -186,21 +186,21 @@ postgres:
     superuserPassword:
 
   ## User database which is created during first startup with user and password
-  userDatabase:
+  userDatabase: {}
     ## Database name
-    name:
+    # name:
     ## Database user
-    user:
+    # user:
     ## Database password (default: 10 alphanum. random characters)
-    password:
+    # password:
 
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    persistentVolumeClaimName: {}
+    persistentVolumeClaimName:
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    requestedSize: {}
+    requestedSize:
 
     ## the storage class name
-    className: {}
+    className:
