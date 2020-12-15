@@ -29,7 +29,7 @@ defaultCronJobs:
     resources: {}
 
 ## Additional cron jobs
-cronJobs:
+cronJobs: {}
 #  - name: imagepregen
 #    schedule: "*/30 * * * *"
 #    command: "php -f /var/www/html/occ preview:pre-generate"
@@ -89,7 +89,7 @@ ingress:
   maxBodySize: 64m
 
   ## Additional ingress annotations
-  annotations:
+  annotations: {}
 #   kubernetes.io/ingress.class: nginx
 #   kubernetes.io/tls-acme: "true"
 
