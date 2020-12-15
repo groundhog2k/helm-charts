@@ -1,8 +1,5 @@
 ## Default values for Ghost deployment
 
-## Number of replicas
-replicaCount: 1
-
 ## Ghost docker image
 image:
   repository: ghost
