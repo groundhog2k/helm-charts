@@ -5,10 +5,9 @@ metadata:
   labels:
     {{- include "rabbitmq.labels" . | nindent 4 }}
 data:
-  options.conf: |+
-    management_agent.disable_metrics_collector = {{ .Values.disableMetricsCollector }}
   rabbitmq.conf: |+
     # Common settings
+    management_agent.disable_metrics_collector = {{ .Values.disableMetricsCollector }}
     loopback_users.guest = false
     listeners.tcp.default = 5672
     management.tcp.port = 15672

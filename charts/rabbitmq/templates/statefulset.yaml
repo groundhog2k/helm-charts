@@ -41,19 +41,16 @@ spec:
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           volumeMounts:
             - name: config
-              mountPath: /conf
+              mountPath: /etc/rabbitmq
             - name: rabbitconfig
               mountPath: /temp/rabbitmq.conf
               subPath: rabbitmq.conf
-            - name: rabbitconfig
-              mountPath: /temp2/options.conf
-              subPath: options.conf
           {{- if .Values.plugins }}
             - name: plugins
               mountPath: /temp/enabled_plugins
               subPath: enabled_plugins
           {{- end }}
-          command: ['sh', '-c', 'cp /temp/* /conf && mkdir -p /conf/conf.d && cp /temp2/* /conf/conf.d']          
+          command: ['sh', '-c', 'cp /temp/* /etc/rabbitmq && mkdir -p /etc/rabbitmq/conf.d']
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
