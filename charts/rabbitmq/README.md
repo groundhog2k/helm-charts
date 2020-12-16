@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -116,3 +116,4 @@ $ helm uninstall my-release
 | options.memoryHighWatermark.type | string | `"relative"` | Type of watermark (relative or absolute) |
 | options.memoryHighWatermark.value | float | `0.4` | Watermark value (default: 40%) |
 | plugins | string | `"rabbitmq_management,rabbitmq_peer_discovery_k8s"` | RabbitMQ plugins (Remove rabbitmq_peer_discovery_k8s to disable cluster replication mode) |
+| disableMetricsCollector: | bool | `false` | Disable internal metrics collector (management_agent.disable_metrics_collector) |

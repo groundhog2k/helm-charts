@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "rabbitmq.labels" . | nindent 4 }}
 data:
+  options.conf: |+
+    management_agent.disable_metrics_collector = {{ .Values.disableMetricsCollector }}
   rabbitmq.conf: |+
     # Common settings
     loopback_users.guest = false
