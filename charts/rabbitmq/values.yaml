@@ -7,6 +7,12 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# Default Init container image
+initImage:
+  repository: busybox
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
 ## Pull secrets and name override options
 imagePullSecrets: []
 nameOverride: ""
@@ -55,7 +61,7 @@ ingress:
   enabled: false
 
   ## Additional ingress annotations
-  annotations:
+  annotations: {}
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
 
@@ -119,6 +125,9 @@ args: []
 
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
+
+## Disable internal metrics collector (management_agent.disable_metrics_collector)
+disableMetricsCollector: false
 
 # Comma separated list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
 plugins: rabbitmq_management,rabbitmq_peer_discovery_k8s

@@ -31,6 +31,26 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/rabbitmq
+            - name: rabbitconfig
+              mountPath: /temp/rabbitmq.conf
+              subPath: rabbitmq.conf
+          {{- if .Values.plugins }}
+            - name: plugins
+              mountPath: /temp/enabled_plugins
+              subPath: enabled_plugins
+          {{- end }}
+          command: ['sh', '-c', 'cp /temp/* /etc/rabbitmq && mkdir -p /etc/rabbitmq/conf.d']
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -132,13 +152,7 @@ spec:
             - name: rabbitmq-volume
               mountPath: /var/lib/rabbitmq
             - name: config
-              mountPath: /etc/rabbitmq/rabbitmq.conf
-              subPath: rabbitmq.conf
-          {{- if .Values.plugins }}
-            - name: plugins
-              mountPath: /etc/rabbitmq/enabled_plugins
-              subPath: enabled_plugins
-          {{- end }}
+              mountPath: /etc/rabbitmq
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -157,6 +171,8 @@ spec:
         - name: logs
           emptyDir: {}
         - name: config
+          emptyDir: {}
+        - name: rabbitconfig
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-config
       {{- if .Values.plugins }}
