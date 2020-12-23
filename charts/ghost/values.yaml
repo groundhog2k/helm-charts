@@ -136,6 +136,16 @@ settings:
   ## Environment mode (development or production - default: production)
   mode: production
 
+  ## SMTP connection deetails
+  mail:
+    from:
+    transport: SMTP
+    host:
+    port:
+    service:
+    user:
+    password:
+
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
