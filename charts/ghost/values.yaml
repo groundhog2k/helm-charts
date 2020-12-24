@@ -136,7 +136,7 @@ settings:
   ## Environment mode (development or production - default: production)
   mode: production
 
-  ## SMTP connection deetails
+  ## SMTP connection details
   mail:
     from:
     transport: SMTP
