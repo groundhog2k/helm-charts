@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "ghost.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       {{- include "ghost.selectorLabels" . | nindent 6 }}
@@ -23,12 +23,16 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "ghost.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -42,6 +46,30 @@ spec:
             {{- if .Values.settings.url }}
             - name: url
               value: {{ .Values.settings.url }}
+            {{- end }}
+            {{- if .Values.settings.mail.from }}
+            - name: mail__from
+              value: {{ .Values.settings.mail.from | quote }}
+            {{- end }}
+            {{- if .Values.settings.mail.transport }}
+            - name: mail__transport
+              value: {{ .Values.settings.mail.transport | quote }}
+            {{- end }}
+            {{- if .Values.settings.mail.host }}
+            - name: mail__options__host
+              value: {{ .Values.settings.mail.host | quote }}
+            {{- end }}
+            {{- if .Values.settings.mail.port }}
+            - name: mail__options__port
+              value: {{ .Values.settings.mail.port | quote }}
+            {{- end }}
+            {{- if .Values.settings.mail.service }}
+            - name: mail__options__service
+              value: {{ .Values.settings.mail.service | quote }}
+            {{- end }}
+            {{- if .Values.settings.mail.user }}
+            - name: mail__options__auth__user
+              value: {{ .Values.settings.mail.user | quote }}
             {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
@@ -78,11 +106,13 @@ spec:
             periodSeconds: {{ .periodSeconds }}
             {{- end }}
           {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.arguments }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
           args:
-            {{- range .Values.arguments }}
+            {{- range .Values.args }}
             - {{ . }}
             {{- end }}
           {{- end }}            

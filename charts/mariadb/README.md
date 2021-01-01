@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.8](https://img.shields.io/badge/AppVersion-10.5.8-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.8](https://img.shields.io/badge/AppVersion-10.5.8-informational?style=flat-square)
 
 A Helm chart for MariaDB on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/mariadb
 
 This chart uses the original [MariaDB image from Docker Hub](https://hub.docker.com/_/mariadb) to deploy a stateful MariaDB instance in a Kubernetes cluster.
 
-It allows fully supports the deployment of the [ARM64v8 image of MariaDB](https://hub.docker.com/r/arm64v8/mariadb) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -58,7 +57,7 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `{}` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
@@ -73,16 +72,20 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `3306` | MariaDB service port |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## MariaDB parameters
 
@@ -93,5 +96,5 @@ $ helm uninstall my-release
 | userDatabase.user | string | `""` | User name with full access to user database|
 | userDatabase.password | string | `""` | Password of created user (Random value if not specified) |
 | settings.rootPassword | string | `nil` | MariaDB root password (Random value if not specified) |
-| settings.arguments | string | `nil` | Additional arguments for mysqld (entrypoint process) |
-| customConfig | string | `""` | Additional MariaDB custom configuration mounted as custom.cnf |
+| settings.arguments | list | `[]` | Additional arguments for mysqld (entrypoint process) |
+| customConfig | string | `nil` | Additional MariaDB custom configuration mounted as custom.cnf |

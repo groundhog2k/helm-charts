@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.1](https://img.shields.io/badge/AppVersion-13.1-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/postgres
 
 This chart uses the original [PostgreSQL image from Docker Hub](https://hub.docker.com/_/postgres/) to deploy a stateful PostgreSQL instance in a Kubernetes cluster.
 
-It allows fully supports the deployment of the [ARM64v8 image of PostgreSQL](https://hub.docker.com/r/arm64v8/postres/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
+It fully supports deployment of the multi-architecture docker image.
 
 
 ## Prerequisites
@@ -58,11 +58,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Arguments for the container entrypoint process |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
@@ -73,27 +74,30 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `5432` | PostreSQL service port |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## PostgreSQL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| arguments | string | `nil` | Arguments for the container entrypoint process |
-| customConfig | string | `""` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
+| customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
 | settings.authMethod | string | `"md5"` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
 | settings.superuserPassword | string | `nil` | Password of superuser (Random value if not specified) |
 | userDatabase | object | `{}` | Optional PostgreSQL user database |
-| userDatabase.name | string | `""` | Name of the user database |
-| userDatabase.user | string | `""` | User name with full access to user database|
-| userDatabase.password | string | `""` | Password of created user (Random value if not specified) |
+| userDatabase.name | string | `nil` | Name of the user database |
+| userDatabase.user | string | `nil` | User name with full access to user database|
+| userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |

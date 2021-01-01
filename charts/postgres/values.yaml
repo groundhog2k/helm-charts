@@ -1,7 +1,6 @@
 ## Default values for PostgreSQL deployment
 
 ## PostgreSQL docker image
-## use arm64v8/postgres for the same image on ARM64v8
 image:
   repository: postgres
   pullPolicy: IfNotPresent
@@ -41,7 +40,14 @@ securityContext:
 
 ## The postgres service configuration (Default is ClusterIP with port 5432)
 service:
+  type: ClusterIP
   port: 5432
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
 
 resources: {}
   # limits:
@@ -51,10 +57,8 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-## Default node type for the image
-## use arm64v8 for the arm64v8/postgres image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 tolerations: []
 
@@ -72,7 +76,7 @@ livenessProbe:
 ## Default readiness probe
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
@@ -82,7 +86,7 @@ readinessProbe:
 env: []
 
 ## Arguments for the container entrypoint process
-arguments:
+args: []
 
 ## Database configuration
 settings:
@@ -112,13 +116,13 @@ customConfig: |-
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize:
 
   ## the storage class name
-  # className:
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:

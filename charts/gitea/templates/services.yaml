@@ -11,6 +11,15 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      {{- if and ( or (eq .Values.services.http.type "LoadBalancer") (eq .Values.services.http.type "NodePort") ) (.Values.services.http.nodePort) }}
+      nodePort: {{ .Values.services.http.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.services.http.type "LoadBalancer") (.Values.services.http.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.services.http.loadBalancerIP }}
+  {{- end }}      
+  {{- if (.Values.services.http.clusterIP) }}
+  clusterIP: {{ .Values.services.http.clusterIP }}
+  {{- end }}
   selector:
     {{- include "gitea.selectorLabels" . | nindent 4 }}
 ---
@@ -27,10 +36,13 @@ spec:
       targetPort: ssh
       protocol: TCP
       name: ssh
-      {{- if and (eq .Values.services.ssh.type "NodePort") (.Values.services.ssh.nodePort) }}
+      {{- if and ( or (eq .Values.services.ssh.type "LoadBalancer") (eq .Values.services.ssh.type "NodePort") ) (.Values.services.ssh.nodePort) }}
       nodePort: {{ .Values.services.ssh.nodePort }}
       {{- end }}
-  {{- if and (eq .Values.services.ssh.type "LoadBalancer") (.Values.services.ssh.clusterIP) }}
+  {{- if and (eq .Values.services.ssh.type "LoadBalancer") (.Values.services.ssh.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.services.ssh.loadBalancerIP }}
+  {{- end }}
+  {{- if (.Values.services.ssh.clusterIP) }}
   clusterIP: {{ .Values.services.ssh.clusterIP }}
   {{- end }}
   selector:

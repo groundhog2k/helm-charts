@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
 
 A Helm chart for MongoDB on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/mongodb
 
 This chart uses the original [MongoDB image from Docker Hub](https://hub.docker.com/_/mongo/) to deploy a stateful MongoDB instance in a Kubernetes cluster.
 
-It fully supports the deployment of the [ARM64v8 image of MongoDB](https://hub.docker.com/r/arm64v8/mongo/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -58,12 +57,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
-| args | object | `{}` | Additional container command arguments |
+| args | list | `[]` | Additional container command arguments |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
@@ -77,24 +76,28 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `27017` | MongoDB service port |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## MongoDB parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| settings.customConfig | string | `""` | Custom MongoDB configuration block that will be mounted as file in /etc/mongo/custom.conf |
+| settings.customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in /etc/mongo/custom.conf |
 | settings.rootUsername | string | `admin` | The root username |
 | settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
 | initUserDatabase | object | `{}` | Optional user database initialization script support |
-| initUserDatabase.dbName | string | `""` | Name of the user database |
-| initUserDatabase.script | string | `""` | Javascript block to initialize the user database |
+| initUserDatabase.dbName | string | `nil` | Name of the user database |
+| initUserDatabase.script | string | `nil` | Javascript block to initialize the user database |

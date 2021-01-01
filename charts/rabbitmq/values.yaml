@@ -1,12 +1,17 @@
 ## Default values for the RabbitMQ deployment
 
 ## RabbitMQ docker image
-## use arm64v8/rabbitmq for the same image on ARM64v8
 image:
   repository: rabbitmq
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
+# Default Init container image
+initImage:
+  repository: busybox
+  pullPolicy: IfNotPresent
+  tag: "latest"
 
 ## Pull secrets and name override options
 imagePullSecrets: []
@@ -37,17 +42,26 @@ securityContext:
 
 ## Default RabbitMq service ports (default: AMQP port 5672, Management UI port 15672)
 service:
+  type: ClusterIP
   amqp:
     port: 5672
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
   mgmt:
     port: 15672
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
 
 ## Ingress configuration
 ingress:
   enabled: false
 
   ## Additional ingress annotations
-  annotations:
+  annotations: {}
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
 
@@ -69,10 +83,8 @@ resources: {}
 #    cpu: 100m
 #    memory: 128Mi
 
-## Default node type for the image
-## use arm64v8 for the arm64v8/rabbitmq image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 tolerations: []
 affinity: {}
@@ -80,16 +92,16 @@ affinity: {}
 ## Default liveness probe
 livenessProbe:
   enabled: true
-  initialDelaySeconds: 120
+  initialDelaySeconds: 60
   timeoutSeconds: 20
   periodSeconds: 30
-  failureThreshold: 6
+  failureThreshold: 5
   successThreshold: 1
 
 ## Default startup probe
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   timeoutSeconds: 20
   periodSeconds: 30
   failureThreshold: 5
@@ -108,8 +120,14 @@ rbac:
 ## Additional environment variables
 env: []
 
+## Arguments for the container entrypoint process
+args: []
+
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
+
+## Disable internal metrics collector (management_agent.disable_metrics_collector)
+disableMetricsCollector: false
 
 # Comma separated list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
 plugins: rabbitmq_management,rabbitmq_peer_discovery_k8s
@@ -145,13 +163,13 @@ clustering:
 ## Storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynamically created PVC
-  # requestedSize: <volume-size>
+  requestedSize:
 
   ## the storage class name
-  # className:
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:

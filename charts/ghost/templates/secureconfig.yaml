@@ -28,3 +28,6 @@ stringData:
   {{- end }}
   {{- end }}
 {{- end }}
+{{- if .Values.settings.mail.password }}
+  mail__options__auth__pass: {{ .Values.settings.mail.password }}
+{{- end }}

@@ -4,7 +4,6 @@
 replicaCount: 1
 
 ## Netxcloud docker image
-## use arm64v8/nextcloud for the same image on ARM64v8
 image:
   repository: wordpress
   pullPolicy: IfNotPresent
@@ -26,10 +25,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Default node type for the image
-## use arm64v8 for the arm64v8/nextcloud image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 ## Additional pod annotations
 podAnnotations: {}
@@ -49,6 +46,12 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
 
 ## Ingress configuration
 ingress:
@@ -88,7 +91,7 @@ livenessProbe:
   enabled: true
   initialDelaySeconds: 30
   timeoutSeconds: 5
-  failureThreshold: 6
+  failureThreshold: 5
   successThreshold: 1
   periodSeconds: 10
 
@@ -110,6 +113,9 @@ containerPort: 8000
 
 ## Additional environment variables
 env: []
+
+## Additional arguments for the container entrypoint process
+args: []
 
 ## External database settings (is used when mariadb.enabled is false)
 externalDatabase:
@@ -146,13 +152,13 @@ apacheDefaultSiteConfig: |
 ## Storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize:
 
   ## the storage class name
-  # className:
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -169,21 +175,21 @@ mariadb:
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
-  userDatabase:
+  userDatabase: {}
     ## Name of the user database
-    name:
+    # name:
     ## Database user with full access rights
-    user:
+    # user:
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    password:
+    # password:
 
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName:
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize:
 
     ## the storage class name
-    # className:
+    className:

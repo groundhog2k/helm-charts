@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.2-apache](https://img.shields.io/badge/AppVersion-20.0.2-informational?style=flat-square)
+![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.4-apache](https://img.shields.io/badge/AppVersion-20.0.4-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -15,7 +15,7 @@ $ helm install my-release groundhog2k/nextcloud
 
 This chart uses the original [Nextcloud from Docker](https://hub.docker.com/_/nextcloud) to deploy Nextcloud in Kubernetes.
 
-It allows fully supports the deployment of the [ARM64v8 image of Nextcloud](https://hub.docker.com/r/arm64v8/nextcloud) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.1.5 |
-| @groundhog2k | postgres | 0.1.3 |
-| @groundhog2k | redis | 0.1.2 |
+| @groundhog2k | mariadb | 0.2.4 |
+| @groundhog2k | postgres | 0.2.5 |
+| @groundhog2k | redis | 0.2.4 |
 
 ## Common parameters
 
@@ -65,11 +65,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Additional container command arguments |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
@@ -104,6 +105,9 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | service.port | int | `80` | Commento HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Ingress parameters
 
@@ -154,10 +158,10 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apacheDefaultSiteConfig | string | `""` | Overwrite default apache 000-default.conf |
-| apachePortsConfig | string | `""` | Overwrite default apache ports.conf |
-| customPhpConfig | string | `""` | Additional PHP custom.ini |
-| memoryLimitConfig | string | `""` | Additional PHP memory-limit.ini |
+| apacheDefaultSiteConfig | string | `nil` | Overwrite default apache 000-default.conf |
+| apachePortsConfig | string | `nil` | Overwrite default apache ports.conf |
+| customPhpConfig | string | `nil` | Additional PHP custom.ini |
+| memoryLimitConfig | string | `nil` | Additional PHP memory-limit.ini |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update |
@@ -183,11 +187,11 @@ $ helm uninstall my-release
 |-----|------|---------|-------------|
 | storage.nextcloud | object | `{}` | Nextcloud internal storage |
 | storage.nextcloud.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.nextcloud.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.nextcloud.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.nextcloud.className | string | `""` | Storage class name |
+| storage.nextcloud.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.nextcloud.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.nextcloud.className | string | `nil` | Storage class name |
 | storage.nextcloudData | object | `{}` | Nextcloud user data storage |
 | storage.nextcloudData.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.nextcloudData.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.nextcloudData.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.nextcloudData.className | string | `""` | Storage class name |
+| storage.nextcloudData.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.nextcloudData.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.nextcloudData.className | string | `nil` | Storage class name |

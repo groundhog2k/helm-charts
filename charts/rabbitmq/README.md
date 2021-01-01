@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.9](https://img.shields.io/badge/AppVersion-3.8.9-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/rabbitmq
 
 This chart uses the original [RabbitMQ image from Docker Hub](https://hub.docker.com/_/rabbitmq) to deploy a stateful RabbitMQ cluster in Kubernetes.
 
-It allows fully supports the deployment of the [ARM64v8 image of RabbitMQ](https://hub.docker.com/r/arm64v8/rabbitmq) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -58,11 +57,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `{}` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Additional container command arguments |
 | rbac.create | bool | `true` | Enable creation of RBAC |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
@@ -76,17 +76,22 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.amqp.port | int | `5672` | AMQP port |
+| service.amqp.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.mgmt.port | int | `15672` | Management UI port |
+| service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## Ingress parameters
 
@@ -111,3 +116,4 @@ $ helm uninstall my-release
 | options.memoryHighWatermark.type | string | `"relative"` | Type of watermark (relative or absolute) |
 | options.memoryHighWatermark.value | float | `0.4` | Watermark value (default: 40%) |
 | plugins | string | `"rabbitmq_management,rabbitmq_peer_discovery_k8s"` | RabbitMQ plugins (Remove rabbitmq_peer_discovery_k8s to disable cluster replication mode) |
+| disableMetricsCollector: | bool | `false` | Disable internal metrics collector (management_agent.disable_metrics_collector) |

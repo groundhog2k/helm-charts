@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.9](https://img.shields.io/badge/AppVersion-6.0.9-informational?style=flat-square)
 
 A Helm chart for Redis on Kubernetes
 
@@ -15,8 +15,7 @@ $ helm install my-release groundhog2k/redis
 
 This chart uses the original [Redis image from Docker Hub](https://hub.docker.com/_/redis/) to deploy a stateful Redis instance in a Kubernetes cluster.
 
-It allows fully supports the deployment of the [ARM64v8 image of Redis](https://hub.docker.com/r/arm64v8/redis/) on a ARM64 based Kubernetes cluster just by exchanging the existing `image.repository` value.
-
+It fully supports deployment of the multi-architecture docker image.
 
 ## Prerequisites
 
@@ -58,11 +57,12 @@ $ helm uninstall my-release
 | livenessProbe | object | `see values.yaml` | Liveness probe configurationm |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | resources | object | `{}` | Resource limits and requests |
-| nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `{}` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
-| env | object | `[]` | Additional container environmment variables |
+| env | list | `[]` | Additional container environmment variables |
+| args | list | `[]` | Additional container command arguments |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
@@ -73,20 +73,24 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `6379` | Redis service port |
+| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
-| storage.persistentVolumeClaimName | string | `""` | PVC name when existing storage volume should be used |
-| storage.requestedSize | string | `""` | Size for new PVC, when no existing PVC is used |
-| storage.className | string | `""` | Storage class name |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
 
 ## Redis parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | arguments | string | `nil` | Arguments for the container entrypoint process |
-| redisConfig | string | `""` | Custom redis.conf |
+| redisConfig | string | `nil` | Custom redis.conf |

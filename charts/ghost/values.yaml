@@ -1,10 +1,6 @@
 ## Default values for Ghost deployment
 
-## Number of replicas
-replicaCount: 1
-
 ## Ghost docker image
-## use arm64v8/ghost for the same image on ARM64v8
 image:
   repository: ghost
   pullPolicy: IfNotPresent
@@ -44,6 +40,12 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
 
 ## Ingress configuration
 ingress:
@@ -79,10 +81,8 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-## Default node type for the image
-## use arm64v8 for the arm64v8/postgres image
-nodeSelector:
-  kubernetes.io/arch: amd64
+## Additional node selector
+nodeSelector: {}
 
 tolerations: []
 
@@ -110,7 +110,7 @@ readinessProbe:
 env: []
 
 ## Arguments for the container entrypoint process
-arguments:
+args: []
 
 externalDatabase:
   ## Type of database ("mysql" or "mariadb" - default: sqlite)
@@ -136,16 +136,26 @@ settings:
   ## Environment mode (development or production - default: production)
   mode: production
 
+  ## SMTP connection details
+  mail:
+    from:
+    transport: SMTP
+    host:
+    port:
+    service:
+    user:
+    password:
+
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
-  # persistentVolumeClaimName: <own-pvc-name>
+  persistentVolumeClaimName:
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
-  # requestedSize: <volume-size>
+  requestedSize:
 
   ## the storage class name
-  # className:
+  className:
 
   ## Default access mode (ReadWriteOnce)
   accessModes:
@@ -162,21 +172,21 @@ mariadb:
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
-  userDatabase:
+  userDatabase: {}
     ## Name of the user database
-    name:
+    # name:
     ## Database user with full access rights
-    user:
+    # user:
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    password:
+    # password:
 
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC
-    # persistentVolumeClaimName: <own-pvc-name>
+    persistentVolumeClaimName:
 
     ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    # requestedSize: <volume-size>
+    requestedSize:
 
     ## the storage class name
-    # className:
+    className:
