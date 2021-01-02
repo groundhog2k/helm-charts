@@ -5,8 +5,8 @@ metadata:
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
 stringData:
-  {{- if .Values.initUserDatabase.dbName }}
-  MONGO_INITDB_DATABASE: {{ .Values.initUserDatabase.dbName }}
+  {{- if .Values.userDatabase }}
+  MONGO_INITDB_DATABASE: {{ .Values.userDatabase.name | quote }}
   {{- end }}
-  MONGO_INITDB_ROOT_USERNAME: {{ .Values.settings.rootUsername }}
-  MONGO_INITDB_ROOT_PASSWORD: {{ .Values.settings.rootPassword | default (randAlphaNum 10) }}
+  MONGO_INITDB_ROOT_USERNAME: {{ .Values.settings.rootUsername | quote }}
+  MONGO_INITDB_ROOT_PASSWORD: {{ .Values.settings.rootPassword | default (randAlphaNum 10) | quote }}

@@ -1,0 +1,17 @@
+{{- if .Values.userDatabase }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mongodb.fullname" . }}-userdb
+  labels:
+    {{- include "mongodb.labels" . | nindent 4 }}
+stringData:
+  init-user-db.js: |-
+    db.createUser(
+      {
+        user: "{{ .Values.userDatabase.user }}",
+        pwd: "{{ .Values.userDatabase.password | default (randAlphaNum 10) }}",
+        roles: [ "readWrite", "dbAdmin" ]
+      }
+    );
+{{- end }}
