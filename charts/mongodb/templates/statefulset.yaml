@@ -75,7 +75,7 @@ spec:
           {{- end }}
           envFrom:
             - secretRef:
-                name: {{ include "mongodb.fullname" . }}            
+                name: {{ include "mongodb.fullname" . }}
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -85,7 +85,7 @@ spec:
             - {{ . }}
             {{- end }}
             {{- if .Values.settings.customConfig }}
-            - --config 
+            - --config
             - /etc/mongo/custom.conf
             {{- end }}
           volumeMounts:
@@ -93,15 +93,15 @@ spec:
               mountPath: /tmp
             - name: mongodb-volume
               mountPath: /data/db
-            {{- if .Values.settings.customConfig }}
+            {{- if .Values.customConfig }}
             - mountPath: /etc/mongo/custom.conf
               subPath: custom.conf
-              name: initdbconfig
+              name: customconfig
             {{- end }}
-            {{- if .Values.initUserDatabase.script }}
+            {{- if .Values.userDatabase }}
             - mountPath: /docker-entrypoint-initdb.d/init-user-db.js
               subPath: init-user-db.js
-              name: initdbconfig
+              name: inituserdb
             {{- end }}              
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -118,12 +118,18 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
-        {{- if or (.Values.settings.customConfig) (.Values.initUserDatabase.script) }}
-        - name: initdbconfig
+        {{- if .Values.customConfig }}
+        - name: customconfig
           configMap:
-            name: {{ include "mongodb.fullname" . }}
+            name: {{ include "mongodb.fullname" . }}-customconfig
             defaultMode: 0440
-        {{- end }}          
+        {{- end }}
+        {{- if .Values.userDatabase }}
+        - name: inituserdb
+          secret:
+            secretName: {{ include "mongodb.fullname" . }}-userdb
+            defaultMode: 0440
+        {{- end }}
   {{- if .Values.storage.persistentVolumeClaimName }}
         - name: mongodb-volume
           persistentVolumeClaim:
