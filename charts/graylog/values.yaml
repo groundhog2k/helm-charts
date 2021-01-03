@@ -61,7 +61,7 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  
+
   ## Hosts
   hosts:
     - host:
@@ -132,7 +132,7 @@ settings:
   http:
     externalUri: "http://127.0.0.1:9000/"
     publishUri:
-  
+
   javaOpts:
   passwordSecret: "somepasswordpepper"
 
@@ -149,7 +149,7 @@ settings:
   elastic:
     hosts: "http://127.0.0.1:9200"
     indexPrefix: "graylog"
-  
+
   smtp:
     enabled: false
     host: "mail.example.com"
@@ -181,7 +181,7 @@ storage:
 mongodb:
   ## Enable MongoDB helm chart for deployment (default: false)
   enabled: false
-  
+
   ## Database settings
   settings:
     ## The root username (default: admin)
