@@ -1,0 +1,9 @@
+apiVersion: v2
+name: elasticsearch
+description: A Helm chart for Elasticsearch on Kubernetes
+
+type: application
+
+version: 0.1.0
+
+appVersion: 7.10.1
