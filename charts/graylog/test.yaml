@@ -52,23 +52,20 @@ service:
 ## Ingress configuration
 ingress:
   ## Enable ingress endpoint
-  enabled: false
+  enabled: true
 
   ## Additional ingress annotations
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  
-  ## Hosts
-  hosts:
-    - host:
-      paths: []
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca
 
-  ## TLS settings for hosts
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  hosts:
+    - host: dev.k8.local
+      paths:
+        - /
+  tls:
+     - hosts:
+         - dev.k8.local
+       secretName: dev-k8-local
 
 ## Resource limits and requests
 resources: {}
@@ -113,7 +110,7 @@ args: []
 ## Graylog specifivc settings
 settings:
   http:
-    externalUri: "http://127.0.0.1:9000/"
+    externalUri: "https://dev.k8.local/"
     publishUri:
   
   passwordSecret: "somepasswordpepper"
@@ -178,3 +175,14 @@ mongodb:
   storage:
     ## Alternative set requestedSize to define a size for a dynamically created PVC
     requestedSize: 256Mi
+
+# Elasticsearch configuration
+elasticsearch:
+  ## Enable Elasticsearch helm chart for deployment (default: false)
+  enabled: true
+
+  ## Storage parameters for Elasticsearch database
+  storage:
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    requestedSize: 1Gi

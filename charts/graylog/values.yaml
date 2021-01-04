@@ -7,6 +7,12 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# Default Init container image
+initImage:
+  repository: busybox
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -225,3 +231,22 @@ mongodb:
 elasticsearch:
   ## Enable Elasticsearch helm chart for deployment (default: false)
   enabled: false
+
+  settings:
+    javaOpts: "-Xms512m -Xmx512m"
+    clusterName: "graylog"
+
+  ## Storage parameters for Elasticsearch database
+  storage:
+    ##  Set persistentVolumenClaimName to reference an existing PVC
+    persistentVolumeClaimName:
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    requestedSize:
+
+    ## the storage class name
+    className:
+
+    ## Default access mode (ReadWriteOnce)
+    accessModes:
+      - ReadWriteOnce

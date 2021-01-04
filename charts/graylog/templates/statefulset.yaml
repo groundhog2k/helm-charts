@@ -57,15 +57,20 @@ spec:
             - name: http
               containerPort: 9000
               protocol: TCP
+            {{- range $service := .Values.extraServices }}
+            - name: {{ $service.name }}
+              containerPort: {{ $service.containerPort}}
+              protocol: {{ $service.protocol }}
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "graylog.fullname" . }}
           env:
-            {{- include "graylog.environment" . | nindent 12 }}
             - name: POD_NAME
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.name
+                  fieldPath: metadata.name               
+            {{- include "graylog.environment" . | nindent 12 }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}          

@@ -16,3 +16,7 @@ dependencies:
     version: 0.2.7
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mongodb.enabled
+  - name: elasticsearch
+    version: 0.1.0
+    repository: "https://groundhog2k.github.io/helm-charts"
+    condition: elasticsearch.enabled
