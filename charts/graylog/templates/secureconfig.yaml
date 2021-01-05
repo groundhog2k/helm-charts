@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "graylog.fullname" . }}
+  labels:
+    {{- include "graylog.labels" . | nindent 4 }}
+stringData:
+{{- if .Values.mongodb.enabled }}
+  GRAYLOG_MONGODB_URI: mongodb://{{ .Values.mongodb.userDatabase.user}}:{{ .Values.mongodb.userDatabase.password}}@{{ include "mongodb.servicename" . }}:{{ .Values.mongodb.service.port }}/{{ .Values.mongodb.userDatabase.name }}
+{{- else }}
+  {{- with .Values.externalDatabase }}
+  GRAYLOG_MONGODB_URI: mongodb://{{ .user }}:{{ .password }}@{{ .host }}/{{ .name }}
+  {{- end }}
+{{- end }}
+{{- if and (.Values.settings.smtp.enabled) (.Values.settings.smtp.password) }}
+  GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD: {{ .Values.settings.smtp.password | quote }}
+{{- end }}
+{{- if .Values.settings.passwordSecret }}
+  GRAYLOG_PASSWORD_SECRET: {{ .Values.settings.passwordSecret | quote }}
+{{- end }}
+{{- if .Values.settings.rootUser.username }}
+  GRAYLOG_ROOT_USERNAME: {{ .Values.settings.rootUser.username | quote }}
+{{- end }}
+{{- if .Values.settings.rootUser.sha2Password }}
+  GRAYLOG_ROOT_PASSWORD_SHA2: {{ .Values.settings.rootUser.sha2Password | quote }}
+{{- end }}

@@ -1,0 +1,189 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "graylog.fullname" . }}
+  labels:
+    {{- include "graylog.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "graylog.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "graylog.fullname" . }}-internal
+  podManagementPolicy: {{ .Values.podManagementPolicy }}      
+  replicas: {{ .Values.replicaCount }}
+  updateStrategy: 
+    type: {{ .Values.updateStrategyType }}    
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "graylog.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "graylog.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        {{- if .Values.initGeoIPDatabase.enabled }}
+        - name: {{ .Chart.Name }}-geocitydbinit
+          {{- with .Values.securityContext }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+          {{- end }}
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "graylog.fullname" . }}-geoip
+          volumeMounts:
+            - name: geocity
+              mountPath: /usr/share/GeoIP
+        {{- end }}
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "/scripts/init.sh" ]
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+            - name: graylog-volume
+              mountPath: /data
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+            {{- range $service := .Values.extraServices }}
+            - name: {{ $service.name }}
+              containerPort: {{ $service.containerPort}}
+              protocol: {{ $service.protocol }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "graylog.fullname" . }}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name               
+            {{- include "graylog.environment" . | nindent 12 }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}          
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /api/system/lbstatus
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:9000
+            {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /api/system/lbstatus
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:9000
+            {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+            {{- end }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args:
+            {{- range .Values.args }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /etc/graylog/server
+              name: geocity
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /usr/share/graylog/data
+              name: graylog-volume
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: geocity
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ include "graylog.fullname" . }}-scripts
+            defaultMode: 0555          
+  {{- if .Values.storage.persistentVolumeClaimName }}
+        - name: graylog-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.persistentVolumeClaimName }}
+  {{- else }}
+  {{- if not .Values.storage.requestedSize }}
+        - name: graylog-volume
+          emptyDir: {}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: graylog-volume
+        labels:
+          {{- include "graylog.labels" . | nindent 10 }}
+      spec:
+        {{- with .Values.storage.accessModes }}
+        accessModes:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- if .Values.storage.className }}
+        storageClassName: {{ .Values.storage.className }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.requestedSize }}
+  {{- end }}
+  {{- end }}
