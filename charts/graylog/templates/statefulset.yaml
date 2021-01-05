@@ -32,6 +32,22 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
+        {{- if .Values.initGeoIPDatabase.enabled }}
+        - name: {{ .Chart.Name }}-geocitydbinit
+          {{- with .Values.securityContext }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+          {{- end }}
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "graylog.fullname" . }}-geoip
+          volumeMounts:
+            - name: geocity
+              mountPath: /usr/share/GeoIP
+        {{- end }}
         - name: {{ .Chart.Name }}-init
           {{- with .Values.securityContext }}
           securityContext:
@@ -117,6 +133,8 @@ spec:
             {{- end }}
           {{- end }}
           volumeMounts:
+            - mountPath: /etc/graylog/server
+              name: geocity
             - mountPath: /tmp
               name: tmp
             - mountPath: /usr/share/graylog/data
@@ -135,6 +153,8 @@ spec:
       {{- end }}
       volumes:
         - name: tmp
+          emptyDir: {}
+        - name: geocity
           emptyDir: {}
         - name: scripts
           configMap:

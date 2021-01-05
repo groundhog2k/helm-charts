@@ -9,7 +9,7 @@ image:
 
 # Default Init container image
 initImage:
-  repository: busybox
+  repository: maxmindinc/geoipupdate
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -57,6 +57,24 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
+
+## List of extra service ports
+extraServices: {}
+#  - name: udpinput
+    ## Service port type
+#    type: ClusterIP
+    ## Service protocol
+#    protocol: UDP
+    ## The container target port
+#    containerPort: 12001
+    ## The service port
+#    port: 12001
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+#    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+#    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer)
+#    loadBalancerIP:
 
 ## Ingress configuration
 ingress:
@@ -122,7 +140,7 @@ args: []
 ## Reference to external MongoDB database
 externalDatabase:
   ## Name of the database (default: graylog)
-  name: graylog
+  name: "graylog"
 
   ## Database user
   user:
@@ -133,7 +151,25 @@ externalDatabase:
   ## Database host
   host:
 
-## Graylog specifivc settings
+## Optinal step to enable and initialize the GeoIP database file (for more info see: https://dev.maxmind.com/geoip/geoipupdate/)
+initGeoIPDatabase:
+  ## Enable GeoIP database download
+  enabled: false
+  ## MaxMind AccountId/UserId 
+  accountId: ""
+  ## MaxMind license key
+  licenseKey: ""
+  ## GeoLite database edition (https://www.maxmind.com/en/accounts/473747/geoip/downloads)
+  editionId: "GeoLite2-City"
+  
+  ## The MaxMind download host (not necessary to change that)
+  host:
+  ## A valid proxy if internet connection is running through a proxy
+  proxy:
+  ## Proxy username and password in format "username:password"
+  proxyUserPassword:
+
+## Graylog specific settings
 settings:
   http:
     externalUri: "http://127.0.0.1:9000/"
