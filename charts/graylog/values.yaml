@@ -155,13 +155,13 @@ externalDatabase:
 initGeoIPDatabase:
   ## Enable GeoIP database download
   enabled: false
-  ## MaxMind AccountId/UserId 
+  ## MaxMind AccountId/UserId
   accountId: ""
   ## MaxMind license key
   licenseKey: ""
   ## GeoLite database edition (https://www.maxmind.com/en/accounts/473747/geoip/downloads)
   editionId: "GeoLite2-City"
-  
+
   ## The MaxMind download host (not necessary to change that)
   host:
   ## A valid proxy if internet connection is running through a proxy
