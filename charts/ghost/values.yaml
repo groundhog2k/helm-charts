@@ -162,7 +162,7 @@ storage:
     - ReadWriteOnce
 
   ## Reclaim policy for storage
-  reclaimPolicy: Delete
+  reclaimPolicy:
 
 ## MariaDB configuration
 mariadb:

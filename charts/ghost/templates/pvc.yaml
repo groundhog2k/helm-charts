@@ -16,6 +16,8 @@ spec:
       storage: {{ .requestedSize }}
   {{- if .storageClassName }}
   storageClassName: {{ .storageClassName }}
+  {{- end }}
+  {{- if .reclaimPolicy }}
   persistentVolumeReclaimPolicy: {{ .reclaimPolicy }}
   {{- end }}
   {{- end }}  
