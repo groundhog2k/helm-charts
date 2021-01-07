@@ -161,6 +161,9 @@ storage:
   accessModes:
     - ReadWriteOnce
 
+  ## Reclaim policy for storage
+  reclaimPolicy: Delete
+
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)
