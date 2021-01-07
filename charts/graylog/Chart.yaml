@@ -1,0 +1,22 @@
+apiVersion: v2
+name: graylog
+description: A Helm chart for Graylog on Kubernetes
+
+type: application
+
+maintainers:
+  - name: groundhog2k
+
+version: 0.1.0
+
+appVersion: "4.0.1"
+
+dependencies:
+  - name: mongodb
+    version: 0.2.7
+    repository: "https://groundhog2k.github.io/helm-charts"
+    condition: mongodb.enabled
+  - name: elasticsearch
+    version: 0.1.0
+    repository: "https://groundhog2k.github.io/helm-charts"
+    condition: elasticsearch.enabled

@@ -1,8 +1,6 @@
-## Default values for Ghost deployment
-
-## Ghost docker image
+## Elasticsearch docker image
 image:
-  repository: ghost
+  repository: elasticsearch
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -23,11 +21,15 @@ serviceAccount:
 
 podAnnotations: {}
 
-## Pod security options (default: ghost as fsGroup)
+## Management policy, update strategy and number of replicas
+podManagementPolicy: OrderedReady
+updateStrategyType: RollingUpdate
+replicaCount: 1
+
 podSecurityContext:
   fsGroup: 1000
 
-## Default security options to run Ghost as read only container without privilege escalation
+## Default security options to run Elasticsearch as read only container without privilege escalation
 securityContext:
   allowPrivilegeEscalation: false
   privileged: false
@@ -36,12 +38,14 @@ securityContext:
   runAsGroup: 1000
   runAsUser: 1000
 
-## Default Ghost service port (default web service port)
+## Default Elasticsearch service ports
 service:
   type: ClusterIP
-  port: 80
-  ## The node port (only relevant for type LoadBalancer or NodePort)
-  nodePort:
+  httpPort: 9200
+  transportPort: 9300
+  ## The node ports (only relevant for type LoadBalancer or NodePort)
+  httpNodePort:
+  transportNodePort:
   ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
@@ -52,19 +56,15 @@ ingress:
   ## Enable ingress endpoint
   enabled: false
 
-  ## Maximal body size (default: 2m - increase if uploads failing)
-  maxBodySize: 2m
-
   ## Additional ingress annotations
   annotations: {}
-   # kubernetes.io/ingress.class: nginx
-   # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
 
   ## Hosts
   hosts:
     - host:
-      paths:
-        - /
+      paths: []
 
   ## TLS settings for hosts
   tls: []
@@ -87,6 +87,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
 
 ## Default liveness probe
 livenessProbe:
@@ -112,41 +113,12 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
-externalDatabase:
-  ## Type of database ("mysql" or "mariadb" - default: sqlite)
-  type: sqlite
-
-  ## Name of the database (default: ghost)
-  name: ghost
-
-  ## Database user (only mysql)
-  user:
-
-  ## Database password (only mysql)
-  password:
-
-  ## Database host (only for mysql)
-  host:
-
-## Ghost specific configuration
 settings:
-  ## Default URL (for generated links)
-  url:
+  discoveryType: "single-node"
+  javaOpts: "-Xms512m -Xmx512m"
+  clusterName: "singlenode-cluster"
 
-  ## Environment mode (development or production - default: production)
-  mode: production
-
-  ## SMTP connection details
-  mail:
-    from:
-    transport: SMTP
-    host:
-    port:
-    service:
-    user:
-    password:
-
-## Storage parameters
+## Storage parameters for Elasticsearch database
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
@@ -160,36 +132,3 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
-
-  ## Reclaim policy for storage
-  reclaimPolicy: Delete
-
-## MariaDB configuration
-mariadb:
-  ## Enable MariaDB helm chart for deployment (default: false)
-  enabled: false
-
-  ## Database settings
-  settings:
-    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
-    rootPassword:
-
-  ## Optional user database which is created during first startup with user and password
-  userDatabase: {}
-    ## Name of the user database
-    # name:
-    ## Database user with full access rights
-    # user:
-    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
-    # password:
-
-  # Storage parameters
-  storage:
-    ## Set persistentVolumenClaimName to reference an existing PVC
-    persistentVolumeClaimName:
-
-    ## Alternative set requestedSize to define a size for a dynmaically created PVC
-    requestedSize:
-
-    ## the storage class name
-    className:

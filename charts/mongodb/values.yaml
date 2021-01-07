@@ -99,15 +99,20 @@ settings:
   rootUsername: "admin"
   ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
   rootPassword:
-  ## Custom configuration (use instead of command args)
-  customConfig: |
 
-## Initializes a user database with name from dbName (default connected to test database if no dbName is specified)
-initUserDatabase:
-  ## Database name for init
-  dbName:
-  ## JavaScript for initialization of new database
-  script: |
+## Optional user database which is created during first startup with user and password
+userDatabase: {}
+  ## Name of the user database
+  # name:
+
+  ## Database user with full access rights
+  # user:
+
+  ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+  # password:
+
+## Custom configuration (use instead of command args)
+customConfig: |
 
 # Storage parameters
 # When a persistentVolumenClaimName is configured the requestedSize and accessModes will be ignored and the existing PVC based on the name will be used

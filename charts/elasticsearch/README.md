@@ -1,21 +1,25 @@
-# MongoDB
+# Elasticsearch
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.11](https://img.shields.io/badge/AppVersion-4.2.11-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.10.1](https://img.shields.io/badge/AppVersion-7.10.1-informational?style=flat-square)
 
-A Helm chart for MongoDB on Kubernetes
+A Helm chart for Elasticsearch on Kubernetes
 
 ## TL;DR
 
 ```bash
 $ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/mongodb
+$ helm install my-release groundhog2k/elasticsearch
 ```
 
 ## Introduction
 
-This chart uses the original [MongoDB image from Docker Hub](https://hub.docker.com/_/mongo/) to deploy a stateful MongoDB instance in a Kubernetes cluster.
+This chart uses the original [Elasticsearch image from Docker Hub](https://hub.docker.com/_/elasticsearch/) to deploy a stateful Elasticsearch instance in a Kubernetes cluster.
 
 It fully supports deployment of the multi-architecture docker image.
+
+## Limitations
+
+The actual chart version only supports a single-node Elasticsearch cluster (replicaset = 1). Future upgrades will allow to span a multi-node cluster.
 
 ## Prerequisites
 
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/mongodb
+$ helm install my-release groundhog2k/elasticsearch
 ```
 
 ## Uninstalling the Chart
@@ -51,7 +55,7 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"mongo"` | Image name |
+| image.repository | string | `"elasticsearch"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
@@ -77,10 +81,22 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | service.type | string | `"ClusterIP"` | Service type |
-| service.port | int | `27017` | MongoDB service port |
-| service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| service.httpPort | int | `9200` | Elasticsearch http service port |
+| service.transportPort | int | `9300` | Elasticsearch transport service port |
+| service.httpNodePort | int | `nil` | The http node port (only relevant for type LoadBalancer or NodePort) |
+| service.transportNodePort | int | `nil` | The transport node port (only relevant for type LoadBalancer or NodePort) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+
+## Ingress parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ingress.enabled | bool | `false` | Enable ingress for Gitea service |
+| ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.hosts[].host | string | `nil` | Hostname for the ingress endpoint |
+| ingress.hosts[].host.paths[] | string | `nil` | Path routing for the ingress endpoint host |
+| ingress.tls | list | `[]` | Ingress TLS parameters |
 
 ## Storage parameters
 
@@ -91,14 +107,12 @@ $ helm uninstall my-release
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 
-## MongoDB parameters
+## Elasticsearch parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in /etc/mongo/custom.conf |
-| settings.rootUsername | string | `admin` | The root username |
-| settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
-| userDatabase | object | `{}` | Optional MongoDB user database |
-| userDatabase.name | string | `nil` | Name of the user database |
-| userDatabase.user | string | `nil` | User name with full access to user database|
-| userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |
+| settings.discoveryType | string | `single-node` | The cluster discovery type |
+| settings.javaOpts | string | `-Xms512m -Xmx512m` | Additional JVM options |
+| settings.clusterName | string | `singlenode-cluster` | Cluster name |
+
+Further Elasticsearch parameter can be set via environment variables (see Deployment parameter: env)

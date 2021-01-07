@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "graylog.fullname" . }}-scripts
+  labels:
+    {{- include "graylog.labels" . | nindent 4 }}
+data:
+  init.sh: |
+    #!/bin/bash
+    if [ ! -f /data/config/graylog.conf ]; then
+      mkdir -p /data/config
+      mkdir -p /data/journal
+      mkdir -p /data/log
+      mkdir -p /data/plugin
+      mkdir -p /data/contentpacks
+      cp /usr/share/graylog/data/config/* /data/config
+      chmod u+rw /data/config/*
+    fi
