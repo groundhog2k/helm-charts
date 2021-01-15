@@ -25,7 +25,8 @@ replicaCount: 1
 podAnnotations: {}
 
 ## Pod security options
-podSecurityContext: {}
+podSecurityContext:
+  fsGroup: 999
 
 podManagementPolicy: OrderedReady
 

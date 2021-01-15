@@ -29,7 +29,8 @@ nodeSelector: {}
 podAnnotations: {}
 
 ## Pod security options
-podSecurityContext: {}
+podSecurityContext:
+  fsGroup: 999
 
 ## Default security options to run Redis as non-root, read only container without privilege escalation
 securityContext:
