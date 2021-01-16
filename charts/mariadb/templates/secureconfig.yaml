@@ -1,13 +1,30 @@
+{{- $existingRootPassword := "" }}
+{{- $existingUserDbName := "" }}
+{{- $existingUserDbUser := "" }}
+{{- $existingUserDbPassword := "" }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "mariadb.fullname" .) ) }}
+{{- if $secret }}
+{{- $existingRootPassword = index $secret.data "MYSQL_ROOT_PASSWORD" }}
+{{- $existingUserDbName = index $secret.data "MYSQL_DATABASE" }}
+{{- $existingUserDbUser = index $secret.data "MYSQL_USER" }}
+{{- $existingUserDbPassword = index $secret.data "MYSQL_PASSWORD" }}
+{{- end -}}
+
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{ include "mariadb.fullname" . }}
   labels:
     {{- include "mariadb.labels" . | nindent 4 }}
-stringData:
-  MYSQL_ROOT_PASSWORD: {{ .Values.settings.rootPassword | default (randAlphaNum 10) }}
-{{- with .Values.userDatabase }}
-  MYSQL_DATABASE: {{ .name }}
-  MYSQL_USER: {{ .user }}
-  MYSQL_PASSWORD: {{ .password | default (randAlphaNum 10) }}
-{{- end }}
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: {{ coalesce (.Values.settings.rootPassword | default "" | b64enc) (default $existingRootPassword) (randAlphaNum 10 | b64enc) }}
+  {{- with .Values.userDatabase }}
+  {{- $userDbName := coalesce (.name | default "" | b64enc) $existingUserDbName }}
+  {{- $userDbUser := coalesce (.user | default "" | b64enc) $existingUserDbUser }}
+  {{- $userDbPassword := coalesce (.password | default "" | b64enc) $existingUserDbPassword (randAlphaNum 10 | b64enc) }}
+  MYSQL_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." $userDbName }}
+  MYSQL_USER: {{ required "Values: userDatabase.user is mandatory if userDatabase is specified." $userDbUser }}
+  MYSQL_PASSWORD: {{ $userDbPassword }}
+  {{- end }}
+---
