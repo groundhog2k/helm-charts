@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.3.9](https://img.shields.io/badge/Version-0.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.5-apache](https://img.shields.io/badge/AppVersion-20.0.5-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.5-apache](https://img.shields.io/badge/AppVersion-20.0.5-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -29,6 +29,25 @@ To install the chart with the release name `my-release`:
 
 ```bash
 $ helm install my-release groundhog2k/nextcloud
+```
+
+## Upgrading the Chart[](#upgrade)
+
+To upgrade the chart or Nextcloud version with the release name `my-release`:
+
+```bash
+$ helm upgrade my-release groundhog2k/nextcloud
+```
+
+## Post-upgrade steps
+
+After some Nextcloud version upgrades it's necessary to update database indicies of Nextcloud too. Therefor an optional post-upgrade step was prepared in this helm chart.
+
+The post upgrade can be started manually after the Nextcloud/chart upgrade (like described in ['Upgrading the chart'](#upgrade) section) or both can be done in one step.
+In the latter case the postUpgradeHookDelay should be set to a higher value. (f.i. 120 seconds)
+
+```bash
+$ helm upgrade my-release groundhog2k/nextcloud --set enablePostUpgradeHook=true,postUpgradeHookDelay=120
 ```
 
 ## Uninstalling the Chart
@@ -81,7 +100,9 @@ $ helm uninstall my-release
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
 | initImage.repository | string | `"busybox"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
-
+| postUpgradeHook | bool | `false` | Enable post upgrade hook |
+| postUpgradeHookDelay | int | `10` | Delay in seconds before post-upgrade steps are initiated |
+| postUpgradeSteps | list | `see values.yaml` | Script with post upgrade steps |
 ## Cron jobs
 
 | Key | Type | Default | Description |
@@ -164,8 +185,7 @@ $ helm uninstall my-release
 | memoryLimitConfig | string | `nil` | Additional PHP memory-limit.ini |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
-| settings.update | bool | `false` | Enable update |
-| settings.databaseUpdateDelay | int | `120` | Delay for database update after nextcloud upgrade |
+| settings.update | bool | `false` | Enable update (Only necessary if custom command is used) |
 | settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
 | settings.memoryLimit | string | `512M` | PHP memory limit |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |

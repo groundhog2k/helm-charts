@@ -143,6 +143,17 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
+## Enable post upgrade hook
+enablePostUpgradeHook: false
+## Delay before database upgrade steps are initiated (default: 10 seconds)
+postUpgradeHookDelay: 10
+## Post upgrade steps
+postUpgradeSteps:
+  - php -f /var/www/html/occ db:add-missing-indices -n
+  - php -f /var/www/html/occ db:add-missing-columns -n
+  - php -f /var/www/html/occ db:add-missing-primary-keys -n
+  - php -f /var/www/html/occ db:convert-filecache-bigint -n
+
 ## External database settings (is used when mariadb.enabled is false and postgres.enabled is false)
 externalDatabase:
   ## Type of database ("sqlite", "mysql" or "mariadb", "postgres" are supported - default: sqlite)
@@ -176,10 +187,9 @@ externalCache:
 
 ## Nextcloud specific configuration
 settings:
-  ## Enable update processing (default: false - set to true when "helm upgrade .." is used)
+  ## Enable update processing (Only necessary if custom command is use)
   update: false
-  ## Delay before database update steps are initiated (default: 120 seconds)
-  databaseUpdateDelay: 120
+
   ## Maximum file upload size (default: 64M)
   maxFileUploadSize: 64M
   ## PHP memory limit (default: 512M)
