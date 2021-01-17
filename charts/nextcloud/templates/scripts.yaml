@@ -1,3 +1,4 @@
+{{- if .Values.enablePostUpgradeHook }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,9 +7,9 @@ metadata:
     {{- include "nextcloud.labels" . | nindent 4 }}
 data:
   initdb.sh: |
-    #!/bin/bash
-    sleep {{ .Values.settings.databaseUpdateDelay }}
-    php -f /var/www/html/occ db:add-missing-indices
-    php -f /var/www/html/occ db:add-missing-columns
-    php -f /var/www/html/occ db:add-missing-primary-keys
-    php -f /var/www/html/occ db:convert-filecache-bigint
+    #!/bin/sh
+    sleep {{ .Values.postUpgradeHookDelay }}
+    {{- range .Values.postUpgradeSteps }}
+    {{ . }}
+    {{- end }}    
+{{- end }}
