@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.3.8](https://img.shields.io/badge/Version-0.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.4-apache](https://img.shields.io/badge/AppVersion-20.0.4-informational?style=flat-square)
+![Version: 0.3.9](https://img.shields.io/badge/Version-0.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.5-apache](https://img.shields.io/badge/AppVersion-20.0.5-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
