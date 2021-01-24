@@ -6,7 +6,7 @@ metadata:
     {{- include "postgres.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  serviceName: {{ include "postgres.fullname" . }}
+  serviceName: {{ include "postgres.fullname" . }}-internal
   selector:
     matchLabels:
       {{- include "postgres.selectorLabels" . | nindent 6 }}

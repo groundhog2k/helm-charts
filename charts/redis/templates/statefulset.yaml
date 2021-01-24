@@ -6,7 +6,7 @@ metadata:
     {{- include "redis.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  serviceName: {{ include "redis.fullname" . }}
+  serviceName: {{ include "redis.fullname" . }}-internal
   selector:
     matchLabels:
       {{- include "redis.selectorLabels" . | nindent 6 }}
