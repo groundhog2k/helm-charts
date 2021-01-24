@@ -12,10 +12,11 @@ spec:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "mariadb.selectorLabels" . | nindent 8 }}
     spec:
@@ -40,6 +41,10 @@ spec:
             - name: sql
               containerPort: 3306
               protocol: TCP
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             exec:
@@ -55,6 +60,11 @@ spec:
             periodSeconds: {{ .periodSeconds }}                
           {{- end }}
           {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             exec:
@@ -68,6 +78,7 @@ spec:
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
             periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
           {{- end }}
           {{- end }}
           {{- with .Values.resources }}
