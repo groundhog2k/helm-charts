@@ -1,15 +1,11 @@
-{{- if or (.Values.customConfig) (.Values.userDatabase) }}
-kind: ConfigMap
+{{- if .Values.userDatabase }}
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: {{ include "postgres.fullname" . }}
+  name: {{ include "postgres.fullname" . }}-inituserdb
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
 data:
-{{- if .Values.customConfig }}
-  custom.cnf: |-
-    {{- .Values.database.customConfig | nindent 4 }}
-{{- end }}
 {{- with .Values.userDatabase }}
   init-user-db.sh: |-
     #!/bin/bash

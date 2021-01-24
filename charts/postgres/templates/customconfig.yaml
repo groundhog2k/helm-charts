@@ -1,0 +1,11 @@
+{{- if .Values.customConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres.fullname" . }}-customconfig
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+data:
+  custom.cnf: |-
+    {{- .Values.customConfig | nindent 4 }}
+{{- end }}
