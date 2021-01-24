@@ -894,6 +894,18 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 10.5.8
+    created: "2021-01-24T13:27:29.55889818Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: 8900617952f3a1bfc2c6a721d08704080e391c2350137a21b6a95d3b4b66e1da
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.2.8/mariadb-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: 10.5.8
     created: "2021-01-24T11:27:25.717979441Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: b1d240cb6709fd3fc82af76a80c1049c930351ed827e7851a87d04e9aa476254
@@ -1104,6 +1116,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.11.4/metrics-server-2.11.4.tgz
     version: 2.11.4
   mongodb:
+  - apiVersion: v2
+    appVersion: 4.2.11
+    created: "2021-01-24T13:27:29.686857285Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 5c4a4ac53846d936e87fde88a8243f1267d3bc9ddc282ef3ef43f2bbee15dd78
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.2.9/mongodb-0.2.9.tgz
+    version: 0.2.9
   - apiVersion: v2
     appVersion: 4.2.11
     created: "2021-01-24T11:21:47.452411266Z"
@@ -1844,6 +1868,18 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: "13.1"
+    created: "2021-01-24T13:27:29.793140373Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: 1991e41d6a62313ca49e8781412f0c64adedd90a8af8c6004d471928871c3e37
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.2.7/postgres-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
+    appVersion: "13.1"
     created: "2021-01-24T11:16:10.608513271Z"
     description: A Helm chart for PostgreSQL on Kubernetes
     digest: 6da7805352f0ab47080d223d1dceadbe339751cbec73d73b0718658c002f144b
@@ -2132,6 +2168,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.1.0/rabbitmq-0.1.0.tgz
     version: 0.1.0
   redis:
+  - apiVersion: v2
+    appVersion: 6.0.10
+    created: "2021-01-24T13:27:29.936842717Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: c674b8084b2331f91ac684887ac0d1a6808f3523b506263de3946eb02b9be929
+    maintainers:
+    - name: groundhog2k
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.2.8/redis-0.2.8.tgz
+    version: 0.2.8
   - apiVersion: v2
     appVersion: 6.0.10
     created: "2021-01-24T11:10:32.258464391Z"
