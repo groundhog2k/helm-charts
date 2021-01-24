@@ -153,10 +153,6 @@ Graylog settings via environment variables
 - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
   value: {{ .Values.settings.smtp.useSsl | quote }}
 {{- end }}
-{{- if .Values.settings.smtp.username }}
-- name: GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME
-  value: {{ .Values.settings.smtp.username | quote }}
-{{- end }}
 {{- if .Values.settings.smtp.subjectPrefix }}
 - name: GRAYLOG_TRANSPORT_EMAIL_SUBJECT_PREFIX
   value: {{ .Values.settings.smtp.subjectPrefix | quote }}
@@ -164,6 +160,16 @@ Graylog settings via environment variables
 {{- if .Values.settings.smtp.emailFrom }}
 - name: GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL
   value: {{ .Values.settings.smtp.emailFrom | quote }}
+{{- end }}
+{{- end }}
+{{- if .Values.initGeoIPDatabase.enabled }}
+{{- if .Values.initGeoIPDatabase.host }}
+- name: GEOIPUPDATE_HOST
+  value: {{ .Values.initGeoIPDatabase.host | quote }}
+{{- end }}
+{{- if .Values.initGeoIPDatabase.proxy }}
+- name: GEOIPUPDATE_PROXY
+  value: {{ .Values.initGeoIPDatabase.proxy | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
