@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.1](https://img.shields.io/badge/AppVersion-4.0.1-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.1](https://img.shields.io/badge/AppVersion-4.0.1-informational?style=flat-square)
 
 A Helm chart for Graylog on Kubernetes
 
@@ -37,6 +37,13 @@ To uninstall/delete the `my-release` deployment:
 $ helm uninstall my-release
 ```
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| @groundhog2k | mongodb | 0.2.9 |
+| @groundhog2k | elasticsearch | 0.1.1 |
+
 ## Common parameters
 
 | Key | Type | Default | Description |
@@ -57,6 +64,8 @@ $ helm uninstall my-release
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |

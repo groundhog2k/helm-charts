@@ -4,23 +4,29 @@ metadata:
   name: {{ include "graylog.fullname" . }}
   labels:
     {{- include "graylog.labels" . | nindent 4 }}
-stringData:
+type: Opaque
+data:
 {{- if .Values.mongodb.enabled }}
-  GRAYLOG_MONGODB_URI: mongodb://{{ .Values.mongodb.userDatabase.user}}:{{ .Values.mongodb.userDatabase.password}}@{{ include "mongodb.servicename" . }}:{{ .Values.mongodb.service.port }}/{{ .Values.mongodb.userDatabase.name }}
+  GRAYLOG_MONGODB_URI: {{ (printf "mongodb://%s:%s@%s:%s/%s" .Values.mongodb.userDatabase.user .Values.mongodb.userDatabase.password (include "mongodb.servicename" .) (.Values.mongodb.service.port | toString) .Values.mongodb.userDatabase.name) | b64enc }}
 {{- else }}
   {{- with .Values.externalDatabase }}
-  GRAYLOG_MONGODB_URI: mongodb://{{ .user }}:{{ .password }}@{{ .host }}/{{ .name }}
+  GRAYLOG_MONGODB_URI: {{ (printf "mongodb://%s:%s@%s/%s" .user .password .host .name) | b64enc }}
   {{- end }}
 {{- end }}
-{{- if and (.Values.settings.smtp.enabled) (.Values.settings.smtp.password) }}
-  GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD: {{ .Values.settings.smtp.password | quote }}
+{{- if .Values.settings.smtp.enabled }}
+{{- if .Values.settings.smtp.username }}
+  GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME: {{ .Values.settings.smtp.username | b64enc }}
+{{- end }}
+{{- if .Values.settings.smtp.password }}
+  GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD: {{ .Values.settings.smtp.password | b64enc }}
+{{- end }}
 {{- end }}
 {{- if .Values.settings.passwordSecret }}
-  GRAYLOG_PASSWORD_SECRET: {{ .Values.settings.passwordSecret | quote }}
+  GRAYLOG_PASSWORD_SECRET: {{ .Values.settings.passwordSecret | b64enc }}
 {{- end }}
 {{- if .Values.settings.rootUser.username }}
-  GRAYLOG_ROOT_USERNAME: {{ .Values.settings.rootUser.username | quote }}
+  GRAYLOG_ROOT_USERNAME: {{ .Values.settings.rootUser.username | b64enc }}
 {{- end }}
 {{- if .Values.settings.rootUser.sha2Password }}
-  GRAYLOG_ROOT_PASSWORD_SHA2: {{ .Values.settings.rootUser.sha2Password | quote }}
+  GRAYLOG_ROOT_PASSWORD_SHA2: {{ .Values.settings.rootUser.sha2Password | b64enc }}
 {{- end }}

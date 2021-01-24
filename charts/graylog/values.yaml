@@ -113,6 +113,9 @@ tolerations: []
 
 affinity: {}
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -121,6 +124,9 @@ livenessProbe:
   failureThreshold: 3
   successThreshold: 1
   periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
