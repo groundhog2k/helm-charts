@@ -12,10 +12,11 @@ spec:
       {{- include "postgres.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "postgres.selectorLabels" . | nindent 8 }}
     spec:
@@ -43,6 +44,10 @@ spec:
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pg
+            {{- if .Values.settings.authMethod }}
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: {{ .Values.settings.authMethod }}
+            {{- end }}
             {{- if .Values.settings.initDbArgs }}
             - name: POSTGRES_INITDB_ARGS
               value: {{ .Values.settings.initDbArgs }}
@@ -53,6 +58,10 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "postgres.fullname" . }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             exec:
@@ -68,6 +77,11 @@ spec:
             periodSeconds: {{ .periodSeconds }}                
           {{- end }}
           {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             exec:
@@ -81,6 +95,7 @@ spec:
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
             periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
           {{- end }}
           {{- end }}
           {{- with .Values.resources }}
@@ -103,12 +118,12 @@ spec:
             {{- if .Values.customConfig }}
             - mountPath: /etc/postgresql/postgresql.conf
               subPath: postgresql.conf
-              name: initdbconfig
+              name: customconfig
             {{- end }}
             {{- if .Values.userDatabase }}
             - mountPath: /docker-entrypoint-initdb.d/init-user-db.sh
               subPath: init-user-db.sh
-              name: initdbconfig
+              name: inituserdb
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -127,10 +142,15 @@ spec:
           emptyDir: {}
         - name: tmp
           emptyDir: {}
-        {{- if or (.Values.customConfig) (.Values.userDatabase) }}
-        - name: initdbconfig
+        {{- if .Values.customConfig }}
+        - name: customconfig
           configMap:
-            name: {{ include "postgres.fullname" . }}
+            name: {{ include "postgres.fullname" . }}-customconfig
+        {{- end }}
+        {{- if .Values.userDatabase }}
+        - name: inituserdb
+          configMap:
+            name: {{ include "postgres.fullname" . }}-inituserdb
             defaultMode: 0555
         {{- end }}
 {{- with .Values.storage }}

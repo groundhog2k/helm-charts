@@ -64,6 +64,9 @@ tolerations: []
 
 affinity: {}
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default health check
 livenessProbe:
   enabled: true
@@ -72,6 +75,9 @@ livenessProbe:
   failureThreshold: 3
   successThreshold: 1
   periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
@@ -94,7 +100,7 @@ settings:
   superuserPassword:
 
   ## Postgres database authentication method (default: md5)
-  authMethod: md5
+  authMethod: "md5"
 
   ## Optional init database arguments
   initDbArgs:

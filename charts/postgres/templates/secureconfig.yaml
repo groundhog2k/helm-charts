@@ -1,17 +1,30 @@
+{{- $existingSuperuserPassword := "" }}
+{{- $existingUserDbName := "" }}
+{{- $existingUserDbUser := "" }}
+{{- $existingUserDbPassword := "" }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "postgres.fullname" .) ) }}
+{{- if $secret }}
+{{- $existingSuperuserPassword = index $secret.data "POSTGRES_PASSWORD" }}
+{{- $existingUserDbName = index $secret.data "USERDB_NAME" }}
+{{- $existingUserDbUser = index $secret.data "USERDB_USER" }}
+{{- $existingUserDbPassword = index $secret.data "USERDB_PASSWORD" }}
+{{- end -}}
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{ include "postgres.fullname" . }}
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
-stringData:
+type: Opaque
+data:
 {{- with .Values.settings }}
-  POSTGRES_PASSWORD: {{ .superuserPassword | default (randAlphaNum 10) }}
-  POSTGRES_USER: "postgres"
-  POSTGRES_HOST_AUTH_METHOD: {{ .authMethod }}
+  POSTGRES_PASSWORD: {{ coalesce (.superuserPassword | default "" | b64enc) $existingSuperuserPassword (randAlphaNum 10 | b64enc) }}
+  POSTGRES_USER: {{ "postgres" | b64enc }}
 {{- end }}
 {{- with .Values.userDatabase }}
-  USERDB_PASSWORD: {{ .password | default (randAlphaNum 10) }}
-  USERDB_USER: {{ .user }}
-  USERDB_NAME: {{ .name }}
+  {{- $userDbName := coalesce (.name | default "" | b64enc) $existingUserDbName }}
+  {{- $userDbUser := coalesce (.user | default "" | b64enc) $existingUserDbUser }}
+  USERDB_NAME: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." $userDbName }}
+  USERDB_USER: {{ required "Values: userDatabase.user is mandatory if userDatabase is specified." $userDbUser }}
+  USERDB_PASSWORD: {{ coalesce (.password | default "" | b64enc) $existingUserDbPassword (randAlphaNum 10 | b64enc) }}
 {{- end }}
