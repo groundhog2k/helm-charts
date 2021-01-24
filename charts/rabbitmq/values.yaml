@@ -69,8 +69,8 @@ ingress:
   ## Hosts
   hosts:
     - host:
-        paths:
-          - /
+      paths:
+        - /
 #  tls:
 #    - hosts:
 #      - rabbitmq.local
@@ -90,6 +90,9 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -99,7 +102,10 @@ livenessProbe:
   failureThreshold: 5
   successThreshold: 1
 
-## Default startup probe
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
 readinessProbe:
   enabled: true
   initialDelaySeconds: 60
