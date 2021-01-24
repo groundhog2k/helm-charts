@@ -1,12 +1,33 @@
+{{- $existingRootPassword := "" }}
+{{- $existingRootUser := "" }}
+{{- $existingUserDbName := "" }}
+{{- $existingUserDbUser := "" }}
+{{- $existingUserDbPassword := "" }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "mongodb.fullname" .) ) }}
+{{- if $secret }}
+{{- $existingRootPassword = index $secret.data "MONGO_INITDB_ROOT_PASSWORD" }}
+{{- $existingRootUser = index $secret.data "MONGO_INITDB_ROOT_USERNAME" }}
+{{- $existingUserDbName = index $secret.data "MONGO_INITDB_DATABASE" }}
+{{- $existingUserDbUser = index $secret.data "USERDB_USER" }}
+{{- $existingUserDbPassword = index $secret.data "USERDB_PASSWORD" }}
+{{- end -}}
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{ include "mongodb.fullname" . }}
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
-stringData:
-  {{- if .Values.userDatabase }}
-  MONGO_INITDB_DATABASE: {{ .Values.userDatabase.name | quote }}
-  {{- end }}
-  MONGO_INITDB_ROOT_USERNAME: {{ .Values.settings.rootUsername | quote }}
-  MONGO_INITDB_ROOT_PASSWORD: {{ .Values.settings.rootPassword | default (randAlphaNum 10) | quote }}
+type: Opaque
+data:
+{{- with .Values.userDatabase }}
+  {{- $userDbName := coalesce (.name | default "" | b64enc) $existingUserDbName }}
+  {{- $userDbUser := coalesce (.user | default "" | b64enc) $existingUserDbUser }}
+  MONGO_INITDB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." $userDbName }}
+  USERDB_USER: {{ required "Values: userDatabase.user is mandatory if userDatabase is specified." $userDbUser }}
+  USERDB_PASSWORD: {{ coalesce (.password | default "" | b64enc) $existingUserDbPassword (randAlphaNum 10 | b64enc) }}
+{{- end }}
+{{- with .Values.settings }}
+  {{- $rootUser := coalesce (.rootUsername | default "" | b64enc) $existingRootUser }}
+  MONGO_INITDB_ROOT_USERNAME: {{ required "Values: settings.rootUsername is mandatory." $rootUser }}
+  MONGO_INITDB_ROOT_PASSWORD: {{ coalesce (.rootPassword | default "" | b64enc) $existingRootPassword (randAlphaNum 10 | b64enc) }}
+{{- end }}
