@@ -15,8 +15,9 @@ spec:
     type: {{ .Values.updateStrategyType }}  
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -43,6 +44,10 @@ spec:
             - name: mongodb
               containerPort: 27017
               protocol: TCP
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             exec:
@@ -50,12 +55,19 @@ spec:
                 - mongo
                 - --eval
                 - "db.adminCommand('ping')"
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
           {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             exec:
@@ -63,11 +75,14 @@ spec:
                 - mongo
                 - --eval
                 - "db.adminCommand('ping')"
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
-            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+          {{- end }}
+          {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
@@ -99,10 +114,10 @@ spec:
               name: customconfig
             {{- end }}
             {{- if .Values.userDatabase }}
-            - mountPath: /docker-entrypoint-initdb.d/init-user-db.js
-              subPath: init-user-db.js
+            - mountPath: /docker-entrypoint-initdb.d/init-user-db.sh
+              subPath: init-user-db.sh
               name: inituserdb
-            {{- end }}              
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -122,13 +137,12 @@ spec:
         - name: customconfig
           configMap:
             name: {{ include "mongodb.fullname" . }}-customconfig
-            defaultMode: 0440
         {{- end }}
         {{- if .Values.userDatabase }}
         - name: inituserdb
-          secret:
-            secretName: {{ include "mongodb.fullname" . }}-userdb
-            defaultMode: 0440
+          configMap:
+            name: {{ include "mongodb.fullname" . }}-inituserdb
+            defaultMode: 0550
         {{- end }}
   {{- if .Values.storage.persistentVolumeClaimName }}
         - name: mongodb-volume
@@ -142,8 +156,6 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: mongodb-volume
-        labels:
-          {{- include "mongodb.labels" . | nindent 10 }}
       spec:
         {{- with .Values.storage.accessModes }}
         accessModes:
@@ -157,3 +169,4 @@ spec:
             storage: {{ .Values.storage.requestedSize }}
   {{- end }}
   {{- end }}
+  
