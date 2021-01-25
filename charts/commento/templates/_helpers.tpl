@@ -73,3 +73,27 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Commento settings via environment variables
+*/}}
+{{- define "commento.environment" -}}
+- name: COMMENTO_FORBID_NEW_OWNERS
+  value: {{ .Values.settings.forbidNewOwners | quote }}
+- name: COMMENTO_GZIP_STATIC
+  value: {{ .Values.settings.gzipStaticContent | quote }}
+- name: COMMENTO_PORT
+  value: {{ .Values.containerPort | quote }}
+- name: COMMENTO_ORIGIN
+  value: {{ (printf "%s://%s" .Values.settings.protocol .Values.ingress.host) | quote }}
+{{- with .Values.settings.smtp }}
+  {{- if .enabled }}
+ - name: COMMENTO_SMTP_HOST
+   value: {{ .host | quote }}
+ - name: COMMENTO_SMTP_PORT
+   value: {{ .port | quote }}
+ - name: COMMENTO_SMTP_FROM_ADDRESS
+   value: {{ .from | quote }}
+  {{- end }}
+{{- end }}
+{{- end }}

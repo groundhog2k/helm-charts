@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "commento.fullname" . }}
+  labels:
+    {{- include "commento.labels" . | nindent 4 }}
+type: Opaque
+data:
+{{- if .Values.postgres.enabled }}
+  COMMENTO_POSTGRES: {{ (printf "postgres://%s:%s@%s:%s/%s?sslmode=disable" .Values.postgres.userDatabase.user .Values.postgres.userDatabase.password (include "postgres.servicename" .) (.Values.postgres.service.port | toString) .Values.postgres.userDatabase.name) | b64enc }}
+{{- else }}
+{{- with .Values.externalDatabase }}
+  COMMENTO_POSTGRES: {{ (printf "mongodb://%s:%s@%s/%s?sslmode=disable" .user .password .host (.port | toString) .name) | b64enc }}
+{{- end }}
+{{- end }}
+{{- with .Values.settings.smtp }}
+  {{- if .enabled }}
+  COMMENTO_SMTP_USERNAME: {{ .name | b64enc }}
+  COMMENTO_SMTP_PASSWORD: {{ .password | b64enc }}
+  {{- end }}
+{{- end }}
+{{- if .Values.settings.akismetKey }}
+  COMMENTO_AKISMET_KEY: {{ .Values.settings.akismetKey | b64enc }}
+{{- end }}
+{{- with .Values.settings.oauth }}
+  {{- if .google.enabled }}
+  COMMENTO_GOOGLE_KEY: {{ .google.key | b64enc }}
+  COMMENTO_GOOGLE_SECRET: {{ .google.secret | b64enc }}
+  {{- end }}
+  {{- if .github.enabled }}
+  COMMENTO_GITHUB_KEY: {{ .github.key | b64enc }}
+  COMMENTO_GITHUB_SECRET: {{ .github.secret | b64enc }}
+  {{- end }}
+  {{- if .gitlab.enabled }}
+  COMMENTO_GITLAB_KEY: {{ .gitlab.key | b64enc }}
+  COMMENTO_GITLAB_SECRET: {{ .gitlab.secret | b64enc }}
+  {{- end }}
+  {{- if .twitter.enabled }}
+  COMMENTO_TWITTER_KEY: {{ .twitter.key | b64enc }}
+  COMMENTO_TWITTER_SECRET: {{ .twitter.secret | b64enc }}
+  {{- end }}      
+{{- end }}

@@ -9,10 +9,15 @@ spec:
   selector:
     matchLabels:
       {{- include "commento.selectorLabels" . | nindent 6 }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+    {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
@@ -47,6 +52,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:{{ .Values.containerPort  }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -55,6 +64,11 @@ spec:
             periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
@@ -71,6 +85,7 @@ spec:
             periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
+          {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -79,14 +94,7 @@ spec:
             - secretRef:
                 name: {{ include "commento.fullname" . }}
           env:
-            - name: COMMENTO_FORBID_NEW_OWNERS
-              value: {{ .Values.settings.forbidNewOwners | quote }}
-            - name: COMMENTO_GZIP_STATIC
-              value: {{ .Values.settings.gzipStaticContent |quote }}
-            - name: COMMENTO_PORT
-              value: {{ .Values.containerPort | quote }}
-            - name: COMMENTO_ORIGIN
-              value: {{ .Values.settings.protocol }}://{{ .Values.ingress.host }}
+            {{- include "commento.environment" . | nindent 12 }}              
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
