@@ -1,6 +1,6 @@
 # Commento
 
-![Version: 0.1.9](https://img.shields.io/badge/Version-0.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.10](https://img.shields.io/badge/Version-0.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
 
 A Helm chart for Commento on Kubernetes
 
@@ -45,7 +45,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | postgres | 0.2.5 |
+| @groundhog2k | postgres | 0.2.7 |
 
 ## Common parameters
 
@@ -62,8 +62,11 @@ $ helm uninstall my-release
 | image.repository | string | `"registry.gitlab.com/commento/commento"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| strategy | object | `{}` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |

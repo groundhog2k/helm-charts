@@ -12,6 +12,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Pod deployment strategy
+strategy: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -79,6 +82,9 @@ affinity: {}
 
 containerPort: 8080
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -87,6 +93,9 @@ livenessProbe:
   failureThreshold: 6
   successThreshold: 1
   periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
