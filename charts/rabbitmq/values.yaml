@@ -70,7 +70,7 @@ ingress:
   hosts:
     - host:
       paths:
-       - /
+         - /
 
   ## TLS settings for hosts
   tls: []
