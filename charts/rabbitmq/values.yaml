@@ -70,10 +70,13 @@ ingress:
   hosts:
     - host:
       paths:
-        - /
-#  tls:
-#    - hosts:
-#      - rabbitmq.local
+       - /
+
+  ## TLS settings for hosts
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 ## Resource limits and requests
 resources: {}
