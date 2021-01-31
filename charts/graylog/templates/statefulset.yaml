@@ -149,6 +149,8 @@ spec:
               name: geocity
             - mountPath: /tmp
               name: tmp
+            - mountPath: /usr/share/graylog/plugins-merged
+              name: plugins-merged
             - mountPath: /usr/share/graylog/data
               name: graylog-volume
       {{- with .Values.nodeSelector }}
@@ -167,6 +169,8 @@ spec:
         - name: tmp
           emptyDir: {}
         - name: geocity
+          emptyDir: {}
+        - name: plugins-merged
           emptyDir: {}
         - name: scripts
           configMap:
