@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.41.2](https://img.shields.io/badge/AppVersion-3.41.2-informational?style=flat-square)
+![Version: 0.2.13](https://img.shields.io/badge/Version-0.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.41.3](https://img.shields.io/badge/AppVersion-3.41.3-informational?style=flat-square)
 
 A Helm chart for Ghost blog on Kubernetes
 
