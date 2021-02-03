@@ -1,6 +1,6 @@
 dependencies:
 - name: mariadb
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.2.5
-digest: sha256:3f2710b71e239a9fbb6df3214753b1a7117492e0fb586b405d837e0e17ec9994
-generated: "2021-01-15T17:40:50.1833958+01:00"
+  version: 0.2.8
+digest: sha256:6ae732ab7bb3c3996253ea9520fd42c5a4bad7d298d55f7cb848634139b267d6
+generated: "2021-02-03T17:34:00.1294277+01:00"
