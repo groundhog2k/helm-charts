@@ -6,15 +6,19 @@ metadata:
     {{- include "nextcloud.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
-  strategy: 
-    type: RollingUpdate
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "nextcloud.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/extendedconfig: {{ include (print $.Template.BasePath "/extendedconfig.yaml") . | sha256sum }}
+    {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
@@ -64,6 +68,10 @@ spec:
             - name: http
               containerPort: {{ .Values.containerPort  }}
               protocol: TCP
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
@@ -80,6 +88,11 @@ spec:
             periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
+          {{- end }}
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
             httpGet:
@@ -94,6 +107,7 @@ spec:
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
             periodSeconds: {{ .periodSeconds }}
+          {{- end }}
           {{- end }}
           {{- end }}
           {{- with .Values.resources }}

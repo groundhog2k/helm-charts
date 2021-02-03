@@ -18,6 +18,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Pod deployment strategy
+strategy:
+  type: RollingUpdate
+
 ## Internal default cron jobs (cron.php)
 defaultCronJobs:
   - name: cronphp
@@ -112,6 +116,9 @@ resources: {}
 #   cpu: 100m
 #   memory: 128Mi
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -120,6 +127,9 @@ livenessProbe:
   failureThreshold: 5
   successThreshold: 1
   periodSeconds: 10
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
 
 ## Default startup probe
 startupProbe:
@@ -187,7 +197,7 @@ externalCache:
 
 ## Nextcloud specific configuration
 settings:
-  ## Enable update processing (Only necessary if custom command is use)
+  ## Enable update processing (Only necessary if custom command is used)
   update: false
 
   ## Maximum file upload size (default: 64M)

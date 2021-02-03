@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.6-apache](https://img.shields.io/badge/AppVersion-20.0.6-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20.0.6-apache](https://img.shields.io/badge/AppVersion-20.0.6-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -62,9 +62,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.5 |
-| @groundhog2k | postgres | 0.2.5 |
-| @groundhog2k | redis | 0.2.6 |
+| @groundhog2k | mariadb | 0.2.8 |
+| @groundhog2k | postgres | 0.2.7 |
+| @groundhog2k | redis | 0.2.8 |
 
 ## Common parameters
 
@@ -81,8 +81,11 @@ $ helm uninstall my-release
 | image.repository | string | `"nextcloud"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| strategy.type | object | `"RollingUpdate"` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
+| customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
@@ -103,6 +106,7 @@ $ helm uninstall my-release
 | postUpgradeHook | bool | `false` | Enable post upgrade hook |
 | postUpgradeHookDelay | int | `10` | Delay in seconds before post-upgrade steps are initiated |
 | postUpgradeSteps | list | `see values.yaml` | Script with post upgrade steps |
+
 ## Cron jobs
 
 | Key | Type | Default | Description |
