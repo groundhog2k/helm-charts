@@ -15,6 +15,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Pod deployment strategy
+strategy: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -94,6 +97,9 @@ resources: {}
 #   cpu: 100m
 #   memory: 128Mi
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -102,6 +108,9 @@ livenessProbe:
   failureThreshold: 5
   successThreshold: 1
   periodSeconds: 30
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
@@ -162,17 +171,17 @@ gitea:
       LFS_START_SERVER: "true"
       LFS_CONTENT_PATH: "/data/gitea/lfs"
       OFFLINE_MODE: "false"
-      # LFS JWT secret or random value
-      # LFS_JWT_SECRET:
+      # LFS JWT secret
+      LFS_JWT_SECRET:
 
       SSH_ROOT_PATH: "/data/ssh"
       APP_DATA_PATH: "/data/gitea"
 
     security:
       INSTALL_LOCK: "true"
-      # Internal secret and token or random value
-      # SECRET_KEY:
-      # INTERNAL_TOKEN:
+      # Internal secret and token
+      SECRET_KEY:
+      INTERNAL_TOKEN:
 
     repositories:
       ROOT: "/data/git/gitea-repositories"
@@ -197,9 +206,9 @@ gitea:
       DISABLE_GRAVATAR: "false"
       ENABLE_FEDERATED_AVATAR: "true"
 
-    # OAuth2 JWT secrent or random value
-    # oauth2:
-      # JWT_SECRET:
+    # OAuth2 JWT secret
+    oauth2:
+      JWT_SECRET:
 
     mailer:
       ENABLED: "false"

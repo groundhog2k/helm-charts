@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
+![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.5 |
-| @groundhog2k | postgres | 0.2.5 |
-| @groundhog2k | redis | 0.2.6 |
+| @groundhog2k | mariadb | 0.2.8 |
+| @groundhog2k | postgres | 0.2.7 |
+| @groundhog2k | redis | 0.2.8 |
 
 ## Common parameters
 
@@ -62,8 +62,11 @@ $ helm uninstall my-release
 | image.repository | string | `"gitea/gitea"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| strategy | object | `{}` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
@@ -139,7 +142,16 @@ $ helm uninstall my-release
 | settings.defaultAdmin.name | string | `root` | Gitea administrator user |
 | settings.defaultAdmin.password | string | `admin` | Gitea admin user password (Must be changed during first login) |
 | settings.defaultAdmin.email | string | `root@admin.local` | Gitea administrator users email |
-| gitea.config | object | `see values.yaml` | Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/ - More values and sections can be added - All values will only be created once during install!
+| gitea.config | object | `see values.yaml` | Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/ - More values and sections can be added |
+
+It's recommended to set the following Gitea configuration parameters:
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| gitea.config.server.LFS_JWT_SECRET | string | `nil` |  LFS authentication secret, must be unique string |
+| gitea.config.security.SECRET_KEY | string | `nil` | Global secret key |
+| gitea.config.security.INTERNAL_TOKEN | string | `nil` | Secret used to validate communication within Gitea binary |
+| gitea.config.oauth2.JWT_SECRET | string | `nil` | OAuth2 authentication secret for access and refresh tokens, must be a unique string |
 
 ## Storage parameters
 
