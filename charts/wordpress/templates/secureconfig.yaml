@@ -4,24 +4,24 @@ metadata:
   name: {{ include "wordpress.fullname" . }}
   labels:
     {{- include "wordpress.labels" . | nindent 4 }}
-stringData:
+data:
 {{- if .Values.mariadb.enabled }}
-  WORDPRESS_DB_HOST: {{ include "mariadb.servicename" . }}
+  WORDPRESS_DB_HOST: {{ (include "mariadb.servicename" .) | b64enc }}
   {{- with .Values.mariadb.userDatabase }}
-  WORDPRESS_DB_NAME: {{ .name }}
-  WORDPRESS_DB_USER: {{ .user }}
-  WORDPRESS_DB_PASSWORD: {{ .password }}
+  WORDPRESS_DB_NAME: {{ .name | b64enc }}
+  WORDPRESS_DB_USER: {{ .user | b64enc }}
+  WORDPRESS_DB_PASSWORD: {{ .password | b64enc }}
   {{- end }}
 {{- else }}
 {{- with .Values.externalDatabase }}
-  WORDPRESS_DB_NAME: {{ .name }}
-  WORDPRESS_DB_USER: {{ .user }}
-  WORDPRESS_DB_PASSWORD: {{ .password }}
-  WORDPRESS_DB_HOST: {{ .host }}
+  WORDPRESS_DB_NAME: {{ .name | b64enc }}
+  WORDPRESS_DB_USER: {{ .user | b64enc }}
+  WORDPRESS_DB_PASSWORD: {{ .password | b64enc }}
+  WORDPRESS_DB_HOST: {{ .host | b64enc }}
 {{- end }}
 {{- end }}
 {{- with .Values.settings }}
   {{- if .tablePrefix }}
-  WORDPRESS_TABLE_PREFIX: {{ .tablePrefix }}
+  WORDPRESS_TABLE_PREFIX: {{ .tablePrefix | b64enc }}
   {{- end }}
 {{- end }}

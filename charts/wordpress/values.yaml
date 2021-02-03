@@ -15,6 +15,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Pod deployment strategy
+strategy: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -86,6 +89,9 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -94,6 +100,9 @@ livenessProbe:
   failureThreshold: 5
   successThreshold: 1
   periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
@@ -118,18 +127,18 @@ env: []
 args: []
 
 ## External database settings (is used when mariadb.enabled is false)
-externalDatabase:
+externalDatabase: {}
   ## Name of the database (default: wordpress)
-  name: wordpress
+  # name: wordpress
 
   ## Database user
-  user:
+  # user:
 
   ## Database password
-  password:
+  # password:
 
   ## Database host
-  host:
+  # host:
 
 ## Wordpress specific settings
 settings:
