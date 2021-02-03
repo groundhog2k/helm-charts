@@ -11,6 +11,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Pod deployment strategy
+strategy: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -88,6 +91,9 @@ tolerations: []
 
 affinity: {}
 
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
 ## Default liveness probe
 livenessProbe:
   enabled: true
@@ -96,6 +102,9 @@ livenessProbe:
   failureThreshold: 3
   successThreshold: 1
   periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
 
 ## Default readiness probe
 readinessProbe:
@@ -127,6 +136,9 @@ externalDatabase:
 
   ## Database host (only for mysql)
   host:
+
+  ## Database port (only for mysql)
+  port:
 
 ## Ghost specific configuration
 settings:

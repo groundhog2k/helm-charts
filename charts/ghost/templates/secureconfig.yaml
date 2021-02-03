@@ -4,30 +4,30 @@ metadata:
   name: {{ include "ghost.fullname" . }}
   labels:
     {{- include "ghost.labels" . | nindent 4 }}
-stringData:
+data:
 {{- if .Values.mariadb.enabled }}
-  database__client: "mysql"
-  database__connection__host: {{ include "mariadb.servicename" . }}
-  database__connection__port: {{ .Values.mariadb.service.port | quote }}
+  database__client: {{ "mysql" | b64enc }}
+  database__connection__host: {{ (include "mariadb.servicename" .) | b64enc }}
+  database__connection__port: {{ (.Values.mariadb.service.port | toString) | b64enc }}
   {{- with .Values.mariadb.userDatabase }}  
-  database__connection__database: {{ .name }}
-  database__connection__user: {{ .user }}
-  database__connection__password: {{ .password }}
+  database__connection__database: {{ .name | b64enc }}
+  database__connection__user: {{ .user | b64enc }}
+  database__connection__password: {{ .password | b64enc }}
   {{- end }}
 {{- else }}
   {{- with .Values.externalDatabase }}
   {{- if or (eq .type "mariadb") (eq .type "mysql") }}
-  database__client: "mysql"
-  database__connection__host: {{ .host }}
-  database__connection__port: {{ .port | default (3306) | quote }}
-  database__connection__user: {{ .user }}
-  database__connection__password: {{ .password }}
-  database__connection__database: {{ .name }}
+  database__client: {{ "mysql" | b64enc }}
+  database__connection__host: {{ .host | b64enc }}
+  database__connection__port: {{ (.port | default "3306") | toString | b64enc }}
+  database__connection__user: {{ .user | b64enc }}
+  database__connection__password: {{ .password | b64enc }}
+  database__connection__database: {{ .name | b64enc }}
   {{- else }}
-  database__client: "sqlite3"
+  database__client: {{ "sqlite3" | b64enc }}
   {{- end }}
   {{- end }}
 {{- end }}
 {{- if .Values.settings.mail.password }}
-  mail__options__auth__pass: {{ .Values.settings.mail.password }}
+  mail__options__auth__pass: {{ .Values.settings.mail.password | b64enc }}
 {{- end }}

@@ -9,10 +9,15 @@ spec:
   selector:
     matchLabels:
       {{- include "ghost.selectorLabels" . | nindent 6 }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+    {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
@@ -73,7 +78,11 @@ spec:
             {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}    
+          {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
@@ -82,14 +91,19 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:2368
-            {{- with .Values.livenessProbe }}
+          {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
             periodSeconds: {{ .periodSeconds }}
-            {{- end }}
           {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
@@ -98,13 +112,14 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:2368
-            {{- with .Values.readinessProbe }}
+          {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
             periodSeconds: {{ .periodSeconds }}
-            {{- end }}
+          {{- end }}
+          {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
