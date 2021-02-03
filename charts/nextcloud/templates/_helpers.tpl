@@ -108,30 +108,56 @@ Nextcloud specific environment variables
 {{- $internal := include "nextcloud.fullname" . }}
 {{- with .Values.settings }}
 - name: NEXTCLOUD_TRUSTED_DOMAINS
-  value: {{ $internal }} {{ .trustedDomains | default ("") }} 
+  {{- if .trustedDomains }}
+  value: {{ (printf "%s %s" $internal .trustedDomains) | quote }} 
+  {{- else }}
+  value: {{ $internal | quote }} 
+  {{- end }}
 {{- if .disableRewriteIP }}
 - name: APACHE_DISABLE_REWRITE_IP
-  value: {{ .disableRewriteIP }}
+  value: {{ .disableRewriteIP | quote }}
 {{- end }}
 {{- if .trustedProxies }}
 - name: TRUSTED_PROXIES
-  value: {{ .trustedProxies }}
+  value: {{ .trustedProxies | quote }}
 {{- end }}
 {{- if .overwriteHost }}
 - name: OVERWRITEHOST
-  value: {{ .overwriteHost }}
+  value: {{ .overwriteHost | quote }}
 {{- end }}
 {{- if .overwriteProtocol }}
 - name: OVERWRITEPROTOCOL
-  value: {{ .overwriteProtocol }}
+  value: {{ .overwriteProtocol | quote }}
 {{- end }}
 {{- if .overwriteWebRoot }}
 - name: OVERWRITEWEBROOT
-  value: {{ .overwriteWebRoot }}
+  value: {{ .overwriteWebRoot | quote }}
 {{- end }}
 {{- if .overwriteCondAddr }}
 - name: OVERWRITECONDADDR
-  value: {{ .overwriteCondAddr }}
+  value: {{ .overwriteCondAddr | quote }}
 {{- end }}
+{{- end }}
+{{- with .Values.settings.smtp }}
+  {{- if .enabled }}
+- name: SMTP_HOST 
+  value: {{ .host | quote }}
+- name: SMTP_PORT 
+  value: {{ .port | quote }}
+  {{- if .secure }}
+- name: SMTP_SECURE
+  value: "ssl"
+  {{- end }}
+- name: SMTP_AUTHTYPE
+  value: {{ .authType | quote }}
+  {{- if .from }}
+- name: MAIL_FROM_ADDRESS
+  value: {{ .from | quote }}
+  {{- end }}
+  {{- if .domain }}
+- name: MAIL_DOMAIN
+  value: {{ .domain | quote }}
+  {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
