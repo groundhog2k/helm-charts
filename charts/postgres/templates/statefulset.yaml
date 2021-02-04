@@ -6,7 +6,7 @@ metadata:
     {{- include "postgres.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  serviceName: {{ include "postgres.fullname" . }}-internal
+  serviceName: {{ include "postgres.fullname" . }}
   selector:
     matchLabels:
       {{- include "postgres.selectorLabels" . | nindent 6 }}
@@ -43,14 +43,14 @@ spec:
               protocol: TCP
           env:
             - name: PGDATA
-              value: /var/lib/postgresql/data/pg
+              value: "/var/lib/postgresql/data/pg"
             {{- if .Values.settings.authMethod }}
             - name: POSTGRES_HOST_AUTH_METHOD
-              value: {{ .Values.settings.authMethod }}
+              value: {{ .Values.settings.authMethod | quote }}
             {{- end }}
             {{- if .Values.settings.initDbArgs }}
             - name: POSTGRES_INITDB_ARGS
-              value: {{ .Values.settings.initDbArgs }}
+              value: {{ .Values.settings.initDbArgs | quote }}
             {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
