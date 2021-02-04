@@ -6,7 +6,7 @@ metadata:
     {{- include "mariadb.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  serviceName: {{ include "mariadb.fullname" . }}-internal
+  serviceName: {{ include "mariadb.fullname" . }}
   selector:
     matchLabels:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}
