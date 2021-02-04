@@ -1,6 +1,6 @@
 #  Wordpress
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.6.0-apache](https://img.shields.io/badge/AppVersion-5.5.3-informational?style=flat-square)
+![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.6.0-apache](https://img.shields.io/badge/AppVersion-5.6.0-informational?style=flat-square)
 
 A Helm chart for Wordpress on Kubernetes
 
@@ -43,7 +43,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.8 |
+| @groundhog2k | mariadb | 0.2.9 |
 
 ## Common parameters
 
