@@ -150,7 +150,7 @@ settings:
     email: root@admin.local
 
 ## Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/
-## More values and sections can be added - All values will only be created once during install!
+## More values and sections can be added
 gitea:
   config:
     RUN_MODE: "prod"
