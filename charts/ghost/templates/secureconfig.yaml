@@ -28,6 +28,11 @@ data:
   {{- end }}
   {{- end }}
 {{- end }}
-{{- if .Values.settings.mail.password }}
-  mail__options__auth__pass: {{ .Values.settings.mail.password | b64enc }}
+{{- with .Values.settings.mail }}
+{{- if .user }}
+  mail__options__auth__user: {{ .user | b64enc }}
+{{- end }}
+{{- if .password }}
+  mail__options__auth__pass: {{ .password | b64enc }}
+{{- end }}
 {{- end }}
