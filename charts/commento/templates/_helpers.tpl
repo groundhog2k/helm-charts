@@ -88,12 +88,12 @@ Commento settings via environment variables
   value: {{ (printf "%s://%s" .Values.settings.protocol .Values.ingress.host) | quote }}
 {{- with .Values.settings.smtp }}
   {{- if .enabled }}
- - name: COMMENTO_SMTP_HOST
-   value: {{ .host | quote }}
- - name: COMMENTO_SMTP_PORT
-   value: {{ .port | quote }}
- - name: COMMENTO_SMTP_FROM_ADDRESS
-   value: {{ .from | quote }}
+- name: COMMENTO_SMTP_HOST
+  value: {{ .host | quote }}
+- name: COMMENTO_SMTP_PORT
+  value: {{ .port | quote }}
+- name: COMMENTO_SMTP_FROM_ADDRESS
+  value: {{ .from | quote }}
   {{- end }}
 {{- end }}
 {{- end }}
