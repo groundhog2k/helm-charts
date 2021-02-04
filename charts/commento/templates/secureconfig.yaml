@@ -7,10 +7,19 @@ metadata:
 type: Opaque
 data:
 {{- if .Values.postgres.enabled }}
+  {{- $_ := required "Values: postgres.userDatabase.name is mandatory if postgres.userDatabase is enabled." .Values.postgres.userDatabase.name }}
+  {{- $_ := required "Values: postgres.userDatabase.user is mandatory if postgres.userDatabase is enabled." .Values.postgres.userDatabase.user }}
+  {{- $_ := required "Values: postgres.userDatabase.password is mandatory if postgres.userDatabase is enabled." .Values.postgres.userDatabase.password }}
+  {{- $_ := required "Values: postgres.service.port is mandatory if postgres.userDatabase is enabled." .Values.postgres.service.port }}
   COMMENTO_POSTGRES: {{ (printf "postgres://%s:%s@%s:%s/%s?sslmode=disable" .Values.postgres.userDatabase.user .Values.postgres.userDatabase.password (include "postgres.servicename" .) (.Values.postgres.service.port | toString) .Values.postgres.userDatabase.name) | b64enc }}
 {{- else }}
 {{- with .Values.externalDatabase }}
-  COMMENTO_POSTGRES: {{ (printf "mongodb://%s:%s@%s/%s?sslmode=disable" .user .password .host (.port | toString) .name) | b64enc }}
+  {{- $_ := required "Values: externalDatabase.name is mandatory if externalDatabase is specified." .name }}
+  {{- $_ := required "Values: externalDatabase.user is mandatory if externalDatabase is specified." .user }}
+  {{- $_ := required "Values: externalDatabase.password is mandatory if externalDatabase is specified." .password }}
+  {{- $_ := required "Values: externalDatabase.host is mandatory if externalDatabase is specified." .host }}
+  {{- $_ := required "Values: externalDatabase.port is mandatory if externalDatabase is specified." .port }}
+  COMMENTO_POSTGRES: {{ (printf "mongodb://%s:%s@%s:%s/%s?sslmode=disable" .user .password .host (.port | toString) .name) | b64enc }}
 {{- end }}
 {{- end }}
 {{- with .Values.settings.smtp }}
