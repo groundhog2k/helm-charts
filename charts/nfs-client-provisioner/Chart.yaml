@@ -1,10 +1,15 @@
+## This chart is deprecated and will no longer be maintained
+## A new chart of the nfs-client-provisioner was release at https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/charts/nfs-subdir-external-provisioner
+
 apiVersion: v1
-appVersion: 3.1.0
+appVersion: 4.0.0
 description: nfs-client is an automatic provisioner that used your *already configured* NFS server, automatically creating Persistent Volumes.
 name: nfs-client-provisioner
-version: 1.2.11
+version: 4.0.0
 keywords:
   - nfs
   - storage
 maintainers:
   - name: groundhog2k
+
+deprecated: true
