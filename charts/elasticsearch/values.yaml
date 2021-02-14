@@ -1,6 +1,6 @@
 ## Elasticsearch docker image
 image:
-  repository: elasticsearch
+  repository: docker.elastic.co/elasticsearch/elasticsearch
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -95,7 +95,7 @@ customLivenessProbe: {}
 ## Default liveness probe
 livenessProbe:
   enabled: true
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
@@ -107,7 +107,7 @@ customReadinessProbe: {}
 ## Default readiness probe
 readinessProbe:
   enabled: true
-  initialDelaySeconds: 30
+  initialDelaySeconds: 60
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
