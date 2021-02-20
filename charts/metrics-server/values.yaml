@@ -39,8 +39,7 @@ args: []
 
 resources: {}
 
-nodeSelector:
-  kubernetes.io/arch: amd64
+nodeSelector: {}
 
 tolerations: []
 
