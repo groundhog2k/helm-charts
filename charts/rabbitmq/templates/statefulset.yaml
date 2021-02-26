@@ -18,6 +18,7 @@ spec:
       annotations:
         checksum/rabbit-config: {{ include (print $.Template.BasePath "/rabbit-config.yaml") . | sha256sum }}
         checksum/plugins-config: {{ include (print $.Template.BasePath "/plugins-config.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -41,18 +42,25 @@ spec:
           {{- end }}
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          env:
+            - name: ERLANG_COOKIE
+              value: {{ .Values.authentication.erlangCookie | default (randAlphaNum 32) }}
           volumeMounts:
             - name: config
               mountPath: /etc/rabbitmq
             - name: rabbitconfig
               mountPath: /temp/rabbitmq.conf
               subPath: rabbitmq.conf
+            - name: rabbitmq-volume
+              mountPath: /var/lib/rabbitmq              
+            - name: scripts
+              mountPath: /scripts
           {{- if .Values.plugins }}
             - name: plugins
               mountPath: /temp/enabled_plugins
               subPath: enabled_plugins
           {{- end }}
-          command: ['sh', '-c', 'cp /temp/* /etc/rabbitmq && mkdir -p /etc/rabbitmq/conf.d']
+          command: [ "/scripts/init.sh" ]
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -191,6 +199,10 @@ spec:
         - name: rabbitconfig
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-config
+        - name: scripts
+          configMap:
+            name: {{ include "rabbitmq.fullname" . }}-scripts
+            defaultMode: 0555        
       {{- if .Values.plugins }}
         - name: plugins
           configMap:
