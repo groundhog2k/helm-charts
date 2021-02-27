@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.1.9](https://img.shields.io/badge/Version-0.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.5](https://img.shields.io/badge/AppVersion-4.0.5-informational?style=flat-square)
+![Version: 0.1.10](https://img.shields.io/badge/Version-0.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.5](https://img.shields.io/badge/AppVersion-4.0.5-informational?style=flat-square)
 
 A Helm chart for Graylog on Kubernetes
 
@@ -145,7 +145,7 @@ Section to define all additional UDP/TCP inputs for Graylog
 | initGeoIPDatabase.enabled | bool | `false` | Enable GeoIP database download |
 | initGeoIPDatabase.accountId | string | `""` | MaxMind UserId / AccountId |
 | initGeoIPDatabase.licenseKey | string | `""` | MaxMind license key |
-| initGeoIPDatabase.editionId | string | `"GeoLite2-City"` | Default database edition Id (https://www.maxmind.com/en/accounts/473747/geoip/downloads) |
+| initGeoIPDatabase.editionId | string | `"GeoLite2-City"` | Default database edition id (https://www.maxmind.com/en/accounts/473747/geoip/downloads) |
 | initGeoIPDatabase.host | string | `""` | The MaxMind download host (not necessary to change that - default updates.maxmind.com)|
 | initGeoIPDatabase.proxy | string | `""` | A valid proxy if internet access is running through a proxy |
 | initGeoIPDatabase.proxyUserPassword | string | `""` | Proxy username and password in format "username:password" |
