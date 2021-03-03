@@ -887,6 +887,31 @@ entries:
   gitea:
   - apiVersion: v2
     appVersion: 1.13.2
+    created: "2021-03-03T14:43:26.247615658Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.10
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.9
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.1
+    description: A Helm chart for Gitea on Kubernetes
+    digest: 04a97c4f9844e3a0eb3d971ad3ecc325eff72aa5e9600daf4fbde6fa30482cc9
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.2.14/gitea-0.2.14.tgz
+    version: 0.2.14
+  - apiVersion: v2
+    appVersion: 1.13.2
     created: "2021-02-27T17:47:27.636233567Z"
     dependencies:
     - condition: mariadb.enabled
@@ -1943,6 +1968,31 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.1.0/mongodb-0.1.0.tgz
     version: 0.1.0
   nextcloud:
+  - apiVersion: v2
+    appVersion: 20.0.8-apache
+    created: "2021-03-03T14:43:26.339452538Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.10
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.9
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.1
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: 9e3007e0193de2f3836311b66283e64832ff93b5b64f57d57404cd2f9e00e23f
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.4.9/nextcloud-0.4.9.tgz
+    version: 0.4.9
   - apiVersion: v2
     appVersion: 20.0.8-apache
     created: "2021-02-28T09:58:29.631648732Z"
