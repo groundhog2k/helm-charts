@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.2.13](https://img.shields.io/badge/Version-0.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
+![Version: 0.2.14](https://img.shields.io/badge/Version-0.2.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -45,7 +45,7 @@ $ helm uninstall my-release
 |------------|------|---------|
 | @groundhog2k | mariadb | 0.2.10 |
 | @groundhog2k | postgres | 0.2.9 |
-| @groundhog2k | redis | 0.3.0 |
+| @groundhog2k | redis | 0.3.1 |
 
 ## Common parameters
 
