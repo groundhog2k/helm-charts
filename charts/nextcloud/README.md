@@ -64,7 +64,7 @@ $ helm uninstall my-release
 |------------|------|---------|
 | @groundhog2k | mariadb | 0.2.10 |
 | @groundhog2k | postgres | 0.2.9 |
-| @groundhog2k | redis | 0.3.0 |
+| @groundhog2k | redis | 0.3.1 |
 
 ## Common parameters
 

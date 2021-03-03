@@ -23,6 +23,6 @@ dependencies:
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: postgres.enabled
   - name: redis
-    version: 0.3.0
+    version: 0.3.1
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: redis.enabled
