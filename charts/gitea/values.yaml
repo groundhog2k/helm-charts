@@ -183,7 +183,7 @@ gitea:
       SECRET_KEY:
       INTERNAL_TOKEN:
 
-    repositories:
+    repository:
       ROOT: "/data/git/gitea-repositories"
 
     service:
