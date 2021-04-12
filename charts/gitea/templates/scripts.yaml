@@ -22,7 +22,7 @@ data:
     if [ ! -f /data/gitea/conf/.post-install-done ]; then
       sleep {{ .Values.settings.postInstallDelay }}
       {{- with .Values.settings.defaultAdmin }}
-      /app/gitea/gitea admin create-user --username {{ .user }} --password {{ .password }} --email {{ .email }} --admin --must-change-password
+      /app/gitea/gitea admin user create --username {{ .user }} --password {{ .password }} --email {{ .email }} --admin --must-change-password
       {{- end }}
       touch /data/gitea/conf/.post-install-done
     fi
