@@ -2,7 +2,7 @@
 {{- $fullName := include "rabbitmq.fullname" . -}}
 {{- $svcPort := .Values.service.mgmt.port -}}
 {{- $kubeVersion := .Capabilities.KubeVersion.GitVersion -}}
-{{- if semverCompare ">=1.19.0" $kubeVersion -}}
+{{- if semverCompare ">=1.19-0" $kubeVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else -}}
 {{- if semverCompare ">=1.14-0" $kubeVersion -}}
@@ -38,7 +38,7 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ . }}
-            {{- if semverCompare ">=1.19.0" $kubeVersion }}
+            {{- if semverCompare ">=1.19-0" $kubeVersion }}
             pathType: ImplementationSpecific
             backend:
               service:
