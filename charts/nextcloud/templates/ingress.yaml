@@ -3,10 +3,15 @@
 {{- $svcPort := .Values.service.port -}}
 {{- $maxSize := .Values.ingress.maxBodySize -}}
 {{- $webroot := .Values.settings.overwriteWebRoot -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- $kubeVersion := .Capabilities.KubeVersion.Version -}}
+{{- if semverCompare ">=1.19" $kubeVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+{{- if semverCompare ">=1.14" $kubeVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
+{{- end }}
 {{- end }}
 kind: Ingress
 metadata:
@@ -42,17 +47,30 @@ spec:
           {{- else }}
           - path: /
           {{- end }}
+            {{- if semverCompare ">=1.19" $kubeVersion }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+            {{- else -}}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+            {{- end }}
     {{- end }}
 
 ---
 
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19" $kubeVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+{{- if semverCompare ">=1.14" $kubeVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
+{{- end }}
 {{- end }}
 kind: Ingress
 metadata:
@@ -82,8 +100,17 @@ spec:
           {{- else }}
           - path: /.well-known/ca(l|rd)dav(/|.*)
           {{- end }}
+            {{- if semverCompare ">=1.19" $kubeVersion }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+            {{- else -}}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+            {{- end }}
     {{- end }}
 {{- end }}

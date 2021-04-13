@@ -2,10 +2,15 @@
 {{- $fullName := include "gitea.fullname" . -}}
 {{- $svcPort := .Values.services.http.port -}}
 {{- $maxSize := .Values.ingress.maxBodySize -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- $kubeVersion := .Capabilities.KubeVersion.Version -}}
+{{- if semverCompare ">=1.19" $kubeVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+{{- if semverCompare ">=1.14" $kubeVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
+{{- end }}
 {{- end }}
 kind: Ingress
 metadata:
@@ -35,9 +40,18 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ . }}
+            {{- if semverCompare ">=1.19" $kubeVersion }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}-http
+                port:
+                  number: {{ $svcPort }}
+            {{- else -}}
             backend:
               serviceName: {{ $fullName }}-http
               servicePort: {{ $svcPort }}
+            {{- end }}
           {{- end }}
     {{- end }}
   {{- end }}
