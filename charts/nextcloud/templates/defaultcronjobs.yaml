@@ -1,8 +1,13 @@
 {{- $fullname := include "nextcloud.fullname" . }}
 {{- $labels := include "nextcloud.labels" . }}
 {{- $environment := include "nextcloud.environment" . }}
+{{- $kubeVersion := .Capabilities.KubeVersion.Version -}}
 {{- range $job := .Values.defaultCronJobs }}
+{{- if semverCompare ">=1.21" $kubeVersion -}}
+apiVersion: batch/v1
+{{- else -}}
 apiVersion: batch/v1beta1
+{{- end }}
 kind: CronJob
 metadata:
   name: {{ $fullname }}-{{ $job.name }}
