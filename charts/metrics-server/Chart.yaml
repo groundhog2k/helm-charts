@@ -7,9 +7,9 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: 2.12.3
+version: 2.12.4
 
-appVersion: "v0.4.2"
+appVersion: "v0.4.3"
 
 keywords:
   - metrics-server
