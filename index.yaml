@@ -2403,6 +2403,20 @@ entries:
     version: 0.1.0
   metrics-server:
   - apiVersion: v2
+    appVersion: v0.4.3
+    created: "2021-04-21T13:23:47.703735881Z"
+    description: A Helm chart for Kubernetes metrics-server
+    digest: 2c720b65f00b6352c7fde2e247c458ae3027e466b22f1d19e1eaccd581aaf9d9
+    keywords:
+    - metrics-server
+    maintainers:
+    - name: groundhog2k
+    name: metrics-server
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.12.4/metrics-server-2.12.4.tgz
+    version: 2.12.4
+  - apiVersion: v2
     appVersion: v0.4.2
     created: "2021-02-20T16:39:50.234573655Z"
     description: A Helm chart for Kubernetes metrics-server
