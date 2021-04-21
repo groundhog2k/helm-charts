@@ -28,6 +28,12 @@ nodeSelector: {}
 ## Additional pod annotations
 podAnnotations: {}
 
+## Pod management policy
+podManagementPolicy: OrderedReady
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
 ## Pod security options
 podSecurityContext:
   fsGroup: 999
@@ -41,10 +47,13 @@ securityContext:
   runAsUser: 999
   runAsGroup: 999
 
-## Default redis service port (default Redis port 6379)
+## Default redis service port (default Redis server port 6379, defaul Redis sentinel port 26379)
 service:
   type: ClusterIP
-  port: 6379
+  ## Redis server port
+  serverPort: 6379
+  ## Redis sentinel mode (only when haMode is enabled)
+  sentinelPort: 26379
   ## The node port (only relevant for type LoadBalancer or NodePort)
   nodePort:
   ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
@@ -52,8 +61,17 @@ service:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
 
-## Resource limits and requests
+## Resource limits and requests (for Redis)
 resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Resource limits and requests (for Redis Sentinel - only when haMode is enabled)
+sentinelResources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -89,14 +107,41 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
-## Additional environment variables
+## Additional environment variables (Redis server and Sentinel)
 env: []
 
-## Arguments for the container entrypoint process
+## Arguments for the container entrypoint process (Redis server)
 args: []
 
-# Custom redis.conf
+## Arguments for the container entrypoint process (Sentinel)
+sentinelArgs: []
+
+## Additional redis.conf
 redisConfig: |
+
+## Additional sentinel.conf (only when haMode is enabled)
+sentinelConfig: |
+
+## High availability mode (with master-slave replication and sentinel)
+haMode:
+  ## Enable high availibility deployment mode
+  enabled: false
+  ## Mandatory redis HA-master group name
+  masterGroupName:
+  ## Number of replicas (minimum should be 3)
+  replicas: 3
+  ## Quorum of sentinels that need to agree that a master node is not available
+  quorum: 2
+  ## Number of milliseconds after the master should be declared as unavailable
+  downAfterMilliseconds: 5000
+  ## Timeout for a failover
+  failoverTimeout: 180000
+  ## Number of parallel reconfigurations
+  parallelSyncs: 2
+  ## Timeout in seconds to detect if Redis master is alive
+  masterAliveTestTimeout: 2
+  ## Assumed wait time in seconds until failover should be finished
+  failoverWait: 5
 
 ## Storage parameters
 storage:
