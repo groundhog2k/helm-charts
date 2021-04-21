@@ -1,4 +1,4 @@
-{{- if .Values.redisConfig }}
+{{- if or (.Values.redisConfig) (.Values.sentinelConfig) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,6 +6,12 @@ metadata:
   labels:
     {{- include "redis.labels" . | nindent 4 }}
 data:
+  {{- if .Values.redisConfig }}
   redis.conf: |
     {{- .Values.redisConfig | nindent 4 }}
+  {{- end }}
+  {{- if .Values.sentinelConfig }}
+  sentinel.conf: |
+    {{- .Values.sentinelConfig | nindent 4 }}
+  {{- end}}
 {{- end }}

@@ -7,13 +7,23 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    {{- if .Values.haMode.enabled }}
+    - port: {{ .Values.service.sentinelPort }}
+      targetPort: sentinel
+      protocol: TCP
+      name: sentinel
+      {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+    {{- else }}
+    - port: {{ .Values.service.serverPort }}
       targetPort: redis
       protocol: TCP
       name: redis
       {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
+    {{- end }}
   {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
