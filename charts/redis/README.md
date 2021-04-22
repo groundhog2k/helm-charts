@@ -11,6 +11,39 @@ $ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
 $ helm install my-release groundhog2k/redis
 ```
 
+### Basic setup without high availability:
+`haMode.enabled: false`
+
+This will create one standalone Redis instance which can be reached based on the `service:` configuration (ClusterIP & Port 6379 by default)
+
+```
++-------------------+
+| Redis standalone  |
++-------------------+
+```
+
+
+### Advanced setup with high availability support:
+`haMode.enabled: true`
+
+This will create 3 pods by default, with 1 Redis master (M1) and 2 Redis replications (R1/R2). Every pod has 2 containers, one for the Redis server and one for the Redis sentinel (S1/S2/S3).
+The default quorom to decide for a new master is set to 2. Have a look at all configurable parameters in values section `haMode:`
+
+A Sentinal instance can be reached based on the `service:` configuration (ClusterIP & Sentinel port 26379 by default).
+
+
+```
+       +----+
+       | M1 |
+       | S1 |
+       +----+
+          |
++----+    |    +----+
+| R2 |----+----| R3 |
+| S2 |         | S3 |
++----+         +----+
+```
+
 ## Introduction
 
 This chart uses the original [Redis image from Docker Hub](https://hub.docker.com/_/redis/) to deploy a stateful Redis instance in a Kubernetes cluster.
@@ -59,24 +92,29 @@ $ helm uninstall my-release
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
+| sentinelResources | object | `{}` | Resource limits and requests (for Redis Sentinel - only when haMode is enabled) |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
-| env | list | `[]` | Additional container environmment variables |
-| args | list | `[]` | Additional container command arguments |
+| env | list | `[]` | Additional container environmment variables (Redis server and Sentinel) |
+| args | list | `[]` | Additional container command arguments (Redis server) |
+| sentinelArgs | list | `[]` | Arguments for the container entrypoint process (Sentinel) |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
+| updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 
 ## Service paramters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | service.type | string | `"ClusterIP"` | Service type |
-| service.port | int | `6379` | Redis service port |
+| service.serverPort | int | `6379` | Redis server service port |
+| service.sentinelPort | int | `26379` | Redis sentinel service port |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
@@ -94,4 +132,14 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| redisConfig | string | `nil` | Custom redis.conf |
+| redisConfig | string | `nil` | Additional redis.conf |
+| sentinelConfig | string | `nil` | Additional sentinel.conf (only when haMode is enabled) |
+| haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
+| haMode.masterGroupName | string | `nil` | Mandatory redis HA-master group name |
+| haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
+| haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
+| haMode.downAfterMilliseconds | int | `5000` | Number of milliseconds after the master should be declared as unavailable |
+| haMode.failoverTimeout | int | `180000` | Timeout for a failover |
+| haMode.parallelSyncs | int | `2` | Number of parallel reconfigurations
+| haMode.masterAliveTestTimeout | int | `2` | Timeout in seconds to detect if Redis master is alive |
+| haMode.failoverWait | int | `5` | Assumed wait time in seconds until failover should be finished |
