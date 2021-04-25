@@ -1,0 +1,18 @@
+apiVersion: v2
+name: remark42
+description: A Helm chart for Remark42 comment system
+
+type: application
+
+maintainers:
+  - name: groundhog2k
+
+version: 0.1.0
+
+appVersion: "v1.7.1"
+
+dependencies:
+  - name: redis
+    version: 0.3.2
+    repository: "https://groundhog2k.github.io/helm-charts"
+    condition: redis.enabled

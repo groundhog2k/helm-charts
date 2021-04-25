@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "remark42.fullname" . }}
+  labels:
+    {{- include "remark42.labels" . | nindent 4 }}
+type: Opaque
+data:
+  SECRET: {{ (required ".settings.secretKey must contain value" .Values.settings.secretKey) | b64enc }}
+{{- if .Values.settings.admin.password }}
+  ADMIN_PASSWD: {{ .Values.settings.admin.password | quote }}
+{{- end }}
+{{- with .Values.settings.smtp }}
+  {{- if .enabled }}
+  SMTP_USERNAME: {{ .name | b64enc }}
+  SMTP_PASSWORD: {{ .password | b64enc }}
+  {{- end }}
+{{- end }}
+{{- if .Values.settings.admin.sharedId }}
+  ADMIN_SHARED_ID: {{ .Values.settings.admin.sharedId | b64enc }}
+{{- end }}
+{{- with .Values.settings.oauth }}
+  {{- if .google.enabled }}
+  AUTH_GOOGLE_CID: {{ .google.key | b64enc }}
+  AUTH_GOOGLE_CSEC: {{ .google.secret | b64enc }}
+  {{- end }}
+  {{- if .github.enabled }}
+  AUTH_GITHUB_CID: {{ .github.key | b64enc }}
+  AUTH_GITHUB_CSEC: {{ .github.secret | b64enc }}
+  {{- end }}
+  {{- if .facebook.enabled }}
+  AUTH_FACEBOOK_CID: {{ .gitlab.key | b64enc }}
+  AUTH_FACEBOOK_CSEC: {{ .gitlab.secret | b64enc }}
+  {{- end }}
+  {{- if .twitter.enabled }}
+  AUTH_TWITTER_CID: {{ .twitter.key | b64enc }}
+  AUTH_TWITTER_CSEC: {{ .twitter.secret | b64enc }}
+  {{- end }}
+  {{- if .microsoft.enabled }}
+  AUTH_MICROSOFT_CID: {{ .twitter.key | b64enc }}
+  AUTH_MICROSOFT_CSEC: {{ .twitter.secret | b64enc }}
+  {{- end }}
+  {{- if .yandex.enabled }}
+  AUTH_YANDEX_CID: {{ .twitter.key | b64enc }}
+  AUTH_YANDEX_CSEC: {{ .twitter.secret | b64enc }}
+  {{- end }}
+{{- end }}

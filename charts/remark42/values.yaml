@@ -1,0 +1,322 @@
+## Default values for Commento deployment
+
+## Commento image
+image:
+  repository: umputun/remark42
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Pod deployment strategy
+strategy:
+  type: Recreate
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod security options (Run as app)
+podSecurityContext:
+  fsGroup: 1001
+  runAsUser: 1001
+  runAsNonRoot: true
+
+## Default security options to run Commento as non-root, read only container without privilege escalation
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  privileged: false
+
+## Default service port
+service:
+  type: ClusterIP
+  port: 80
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  host:
+  path: /
+
+  tls: {}
+    # secretName: chart-example-tls
+
+## Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Default node type for the image
+nodeSelector:
+  kubernetes.io/arch: amd64
+
+tolerations: []
+
+affinity: {}
+
+containerPort: 8080
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+  periodSeconds: 10
+
+## Additional environment variables
+env: []
+
+## External redis cache settings
+externalCache:
+  ## Enable usage of redis as session storage and cache (Default: disabled)
+  enabled: false
+
+  ## Redis host
+  host:
+
+  ## Redis port (default: 6379)
+  port: 6379
+
+settings:
+  ## URL to this Remark42 site
+  url:
+
+  ## Site Id
+  site: "remark"
+
+  ## Secret key
+  secretKey:
+
+  ## Time zone (f.e. Europe/Berlin)
+  timeZone: "GTC"
+
+  ## Maximum number of nightly backup files to keep
+  maxBackupFiles: 10
+
+  maxCommentSize: 2048
+  
+  maxVotes: -1
+  votesIp: "false"
+  anonymousVote: "false"
+  votesIpTime: "5m"
+
+  lowScoreThreshold: -5
+  criticalScoreThresold: -10
+  positiveScore: "false"
+
+  restrictedWords:
+  restrictedNames:
+
+  editTime: "5m"
+  readonlyAge:
+
+  imageProxyhttp2https: "false"
+  proxyExternalCache: "false"
+  emoji: "false"
+  simpleView: "false"
+  proxyCors: "false"
+
+  allowedHosts:
+  updateLimit: "0.5"
+
+  ## SMTP configuration
+  smtp:
+    ## Enable SMTP (default: false)
+    enabled: false
+
+    ## SMTP host
+    host:
+
+    ## SMTP port (default: 465)
+    port: 465
+
+    ## Enable SMTP TLS
+    tls: true
+
+    ## SMTP user name
+    name:
+
+    ## SMTP password
+    password:
+
+    ## SMTP timeout
+    timeout: "10s"
+
+  admin:
+    ## Admin Ids
+    sharedId:
+
+    ## Admin Email addresses
+    sharedEmail: "admin@${REMARK_URL}"
+
+    # Password for admin (Basic auth)
+    password:
+
+  cache:
+    ## Maximum number of cached items
+    maxItems: 1000
+    ## Maximum size of cached value
+    maxValue: 65536
+    ## Maximum size of all caches values
+    maxSize: 50000000
+
+  avatar:
+    ## Avatar storage type (fs, bolt, uri)
+    type: "fs"
+    ## Maximum image size for resizing avatars
+    resizeLimit: 0
+
+  image:
+    ## Image storage type (fs, bolt, uri)
+    type: "fs"
+    ## Maximum image size
+    maxSize: 5000000
+    ## Number of image partitions
+    partitions: 100
+    ## Image resizing
+    resize:
+      ## Width of resized image
+      width: 2400
+      ## Height of resized image
+      height: 900
+
+  auth:
+    ttl:
+      jwt: "5m"
+      cookie: "200h"
+    sentJwtHeader: "false"
+    sameSite: "default"
+    anonymous: "false"
+    email:
+      enable: "false"
+      from:
+      subject: "remark42 confirmation"
+      contentType: "text/html"
+      template:
+    
+  notify:
+    ## Notification type (telegram, slack, email)
+    type: "none"
+    queue: 100
+    telegram:
+      token:
+      channel:
+      timeout: "5s"
+    slack:
+      token:
+      channel: "general"
+    fromAddress:
+    verificationSubject: "Email verification"
+    emailAdmin: "false"
+  
+  ## Support for OAuth authentification for different providers
+  oauth:
+    ## Google OAuth
+    google:
+      enabled: false
+      key:
+      secret:
+
+    ## Github OAuth
+    github:
+      enabled: false
+      key:
+      secret:
+
+    ## Facebook OAuth
+    facebook:
+      enabled: false
+      key:
+      secret:
+
+    # Twitter OAuth
+    twitter:
+      enabled: false
+      key:
+      secret:
+
+    # Microsoft OAuth
+    microsoft:
+      enabled: false
+      key:
+      secret:
+      
+    # Yandex OAuth
+    yandex:
+      enabled: false
+      key:
+      secret:
+
+# Storage parameters
+storage:
+  ## Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
+
+## Redis configuration
+redis:
+  ## Enable Redis helm chart for deployment (default: false)
+  enabled: false
+
+  # Storage parameters
+  storage:
+    ## Set persistentVolumenClaimName to reference an existing PVC
+    persistentVolumeClaimName:
+
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    requestedSize:
+
+    ## the storage class name
+    className:
