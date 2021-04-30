@@ -45,7 +45,7 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | redis | 0.4.0 |
+| @groundhog2k | redis | 0.4.1 |
 
 ## Common parameters
 
