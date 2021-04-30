@@ -7,11 +7,13 @@ metadata:
 data:
   init.sh: |
     #!/bin/sh
-
+  {{- if .Values.haMode.enabled }}
     MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s redis-cli -h {{ template "redis.fullname" . }} -p {{ .Values.service.sentinelPort }} sentinel get-master-addr-by-name {{ include "redis.masterGroupName" . }} | grep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')"
+  {{- end }}
     REDIS_CONFIG=/data/conf/redis.conf
     SENTINEL_CONFIG=/data/conf/sentinel.conf
 
+  {{- if .Values.haMode.enabled }}
     test_master_alive() {
         TEST="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s redis-cli -h $MASTER -p 6379 ping)"
         if [ -z "$TEST" ]; then
@@ -19,6 +21,7 @@ data:
         fi
         return 0
     }
+  {{- end }}
 
     configure_redis() {
         echo "Configuring redis server..."
@@ -30,6 +33,7 @@ data:
         echo "bind 0.0.0.0" >>$REDIS_CONFIG
         echo "dir /data" >>$REDIS_CONFIG
 
+  {{- if .Values.haMode.enabled }}
         if [ -z "$MASTER" ]; then
             echo "No master found - This instance ($HOSTNAME) will be master now"
         else
@@ -48,6 +52,7 @@ data:
             echo "Setting this instance ($HOSTNAME) as replicaof $MASTER"
             echo "replicaof $MASTER 6379" >>$REDIS_CONFIG
         fi
+  {{- end }}
 
         if [ -f /usr/local/etc/redis/redis.conf ]; then
             echo "Adding optional redis configuration settings"
@@ -55,7 +60,7 @@ data:
         fi
         echo "Configuring redis server finished."
     }
-
+  {{- if .Values.haMode.enabled }}
     configure_sentinel() {
         echo "Redis HA-mode enabled"
         echo "Configuring sentinel server..."
@@ -79,6 +84,7 @@ data:
         fi
         echo "Configuring sentinel server finished."
     }
+  {{- end }}
 
     echo "Initialize configuration..."
     mkdir -p /data/conf
