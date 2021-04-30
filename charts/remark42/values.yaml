@@ -136,30 +136,52 @@ settings:
   ## Maximum number of nightly backup files to keep
   maxBackupFiles: 10
 
+  ## Comment size limit
   maxCommentSize: 2048
   
+  ## Vote limits per comment (-1 for unlimited)
   maxVotes: -1
+
+  ## Restrict votes from same IP address
   votesIp: "false"
+  
+  ## Allow votes from anonymous users
   anonymousVote: "false"
+
+  ## Restriction time for votes from same IP address
   votesIpTime: "5m"
 
+  ## Low score threshold
   lowScoreThreshold: -5
+  ## Critical c´score threshold
   criticalScoreThresold: -10
+  ## Restrict comments score to be only positive
   positiveScore: "false"
 
+  ## Words banned in comments
   restrictedWords:
+  ## Names prohibited to use by a user
   restrictedNames:
 
+  ## Edit time window
   editTime: "5m"
+
+  # Read-only age of comments in days
   readonlyAge:
 
+  ## Enable http to https proxy for images
   imageProxyhttp2https: "false"
+  ## Enable caching of external images
   proxyExternalCache: "false"
+  ## Enable emoji support
   emoji: "false"
+  ## Minimized UI with basic information
   simpleView: "false"
+  ## Disable internal CORS and delegate it to proxy
   proxyCors: "false"
-
+  ## Limit hosts allowed to embed comments
   allowedHosts:
+  ## Updates/sec limit
   updateLimit: "0.5"
 
   ## SMTP configuration
@@ -225,31 +247,50 @@ settings:
 
   auth:
     ttl:
+      ## JWT TTL
       jwt: "5m"
+      ## Cookie TTL
       cookie: "200h"
+    ## Send JWT as header instead of cookie
     sentJwtHeader: "false"
+    ## Set same site policy for cookies (default, none, lax, strict)
     sameSite: "default"
+    ## Enable anonymous login
     anonymous: "false"
     email:
+      ## Enable authentication via email
       enable: "false"
+      ## Email from
       from:
+      ## Email subject
       subject: "remark42 confirmation"
+      ## Email content type
       contentType: "text/html"
+      ## Custom email message template file
       template:
     
   notify:
     ## Notification type (telegram, slack, email)
     type: "none"
+    ## Size of notification queue
     queue: 100
     telegram:
+      ## Telegram token
       token:
+      ## Telegram channel
       channel:
+      ## Telegram timeout
       timeout: "5s"
     slack:
+      ## Slack token
       token:
+      ## Slack channel
       channel: "general"
+    ## Email from address
     fromAddress:
+    ## Verification message subject
     verificationSubject: "Email verification"
+    ## Notify admin on new comments via admin.sharedEmail
     emailAdmin: "false"
   
   ## Support for OAuth authentification for different providers
