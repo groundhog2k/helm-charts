@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.2](https://img.shields.io/badge/AppVersion-6.2.2-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.2](https://img.shields.io/badge/AppVersion-6.2.2-informational?style=flat-square)
 
 A Helm chart for Redis on Kubernetes
 
@@ -135,7 +135,7 @@ $ helm uninstall my-release
 | redisConfig | string | `nil` | Additional redis.conf |
 | sentinelConfig | string | `nil` | Additional sentinel.conf (only when haMode is enabled) |
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
-| haMode.masterGroupName | string | `nil` | Mandatory redis HA-master group name |
+| haMode.masterGroupName | string | `"redisha"` | Mandatory redis HA-master group name |
 | haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
 | haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
 | haMode.downAfterMilliseconds | int | `5000` | Number of milliseconds after the master should be declared as unavailable |
