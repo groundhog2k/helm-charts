@@ -117,16 +117,94 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | settings.url | string | `nil` | URL to this Remark42 site |
-
 | settings.site | string | `"remark"` | Site Id |
 | settings.secretKey | string | `nil` | Secret key |
 | settings.timeZone | string | `"GTC"` | Time zone (f.e. Europe/Berlin) |
 | settings.maxBackupFiles | int | `10` | Maximum number of nightly backup files to keep |
 | settings.maxCommentSize | int | `2048` | Comment size limit |
 | settings.maxVotes | int | `-1` | Vote limits per comment (-1 for unlimited) |
-| settings.votesIp | string | `"false"` | Restrict votes from same IP address |
+| settings.votesIp | bool | `false` | Restrict votes from same IP address |
+| settings.anonymousVote | bool | `false` | Allow votes from anonymous users |
+| settings.votesIpTime | string | `"5m"` | Restriction time for votes from same IP address |
+| settings.lowScoreThreshold | int | `-5` | Low score threshold |
+| settings.criticalScoreThresold | int | `-10` | Critical score threshold |
+| settings.positiveScore | bool | `false` | Restrict comments score to be only positive |
+| settings.restrictedWords | string | `nil` | Words banned in comments |
+| settings.restrictedNames | string | `nil` | Names prohibited to use by a user |
+| settings.editTime | string | `5m` | Edit time window |
+| settings.readonlyAge | int | `nil` | Read-only age of comments in days |
+| settings.imageProxyhttp2https | bool | `false` | Enable http to https proxy for images |
+| settings.proxyExternalCache | bool | `false` | Enable caching of external images |
+| settings.emoji | bool | `false` | Enable emoji support |
+| settings.simpleView | bool | `false` | Minimized UI with basic information |
+| settings.proxyCors | bool | `false` | Disable internal CORS and delegate it to proxy |
+| settings.allowedHosts | string | `nil` | Limit hosts allowed to embed comments |
+| settings.updateLimit | string | `0.5` | Updates/sec limit |
 
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.smtp.enabled | bool | `false` | Enable SMTP |
+| settings.smtp.from | string | `nil` | SMTP from address |
+| settings.smtp.host | string | `nil` | SMTP host |
+| settings.smtp.port | int | `465` | SMTP port |
+| settings.smtp.tls | bool | `true` | Use TLS |
+| settings.smtp.name | string | `nil` | SMTP user name |
+| settings.smtp.password | string | `nil` | SMTP password |
+| settings.smtp.timeout | string | `10s` | SMTP timeout |
 
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.admin.sharedId | string | `nil` | Admin Ids |
+| settings.admin.sharedEmail | string | `"admin@${REMARK_URL}"` | Admin Email addresses |
+| settings.admin.password | string | `nil` | Password for admin (Basic auth) |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.cache.maxItems | int | `1000` | Maximum number of cached items |
+| settings.cache.maxValue | int | `65536` | Maximum size of cached value |
+| settings.cache.maxSize | int | `50000000` | Maximum size of all caches values |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.avatar.type | string | `"fs"` | Avatar storage type (fs, bolt, uri) |
+| settings.avatar.resizeLimit | int | `0`| Maximum image size for resizing avatars (0 = disabled) |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.image.type | string | `"fs"` | Image storage type (fs, bolt, uri) |
+| settings.image.maxSize | int | `5000000` | Maximum image size |
+| settings.image.partitions | int | `10` | Number of image partitions |
+| settings.image.resize.width | int | `2400` | Width of resized image |
+| settings.image.resize.height | int | `900` | Height of resized image |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.auth.ttl.jwt | string | `"5m"` | JWT TTL |
+| settings.auth.ttl.cookie | string | `"200h"` | Cookie TTL |
+| settings.auth.sentJwtHeader | bool | `false` | Send JWT as header instead of cookie |
+| settings.auth.sameSite | string | `"default"` | Set same site policy for cookies (default, none, lax, strict) |
+| settings.auth.anonymous | bool | `false` | Enable anonymous login |
+| settings.auth.email.enable | bool | `false` | Enable authentication via email |
+| settings.auth.email.from | string | `nil` | Email from |
+| settings.auth.email.subject | string | `"remark42 confirmation"` | Email subject |
+| settings.auth.email.contentType | string | `"text/html"` | Email content type |
+| settings.auth.email.template | string | `nil` | Custom email message template file |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| settings.notify.type | string | `"none"` | Notification type (telegram, slack, email) |
+| settings.notify.queue | int | `100` | Size of notification queue |
+| settings.notify.telegram.token | string | `nil` | Telegram token |
+| settings.notify.telegram.channel | string | `nil` | Telegram channel |
+| settings.notify.telegram.timeout | string | `"5s"` | Telegram timeout |
+| settings.notify.slack.token | string | `nil` | Slack token |
+| settings.notify.slack.channel | string | `"general"` | Slack channel |
+| settings.notify.email.fromAddress | string | `nil` | Email from address |
+| settings.notify.email.verificationSubject | string | `"Email verification"` | Verification message subject |
+| settings.notify.email.emailAdmin | bool | `false` | Notify admin on new comments via admin.sharedEmail |
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
 | settings.oauth.github.enabled | bool | `false` | Enable Github OAuth |
 | settings.oauth.github.key | string | `nil` | Github OAuth key |
 | settings.oauth.github.secret | string | `nil` | Github OAuth secret |
@@ -145,164 +223,3 @@ $ helm uninstall my-release
 | settings.oauth.yandex.enabled | bool | `false` | Enable Yandex OAuth |
 | settings.oauth.yandex.key | string | `nil` | Yandex OAuth key |
 | settings.oauth.yandex.secret | string | `nil` | Yandex OAuth secret |
-
-| settings.smtp.enabled | bool | `false` | Enable SMTP |
-| settings.smtp.from | string | `nil` | SMTP from address |
-| settings.smtp.host | string | `nil` | SMTP host |
-| settings.smtp.port | int | `465` | SMTP port |
-| settings.smtp.name | string | `nil` | SMTP user name |
-| settings.smtp.password | string | `nil` | SMTP password |
-
-
-
-
-## ??  ## Restrict votes from same IP address
-## ??  votesIp: "false"
-  
-  ## Allow votes from anonymous users
-  anonymousVote: "false"
-
-  ## Restriction time for votes from same IP address
-  votesIpTime: "5m"
-
-  ## Low score threshold
-  lowScoreThreshold: -5
-  ## Critical c´score threshold
-  criticalScoreThresold: -10
-  ## Restrict comments score to be only positive
-  positiveScore: "false"
-
-  ## Words banned in comments
-  restrictedWords:
-  ## Names prohibited to use by a user
-  restrictedNames:
-
-  ## Edit time window
-  editTime: "5m"
-
-  # Read-only age of comments in days
-  readonlyAge:
-
-  ## Enable http to https proxy for images
-  imageProxyhttp2https: "false"
-  ## Enable caching of external images
-  proxyExternalCache: "false"
-  ## Enable emoji support
-  emoji: "false"
-  ## Minimized UI with basic information
-  simpleView: "false"
-  ## Disable internal CORS and delegate it to proxy
-  proxyCors: "false"
-  ## Limit hosts allowed to embed comments
-  allowedHosts:
-  ## Updates/sec limit
-  updateLimit: "0.5"
-
-  ## SMTP configuration
-  smtp:
-    ## Enable SMTP (default: false)
-    enabled: false
-
-    ## SMTP host
-    host:
-
-    ## SMTP port (default: 465)
-    port: 465
-
-    ## Enable SMTP TLS
-    tls: true
-
-    ## SMTP user name
-    name:
-
-    ## SMTP password
-    password:
-
-    ## SMTP timeout
-    timeout: "10s"
-
-  admin:
-    ## Admin Ids
-    sharedId:
-
-    ## Admin Email addresses
-    sharedEmail: "admin@${REMARK_URL}"
-
-    # Password for admin (Basic auth)
-    password:
-
-  cache:
-    ## Maximum number of cached items
-    maxItems: 1000
-    ## Maximum size of cached value
-    maxValue: 65536
-    ## Maximum size of all caches values
-    maxSize: 50000000
-
-  avatar:
-    ## Avatar storage type (fs, bolt, uri)
-    type: "fs"
-    ## Maximum image size for resizing avatars
-    resizeLimit: 0
-
-  image:
-    ## Image storage type (fs, bolt, uri)
-    type: "fs"
-    ## Maximum image size
-    maxSize: 5000000
-    ## Number of image partitions
-    partitions: 100
-    ## Image resizing
-    resize:
-      ## Width of resized image
-      width: 2400
-      ## Height of resized image
-      height: 900
-
-  auth:
-    ttl:
-      ## JWT TTL
-      jwt: "5m"
-      ## Cookie TTL
-      cookie: "200h"
-    ## Send JWT as header instead of cookie
-    sentJwtHeader: "false"
-    ## Set same site policy for cookies (default, none, lax, strict)
-    sameSite: "default"
-    ## Enable anonymous login
-    anonymous: "false"
-    email:
-      ## Enable authentication via email
-      enable: "false"
-      ## Email from
-      from:
-      ## Email subject
-      subject: "remark42 confirmation"
-      ## Email content type
-      contentType: "text/html"
-      ## Custom email message template file
-      template:
-    
-  notify:
-    ## Notification type (telegram, slack, email)
-    type: "none"
-    ## Size of notification queue
-    queue: 100
-    telegram:
-      ## Telegram token
-      token:
-      ## Telegram channel
-      channel:
-      ## Telegram timeout
-      timeout: "5s"
-    slack:
-      ## Slack token
-      token:
-      ## Slack channel
-      channel: "general"
-    ## Email from address
-    fromAddress:
-    ## Verification message subject
-    verificationSubject: "Email verification"
-    ## Notify admin on new comments via admin.sharedEmail
-    emailAdmin: "false"

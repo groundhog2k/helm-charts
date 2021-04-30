@@ -143,20 +143,20 @@ settings:
   maxVotes: -1
 
   ## Restrict votes from same IP address
-  votesIp: "false"
+  votesIp: false
   
   ## Allow votes from anonymous users
-  anonymousVote: "false"
+  anonymousVote: false
 
   ## Restriction time for votes from same IP address
   votesIpTime: "5m"
 
   ## Low score threshold
   lowScoreThreshold: -5
-  ## Critical c´score threshold
+  ## Critical score threshold
   criticalScoreThresold: -10
   ## Restrict comments score to be only positive
-  positiveScore: "false"
+  positiveScore: false
 
   ## Words banned in comments
   restrictedWords:
@@ -170,15 +170,15 @@ settings:
   readonlyAge:
 
   ## Enable http to https proxy for images
-  imageProxyhttp2https: "false"
+  imageProxyhttp2https: false
   ## Enable caching of external images
-  proxyExternalCache: "false"
+  proxyExternalCache: false
   ## Enable emoji support
-  emoji: "false"
+  emoji: false
   ## Minimized UI with basic information
-  simpleView: "false"
+  simpleView: false
   ## Disable internal CORS and delegate it to proxy
-  proxyCors: "false"
+  proxyCors: false
   ## Limit hosts allowed to embed comments
   allowedHosts:
   ## Updates/sec limit
@@ -252,14 +252,14 @@ settings:
       ## Cookie TTL
       cookie: "200h"
     ## Send JWT as header instead of cookie
-    sentJwtHeader: "false"
+    sentJwtHeader: false
     ## Set same site policy for cookies (default, none, lax, strict)
     sameSite: "default"
     ## Enable anonymous login
-    anonymous: "false"
+    anonymous: false
     email:
       ## Enable authentication via email
-      enable: "false"
+      enable: false
       ## Email from
       from:
       ## Email subject
@@ -286,12 +286,13 @@ settings:
       token:
       ## Slack channel
       channel: "general"
-    ## Email from address
-    fromAddress:
-    ## Verification message subject
-    verificationSubject: "Email verification"
-    ## Notify admin on new comments via admin.sharedEmail
-    emailAdmin: "false"
+    email:
+      ## Email from address
+      fromAddress:
+      ## Verification message subject
+      verificationSubject: "Email verification"
+      ## Notify admin on new comments via admin.sharedEmail
+      emailAdmin: false
   
   ## Support for OAuth authentification for different providers
   oauth:

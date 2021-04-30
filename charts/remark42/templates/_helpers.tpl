@@ -168,14 +168,14 @@ Commento settings via environment variables
 - name: NOTIFY_SLACK_CHAN
   value: {{ .Values.settings.notify.slack.channel | quote }}
 {{- end }}
-{{- if .Values.settings.notify.fromAddress }}
+{{- if .Values.settings.notify.email.fromAddress }}
 - name: NOTIFY_EMAIL_FROM
-  value: {{ .Values.settings.notify.fromAddress | quote }}
+  value: {{ .Values.settings.notify.email.fromAddress | quote }}
 {{- end }}
 - name: NOTIFY_EMAIL_VERIFICATION_SUBJ
-  value: {{ .Values.settings.notify.verificationSubject | quote }}
+  value: {{ .Values.settings.notify.email.verificationSubject | quote }}
 - name: NOTIFY_EMAIL_ADMIN
-  value: {{ .Values.settings.notify.emailAdmin | quote }}
+  value: {{ .Values.settings.notify.email.emailAdmin | quote }}
 - name: MAX_BACKUP_FILES
   value: {{ .Values.settings.maxBackupFiles | quote }}
 - name: MAX_COMMENT_SIZE
