@@ -5,17 +5,14 @@ metadata:
   labels:
     {{- include "redis.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    {{- if .Values.haMode.enabled }}
+{{- if .Values.haMode.enabled }}
     - port: {{ .Values.service.sentinelPort }}
       targetPort: sentinel
       protocol: TCP
       name: sentinel
-      {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
-      nodePort: {{ .Values.service.nodePort }}
-      {{- end }}
-    {{- else }}
+  type: ClusterIP
+{{- else }}
     - port: {{ .Values.service.serverPort }}
       targetPort: redis
       protocol: TCP
@@ -23,10 +20,11 @@ spec:
       {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
       nodePort: {{ .Values.service.nodePort }}
       {{- end }}
-    {{- end }}
   {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
+  type: {{ .Values.service.type }}
+{{- end }}
   {{- if .Values.service.clusterIP }}
   clusterIP: {{ .Values.service.clusterIP }}
   {{- end }}
