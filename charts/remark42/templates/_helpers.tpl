@@ -229,7 +229,7 @@ Commento settings via environment variables
   value: "redis_pub_sub"
 {{- if .Values.redis.enabled }}
 - name: CACHE_REDIS_ADDR
-  value: "{{ include "redis.servicename" . }}:{{ .Values.redis.service.port }}"
+  value: "{{ include "redis.servicename" . }}:{{ .Values.redis.service.serverPort }}"
 {{- else }}
 - name: CACHE_REDIS_ADDR
   value: "{{ .Values.externalCache.host }}:{{ .Values.externalCache.port }}"
