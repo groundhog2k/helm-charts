@@ -1,5 +1,9 @@
 {{- if .Values.podDisruptionBudget.enabled -}}
+{{- if semverCompare ">=1.21" .Capabilities.KubeVersion.Version -}}
+apiVersion: policy/v1
+{{- else -}}
 apiVersion: policy/v1beta1
+{{- end }}
 kind: PodDisruptionBudget
 metadata:
   labels:
@@ -9,7 +13,6 @@ metadata:
     heritage: {{ .Release.Service }}
   name: {{ template "metrics-server.fullname" . }}
   namespace: {{ .Release.Namespace }}
-
 spec:
   {{- if .Values.podDisruptionBudget.minAvailable }}
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
