@@ -1,7 +1,6 @@
 rbac:
   # Specifies whether RBAC resources should be created
   create: true
-  pspEnabled: false
 
 serviceAccount:
   # Specifies whether a ServiceAccount should be created
@@ -34,6 +33,8 @@ imagePullSecrets: []
 # - registrySecretName
 
 args: []
+#  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+#  - --kubelet-use-node-status-port
 # enable this if you have self-signed certificates, see: https://github.com/kubernetes-incubator/metrics-server
 #  - --kubelet-insecure-tls
 
@@ -44,6 +45,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+## Pod deployment strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 0
 
 replicas: 1
 
@@ -57,17 +64,7 @@ podAnnotations: {}
 #  scheduler.alpha.kubernetes.io/critical-pod: ''
 
 ## Set a pod priorityClassName
-# priorityClassName: system-node-critical
-
-extraVolumeMounts: []
-#  - name: secrets
-#    mountPath: /etc/kubernetes/secrets
-#    readOnly: true
-
-extraVolumes: []
-#  - name: secrets
-#    secret:
-#      secretName: kube-apiserver
+# priorityClassName: system-cluster-critical
 
 livenessProbe:
   httpGet:
@@ -85,8 +82,6 @@ readinessProbe:
 
 securityContext:
   allowPrivilegeEscalation: false
-  capabilities:
-    drop: ["all"]
   readOnlyRootFilesystem: true
   runAsGroup: 10001
   runAsNonRoot: true
@@ -102,7 +97,6 @@ service:
   type: ClusterIP
 
 podDisruptionBudget:
-  # https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   enabled: false
   minAvailable:
   maxUnavailable:
