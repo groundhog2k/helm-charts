@@ -138,13 +138,13 @@ settings:
 
   ## Comment size limit
   maxCommentSize: 2048
-  
+
   ## Vote limits per comment (-1 for unlimited)
   maxVotes: -1
 
   ## Restrict votes from same IP address
   votesIp: false
-  
+
   ## Allow votes from anonymous users
   anonymousVote: false
 
@@ -268,7 +268,7 @@ settings:
       contentType: "text/html"
       ## Custom email message template file
       template:
-    
+
   notify:
     ## Notification type (none, telegram, slack, email)
     type: "none"
@@ -293,7 +293,7 @@ settings:
       verificationSubject: "Email verification"
       ## Notify admin on new comments via admin.sharedEmail
       emailAdmin: false
-  
+
   ## Support for OAuth authentification for different providers
   oauth:
     ## Google OAuth
