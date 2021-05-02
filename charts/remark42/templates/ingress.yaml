@@ -16,8 +16,11 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "remark42.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- if ne .Values.ingress.path "/" }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  {{- end }}
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
@@ -31,7 +34,11 @@ spec:
     - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
+          {{- if ne .Values.ingress.path "/" }}
+          - path: {{ .Values.ingress.path }}(/|$)(.*)
+          {{- else }}
           - path: {{ .Values.ingress.path }}
+          {{- end }}
             {{- if semverCompare ">=1.19" $kubeVersion }}
             pathType: ImplementationSpecific
             backend:
