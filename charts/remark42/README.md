@@ -192,7 +192,7 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| settings.notify.type | string | `"none"` | Notification type (telegram, slack, email) |
+| settings.notify.type | string | `"none"` | Notification type (none, telegram, slack, email) |
 | settings.notify.queue | int | `100` | Size of notification queue |
 | settings.notify.telegram.token | string | `nil` | Telegram token |
 | settings.notify.telegram.channel | string | `nil` | Telegram channel |

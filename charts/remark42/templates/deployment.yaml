@@ -63,7 +63,7 @@ spec:
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              path: {{ trimSuffix "/" .Values.ingress.path }}/web
+              path: /web
               port: http
               httpHeaders:
                 - name: Host
@@ -84,7 +84,7 @@ spec:
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
-              path: {{ trimSuffix "/" .Values.ingress.path }}/web
+              path: /web
               port: http
               httpHeaders:
                 - name: Host

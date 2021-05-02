@@ -270,7 +270,7 @@ settings:
       template:
     
   notify:
-    ## Notification type (telegram, slack, email)
+    ## Notification type (none, telegram, slack, email)
     type: "none"
     ## Size of notification queue
     queue: 100
