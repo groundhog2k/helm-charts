@@ -1,15 +1,15 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.enabled }}
 {{- $fullName := include "nextcloud.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- $maxSize := .Values.ingress.maxBodySize -}}
 {{- $webroot := .Values.settings.overwriteWebRoot -}}
 {{- $kubeVersion := .Capabilities.KubeVersion.Version -}}
-{{- if semverCompare ">=1.19" $kubeVersion -}}
+{{- if semverCompare ">=1.19" $kubeVersion }}
 apiVersion: networking.k8s.io/v1
-{{- else -}}
-{{- if semverCompare ">=1.14" $kubeVersion -}}
+{{- else }}
+{{- if semverCompare ">=1.14" $kubeVersion }}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+{{- else }}
 apiVersion: extensions/v1beta1
 {{- end }}
 {{- end }}
@@ -54,7 +54,7 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-            {{- else -}}
+            {{- else }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
