@@ -10,6 +10,9 @@ spec:
   {{- else }}
   replicas: 1
   {{- end }}
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   serviceName: {{ include "redis.fullname" . }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 

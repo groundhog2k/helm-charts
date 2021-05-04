@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.3](https://img.shields.io/badge/AppVersion-6.2.3-informational?style=flat-square)
+![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.3](https://img.shields.io/badge/AppVersion-6.2.3-informational?style=flat-square)
 
 A Helm chart for Redis on Kubernetes
 
@@ -107,6 +107,10 @@ $ helm uninstall my-release
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| podDisruptionBudget | object | `{}` | Pod disruption budget |
+| podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
+| podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
 ## Service paramters
 
