@@ -1,6 +1,6 @@
 # Elasticsearch
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.12.1](https://img.shields.io/badge/AppVersion-7.12.1-informational?style=flat-square)
+![Version: 0.1.102](https://img.shields.io/badge/Version-0.1.102-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.10.2](https://img.shields.io/badge/AppVersion-7.10.2-informational?style=flat-square)
 
 A Helm chart for Elasticsearch on Kubernetes
 
@@ -117,4 +117,4 @@ $ helm uninstall my-release
 | settings.javaOpts | string | `-Xms512m -Xmx512m` | Additional JVM options |
 | settings.clusterName | string | `singlenode-cluster` | Cluster name |
 
-Further Elasticsearch parameter can be set via environment variables (see Deployment parameter: env)
+Further Elasticsearch parameters can be set via environment variables (see Deployment parameter: env)
