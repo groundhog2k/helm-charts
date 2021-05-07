@@ -298,6 +298,9 @@ storage:
     accessModes:
       - ReadWriteOnce
 
+    ## Keep a created Persistent volume claim when uninstalling the helm chart
+    keepPvc: false
+
   ## Nextcloud user data storage
   nextcloudData:
     ## Set persistentVolumenClaimName to reference an existing PVC
@@ -312,6 +315,9 @@ storage:
     ## Default access mode (ReadWriteOnce)
     accessModes:
       - ReadWriteOnce
+
+    ## Keep a created Persistent volume claim when uninstalling the helm chart
+    keepPvc: false
 
 ## MariaDB configuration
 mariadb:

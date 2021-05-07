@@ -249,6 +249,9 @@ storage:
   accessModes:
     - ReadWriteOnce
 
+  ## Keep a created Persistent volume claim when uninstalling the helm chart
+  keepPvc: false
+
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)

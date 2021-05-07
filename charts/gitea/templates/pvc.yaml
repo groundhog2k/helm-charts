@@ -6,6 +6,10 @@ metadata:
   name: {{ include "gitea.fullname" . }}
   labels:
     {{- include "gitea.labels" . | nindent 4 }}
+  {{- if .Values.storage.keepPvc }}
+  annotations:
+    "helm.sh/resource-policy": keep
+  {{- end }}
 spec:
   {{- with .Values.storage }}
   accessModes:

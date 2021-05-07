@@ -350,6 +350,9 @@ storage:
   accessModes:
     - ReadWriteOnce
 
+  ## Keep a created Persistent volume claim when uninstalling the helm chart
+  keepPvc: false
+
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
