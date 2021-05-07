@@ -8,7 +8,7 @@ type: Opaque
 data:
   SECRET: {{ (required ".settings.secretKey must contain value" .Values.settings.secretKey) | b64enc }}
 {{- if .Values.settings.admin.password }}
-  ADMIN_PASSWD: {{ .Values.settings.admin.password | quote }}
+  ADMIN_PASSWD: {{ .Values.settings.admin.password | b64enc }}
 {{- end }}
 {{- with .Values.settings.smtp }}
   {{- if .enabled }}
