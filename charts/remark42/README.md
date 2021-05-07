@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.1](https://img.shields.io/badge/AppVersion-v1.8.1-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.1](https://img.shields.io/badge/AppVersion-v1.8.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -223,3 +223,15 @@ $ helm uninstall my-release
 | settings.oauth.yandex.enabled | bool | `false` | Enable Yandex OAuth |
 | settings.oauth.yandex.key | string | `nil` | Yandex OAuth key |
 | settings.oauth.yandex.secret | string | `nil` | Yandex OAuth secret |
+
+
+## Storage parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| storage | object | `{}` | Remark42 data storage |
+| storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
+| storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |

@@ -6,6 +6,10 @@ metadata:
   name: {{ include "ghost.fullname" . }}
   labels:
     {{- include "ghost.labels" . | nindent 4 }}
+  {{- if .Values.storage.keepPvc }}
+  annotations:
+    "helm.sh/resource-policy": keep
+  {{- end }}
 spec:
   {{- with .Values.storage }}
   accessModes:

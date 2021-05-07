@@ -6,6 +6,10 @@ metadata:
   name: {{ include "nextcloud.fullname" . }}
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
+  {{- if .Values.storage.nextcloud.keepPvc }}
+  annotations:
+    "helm.sh/resource-policy": keep
+  {{- end }}
 spec:
   {{- with .Values.storage.nextcloud }}
   accessModes:
@@ -28,6 +32,10 @@ metadata:
   name: {{ include "nextcloud.fullname" . }}-data
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
+  {{- if .Values.storage.nextcloudData.keepPvc }}
+  annotations:
+    "helm.sh/resource-policy": keep
+  {{- end }}
 spec:
   {{- with .Values.storage.nextcloudData }}
   accessModes:

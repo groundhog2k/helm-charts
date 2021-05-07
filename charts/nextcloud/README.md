@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.5.6](https://img.shields.io/badge/Version-0.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 21.0.1-apache](https://img.shields.io/badge/AppVersion-21.0.1-informational?style=flat-square)
+![Version: 0.5.7](https://img.shields.io/badge/Version-0.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 21.0.1-apache](https://img.shields.io/badge/AppVersion-21.0.1-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -218,8 +218,10 @@ $ helm uninstall my-release
 | storage.nextcloud.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.nextcloud.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.nextcloud.className | string | `nil` | Storage class name |
+| storage.nextcloud.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
 | storage.nextcloudData | object | `{}` | Nextcloud user data storage |
 | storage.nextcloudData.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.nextcloudData.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.nextcloudData.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.nextcloudData.className | string | `nil` | Storage class name |
+| storage.nextcloudData.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
