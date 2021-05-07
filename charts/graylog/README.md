@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.1.17](https://img.shields.io/badge/Version-0.1.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.6](https://img.shields.io/badge/AppVersion-4.0.6-informational?style=flat-square)
+![Version: 0.1.18](https://img.shields.io/badge/Version-0.1.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.6](https://img.shields.io/badge/AppVersion-4.0.6-informational?style=flat-square)
 
 A Helm chart for Graylog on Kubernetes
 
@@ -41,8 +41,8 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mongodb | 0.2.11 |
-| @groundhog2k | elasticsearch | 0.1.102 |
+| @groundhog2k | mongodb | 0.2.12 |
+| @groundhog2k | elasticsearch | 0.1.103 |
 
 ## Common parameters
 

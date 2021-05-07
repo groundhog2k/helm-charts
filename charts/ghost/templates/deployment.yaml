@@ -6,6 +6,9 @@ metadata:
     {{- include "ghost.labels" . | nindent 4 }}
 spec:
   replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "ghost.selectorLabels" . | nindent 6 }}

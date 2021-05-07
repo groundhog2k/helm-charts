@@ -27,9 +27,9 @@ data:
     {{- if .Values.redis.enabled }}
     session.save_handler = redis
     {{- if .Values.redis.password }}
-    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.port }}?auth={{ .Values.redis.password }}"
+    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.serverPort }}?auth={{ .Values.redis.password }}"
     {{- else }}
-    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.port }}"
+    session.save_path="tcp://{{ include "redis.servicename" . }}:{{ .Values.redis.service.serverPort }}"
     {{- end }}
     {{- else }}
     {{- with .Values.externalCache }}
