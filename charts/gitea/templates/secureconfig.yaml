@@ -47,9 +47,9 @@ stringData:
   {{- if .Values.redis.enabled }}
     {{- $_ := set .Values.gitea.config.cache "ENABLED" "true" -}}
     {{- $_ := set .Values.gitea.config.cache "ADAPTER" "redis" -}}
-    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.port | toString)) -}}
+    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.serverPort | toString)) -}}
     {{- $_ := set .Values.gitea.config.session "PROVIDER" "redis" -}}
-    {{- $_ := set .Values.gitea.config.session "PROVIDER_CONFIG" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.port | toString)) -}}
+    {{- $_ := set .Values.gitea.config.session "PROVIDER_CONFIG" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.serverPort | toString)) -}}
   {{- end }}
     {{- if not (hasKey .Values.gitea.config.server "ROOT_URL") -}}
     {{- if .Values.ingress.enabled -}}

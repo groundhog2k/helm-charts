@@ -5,7 +5,10 @@ metadata:
   labels:
     {{- include "remark42.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "remark42.selectorLabels" . | nindent 6 }}

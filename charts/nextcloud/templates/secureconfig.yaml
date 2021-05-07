@@ -40,7 +40,7 @@ data:
 {{- end }}
 {{- if .Values.redis.enabled }}
   REDIS_HOST: {{ (include "redis.servicename" .) | b64enc }}
-  REDIS_HOST_PORT: {{ (.Values.redis.service.port | toString) | b64enc }}
+  REDIS_HOST_PORT: {{ (.Values.redis.service.serverPort | toString) | b64enc }}
   {{- if .Values.redis.password }}
   REDIS_HOST_PASSWORD: {{ .Values.redis.password | b64enc }}
   {{- end }}

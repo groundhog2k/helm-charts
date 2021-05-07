@@ -1,12 +1,12 @@
 dependencies:
 - name: mariadb
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.2.10
+  version: 0.2.11
 - name: postgres
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.2.9
+  version: 0.2.10
 - name: redis
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.3.2
-digest: sha256:1fd08ccc593f9a9e5fa78bf5153253c14082b900036f1a289e3d808023c4f27a
-generated: "2021-04-21T15:14:56.5657536+02:00"
+  version: 0.4.4
+digest: sha256:bc493818b791dc3f085db0a800f3a95cd47fced38f96c478db08c97ff0a7da28
+generated: "2021-05-07T09:08:01.5360408+02:00"

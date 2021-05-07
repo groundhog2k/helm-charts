@@ -80,6 +80,9 @@ tolerations: []
 
 affinity: {}
 
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
 containerPort: 8080
 
 ## Custom liveness probe (overwrites default liveness probe)

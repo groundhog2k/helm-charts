@@ -91,6 +91,9 @@ tolerations: []
 
 affinity: {}
 
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
 ## Custom liveness probe (overwrites default liveness probe)
 customLivenessProbe: {}
 
