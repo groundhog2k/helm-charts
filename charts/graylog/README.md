@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.1.16](https://img.shields.io/badge/Version-0.1.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.6](https://img.shields.io/badge/AppVersion-4.0.6-informational?style=flat-square)
+![Version: 0.1.17](https://img.shields.io/badge/Version-0.1.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.6](https://img.shields.io/badge/AppVersion-4.0.6-informational?style=flat-square)
 
 A Helm chart for Graylog on Kubernetes
 
@@ -81,6 +81,10 @@ $ helm uninstall my-release
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
 | replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| podDisruptionBudget | object | `{}` | Pod disruption budget |
+| podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
+| podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
 ## Service paramters
 

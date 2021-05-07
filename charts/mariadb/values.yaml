@@ -28,6 +28,12 @@ nodeSelector: {}
 ## Additional pod annotations
 podAnnotations: {}
 
+## Pod management policy
+podManagementPolicy: OrderedReady
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
 ## Pod security options
 podSecurityContext:
   fsGroup: 999
@@ -64,6 +70,9 @@ resources: {}
 tolerations: []
 
 affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
 
 ## Custom liveness probe (overwrites default liveness probe)
 customLivenessProbe: {}

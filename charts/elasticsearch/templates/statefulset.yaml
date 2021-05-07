@@ -7,7 +7,10 @@ metadata:
 spec:
   serviceName: {{ include "elasticsearch.fullname" . }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}      
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
   selector:

@@ -1,6 +1,6 @@
 # Elasticsearch
 
-![Version: 0.1.102](https://img.shields.io/badge/Version-0.1.102-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.10.2](https://img.shields.io/badge/AppVersion-7.10.2-informational?style=flat-square)
+![Version: 0.1.103](https://img.shields.io/badge/Version-0.1.103-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.10.2](https://img.shields.io/badge/AppVersion-7.10.2-informational?style=flat-square)
 
 A Helm chart for Elasticsearch on Kubernetes
 
@@ -76,7 +76,7 @@ $ helm uninstall my-release
 | tolerations | list | `[]` | Pod tolerations |
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
-| replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 
 ## Service paramters
 

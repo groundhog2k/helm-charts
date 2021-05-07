@@ -28,10 +28,11 @@ podAnnotations: {}
 podSecurityContext:
   fsGroup: 999
 
-## Don't touch - no other options supported in this chart version
+## Pod management policy
 podManagementPolicy: OrderedReady
+
+## Pod update strategy
 updateStrategyType: RollingUpdate
-replicaCount: 1
 
 ## Default security options to run Redis as non-root, read only container without privilege escalation
 securityContext:
@@ -93,6 +94,9 @@ tolerations: []
 
 ## Pod affinity
 affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
 
 ## Additional arguments for the container entrypoint process
 args: []

@@ -6,7 +6,13 @@ metadata:
     {{- include "mariadb.labels" . | nindent 4 }}
 spec:
   replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   serviceName: {{ include "mariadb.fullname" . }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy: 
+    type: {{ .Values.updateStrategyType }}
   selector:
     matchLabels:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}

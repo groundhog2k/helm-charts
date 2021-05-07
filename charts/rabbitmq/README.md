@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.2.15](https://img.shields.io/badge/Version-0.2.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.15](https://img.shields.io/badge/AppVersion-3.8.15-informational?style=flat-square)
+![Version: 0.2.16](https://img.shields.io/badge/Version-0.2.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.15](https://img.shields.io/badge/AppVersion-3.8.15-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -66,13 +66,18 @@ $ helm uninstall my-release
 | env | list | `[]` | Additional container environmment variables |
 | args | list | `[]` | Additional container command arguments |
 | rbac.create | bool | `true` | Enable creation of RBAC |
-| serviceAccount.create | bool | `false` | Enable service account creation |
+| serviceAccount.annotations | object | `{}` | Additional service account annotations |
+| serviceAccount.create | bool | `true` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | replicaCount | int | `1` | Number of replicas |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| podDisruptionBudget | object | `{}` | Pod disruption budget |
+| podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
+| podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
 ## Service paramters
 

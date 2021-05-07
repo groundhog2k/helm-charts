@@ -1,4 +1,4 @@
-{{- if .Values.podDisruptionBudget.enabled }}
+{{- if and (.Values.podDisruptionBudget) (or .Values.podDisruptionBudget.minAvailable .Values.podDisruptionBudget.maxUnavailable) }}
 {{- if semverCompare ">=1.21" .Capabilities.KubeVersion.Version }}
 apiVersion: policy/v1
 {{- else }}
@@ -6,13 +6,9 @@ apiVersion: policy/v1beta1
 {{- end }}
 kind: PodDisruptionBudget
 metadata:
+  name: {{ include "redis.fullname" . }}
   labels:
-    app: {{ template "metrics-server.name" . }}
-    chart: {{ template "metrics-server.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  name: {{ template "metrics-server.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+    {{- include "redis.labels" . | nindent 4 }}
 spec:
   {{- if .Values.podDisruptionBudget.minAvailable }}
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
@@ -22,5 +18,5 @@ spec:
   {{- end  }}
   selector:
     matchLabels:
-      app: {{ template "metrics-server.name" . }}
+      {{- include "redis.selectorLabels" . | nindent 6 }}
 {{- end }}
