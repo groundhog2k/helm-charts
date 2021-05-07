@@ -11,6 +11,9 @@ spec:
   serviceName: {{ include "graylog.fullname" . }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}      
   replicas: {{ .Values.replicaCount }}
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}    
   template:

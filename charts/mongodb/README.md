@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.2.11](https://img.shields.io/badge/Version-0.2.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.13](https://img.shields.io/badge/AppVersion-4.2.13-informational?style=flat-square)
+![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.13](https://img.shields.io/badge/AppVersion-4.2.13-informational?style=flat-square)
 
 A Helm chart for MongoDB on Kubernetes
 
@@ -72,7 +72,7 @@ $ helm uninstall my-release
 | tolerations | list | `[]` | Pod tolerations |
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
-| replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 
 ## Service paramters
 

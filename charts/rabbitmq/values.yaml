@@ -28,8 +28,10 @@ podAnnotations: {}
 podSecurityContext:
   fsGroup: 999
 
+## Pod management policy
 podManagementPolicy: OrderedReady
 
+## Pod update strategy
 updateStrategyType: RollingUpdate
 
 ## Default security options to run RabbitMq as read only container without privilege escalation
@@ -130,8 +132,10 @@ readinessProbe:
 ## Service account (necessary in cluster mode)
 serviceAccount:
   create: true
-  ## The name of the ServiceAccount to use. (If not set and create is true, a name is generated using the rabbitmq.fullname template)
-  # name:
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the ServiceAccount to use. (If not set and create is true, a name is generated using the rabbitmq.fullname template)
+  name: ""
 
 ## Create RBAC (necessary in cluster mode)
 rbac:

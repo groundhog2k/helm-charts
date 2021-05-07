@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.2](https://img.shields.io/badge/AppVersion-13.2-informational?style=flat-square)
+![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.2](https://img.shields.io/badge/AppVersion-13.2-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
 
@@ -71,6 +71,9 @@ $ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` |  |
 | tolerations | list | `[]` |  |
+| podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
+| updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 
 ## Service paramters
 

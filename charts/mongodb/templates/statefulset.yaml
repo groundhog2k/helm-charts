@@ -10,7 +10,10 @@ spec:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
   serviceName: {{ include "mongodb.fullname" . }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}  
   template:

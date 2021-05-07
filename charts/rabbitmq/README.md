@@ -66,7 +66,8 @@ $ helm uninstall my-release
 | env | list | `[]` | Additional container environmment variables |
 | args | list | `[]` | Additional container command arguments |
 | rbac.create | bool | `true` | Enable creation of RBAC |
-| serviceAccount.create | bool | `false` | Enable service account creation |
+| serviceAccount.annotations | object | `{}` | Additional service account annotations |
+| serviceAccount.create | bool | `true` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
