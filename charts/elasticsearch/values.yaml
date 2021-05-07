@@ -21,10 +21,11 @@ serviceAccount:
 
 podAnnotations: {}
 
-## Management policy, update strategy and number of replicas
+## Pod management policy
 podManagementPolicy: OrderedReady
+
+## Pod update strategy
 updateStrategyType: RollingUpdate
-replicaCount: 1
 
 podSecurityContext:
   fsGroup: 1000
@@ -88,6 +89,8 @@ tolerations: []
 
 affinity: {}
 
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
 
 ## Custom liveness probe (overwrites default liveness probe)
 customLivenessProbe: {}
