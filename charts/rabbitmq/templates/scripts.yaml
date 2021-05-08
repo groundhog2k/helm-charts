@@ -7,9 +7,15 @@ metadata:
 data:
   init.sh: |
     #!/bin/sh
+    echo "Initializing RabbitMQ instance..."
+    echo "Copy configuration"
     cp /temp/* /etc/rabbitmq
     mkdir -p /etc/rabbitmq/conf.d
     if [ ! -f /var/lib/rabbitmq/.erlang.cookie ]; then
+      echo "Copy erlang cookie"
       echo $ERLANG_COOKIE >/var/lib/rabbitmq/.erlang.cookie
       chmod 600 /var/lib/rabbitmq/.erlang.cookie
+    else
+      echo "Erlang cookie already exists."
     fi
+    echo "Finished."
