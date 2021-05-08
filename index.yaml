@@ -1345,6 +1345,31 @@ entries:
   gitea:
   - apiVersion: v2
     appVersion: 1.14.1
+    created: "2021-05-08T07:37:12.257946628Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.11
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.10
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.4.4
+    description: A Helm chart for Gitea on Kubernetes
+    digest: ccb5ce32bb2452a05a52d6532c4c0f30bccfc509b244de5c844d3bfeed822e7d
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.3.9/gitea-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
+    appVersion: 1.14.1
     created: "2021-05-07T17:16:42.787894859Z"
     dependencies:
     - condition: mariadb.enabled
@@ -2144,6 +2169,27 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.1.0/gitea-0.1.0.tgz
     version: 0.1.0
   graylog:
+  - apiVersion: v2
+    appVersion: 4.0.6
+    created: "2021-05-08T07:37:12.416100838Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.12
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.103
+    description: A Helm chart for Graylog on Kubernetes
+    digest: 5675c13c1da907cb3a62680862a42b7213db5cc410b776686e936ffb8a7f8dd7
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.1.19/graylog-0.1.19.tgz
+    version: 0.1.19
   - apiVersion: v2
     appVersion: 4.0.6
     created: "2021-05-07T08:31:28.693348643Z"
@@ -4273,6 +4319,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
     version: 0.1.0
   rabbitmq:
+  - apiVersion: v2
+    appVersion: 3.8.16
+    created: "2021-05-08T07:37:12.575139802Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 3f437fa9f226c26d1b56c98a85c4ceab707c417929e9097d47c93a84b6dd8e27
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.2.18/rabbitmq-0.2.18.tgz
+    version: 0.2.18
   - apiVersion: v2
     appVersion: 3.8.16
     created: "2021-05-07T08:34:43.080941457Z"
