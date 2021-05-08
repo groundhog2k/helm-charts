@@ -7,22 +7,37 @@ metadata:
 data:
   init.sh: |
     #!/bin/bash
+    echo "Initializing Gitea..."
     if [ ! -d /data/gitea/conf ]; then
+      echo "Gitea configuration directory doesn't exist. Creating directory structure..."
       mkdir -p /data/gitea/conf
       mkdir -p /data/gitea/lfs
       mkdir -p /data/git
       mkdir -p /data/git/gitea-repositories
       mkdir -p /data/log
+      echo "Gitea directory structure created."
+    else
+      echo "Gitea directory structure already exists."
     fi
+    echo "Copy app.ini"
     cp /config/app.ini /data/gitea/conf/app.ini
+    echo "Setting permissions on app.ini"
     chmod u+rw /data/gitea/conf/app.ini
+    echo "Finished."
 
   createdefaultadmin.sh: |
     #!/bin/bash
+    echo "Post installation..."
     if [ ! -f /data/gitea/conf/.post-install-done ]; then
+      echo "Post-install didn't run before - Sleeping for {{ .Values.settings.postInstallDelay }} seconds..."
       sleep {{ .Values.settings.postInstallDelay }}
       {{- with .Values.settings.defaultAdmin }}
+      echo "Creating first admin user"
       /app/gitea/gitea admin user create --username {{ .user }} --password {{ .password }} --email {{ .email }} --admin --must-change-password
       {{- end }}
       touch /data/gitea/conf/.post-install-done
+      echo "Post-install ready."
+    else
+      echo "Nothing to do."
     fi
+    echo "Finished."

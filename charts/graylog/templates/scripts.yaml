@@ -7,12 +7,19 @@ metadata:
 data:
   init.sh: |
     #!/bin/bash
+    echo "Initializing Graylog..."
     if [ ! -f /data/config/graylog.conf ]; then
+      echo "No Graylog configuration found - Initializing directory structure"
       mkdir -p /data/config
       mkdir -p /data/journal
       mkdir -p /data/log
       mkdir -p /data/plugin
       mkdir -p /data/contentpacks
+      echo "Copy configuration"
       cp /usr/share/graylog/data/config/* /data/config
+      echo "Setting permissions on configuration folder"
       chmod u+rw /data/config/*
+    else
+      echo "Graylog configuration already exists."
     fi
+    echo "Finished."
