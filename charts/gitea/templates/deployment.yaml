@@ -122,6 +122,8 @@ spec:
               mountPath: /var/run
             - name: gitea-vol
               mountPath: /data
+            - name: tmp
+              mountPath: /tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -136,6 +138,8 @@ spec:
       {{- end }}
       volumes:
         - name: run
+          emptyDir: {}
+        - name: tmp
           emptyDir: {}
         - name: scripts
           configMap:
