@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.4.0](https://img.shields.io/badge/AppVersion-4.4.0-informational?style=flat-square)
+![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.4.0](https://img.shields.io/badge/AppVersion-4.4.0-informational?style=flat-square)
 
 A Helm chart for Ghost blog on Kubernetes
 
@@ -128,6 +128,7 @@ $ helm uninstall my-release
 | externalDatabase.password | string | `nil` | External database password |
 | settings.mode | string | `"production"` | Ghost mode (production or development) |
 | settings.url | string | `nil` | URL of Ghost blog |
+| settings.logToStdout | bool | `true`| Log to stdout by default (otherwise logging will go to stdout and file) |
 | settings.mail.from | string | `nil` | Mail from address |
 | settings.mail.transport | string | `SMTP` | Mail transport type (SMTP, Sendmail, Direct) |
 | settings.mail.host | string | `nil` | Mail host for transport |
