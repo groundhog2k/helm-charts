@@ -55,6 +55,10 @@ spec:
             - name: url
               value: {{ .Values.settings.url | quote }}
             {{- end }}
+            {{- if .Values.settings.logToStdout }}
+            - name: logging__transports
+              value: "[\"stdout\"]"
+            {{- end }}
             {{- with .Values.settings.mail }}
             {{- if .from }}
             - name: mail__from

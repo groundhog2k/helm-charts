@@ -148,6 +148,9 @@ settings:
   ## Default URL (for generated links)
   url:
 
+  ## Log to stdout only (default) - otherwise logging will go to stdout and file
+  logToStdout: true
+
   ## Environment mode (development or production - default: production)
   mode: production
 
