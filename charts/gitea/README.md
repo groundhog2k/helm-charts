@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.3.12](https://img.shields.io/badge/Version-0.3.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.14.2](https://img.shields.io/badge/AppVersion-1.14.2-informational?style=flat-square)
+![Version: 0.3.13](https://img.shields.io/badge/Version-0.3.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.14.2](https://img.shields.io/badge/AppVersion-1.14.2-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -62,7 +62,7 @@ $ helm uninstall my-release
 | image.repository | string | `"gitea/gitea"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
-| strategy | object | `{}` | Pod deployment strategy |
+| strategy.type | object | `Recreate` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
@@ -81,11 +81,7 @@ $ helm uninstall my-release
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | containerHttpPort | int | `8000` | Internal http container port |
 | containerSshPort | int | `8022` | Internal ssh container port |
-| replicaCount | int | `1` | Number of replicas |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
-| podDisruptionBudget | object | `{}` | Pod disruption budget |
-| podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
-| podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
 ## Service paramters
 
