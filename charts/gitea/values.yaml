@@ -7,16 +7,14 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-## Number of replicas
-replicaCount: 1
-
 ## Pull secrets and name override options
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 ## Pod deployment strategy
-strategy: {}
+strategy:
+  type: Recreate
 
 ## Optional service account
 serviceAccount:
@@ -131,13 +129,6 @@ affinity: {}
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
 
-## Pod disruption budget
-podDisruptionBudget: {}
-  ## Minimum number of pods that must be available after eviction
-  # minAvailable:
-  ## Maximum number of pods that can be unavailable after eviction
-  # maxUnavailable:
-
 ## Internal container HTTP port (default: 8000)
 containerHttpPort: 8000
 ## Internal container SSH port (default: 8022)
@@ -228,13 +219,6 @@ gitea:
       # FROM:
       # USER:
       # PASSWD:
-
-    # Indexer prevents scaling Gitea with replicas option and instances (>1) will crash - as a workaround the indexer STARTUP_TIMEOUT can be set to infinite
-    # This workaround is working but not fully tested
-    # Session cache must enabled and database must be MySQL/MariaDB or PostgreSQL!
-    # Try at your own risk!
-    # indexer:
-      # STARTUP_TIMEOUT: 0
 
 ## Gitea storage parameters
 storage:
