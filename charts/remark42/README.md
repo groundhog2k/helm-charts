@@ -62,7 +62,7 @@ $ helm uninstall my-release
 | image.repository | string | `"umputun/remark42"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
-| strategy.type | object | `Recreate` | Pod deployment strategy |
+| strategy | object | `{}` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
