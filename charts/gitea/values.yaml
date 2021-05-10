@@ -171,8 +171,10 @@ gitea:
 
     log:
       ROOT_PATH: "/data/log"
-      MODE: "file"
+      MODE: "console"
       LEVEL: "info"
+      ACCESS: "console"
+      ENABLE_ACCESS_LOG: "false"
 
     server:
       PROTOCOL: http
