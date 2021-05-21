@@ -2304,6 +2304,27 @@ entries:
     version: 0.1.0
   graylog:
   - apiVersion: v2
+    appVersion: 4.0.7
+    created: "2021-05-21T17:27:52.805728018Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.12
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.103
+    description: A Helm chart for Graylog on Kubernetes
+    digest: 7d690e1002d24eb286d0a9ceac94222df4a93847208595c7b93c91e377bc028a
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.1.20/graylog-0.1.20.tgz
+    version: 0.1.20
+  - apiVersion: v2
     appVersion: 4.0.6
     created: "2021-05-08T07:37:12.416100838Z"
     dependencies:
@@ -2704,6 +2725,18 @@ entries:
     version: 0.1.0
   mariadb:
   - apiVersion: v2
+    appVersion: 10.5.10
+    created: "2021-05-21T17:27:52.989572108Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: cbcef826079d9d0f9232ed8f83fa14938102dd346f41496334455762dbf22aa2
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.2.12/mariadb-0.2.12.tgz
+    version: 0.2.12
+  - apiVersion: v2
     appVersion: 10.5.9
     created: "2021-05-07T06:26:59.039571932Z"
     description: A Helm chart for MariaDB on Kubernetes
@@ -3047,6 +3080,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.11.4/metrics-server-2.11.4.tgz
     version: 2.11.4
   mongodb:
+  - apiVersion: v2
+    appVersion: 4.2.14
+    created: "2021-05-21T17:27:53.15957569Z"
+    description: A Helm chart to deploy MongoDB
+    digest: d9b7e22e84df0f3b67138c9b6b91838412d2970c244c416f8badd3375851805a
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.2.13/mongodb-0.2.13.tgz
+    version: 0.2.13
   - apiVersion: v2
     appVersion: 4.2.13
     created: "2021-05-07T06:26:59.242046829Z"
