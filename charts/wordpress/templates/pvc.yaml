@@ -18,8 +18,8 @@ spec:
   resources:
     requests:
       storage: {{ .requestedSize }}
-  {{- if .storageClassName }}
-  storageClassName: {{ .storageClassName }}
+  {{- if .className }}
+  storageClassName: {{ .className }}
   {{- end }}
   {{- end }}  
 {{- end }}
