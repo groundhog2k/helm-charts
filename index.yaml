@@ -5011,6 +5011,18 @@ entries:
     version: 0.1.0
   redis:
   - apiVersion: v2
+    appVersion: 6.2.4
+    created: "2021-06-02T18:26:09.32547863Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: ddba99eaf7ed9b0ba8855b5336e19707b07f93b5f77e5b91ad4b492dba6c093b
+    maintainers:
+    - name: groundhog2k
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.4.5/redis-0.4.5.tgz
+    version: 0.4.5
+  - apiVersion: v2
     appVersion: 6.2.3
     created: "2021-05-07T06:26:59.526025462Z"
     description: A Helm chart for Redis on Kubernetes
