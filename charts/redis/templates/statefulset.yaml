@@ -123,10 +123,10 @@ spec:
           command:
             - redis-server
           args:
+            - /data/conf/redis.conf
             {{- range .Values.args }}
             - {{ . }}
             {{- end }}
-            - /data/conf/redis.conf
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
