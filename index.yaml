@@ -2538,6 +2538,27 @@ entries:
     version: 0.1.0
   graylog:
   - apiVersion: v2
+    appVersion: 4.0.8
+    created: "2021-06-09T14:40:15.620915534Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.13
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.103
+    description: A Helm chart for Graylog on Kubernetes
+    digest: ff2016bf56fa2561c65fbaae82e94a11f36bca7461f237a7c955640bf6fbc816
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.1.22/graylog-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
     appVersion: 4.0.7
     created: "2021-05-22T07:22:02.060690018Z"
     dependencies:
