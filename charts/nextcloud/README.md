@@ -1,6 +1,6 @@
 #  Nextcloud
 
-![Version: 0.5.12](https://img.shields.io/badge/Version-0.5.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 21.0.2-apache](https://img.shields.io/badge/AppVersion-21.0.2-informational?style=flat-square)
+![Version: 0.5.13](https://img.shields.io/badge/Version-0.5.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 21.0.2-apache](https://img.shields.io/badge/AppVersion-21.0.2-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -63,7 +63,7 @@ $ helm uninstall my-release
 | Repository | Name | Version |
 |------------|------|---------|
 | @groundhog2k | mariadb | 0.2.12 |
-| @groundhog2k | postgres | 0.2.10 |
+| @groundhog2k | postgres | 0.2.11 |
 | @groundhog2k | redis | 0.4.6 |
 
 ## Common parameters
