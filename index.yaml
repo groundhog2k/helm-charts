@@ -3684,6 +3684,18 @@ entries:
     version: 2.11.4
   mongodb:
   - apiVersion: v2
+    appVersion: 4.4.7
+    created: "2021-07-20T17:04:37.318886549Z"
+    description: A Helm chart to deploy MongoDB
+    digest: d3bb2a72155893a8a44e8fff81d9288bda9ffcecd324a3727111d5c6dcb5666e
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.3.2/mongodb-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     appVersion: 4.4.6
     created: "2021-07-01T19:08:18.384272225Z"
     description: A Helm chart to deploy MongoDB
