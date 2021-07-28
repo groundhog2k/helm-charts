@@ -12,8 +12,8 @@ data:
     listeners.tcp.default = 5672
     management.tcp.port = 15672
     ## Username
-    default_user = CHANGE_ME
-    default_pass = CHANGE_ME
+    default_user = {{ .Values.authentication.user | default "guest" }}
+    default_pass = {{ .Values.authentication.password | default "guest" }}
     {{- if contains "rabbitmq_peer_discovery_k8s" .Values.plugins }}
     ## Clustering
     cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s

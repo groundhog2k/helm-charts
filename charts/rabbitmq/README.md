@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.2.21](https://img.shields.io/badge/Version-0.2.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.19](https://img.shields.io/badge/AppVersion-3.8.19-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.0](https://img.shields.io/badge/AppVersion-3.9.0-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -114,8 +114,8 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | authentication.erlangCookie | string | `nil` | Erlang cookie (default: Random base64 value) |
-| authentication.password | string | `nil` | Initial password (default: random alphanumeric 10 characters) |
-| authentication.user | string | `"admin"` | Initial user name |
+| authentication.password | string | `"guest"` | Initial password |
+| authentication.user | string | `"guest"` | Initial user name |
 | clusterDomain | string | `"cluster.local"` | Kubernetes cluster domain (DNS) suffix |
 | clustering.addressType | string | `"hostname"` | Address type for cluster usage (hostname or ip) |
 | clustering.rebalance | bool | `true` | Enable rebalance queues with master when new replica is created |
