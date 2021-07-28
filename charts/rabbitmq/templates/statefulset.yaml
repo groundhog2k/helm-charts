@@ -162,9 +162,6 @@ spec:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}            
-          envFrom:
-            - secretRef:
-                name: {{ include "rabbitmq.fullname" . }}
           {{- if .Values.args }}
           args:
             {{- range .Values.args }}

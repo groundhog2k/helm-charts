@@ -169,10 +169,10 @@ options:
 # If password of erlang cookie not provided in configuration random values will be generated
 authentication:
   ## Initial user name
-  user: admin
+  user: "guest"
 
-  ## Initial password (default: random alphanumeric 10 characters)
-  password:
+  ## Initial password
+  password: "guest"
 
   ## Erlang cookie (default: Random base64 value)
   erlangCookie:
