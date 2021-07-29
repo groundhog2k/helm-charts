@@ -14,7 +14,6 @@ spec:
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
   selector:
-  selector:
     matchLabels:
       {{- include "postgres.selectorLabels" . | nindent 6 }}
   template:
