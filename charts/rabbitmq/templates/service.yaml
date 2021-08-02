@@ -27,3 +27,4 @@ spec:
   {{- end }}
   selector:
     {{- include "rabbitmq.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.service.type }}
