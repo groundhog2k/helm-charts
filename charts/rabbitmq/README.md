@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.1](https://img.shields.io/badge/AppVersion-3.9.1-informational?style=flat-square)
+![Version: 0.2.22](https://img.shields.io/badge/Version-0.2.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.20](https://img.shields.io/badge/AppVersion-3.8.20-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
@@ -10,14 +10,6 @@ A Helm chart for a RabbitMQ cluster on Kubernetes
 $ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
 $ helm install my-release groundhog2k/rabbitmq
 ```
-
-# ⚠️ Attention
-
-Docker image of RabbitMQ 3.8.17 was the last one that supports multi-architecture. If you need that, please use RabbitMQ 3.8.17, which is chart version **0.2.19**.
-
-In the future RabbitMQ will support multi-architecture again. See https://github.com/docker-library/rabbitmq/issues/507 and related issue https://github.com/erlang/otp/pull/4869.
-
-#
 
 ## Introduction
 
