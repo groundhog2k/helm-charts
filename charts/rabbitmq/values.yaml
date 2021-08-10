@@ -166,7 +166,7 @@ options:
 # Default user and erlang cookie
 # The erlang cookie is important for clustered or container based usage
 # Find more information about it at https://hub.docker.com/_/rabbitmq and https://www.rabbitmq.com/clustering.html#erlang-cookie
-# If password of erlang cookie not provided in configuration random values will be generated
+# If erlang cookie is not provided in configuration a random value will be generated
 authentication:
   ## Initial user name
   user: "guest"
