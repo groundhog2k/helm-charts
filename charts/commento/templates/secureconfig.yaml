@@ -19,7 +19,7 @@ data:
   {{- $_ := required "Values: externalDatabase.password is mandatory if externalDatabase is specified." .password }}
   {{- $_ := required "Values: externalDatabase.host is mandatory if externalDatabase is specified." .host }}
   {{- $_ := required "Values: externalDatabase.port is mandatory if externalDatabase is specified." .port }}
-  COMMENTO_POSTGRES: {{ (printf "mongodb://%s:%s@%s:%s/%s?sslmode=disable" .user .password .host (.port | toString) .name) | b64enc }}
+  COMMENTO_POSTGRES: {{ (printf "postgres://%s:%s@%s:%s/%s?sslmode=disable" .user .password .host (.port | toString) .name) | b64enc }}
 {{- end }}
 {{- end }}
 {{- with .Values.settings.smtp }}
