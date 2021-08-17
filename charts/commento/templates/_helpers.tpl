@@ -84,8 +84,15 @@ Commento settings via environment variables
   value: {{ .Values.settings.gzipStaticContent | quote }}
 - name: COMMENTO_PORT
   value: {{ .Values.containerPort | quote }}
+{{- if .Values.settings.origin }}
+- name: COMMENTO_ORIGIN
+  value: {{ .Values.settings.origin | quote }}
+{{- else }}
+{{- if .Values.ingress.enabled }}
 - name: COMMENTO_ORIGIN
   value: {{ (printf "%s://%s" .Values.settings.protocol .Values.ingress.host) | quote }}
+{{- end }}
+{{- end }}
 {{- with .Values.settings.smtp }}
   {{- if .enabled }}
 - name: COMMENTO_SMTP_HOST

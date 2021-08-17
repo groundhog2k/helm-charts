@@ -137,8 +137,11 @@ externalDatabase:
   port: 5432
 
 settings:
-  ## Protocol for generated links (default: https)
+  ## Protocol for generated origin URL (when ingress is enabled) (default: https)
   protocol: https
+
+  ## Alternative Commento origin URL which is prefered over generated URL
+  origin:
 
   ## Forbid new owners
   forbidNewOwners: false
