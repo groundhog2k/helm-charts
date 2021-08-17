@@ -1,6 +1,6 @@
 # Commento
 
-![Version: 0.1.17](https://img.shields.io/badge/Version-0.1.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.18](https://img.shields.io/badge/Version-0.1.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
 
 A Helm chart for Commento on Kubernetes
 
@@ -122,7 +122,8 @@ $ helm uninstall my-release
 | settings.akismetKey | string | `nil` | Optional Akismet key |
 | settings.forbidNewOwners | bool | `false` | Forbid new user self registrations |
 | settings.gzipStaticContent | bool | `false` | Enable serve static content GZIP compressed to client |
-| settings.protocol | string | `"https"` | Protocol for external access (through ingress) |
+| settings.protocol | string | `"https"` | Protocol for generated origin URL (when ingress is enabled) |
+| settings.origin | string | `nil` | Alternative Commento origin URL which is prefered over generated URL |
 | settings.oauth.github.enabled | bool | `false` | Enable Github OAuth |
 | settings.oauth.github.key | string | `nil` | Github OAuth key |
 | settings.oauth.github.secret | string | `nil` | Github OAuth secret |
