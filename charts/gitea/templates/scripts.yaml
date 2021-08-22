@@ -22,7 +22,7 @@ data:
     echo "Copy app.ini"
     cp /config/app.ini /data/gitea/conf/app.ini
     echo "Setting permissions on app.ini"
-    chmod u+rw /data/gitea/conf/app.ini
+    chmod 600 /data/gitea/conf/app.ini
     echo "Finished."
 
   createdefaultadmin.sh: |
