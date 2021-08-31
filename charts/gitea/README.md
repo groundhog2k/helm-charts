@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.0](https://img.shields.io/badge/AppVersion-1.15.0-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.0](https://img.shields.io/badge/AppVersion-1.15.0-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -112,13 +112,25 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| externalCache.enabled | bool | `false` | Enable external Redis cache |
+| externalCache.host | string | `nil` | External Redis host and port (host:port) |
 | redis.enabled | bool | `false` | Enable Redis cache deployment (will disable external cache settings) |
 | redis.storage | string | `nil` | Redis storage settings |
+
+**Hint:** When no cache configuration is enabled, then all cache settings have to be provided manually in the `gitea.config` section. See [Gitea Config Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/) for description of all settings.
 
 ## Database settings
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| fallbackToSqlite | bool | `true` | Falls back to internal SQLite when no database is configured |
+| externalDatabase.enabled | bool | `false` | Enable usage of external database |
+| externalDatabase.type | string | `nil` | External database type ("mysql", "postgres" are supported) |
+| externalDatabase.charset | string | `"utf8mb4"` | Database charset to use (only relevant for mysql/mariadb) |
+| externalDatabase.host | string | `nil` | External database host |
+| externalDatabase.name | string | `nil` | External database name |
+| externalDatabase.user | string | `nil` | External database user name |
+| externalDatabase.password | string | `nil` | External database user password |
 | mariadb.enabled | bool | `false` | Enable MariaDB deployment (will disable external database settings) |
 | mariadb.settings.arguments[0] | string | `"--character-set-server=utf8mb4"` | Enable MariaDB UTF8MB4 character set|
 | mariadb.settings.arguments[1] | string | `"--collation-server=utf8mb4_unicode_ci"` | Enable UTF8MB4 unicode |
@@ -134,6 +146,8 @@ $ helm uninstall my-release
 | postgres.userDatabase.user | string | `nil` | PostgreSQL Gitea database user |
 | postgres.userDatabase.password | string | `nil` | PostgreSQL Gitea database user password |
 
+**Hint:** When no database configuration is enabled and fallbackToSqlite is set `false`, then all database settings have to be provided manually in the `gitea.config` section. See [Gitea Config Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/) for description of all settings.
+
 ## Gitea parameters
 
 | Key | Type | Default | Description |
@@ -142,7 +156,7 @@ $ helm uninstall my-release
 | settings.defaultAdmin.name | string | `root` | Gitea administrator user |
 | settings.defaultAdmin.password | string | `admin` | Gitea admin user password (Must be changed during first login) |
 | settings.defaultAdmin.email | string | `root@admin.local` | Gitea administrator users email |
-| gitea.config | object | `see values.yaml` | Gitea specific configuration as described in https://docs.gitea.io/en-us/config-cheat-sheet/ - More values and sections can be added |
+| gitea.config | object | `see values.yaml` | Gitea specific configuration as described in the [Gitea Config Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/) - More values and sections can be added |
 
 It's recommended to set the following Gitea configuration parameters:
 

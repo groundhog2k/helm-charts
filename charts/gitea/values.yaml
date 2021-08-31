@@ -140,6 +140,40 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
+## Falls back to internal SQLite when no database is configured
+fallbackToSqlite: true
+
+## External database settings (is used when mariadb.enabled is false and postgres.enabled is false)
+externalDatabase:
+  ## Enable usage of external database (Default: disabled)
+  enabled: false
+
+  ## Type of database ("mysql", "postgres" are supported)
+  type:
+
+  ## Database charset to use (only relevant for mysql/mariadb)
+  charset: "utf8mb4"
+
+  ## Name of the database
+  name:
+
+  ## Database user
+  user:
+
+  ## Database password
+  password:
+
+  ## Database host (and optional port)
+  host:
+
+## External redis cache settings
+externalCache:
+  ## Enable usage of redis as session storage and cache (Default: disabled)
+  enabled: false
+
+  ## Redis host and port (host:port)
+  host:
+
 ## Additional Gitea settings defined in this chart
 settings:
   ## Delay after installation before adminstrative user gets created (Database must be ready and connected)
