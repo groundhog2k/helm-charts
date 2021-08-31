@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.2.24](https://img.shields.io/badge/Version-0.2.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.22](https://img.shields.io/badge/AppVersion-3.8.22-informational?style=flat-square)
+![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.5](https://img.shields.io/badge/AppVersion-3.9.5-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ cluster on Kubernetes
 
