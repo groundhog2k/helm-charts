@@ -41,7 +41,19 @@ stringData:
     {{- $_ := set .Values.gitea.config.database "USER" .Values.postgres.userDatabase.user -}}
     {{- $_ := set .Values.gitea.config.database "PASSWD" .Values.postgres.userDatabase.password -}}
   {{- else }}
+  {{- if .Values.externalDatabase.enabled }}
+    {{- $_ := set .Values.gitea.config.database "SSL_MODE" "disable" -}}
+    {{- $_ := set .Values.gitea.config.database "DB_TYPE" .Values.externalDatabase.type -}}
+    {{- $_ := set .Values.gitea.config.database "CHARSET" .Values.externalDatabase.charset -}}
+    {{- $_ := set .Values.gitea.config.database "HOST" .Values.externalDatabase.host -}}
+    {{- $_ := set .Values.gitea.config.database "NAME" .Values.externalDatabase.name -}}
+    {{- $_ := set .Values.gitea.config.database "USER" .Values.externalDatabase.user -}}
+    {{- $_ := set .Values.gitea.config.database "PASSWD" .Values.externalDatabase.password -}}
+  {{- else }}
+  {{- if .Values.fallbackToSqlite }}
     {{- $_ := set .Values.gitea.config.database "DB_TYPE" "sqlite3" -}}
+  {{- end }}
+  {{- end }}
   {{- end }}
   {{- end }}
   {{- if .Values.redis.enabled }}
@@ -50,6 +62,14 @@ stringData:
     {{- $_ := set .Values.gitea.config.cache "HOST" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.serverPort | toString)) -}}
     {{- $_ := set .Values.gitea.config.session "PROVIDER" "redis" -}}
     {{- $_ := set .Values.gitea.config.session "PROVIDER_CONFIG" (printf "network=tcp,addr=%s:%s,db=0,pool_size=100,idle_timeout=180" (include "redis.servicename" .) (.Values.redis.service.serverPort | toString)) -}}
+  {{- else }}
+  {{- if .Values.externalCache.enabled }}
+    {{- $_ := set .Values.gitea.config.cache "ENABLED" "true" -}}
+    {{- $_ := set .Values.gitea.config.cache "ADAPTER" "redis" -}}
+    {{- $_ := set .Values.gitea.config.cache "HOST" (printf "network=tcp,addr=%s,db=0,pool_size=100,idle_timeout=180" (.Values.externalCache.host)) -}}
+    {{- $_ := set .Values.gitea.config.session "PROVIDER" "redis" -}}
+    {{- $_ := set .Values.gitea.config.session "PROVIDER_CONFIG" (printf "network=tcp,addr=%s,db=0,pool_size=100,idle_timeout=180" (.Values.externalCache.host)) -}}
+  {{- end }}
   {{- end }}
     {{- if not (hasKey .Values.gitea.config.server "ROOT_URL") -}}
     {{- if .Values.ingress.enabled -}}
