@@ -326,6 +326,18 @@ entries:
     version: 0.1.0
   elasticsearch:
   - apiVersion: v2
+    appVersion: 7.14.1
+    created: "2021-09-02T14:48:03.318853586Z"
+    description: A Helm chart for Elasticsearch on Kubernetes
+    digest: ced03e1e6478919e84b73c89d6bf6b897a26d6280fafdb5acbee12df0e2949a1
+    maintainers:
+    - name: groundhog2k
+    name: elasticsearch
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.4.1/elasticsearch-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
     appVersion: 7.14.0
     created: "2021-08-03T19:16:36.389100365Z"
     description: A Helm chart for Elasticsearch on Kubernetes
