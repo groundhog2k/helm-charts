@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.0](https://img.shields.io/badge/AppVersion-1.15.0-informational?style=flat-square)
+![Version: 0.3.26](https://img.shields.io/badge/Version-0.3.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.14.7](https://img.shields.io/badge/AppVersion-1.14.7-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
