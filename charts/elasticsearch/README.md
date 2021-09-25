@@ -1,6 +1,6 @@
 # Elasticsearch
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.14.1](https://img.shields.io/badge/AppVersion-7.14.1-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.14.2](https://img.shields.io/badge/AppVersion-7.14.2-informational?style=flat-square)
 
 A Helm chart for Elasticsearch on Kubernetes
 
@@ -55,7 +55,7 @@ $ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"elasticsearch"` | Image name |
+| image.repository | string | `"docker.elastic.co/elasticsearch/elasticsearch"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
