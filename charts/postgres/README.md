@@ -1,8 +1,12 @@
 # PostgreSQL
 
-![Version: 0.2.13](https://img.shields.io/badge/Version-0.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.4](https://img.shields.io/badge/AppVersion-13.4-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.0](https://img.shields.io/badge/AppVersion-14.0-informational?style=flat-square)
 
 A Helm chart for PostgreSQL on Kubernetes
+
+## ⚠️ Warning
+
+There is no automatic database upgrade from PostgreSQL 13.x (Chart version 0.2.x) to PostgreSQL 14.x (Chart version 0.3.x) and deployment will fail when database is PostgreSQL 13.x.
 
 ## TL;DR
 
