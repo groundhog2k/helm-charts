@@ -1,11 +1,7 @@
-name: Release helm chart
+name: Manual release helm chart
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'charts/**'
+  workflow_dispatch:
 
 jobs:
   release:
@@ -19,6 +15,9 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Add dependencies
+        run: |
+          helm repo add groundhog2k https://groundhog2k.github.io/helm-charts
       - name: Run Release
         uses: helm/chart-releaser-action@v1.2.1
         env:
