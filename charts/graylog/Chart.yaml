@@ -7,9 +7,9 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: 0.2.8
+version: 0.2.9
 
-appVersion: "4.1.5-jre11"
+appVersion: "4.1.6-jre11"
 
 dependencies:
   - name: mongodb
