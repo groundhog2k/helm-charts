@@ -1,3 +1,4 @@
+{{- if contains "rabbitmq_management" (join "," .Values.plugins) }}
 {{- if .Values.ingress.enabled }}
 {{- $fullName := include "rabbitmq.fullname" . -}}
 {{- $svcPort := .Values.service.mgmt.port -}}
@@ -45,7 +46,7 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-            {{- else }}
+            {{- else }}          
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
@@ -53,3 +54,4 @@ spec:
           {{- end }}
     {{- end }}
   {{- end }}
+{{- end }}

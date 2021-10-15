@@ -150,18 +150,8 @@ args: []
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
 
-## Disable internal metrics collector (management_agent.disable_metrics_collector)
-disableMetricsCollector: false
-
 # Comma separated list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
 plugins: rabbitmq_management,rabbitmq_peer_discovery_k8s
-
-# High memory watermark option is described at https://www.rabbitmq.com/memory.html
-options:
-  memoryHighWatermark:
-    enabled: false
-    type: "relative"
-    value: 0.4
 
 # Default user and erlang cookie
 # The erlang cookie is important for clustered or container based usage
@@ -177,12 +167,81 @@ authentication:
   ## Erlang cookie (default: Random base64 value)
   erlangCookie:
 
+# RabbitMQ specific configuration options described at https://www.rabbitmq.com/configure.html#config-items
+options:
+  ## High memory watermark option is described at https://www.rabbitmq.com/memory.html
+  memoryHighWatermark:
+    enabled: false
+    type: "relative"
+    value: 0.4
+    pagingRatio:
+  memory:
+    totalAvailableOverrideValue:
+    calculationStrategy:
+
+  tcp:
+    handshakeTimeout:
+    listeners: 5672
+    numOfAcceptors:
+
+  channel:
+    channelMax:
+    channelOperationTimeout:
+  statistics:
+    collectStatistics:
+    collectStatisticsInterval:
+  mnesia:
+    tableLoadingRetryTimeout:
+    tableLoadingRetryLimit:
+
+  general:
+    maxMessageSize:
+    heartbeat:
+    managementDbCacheMultiplier:
+    reverseDnsLookups:
+    queueIndexEmbedMessagesBelow:
+    mirroringSyncBatchSize:
+    proxyProtocol:
+
+managementAgent:
+  disableMetricsCollector:
+
+management:
+  tcp:
+    port: 15672
+    compress:
+    idleTimeout:
+    inactivityTimeout:
+    requestTimeout:
+  general:
+    ratesMode:
+    disableStatistics:
+    enableQueueTotals:
+    loginSessionTimeout:
+    pathPrefix:
+  authentication:
+    disableBasicAuth:
+    enableUaa:
+    uaaClientId:
+    uaaLocation:
+
+customOptions: []
+
 ## Clustering settings
 clustering:
   ## Cluster address type (default: hostname)
   addressType: hostname
+  
   ## Rebalance queues with master when new replica is created
   rebalance: true
+
+  clusterPartitionHandling:
+  clusterKeepAliveInterval:
+  queueMasterLocator:
+
+  formation:
+    nodeCleanupInterval:
+    nodeCleanupOnlyLogWarnings:
 
 ## Storage parameters
 storage:
