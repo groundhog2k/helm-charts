@@ -1,3 +1,10 @@
+# ⚠️ Deprecation and Archive Notice
+
+This chart version (v2.13.1) is the last update and the chart is deprecated and will no longer be maintained.
+
+A new chart of the original metrics-server project was release at 
+[kubernetes-sigs/metrics-server](https://github.com/kubernetes-sigs/metrics-server/tree/master/charts/metrics-server)
+
 # metrics-server
 
 ![Version: 2.13.1](https://img.shields.io/badge/Version-2.13.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.1](https://img.shields.io/badge/AppVersion-0.5.1-informational?style=flat-square)
