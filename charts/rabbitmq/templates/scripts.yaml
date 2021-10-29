@@ -14,7 +14,7 @@ data:
       echo "Copy plugin configuration"
       cp /temp/plugins/* /etc/rabbitmq
     else
-      echo "No plugins configured." 
+      echo "No plugins configured."
     fi
     mkdir -p /etc/rabbitmq/conf.d
     if [ ! -f /var/lib/rabbitmq/.erlang.cookie ]; then

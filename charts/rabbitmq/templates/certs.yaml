@@ -9,7 +9,7 @@ type: Opaque
 data:
   {{- with .Values.certificates -}}
   {{- if .cacert }}
-  cacert: | 
+  cacert: |
     {{ .cacert | b64enc }}
   {{- end }}
   {{- if .cert }}

@@ -293,7 +293,7 @@ customConfig: |
 customAdvancedConfig: |
 
 ## Common (recommended) cluster settings
-clustering:  
+clustering:
   ## Rebalance queues with master when new replica is created
   rebalance: true
   ## Use FQDN for RabbitMQ node names

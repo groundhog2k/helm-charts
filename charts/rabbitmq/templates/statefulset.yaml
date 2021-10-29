@@ -13,8 +13,8 @@ spec:
   replicas: {{ .Values.replicaCount }}
 {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
-{{- end }}  
-  updateStrategy: 
+{{- end }}
+  updateStrategy:
     type: {{ .Values.updateStrategyType }}
   template:
     metadata:
@@ -48,7 +48,7 @@ spec:
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           env:
             - name: ERLANG_COOKIE
-              value: {{ .Values.authentication.erlangCookie | default (randAlphaNum 32) }}          
+              value: {{ .Values.authentication.erlangCookie | default (randAlphaNum 32) }}
           volumeMounts:
             - name: config
               mountPath: /etc/rabbitmq
