@@ -122,5 +122,4 @@ $ helm uninstall my-release
 | options.memoryHighWatermark.enabled | bool | `false` | Enable high memory watermark |
 | options.memoryHighWatermark.type | string | `"relative"` | Type of watermark (relative or absolute) |
 | options.memoryHighWatermark.value | float | `0.4` | Watermark value (default: 40%) |
-| plugins | string | `"rabbitmq_management,rabbitmq_peer_discovery_k8s"` | RabbitMQ plugins (Remove rabbitmq_peer_discovery_k8s to disable cluster replication mode) |
-| disableMetricsCollector: | bool | `false` | Disable internal metrics collector (management_agent.disable_metrics_collector) |
+| plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated |

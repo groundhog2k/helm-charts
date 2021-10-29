@@ -43,21 +43,52 @@ securityContext:
   runAsGroup: 999
   runAsUser: 999
 
-## Default RabbitMq service ports (default: AMQP port 5672, Management UI port 15672)
+## Default RabbitMq service ports (default: AMQP port 5672, Secure AMQP port 5671, Management UI port 15672)
 service:
   type: ClusterIP
+  ## AMQP service port
   amqp:
     port: 5672
     ## The node port (only relevant for type LoadBalancer or NodePort)
     nodePort:
+  ## Secure AMQP service port
+  amqps:
+    port: 5671
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## Management UI service port
   mgmt:
     port: 15672
     ## The node port (only relevant for type LoadBalancer or NodePort)
     nodePort:
+  ## Prometheus service port
+  prometheus:
+    port: 15692
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+
   ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
+
+## Custom list of extra services
+extraServices: []
+#  - name: stomp
+    ## Service port type
+#    type: ClusterIP
+    ## Service protocol
+#    protocol: TCP
+    ## The container target port
+#    containerPort: 12345
+    ## The service port
+#    port: 12345
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+#    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+#    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer)
+#    loadBalancerIP:
 
 ## Ingress configuration
 ingress:
@@ -150,8 +181,8 @@ args: []
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
 
-# Comma separated list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
-plugins: rabbitmq_management,rabbitmq_peer_discovery_k8s
+# A list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
+plugins: []
 
 # Default user and erlang cookie
 # The erlang cookie is important for clustered or container based usage
@@ -171,77 +202,102 @@ authentication:
 options:
   ## High memory watermark option is described at https://www.rabbitmq.com/memory.html
   memoryHighWatermark:
+    ## Enables high memory watermark configuration (default: false)
     enabled: false
+    ## Type of watermark value (relative or absoulte - default: relative)
     type: "relative"
+    ## High memory watermark value (default: 0.4 - 40%)
     value: 0.4
+    ## Paging threshold when RabbitMQ starts paging queue content before high memory watermark is reached
     pagingRatio:
+  ## Memory options are described at https://www.rabbitmq.com/configure.html
   memory:
+    ## Overwrites the value that is automatically calculated from resource.limits.memory
     totalAvailableOverrideValue:
+    ## Strategy for memory usage report
     calculationStrategy:
 
   tcp:
-    handshakeTimeout:
-    listeners: 5672
-    numOfAcceptors:
+    ## AMQP tcp port (default: 5672)
+    port: 5672
+  ## RabbitMQ AMQP-over-SSL options are described at https://www.rabbitmq.com/ssl.html
+  ssl:
+    ## Enable secure AMQP (amqps)
+    enabled: false
+    ## AMQPS port (default: 5671)
+    port: 5671
+    ## Enables or disables peer verification (default: false)
+    verify: false
+    ## Reject TLS connection when client fails to provide a certificate (default: false) 
+    failIfNoPeerCert: false
+    ## Client certificate verification depth
+    depth:
 
-  channel:
-    channelMax:
-    channelOperationTimeout:
-  statistics:
-    collectStatistics:
-    collectStatisticsInterval:
-  mnesia:
-    tableLoadingRetryTimeout:
-    tableLoadingRetryLimit:
+## Certificate support for RabbitMQ
+certificates:
+  ## Enable mounting following certificates into folder /ssl
+  enabled: false
+  ## Certificates that will be used for AMQP-over-SSL (AMPQS) - see: options.ssl
+  ## CA certificate(s) in base64 format
+  cacert:
+  ## Server certificate in base64 format
+  cert:
+  ## Private key in base64 format
+  key:
+  ## Optional private key passwort
+  password:
 
-  general:
-    maxMessageSize:
-    heartbeat:
-    managementDbCacheMultiplier:
-    reverseDnsLookups:
-    queueIndexEmbedMessagesBelow:
-    mirroringSyncBatchSize:
-    proxyProtocol:
+  ## A list of extra certificates
+  ## All certificates will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: options.customConfig)
+  extraCerts: []
+       ## Name of the certificate (will be the filename of the mounted certificate - i.e.: /ssl/{name})
+  #  - name:
+       ## The certificate content in base64 format
+  #    cert:
 
-managementAgent:
-  disableMetricsCollector:
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for custom or advanced configuration option (see: options.customConfig)
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
-management:
+## Management UI plugin options
+managementPlugin:
+  ## Enable management UI plugin with default configuration
+  enabled: true
   tcp:
+    ## Management UI port (default: 15672)
     port: 15672
-    compress:
-    idleTimeout:
-    inactivityTimeout:
-    requestTimeout:
-  general:
-    ratesMode:
-    disableStatistics:
-    enableQueueTotals:
-    loginSessionTimeout:
-    pathPrefix:
-  authentication:
-    disableBasicAuth:
-    enableUaa:
-    uaaClientId:
-    uaaLocation:
 
-customOptions: []
-
-## Clustering settings
-clustering:
-  ## Cluster address type (default: hostname)
+## K8s peer discovery plugin options
+k8sPeerDiscoveryPlugin:
+  ## Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration
+  enabled: false
+  ## K8s peer discovery plugin address type (default: hostname)
   addressType: hostname
-  
+
+## Prometheus plugin options
+prometheusPlugin:
+  ## Enable prometheus monitoring plugin with default configuration
+  enabled: false
+  tcp:
+    ## Prometheus plugin TCP port (default: 15692)
+    port: 15692
+
+## Custom configuration entries for rabbitmq.conf (see https://www.rabbitmq.com/configure.html#config-file)
+customConfig: |
+
+## Custom advanced configuration entries for advanced.config (see https://www.rabbitmq.com/configure.html#advanced-config-file)
+customAdvancedConfig: |
+
+## Common (recommended) cluster settings
+clustering:  
   ## Rebalance queues with master when new replica is created
   rebalance: true
-
-  clusterPartitionHandling:
-  clusterKeepAliveInterval:
-  queueMasterLocator:
-
-  formation:
-    nodeCleanupInterval:
-    nodeCleanupOnlyLogWarnings:
+  ## Use FQDN for RabbitMQ node names
+  useLongName: true
 
 ## Storage parameters
 storage:
