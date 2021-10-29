@@ -227,7 +227,7 @@ options:
     port: 5671
     ## Enables or disables peer verification (default: false)
     verify: false
-    ## Reject TLS connection when client fails to provide a certificate (default: false) 
+    ## Reject TLS connection when client fails to provide a certificate (default: false)
     failIfNoPeerCert: false
     ## Client certificate verification depth
     depth:
