@@ -1,0 +1,30 @@
+{{- $fullname := include "rabbitmq.fullname" . }}
+{{- $labels := include "rabbitmq.labels" . }}
+{{- $selectorLabels := include "rabbitmq.selectorLabels" . }}
+{{- range $service := .Values.extraServices }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}-{{ $service.name }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  type: {{ $service.type }}
+  ports:
+    - port: {{ $service.port }}
+      targetPort: {{ $service.name }}
+      protocol: {{ $service.protocol }}
+      name: {{ $service.name }}
+      {{- if and ( or (eq $service.type "LoadBalancer") (eq $service.type "NodePort") ) ($service.nodePort) }}
+      nodePort: {{ $service.nodePort }}
+      {{- end }}
+  {{- if and (eq $service.type "LoadBalancer") ($service.loadBalancerIP) }}
+  loadBalancerIP: {{ $service.loadBalancerIP }}
+  {{- end }}
+  {{- if $service.clusterIP }}
+  clusterIP: {{ $service.clusterIP }}
+  {{- end }}
+  selector:
+    {{- $selectorLabels | nindent 4 }}
+---
+{{- end }}

@@ -97,3 +97,101 @@ Usage:
     {{- mul $value 1000 1000 1000 1000 1000 1000 }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Management UI plugin options (when plugin is enabled)
+*/}}
+{{- define "rabbitmq.managementPluginOptions" -}}
+{{- if .Values.managementPlugin.enabled }}
+## Management UI plugin options
+management.tcp.port = {{ .Values.managementPlugin.tcp.port }}
+{{- end }}
+{{- end -}}
+
+{{/*
+K8 peer discovery cluster plugin options (when plugin is enabled)
+*/}}
+{{- define "rabbitmq.k8sPeerDiscoveryPluginOptions" -}}
+{{- if .Values.k8sPeerDiscoveryPlugin.enabled }}
+## Clustering with K8s peer discovery plugin
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+cluster_formation.k8s.host = kubernetes.default.svc.{{ .Values.clusterDomain }}
+cluster_formation.k8s.address_type = {{ .Values.k8sPeerDiscoveryPlugin.addressType }}
+cluster_formation.k8s.service_name = {{ template "rabbitmq.fullname" . }}-internal
+cluster_formation.k8s.hostname_suffix = .{{ template "rabbitmq.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Prometheus plugin options (when plugin is enabled)
+*/}}
+{{- define "rabbitmq.prometheusPluginOptions" -}}
+{{- if .Values.prometheusPlugin.enabled }}
+## Prometheus plugin options
+prometheus.tcp.port = {{ .Values.prometheusPlugin.tcp.port }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Main RabbitMQ options
+*/}}
+{{- define "rabbitmq.options" -}}
+## Initial login user
+default_user = {{ (.Values.authentication).user | default "guest" }}
+default_pass = {{ (.Values.authentication).password | default "guest" }}
+loopback_users.guest = false
+## RabbitMQ options
+listeners.tcp.default = {{ .Values.options.tcp.port }}
+{{- with .Values.options.ssl }}
+{{- if .enabled }}
+## SSL options
+listeners.ssl.default = {{ .port }}
+{{- if .verify }}
+ssl_options.verify = verify_peer
+{{- else }}
+ssl_options.verify = verify_none
+{{- end }}
+ssl_options.fail_if_no_peer_cert = {{ .failIfNoPeerCert }}
+{{- if .depth }}
+ssl_options.depth = {{ .depth }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- with .Values.certificates }}
+{{- if .enabled }}
+{{- if .cacert }}
+ssl_options.cacertfile = /ssl/cacert
+{{- end }}
+{{- if .cert }}
+ssl_options.certfile = /ssl/cert
+{{- end }}
+{{- if .key }}
+ssl_options.keyfile = /ssl/key
+{{- end }}
+{{- if .password }}
+ssl_options.password = {{ .password }}
+{{- end }}
+{{- end }}
+{{- end }}
+## Memory options
+{{- if ((.Values.options).memory).calculationStrategy }}
+vm_memory_calculation_strategy = {{ .Values.options.memory.calculationStrategy }}
+{{- end}}
+{{- if ((.Values.options).memory).totalAvailableOverrideValue }}
+total_memory_available_override_value = {{ .Values.options.memory.totalAvailableOverrideValue }}
+{{- else }}
+{{- $memLimit := ((.Values.resources).limits).memory -}}
+{{- if $memLimit }}
+total_memory_available_override_value = {{ include "rabbitmq.toBytes" $memLimit }}
+{{- end }}
+{{- end }}
+{{- with .Values.options.memoryHighWatermark }}
+{{- if .enabled }}
+## Memory Threshold
+vm_memory_high_watermark.{{ .type }} = {{ .value }}
+{{- if .pagingRatio }}
+vm_memory_high_watermark_paging_ratio = {{ .pagingRatio }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}

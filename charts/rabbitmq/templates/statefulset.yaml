@@ -11,9 +11,9 @@ spec:
   serviceName: {{ include "rabbitmq.fullname" . }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: {{ .Values.replicaCount }}
-  {{- if .Values.revisionHistoryLimit }}
+{{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
-  {{- end }}
+{{- end }}
   updateStrategy:
     type: {{ .Values.updateStrategyType }}
   template:
@@ -22,9 +22,10 @@ spec:
         checksum/rabbit-config: {{ include (print $.Template.BasePath "/rabbit-config.yaml") . | sha256sum }}
         checksum/plugins-config: {{ include (print $.Template.BasePath "/plugins-config.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
-      {{- with .Values.podAnnotations }}
+        checksum/certs: {{ include (print $.Template.BasePath "/certs.yaml") . | sha256sum }}
+    {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+    {{- end }}
       labels:
         {{- include "rabbitmq.selectorLabels" . | nindent 8 }}
     spec:
@@ -52,21 +53,17 @@ spec:
             - name: config
               mountPath: /etc/rabbitmq
             - name: rabbitconfig
-              mountPath: /temp/rabbitmq.conf
-              subPath: rabbitmq.conf
+              mountPath: /temp/rabbitmq
             - name: rabbitmq-volume
-              mountPath: /var/lib/rabbitmq              
+              mountPath: /var/lib/rabbitmq
             - name: scripts
               mountPath: /scripts
-          {{- if .Values.plugins }}
             - name: plugins
-              mountPath: /temp/enabled_plugins
-              subPath: enabled_plugins
-          {{- end }}
+              mountPath: /temp/plugins
           command: [ "/scripts/init.sh" ]
       containers:
         - name: {{ .Chart.Name }}
-          {{- with .Values.securityContext }}
+          {{- with  .Values.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -74,13 +71,28 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: amqp
-              containerPort: 5672
+              containerPort: {{ .Values.options.tcp.port }}
+            {{- if .Values.options.ssl.enabled }}
+            - name: amqps
+              containerPort: {{ .Values.options.ssl.port }}
+            {{- end }}
+            {{- if .Values.managementPlugin.enabled }}
             - name: mgmt
-              containerPort: 15672
+              containerPort: {{ .Values.managementPlugin.tcp.port }}
+            {{- end }}
+            {{- if .Values.prometheusPlugin.enabled }}
+            - name: prometheus
+              containerPort: {{ .Values.prometheusPlugin.tcp.port }}
+            {{- end }}
             - name: epmd
               containerPort: 4369
             - name: dist
               containerPort: 25672
+            {{- range $service := .Values.extraServices }}
+            - name: {{ $service.name }}
+              containerPort: {{ $service.containerPort}}
+              protocol: {{ $service.protocol }}
+            {{- end }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe:
             {{- toYaml .Values.customLivenessProbe | nindent 12 }}
@@ -94,10 +106,10 @@ spec:
                 - rabbitmq-diagnostics -q check_running
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
-            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
             failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
           {{- end }}
           {{- end }}
           {{- end }}
@@ -114,10 +126,10 @@ spec:
                 - rabbitmq-diagnostics -q check_running
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
-            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
             failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
           {{- end }}
           {{- end }}
           {{- end }}
@@ -147,13 +159,13 @@ spec:
                   - rabbitmqctl stop_app
           env:
             - name: RABBITMQ_USE_LONGNAME
-              value: "true"
+              value: {{ .Values.clustering.useLongName | quote }}
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            {{- if contains "rabbitmq_peer_discovery_k8s" .Values.plugins }}
-            - name: RABBITMQ_NODENAME   
+            {{- if .Values.clustering.useLongName }}
+            - name: RABBITMQ_NODENAME
               value: rabbit@$(NODE_NAME).{{ include "rabbitmq.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
             {{- else }}
             - name: RABBITMQ_NODENAME
@@ -161,13 +173,13 @@ spec:
             {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}            
+          {{- end }}
           {{- if .Values.args }}
           args:
             {{- range .Values.args }}
             - {{ . }}
             {{- end }}
-          {{- end }}                
+          {{- end }}
           volumeMounts:
             - name: logs
               mountPath: /var/log/rabbitmq
@@ -177,6 +189,14 @@ spec:
               mountPath: /var/lib/rabbitmq
             - name: config
               mountPath: /etc/rabbitmq
+            {{- if .Values.certificates.enabled }}
+            - name: certs
+              mountPath: /ssl
+            {{- end }}
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -202,12 +222,22 @@ spec:
         - name: scripts
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-scripts
-            defaultMode: 0555        
-      {{- if .Values.plugins }}
+            defaultMode: 0555
         - name: plugins
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-plugins
-      {{- end }}
+        {{- if .Values.certificates.enabled }}
+        - name: certs
+          secret:
+            secretName: {{ include "rabbitmq.fullname" . }}-certs
+            defaultMode: 0440
+        {{- end }}
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
   {{- if .Values.storage.persistentVolumeClaimName }}
         - name: rabbitmq-volume
           persistentVolumeClaim:
