@@ -66,7 +66,6 @@ service:
     port: 15692
     ## The node port (only relevant for type LoadBalancer or NodePort)
     nodePort:
-
   ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
@@ -181,7 +180,7 @@ args: []
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
 
-# A list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp,rabbitmq_peer_discovery_k8s
+# A list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_mqtt,rabbitmq_stomp
 plugins: []
 
 # Default user and erlang cookie
@@ -214,7 +213,7 @@ options:
   memory:
     ## Overwrites the value that is automatically calculated from resource.limits.memory
     totalAvailableOverrideValue:
-    ## Strategy for memory usage report
+    ## Strategy for memory usage report (rss or allocated)
     calculationStrategy:
 
   tcp:
