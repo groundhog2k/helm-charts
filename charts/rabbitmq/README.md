@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.8](https://img.shields.io/badge/AppVersion-3.9.8-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.8](https://img.shields.io/badge/AppVersion-3.9.8-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -53,6 +53,9 @@ $ helm uninstall my-release
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.repository | string | `"rabbitmq"` | Image name |
 | image.tag | string | `""` | Image tag |
+| initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
+| initImage.repository | string | `"busybox"` | Init image name |
+| initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
@@ -189,7 +192,7 @@ Section for certificate support
 | managementPlugin.enabled | bool | `true` | Enable management UI plugin with default configuration |
 | managementPlugin.tcp.port | int | `15672` | Management UI port |
 | prometheusPlugin.enabled | bool | `true` | Enable prometheus monitoring plugin with default configuration |
-| prometheusPlugin.tcp.port | int | `15672` | Prometheus plugin TCP port |
+| prometheusPlugin.tcp.port | int | `15692` | Prometheus plugin TCP port |
 | k8sPeerDiscoveryPlugin.enabled | bool | `true` | Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration |
 | k8sPeerDiscoveryPlugin.addressType | string | `"hostname"` | K8s peer discovery plugin address type (hostname or ip) |
 
