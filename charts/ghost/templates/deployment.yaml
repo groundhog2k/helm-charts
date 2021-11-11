@@ -35,6 +35,18 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: versions
+              mountPath: /versions
+          command: [ "/bin/bash", "-c", "cp -R /var/lib/ghost/versions/* /versions" ]
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -138,7 +150,9 @@ spec:
           {{- end }}            
           volumeMounts:
             - mountPath: /tmp
-              name: tmp          
+              name: tmp
+            - mountPath: /var/lib/ghost/versions
+              name: versions
             - mountPath: /var/lib/ghost/content
               name: ghost-vol
       {{- with .Values.nodeSelector }}
@@ -155,6 +169,8 @@ spec:
       {{- end }}
       volumes:
         - name: tmp
+          emptyDir: {}
+        - name: versions
           emptyDir: {}
         - name: ghost-vol
         {{- if .Values.storage.persistentVolumeClaimName }}
