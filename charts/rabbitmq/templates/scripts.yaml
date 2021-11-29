@@ -20,8 +20,8 @@ data:
     if [ ! -f /var/lib/rabbitmq/.erlang.cookie ]; then
       echo "Copy erlang cookie"
       echo $ERLANG_COOKIE >/var/lib/rabbitmq/.erlang.cookie
-      chmod 600 /var/lib/rabbitmq/.erlang.cookie
     else
       echo "Erlang cookie already exists."
     fi
+    chmod 600 /var/lib/rabbitmq/.erlang.cookie
     echo "Finished."
