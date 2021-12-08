@@ -17,9 +17,9 @@ data:
       mkdir -p /data/contentpacks
       echo "Copy configuration"
       cp /usr/share/graylog/data/config/* /data/config
-      echo "Setting permissions on configuration folder"
-      chmod u+rw /data/config/*
     else
       echo "Graylog configuration already exists."
     fi
+    echo "Setting permissions on configuration folder"
+    chmod u+rw /data/config/*
     echo "Finished."
