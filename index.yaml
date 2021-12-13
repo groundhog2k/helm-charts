@@ -343,6 +343,18 @@ entries:
     version: 0.1.0
   elasticsearch:
   - apiVersion: v2
+    appVersion: 7.16.1
+    created: "2021-12-13T14:26:53.641199434Z"
+    description: A Helm chart for Elasticsearch on Kubernetes
+    digest: f045770aa5fe1c712c35fac0731e685838c2dca5c9ce4cb95b8135622dbecef9
+    maintainers:
+    - name: groundhog2k
+    name: elasticsearch
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.6.1/elasticsearch-0.6.1.tgz
+    version: 0.6.1
+  - apiVersion: v2
     appVersion: 7.16.0
     created: "2021-12-08T17:24:59.383498905Z"
     description: A Helm chart for Elasticsearch on Kubernetes
@@ -8682,4 +8694,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-13T14:24:10.942017015Z"
+generated: "2021-12-13T14:26:53.64670591Z"
