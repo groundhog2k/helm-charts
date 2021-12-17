@@ -1,6 +1,6 @@
 #  Wordpress
 
-![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.8.2-apache](https://img.shields.io/badge/AppVersion-5.8.2-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.8.2-apache](https://img.shields.io/badge/AppVersion-5.8.2-informational?style=flat-square)
 
 A Helm chart for Wordpress on Kubernetes
 
@@ -101,6 +101,8 @@ $ helm uninstall my-release
 | ingress.enabled | bool | `false` | Enable ingress for Wordpress service |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
+| ingress.hosts[0].host.paths[0].path | string | `"/"` | Default root path |
+| ingress.hosts[0].host.paths[0].pathType | string | `ImplementationSpecific` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
 

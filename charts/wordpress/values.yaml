@@ -72,7 +72,9 @@ ingress:
   ## Hosts
   hosts:
     - host:
-      paths: []
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 
   ## TLS settings for hosts
   tls: []
