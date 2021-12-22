@@ -49,6 +49,26 @@ spec:
           volumeMounts:
             - mountPath: /var/datavolume
               name: nextcloud-data-vol
+        - name: {{ .Chart.Name }}-initconfd
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['sh', '-c', 'cp -R /usr/local/etc/php/conf.d/* /confd && chmod 660 /confd/*']
+          volumeMounts:
+            - mountPath: /confd
+              name: confd
+            - mountPath: /usr/local/etc/php/conf.d/custom.ini
+              subPath: custom.ini
+              name: extended
+            - mountPath: /usr/local/etc/php/conf.d/memory-limit.ini
+              subPath: memory-limit.ini
+              name: extended
+            - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+              subPath: redis-session.ini
+              name: extended              
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -138,15 +158,8 @@ spec:
             - mountPath: /etc/apache2/000-default.conf
               subPath: 000-default.conf
               name: extended
-            - mountPath: /usr/local/etc/php/conf.d/custom.ini
-              subPath: custom.ini
-              name: extended
-            - mountPath: /usr/local/etc/php/conf.d/memory-limit.ini
-              subPath: memory-limit.ini
-              name: extended
-            - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
-              subPath: redis-session.ini
-              name: extended
+            - mountPath: /usr/local/etc/php/conf.d
+              name: confd
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -163,6 +176,8 @@ spec:
         - name: tmp
           emptyDir: {}
         - name: run
+          emptyDir: {}
+        - name: confd
           emptyDir: {}
         - name: extended
           configMap:
