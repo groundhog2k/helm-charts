@@ -64,6 +64,26 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "postgres.fullname" . }}
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -h localhost
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe:
             {{- toYaml .Values.customLivenessProbe | nindent 12 }}
