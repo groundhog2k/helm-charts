@@ -1,5 +1,5 @@
 
-{{- if .Values.enablePostUpgradeHook }}
+{{- if .Values.postUpgradeHook.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -34,7 +34,7 @@ spec:
           args:
             - /bin/sh
             - -c
-            - /scripts/initdb.sh
+            - /scripts/postupgrade.sh
           volumeMounts:
             - mountPath: /var/www/html
               name: nextcloud-vol

@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.0.0-apache](https://img.shields.io/badge/AppVersion-23.0.0-informational?style=flat-square)
+![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.0.0-apache](https://img.shields.io/badge/AppVersion-23.0.0-informational?style=flat-square)
 
 A Helm chart for Nextcloud on Kubernetes
 
@@ -41,14 +41,28 @@ $ helm upgrade my-release groundhog2k/nextcloud
 
 ## Post-upgrade steps
 
-After some Nextcloud version upgrades it's necessary to update database indicies of Nextcloud too. Therefor an optional post-upgrade step was prepared in this helm chart.
+After some Nextcloud version upgrades it's necessary to update database indicies of Nextcloud too. Therefor an  post-upgrade step was prepared in this helm chart.
 
-The post upgrade can be started manually after the Nextcloud/chart upgrade (like described in ['Upgrading the chart'](#upgrade) section) or both can be done in one step.
-In the latter case the postUpgradeHookDelay should be set to a higher value. (f.i. 120 seconds)
+The post upgrade will be started during the Nextcloud/chart upgrade after a delay, which is configurable by setting `postUpgradeHook.delay`. The default value is 30 seconds.
 
 ```bash
-$ helm upgrade my-release groundhog2k/nextcloud --set enablePostUpgradeHook=true,postUpgradeHookDelay=120
+$ helm upgrade my-release groundhog2k/nextcloud --set postUpgradeHook.delay=120
 ```
+
+## Custom *.config.php files
+The chart supports adding [multiple Nextcloud configuration files](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#multiple-config-php-file) by setting file name and value in the `customConfigs:` section.
+
+Example:
+```
+customConfigs:
+  region.config.php: |
+    <?php
+    $CONFIG = array (
+      'default_phone_region' => 'DE',
+    );
+```
+
+The custom *.config.php files will be copied during a post-install/upgrade hook that can be configured by `customConfigsHook:` section.
 
 ## Uninstalling the Chart
 
@@ -84,8 +98,10 @@ $ helm uninstall my-release
 | strategy.type | object | `"RollingUpdate"` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
+| readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
+| customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
@@ -103,9 +119,12 @@ $ helm uninstall my-release
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
 | initImage.repository | string | `"busybox"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
-| postUpgradeHook | bool | `false` | Enable post upgrade hook |
-| postUpgradeHookDelay | int | `10` | Delay in seconds before post-upgrade steps are initiated |
+| postUpgradeHook.enabled | bool | `true` | Enable post upgrade hook |
+| postUpgradeHook.delay | int | `30` | Delay in seconds before post-upgrade steps are initiated |
 | postUpgradeSteps | list | `see values.yaml` | Script with post upgrade steps |
+| customConfigsHook.enabled | bool | `true` | Enable custom configuration copy hook |
+| customConfigsHook.waitBeforeRetry | int | 10 | Delay before retrying to copy *.config.php files |
+| customConfigsHook.retries | int | 10 | Max. number of retries before job fails |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
@@ -146,7 +165,7 @@ $ helm uninstall my-release
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
-| ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
+| ingress.maxBodySize | string | `"512m"` | Maximum body size for post requests |
 
 ## Redis session cache
 
@@ -190,11 +209,11 @@ $ helm uninstall my-release
 | apacheDefaultSiteConfig | string | `nil` | Overwrite default apache 000-default.conf |
 | apachePortsConfig | string | `nil` | Overwrite default apache ports.conf |
 | customPhpConfig | string | `nil` | Additional PHP custom.ini |
-| memoryLimitConfig | string | `nil` | Additional PHP memory-limit.ini |
+| customConfigs | object | `nil` | Custom nextcloud *.config.php files that will be copied when customConfigHook is enabled (see example in `values.yaml`) |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update (Only necessary if custom command is used) |
-| settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
+| settings.maxFileUploadSize | string | `512M` | Maximum file upload size |
 | settings.memoryLimit | string | `512M` | PHP memory limit |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |
 | settings.trustedDomains | string | `""` | List of trusted domains separated by blank space |

@@ -1,4 +1,3 @@
-{{- if .Values.enablePostUpgradeHook }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,10 +5,32 @@ metadata:
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
 data:
-  initdb.sh: |
+  initdatavol.sh: |
     #!/bin/sh
-    sleep {{ .Values.postUpgradeHookDelay }}
+    mkdir -p /var/datavolume/data
+    chmod 770 /var/datavolume/data 
+    chown www-data:www-data /var/datavolume/data
+  postupgrade.sh: |
+    #!/bin/sh
+    sleep {{ .Values.postUpgradeHook.delay }}
     {{- range .Values.postUpgradeSteps }}
     {{ . }}
-    {{- end }}    
-{{- end }}
+    {{- end }}
+  initconfigs.sh: |
+    #!/bin/sh
+    cp -R /usr/local/etc/php/conf.d/* /confd
+    chmod 660 /confd/*
+    cp -R /etc/apache2/* /apache2
+  addcustomconfigs.sh: |
+    #!/bin/sh
+    c=0
+    while [ ! -d "/var/www/html/config" ] && [ "$c" -le {{ .Values.customConfigsHook.retries }} ]; do
+      c=$((c+1))
+      sleep {{ .Values.customConfigsHook.waitBeforeRetry }}
+    done
+    if [ -d "/var/www/html/config" ]; then 
+      cp /customconfigs/* /var/www/html/config
+      chmod 644 /var/www/html/config/*
+    else
+      exit 1
+    fi

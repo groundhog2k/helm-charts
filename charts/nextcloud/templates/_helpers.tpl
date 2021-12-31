@@ -107,6 +107,14 @@ Nextcloud specific environment variables
 {{- define "nextcloud.environment" -}}
 {{- $internal := include "nextcloud.fullname" . }}
 {{- with .Values.settings }}
+{{- if .maxFileUploadSize }}
+- name: PHP_UPLOAD_LIMIT
+  value: {{ .maxFileUploadSize | quote }}
+{{- end}}
+{{- if .memoryLimit }}
+- name: PHP_MEMORY_LIMIT
+  value: {{ .memoryLimit | quote }}
+{{- end }}
 - name: NEXTCLOUD_TRUSTED_DOMAINS
   {{- if .trustedDomains }}
   value: {{ (printf "%s %s" $internal .trustedDomains) | quote }} 
