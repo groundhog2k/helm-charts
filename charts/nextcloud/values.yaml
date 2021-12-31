@@ -89,8 +89,8 @@ ingress:
   ## Enable ingress endpoint
   enabled: false
 
-  ## Maximal body size (default: 64m - increase if uploads to nextcloud failing)
-  maxBodySize: 64m
+  ## Maximal body size (default: 512m - increase if uploads to nextcloud failing)
+  maxBodySize: 512m
 
   ## Additional ingress annotations
   annotations: {}
@@ -122,7 +122,7 @@ customLivenessProbe: {}
 ## Default liveness probe
 livenessProbe:
   enabled: true
-  initialDelaySeconds: 120
+  initialDelaySeconds: 10
   timeoutSeconds: 5
   failureThreshold: 5
   successThreshold: 1
@@ -134,11 +134,23 @@ customStartupProbe: {}
 ## Default startup probe
 startupProbe:
   enabled: true
-  initialDelaySeconds: 120
+  initialDelaySeconds: 10
   timeoutSeconds: 5
-  failureThreshold: 5
+  failureThreshold: 30
   successThreshold: 1
-  periodSeconds: 30
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
 
 tolerations: []
 
@@ -163,16 +175,28 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
-## Enable post upgrade hook
-enablePostUpgradeHook: false
-## Delay before database upgrade steps are initiated (default: 10 seconds)
-postUpgradeHookDelay: 10
-## Post upgrade steps
+## Post upgrade hook configuration
+postUpgradeHook:
+  ## Enable post upgrade hook
+  enabled: true
+  ## Delay before post upgrade steps are initiated (default: 30 seconds)
+  delay: 30
+
+## Post upgrade hook steps
 postUpgradeSteps:
   - php -f /var/www/html/occ db:add-missing-indices -n
   - php -f /var/www/html/occ db:add-missing-columns -n
   - php -f /var/www/html/occ db:add-missing-primary-keys -n
   - php -f /var/www/html/occ db:convert-filecache-bigint -n
+
+## Custom configuration hook
+customConfigsHook:
+  ## Enable custom configuration copy hook
+  enabled: true
+  ## Delay before retrying to copy *.config.php files
+  waitBeforeRetry: 10
+  ## Max. number of retries before job fails
+  retries: 10
 
 ## External database settings (is used when mariadb.enabled is false and postgres.enabled is false)
 externalDatabase:
@@ -210,8 +234,8 @@ settings:
   ## Enable update processing (Only necessary if custom command is used)
   update: false
 
-  ## Maximum file upload size (default: 64M)
-  maxFileUploadSize: 64M
+  ## Maximum file upload size (default: 512M)
+  maxFileUploadSize: 512M
   ## PHP memory limit (default: 512M)
   memoryLimit: 512M
 
@@ -272,14 +296,20 @@ settings:
 ## Additional PHP custom.ini
 customPhpConfig: |
 
-## Additional PHP memory-limit.ini
-memoryLimitConfig: |
-
 ## Overwrite default apache ports.conf
 apachePortsConfig: |
 
 ## Overwrite default apache 000-default.conf
 apacheDefaultSiteConfig: |
+
+## Custom nextcloud *.config.php files that will be copied when customConfigHook is enabled
+customConfigs:
+  # region.config.php: |
+  #   <?php
+  #   $CONFIG = array (
+  #     'default_phone_region' => 'DE',
+  #   );
+  # email.config.php: |
 
 ## Storage parameters
 storage:

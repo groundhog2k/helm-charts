@@ -20,7 +20,8 @@ spec:
     metadata:
       annotations:
         checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
-        checksum/extendedconfig: {{ include (print $.Template.BasePath "/extendedconfig.yaml") . | sha256sum }}
+        checksum/extendedconfigs: {{ include (print $.Template.BasePath "/extendedconfigs.yaml") . | sha256sum }}
+        checksum/customconfigs: {{ include (print $.Template.BasePath "/customconfigs.yaml") . | sha256sum }}
     {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
@@ -37,7 +38,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        - name: {{ .Chart.Name }}-init
+        - name: {{ .Chart.Name }}-initdatavol
           {{- with .Values.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
@@ -45,30 +46,45 @@ spec:
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           # set Nextcloud directories to 770 and allow access only by www-data
-          command: ['sh', '-c', 'mkdir -p /var/datavolume/data && chmod 770 /var/datavolume/data && chown www-data:www-data /var/datavolume/data']
+          args:
+            - /bin/sh
+            - -c
+            - /scripts/initdatavol.sh
           volumeMounts:
             - mountPath: /var/datavolume
               name: nextcloud-data-vol
-        - name: {{ .Chart.Name }}-initconfd
+            - mountPath: /scripts
+              name: scripts
+        - name: {{ .Chart.Name }}-initconfig
           {{- with .Values.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ['sh', '-c', 'cp -R /usr/local/etc/php/conf.d/* /confd && chmod 660 /confd/*']
+          args:
+            - /bin/sh
+            - -c
+            - /scripts/initconfigs.sh
           volumeMounts:
             - mountPath: /confd
               name: confd
+            - mountPath: /apache2
+              name: apache2
             - mountPath: /usr/local/etc/php/conf.d/custom.ini
               subPath: custom.ini
-              name: extended
-            - mountPath: /usr/local/etc/php/conf.d/memory-limit.ini
-              subPath: memory-limit.ini
-              name: extended
+              name: extendedconfigs
             - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
               subPath: redis-session.ini
-              name: extended              
+              name: extendedconfigs
+            - mountPath: /etc/apache2/ports.conf
+              subPath: ports.conf
+              name: extendedconfigs
+            - mountPath: /etc/apache2/000-default.conf
+              subPath: 000-default.conf
+              name: extendedconfigs
+            - mountPath: /scripts
+              name: scripts              
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -133,6 +149,27 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.containerPort  }}
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -152,12 +189,8 @@ spec:
               name: tmp
             - mountPath: /var/run
               name: run
-            - mountPath: /etc/apache2/ports.conf
-              subPath: ports.conf
-              name: extended
-            - mountPath: /etc/apache2/000-default.conf
-              subPath: 000-default.conf
-              name: extended
+            - mountPath: /etc/apache2
+              name: apache2
             - mountPath: /usr/local/etc/php/conf.d
               name: confd
       {{- with .Values.nodeSelector }}
@@ -179,9 +212,15 @@ spec:
           emptyDir: {}
         - name: confd
           emptyDir: {}
-        - name: extended
+        - name: apache2
+          emptyDir: {}
+        - name: extendedconfigs
           configMap:
-            name: {{ include "nextcloud.fullname" . }}-extended
+            name: {{ include "nextcloud.fullname" . }}-extendedconfigs
+        - name: scripts
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-scripts
+            defaultMode: 0555
         - name: nextcloud-vol
         {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
           persistentVolumeClaim:

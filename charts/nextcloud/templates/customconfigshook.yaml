@@ -1,0 +1,60 @@
+
+{{- if and (.Values.customConfigs) (.Values.customConfigsHook.enabled) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "nextcloud.fullname" . }}-customconfigshook
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Chart.Name }}-postinstall
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - /bin/sh
+            - -c
+            - /scripts/addcustomconfigs.sh
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: nextcloud-vol
+            - mountPath: /customconfigs
+              name: customconfigs
+            - mountPath: /scripts
+              name: scripts
+      restartPolicy: OnFailure
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-scripts
+            defaultMode: 0555
+        - name: customconfigs
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-customconfigs
+        - name: nextcloud-vol
+        {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.nextcloud.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.nextcloud.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "nextcloud.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}
+{{- end }}

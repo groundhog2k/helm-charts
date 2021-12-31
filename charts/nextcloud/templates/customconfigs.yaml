@@ -1,0 +1,12 @@
+{{- if .Values.customConfigs }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nextcloud.fullname" . }}-customconfigs
+  labels:
+    {{- include "nextcloud.labels" . | nindent 4 }}
+data:
+{{- range $name, $value := .Values.customConfigs }}
+  {{ $name }} : {{ $value | quote }}
+{{- end }}
+{{- end }}
