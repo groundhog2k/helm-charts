@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.4](https://img.shields.io/badge/AppVersion-4.2.4-informational?style=flat-square)
+![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.4](https://img.shields.io/badge/AppVersion-4.2.4-informational?style=flat-square)
 
 A Helm chart for Graylog on Kubernetes
 
@@ -41,8 +41,8 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mongodb | 0.3.5 |
-| @groundhog2k | elasticsearch | 0.1.103 |
+| @groundhog2k | mongodb | 0.3.6 |
+| @groundhog2k | elasticsearch | 0.1.104 |
 
 ## Common parameters
 
@@ -95,6 +95,7 @@ $ helm uninstall my-release
 | service.nodePort | int | `nil` | The http node port (only relevant for type LoadBalancer or NodePort) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.annotations | object | `{}` | Additional service annotations |
 
 ## Extra service parameters
 
@@ -110,7 +111,7 @@ Section to define all additional UDP/TCP inputs for Graylog
 | extraServices[].nodePort | int | `nil` | The http node port (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
-
+| extraServices[].annotations | object | `{}` | Additional service annotations |
 
 ## Ingress parameters
 

@@ -8,6 +8,10 @@ metadata:
   name: {{ $fullname }}-{{ $service.name }}
   labels:
     {{- $labels | nindent 4 }}
+  {{- with $service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}    
 spec:
   type: {{ $service.type }}
   ports:
