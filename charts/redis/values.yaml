@@ -61,6 +61,8 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
   loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
 
 ## Resource limits and requests (for Redis)
 resources: {}
