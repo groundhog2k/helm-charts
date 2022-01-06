@@ -53,6 +53,8 @@ services:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
     loadBalancerIP:
+    # Annotations to add to the http service
+    annotations: {}    
   ssh:
     type: ClusterIP
     port: 22
@@ -62,6 +64,8 @@ services:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
     loadBalancerIP:
+    # Annotations to add to the ssh service
+    annotations: {}
 
 ## Ingress configuration
 ingress:

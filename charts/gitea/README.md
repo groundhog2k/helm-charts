@@ -1,6 +1,6 @@
 #  Gitea
 
-![Version: 0.4.12](https://img.shields.io/badge/Version-0.4.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.9](https://img.shields.io/badge/AppVersion-1.15.9-informational?style=flat-square)
+![Version: 0.4.13](https://img.shields.io/badge/Version-0.4.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.9](https://img.shields.io/badge/AppVersion-1.15.9-informational?style=flat-square)
 
 A Helm chart for Gitea on Kubernetes
 
@@ -43,9 +43,9 @@ $ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.15 |
-| @groundhog2k | postgres | 0.2.14 |
-| @groundhog2k | redis | 0.4.8 |
+| @groundhog2k | mariadb | 0.2.16 |
+| @groundhog2k | postgres | 0.2.15 |
+| @groundhog2k | redis | 0.4.9 |
 
 ## Common parameters
 
@@ -94,11 +94,13 @@ $ helm uninstall my-release
 | services.http.nodePort | int | `nil` | Gitea HTTP NodePort (only relevant for type LoadBalancer or NodePort) |
 | services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (only relevant for type LoadBalancer or NodePort) |
 | services.http.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| services.http.annotations | object | `{}` | Additional service annotations |
 | services.ssh.type | string | `"ClusterIP"` | Service type |
 | services.ssh.port | int | `22` | Gitea SSH service port |
 | services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (only relevant for type LoadBalancer or NodePort) |
 | services.ssh.clusterIP | int | `nil` | Gitea SSH ClusterIP (only relevant for type LoadBalancer or NodePort)  |
 | services.ssh.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| services.ssh.annotations | object | `{}` | Additional service annotations |
 
 ## Ingress parameters
 
