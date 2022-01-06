@@ -70,6 +70,8 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
 
 ## Custom list of extra services
 extraServices: []
@@ -88,6 +90,8 @@ extraServices: []
 #    clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
 #    loadBalancerIP:
+    ## Annotations to add to the service
+#    annotations: {}
 
 ## Ingress configuration
 ingress:

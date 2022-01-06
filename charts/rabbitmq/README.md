@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.11](https://img.shields.io/badge/AppVersion-3.9.11-informational?style=flat-square)
+![Version: 0.3.11](https://img.shields.io/badge/Version-0.3.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.26](https://img.shields.io/badge/AppVersion-3.8.26-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -97,6 +97,7 @@ $ helm uninstall my-release
 | service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.prometheus.port | int | `15692` | Prometheus service port |
 | service.prometheus.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
+| service.annotations | object | `{}` | Additional service annotations |
 
 ## Extra services parameters
 
@@ -112,6 +113,7 @@ Section to define custom services
 | extraServices[].nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| extraServices[].annotations | object | `{}` | Additional service annotations |
 
 ## Storage parameters
 
