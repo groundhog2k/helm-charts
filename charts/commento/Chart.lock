@@ -1,6 +1,6 @@
 dependencies:
 - name: postgres
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.2.14
-digest: sha256:6d9143adee279571c8bc6463a017f6ad8d3188296448401c61237979cf10af7d
-generated: "2021-11-12T14:05:25.8593864+01:00"
+  version: 0.2.15
+digest: sha256:7c24c6b0369362d2b086152b40e94cbf12c169c6b6356cf64cbe4b1032391040
+generated: "2022-01-06T15:55:51.007123357+01:00"

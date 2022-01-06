@@ -4,6 +4,10 @@ metadata:
   name: {{ include "gitea.fullname" . }}-http
   labels:
     {{- include "gitea.labels" . | nindent 4 }}
+  {{- with .Values.services.http.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.services.http.type }}
   ports:
@@ -29,6 +33,10 @@ metadata:
   name: {{ include "gitea.fullname" . }}-ssh
   labels:
     {{- include "gitea.labels" . | nindent 4 }}
+  {{- with .Values.services.ssh.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.services.ssh.type }}
   ports:
