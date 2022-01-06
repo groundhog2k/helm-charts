@@ -54,7 +54,7 @@ services:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
     loadBalancerIP:
     # Annotations to add to the http service
-    annotations: {}    
+    annotations: {}
   ssh:
     type: ClusterIP
     port: 22
