@@ -51,6 +51,7 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
+  # Annotations to add to the service
   annotations: {}
 
 ingress:

@@ -13,6 +13,6 @@ appVersion: "v1.8.1"
 
 dependencies:
   - name: redis
-    version: 0.4.8
+    version: 0.4.9
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: redis.enabled
