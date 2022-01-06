@@ -577,6 +577,18 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 7.10.2
+    created: "2022-01-06T15:31:59.209837129Z"
+    description: A Helm chart for Elasticsearch on Kubernetes
+    digest: 6b4581442a7d3a5fb4d64fae2d5c932900edd8e69dc5edcb45af48ad97188c07
+    maintainers:
+    - name: groundhog2k
+    name: elasticsearch
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.1.104/elasticsearch-0.1.104.tgz
+    version: 0.1.104
+  - apiVersion: v2
+    appVersion: 7.10.2
     created: "2021-05-07T06:26:58.788802669Z"
     description: A Helm chart for Elasticsearch on Kubernetes
     digest: 040382c8eb0086d7c3c58be7255ac7cff573ab6e41b15e5cf63926f9f0f9ac9d
@@ -5287,6 +5299,18 @@ entries:
     version: 2.11.4
   mongodb:
   - apiVersion: v2
+    appVersion: 4.4.11
+    created: "2022-01-06T15:31:59.405905965Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 06dc5aa45c14f66dbe9159304a83d4beeadd0ecb687a338d376695dadfe8f9ca
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.3.7/mongodb-0.3.7.tgz
+    version: 0.3.7
+  - apiVersion: v2
     appVersion: 4.4.10
     created: "2022-01-06T14:48:39.514310933Z"
     description: A Helm chart to deploy MongoDB
@@ -7159,6 +7183,18 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: "14.1"
+    created: "2022-01-06T15:31:59.593102883Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: d7ef570f5ab54b1b7b2bf07ab67fdb26ddbf7bc3df34a36ac55a0aa849d10610
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.3/postgres-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v2
+    appVersion: "14.1"
     created: "2021-12-30T12:07:41.077367583Z"
     description: A Helm chart for PostgreSQL on Kubernetes
     digest: fb786345c03cd382668fbc3d2d61711768220754b39e626b9cdc438b73b48a0b
@@ -7434,6 +7470,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
     version: 0.1.0
   rabbitmq:
+  - apiVersion: v2
+    appVersion: 3.9.11
+    created: "2022-01-06T15:31:59.781548116Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: cba57714ce27a2de6583cbc9e35b16a4529c1eae015f16aa07bca3de9a9d4b17
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.4.6/rabbitmq-0.4.6.tgz
+    version: 0.4.6
   - apiVersion: v2
     appVersion: 3.9.11
     created: "2021-12-08T17:51:32.279846492Z"
@@ -9109,4 +9157,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-01-06T15:12:33.192524183Z"
+generated: "2022-01-06T15:31:59.785164165Z"
