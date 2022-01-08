@@ -28,5 +28,6 @@ data:
     {{ .Values.customPhpConfig | nindent 4 }}
     {{- else }}
     upload_max_filesize = {{ .Values.settings.maxFileUploadSize }}
+    post_max_size = {{ .Values.settings.maxFileUploadSize }}
     memory_limit = {{ .Values.settings.memoryLimit }}
     {{- end }}
