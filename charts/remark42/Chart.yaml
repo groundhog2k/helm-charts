@@ -7,9 +7,9 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: 0.2.8
+version: 0.3.0
 
-appVersion: "v1.8.1"
+appVersion: "v1.9.0"
 
 dependencies:
   - name: redis
