@@ -144,9 +144,18 @@ Commento settings via environment variables
 - name: AUTH_EMAIL_TEMPLATE
   value: {{ .Values.settings.auth.email.template | quote }}
 {{- end }}
-{{- if .Values.settings.notify.type }}
-- name: NOTIFY_TYPE
-  value: {{ .Values.settings.notify.type | quote }}
+{{- if .Values.settings.notify.type.user }}
+- name: NOTIFY_USERS
+  value: {{ .Values.settings.notify.type.user | quote }}
+{{- end }}
+{{- if .Values.settings.notify.email.emailAdmin }}
+- name: NOTIFY_ADMINS
+  value: "email"
+{{- else }}
+{{- if .Values.settings.notify.type.admin }}
+- name: NOTIFY_ADMINS
+  value: {{ .Values.settings.notify.type.admin | quote }}
+{{- end }}
 {{- end }}
 - name: NOTIFY_QUEUE
   value: {{ .Values.settings.notify.queue | quote }}
@@ -172,10 +181,26 @@ Commento settings via environment variables
 - name: NOTIFY_EMAIL_FROM
   value: {{ .Values.settings.notify.email.fromAddress | quote }}
 {{- end }}
+{{- with .Values.settings.notify.webhook }}
+{{- if .url }}
+- name: NOTIFY_WEBHOOK_URL
+  value: {{ .url | quote }}
+{{- end }}
+{{- if .template }}
+- name: NOTIFY_WEBHOOK_TEMPLATE
+  value: {{ .template | quote }}
+{{- end }}
+{{- if .headers }}
+- name: NOTIFY_WEBHOOK_HEADERS
+  value: {{ .headers | quote }}
+{{- end }}
+{{- if .timeout }}
+- name: NOTIFY_WEBHOOK_TIMEOUT
+  value: {{ .timeout | quote }}
+{{- end }}
+{{- end }}
 - name: NOTIFY_EMAIL_VERIFICATION_SUBJ
   value: {{ .Values.settings.notify.email.verificationSubject | quote }}
-- name: NOTIFY_EMAIL_ADMIN
-  value: {{ .Values.settings.notify.email.emailAdmin | quote }}
 - name: MAX_BACKUP_FILES
   value: {{ .Values.settings.maxBackupFiles | quote }}
 - name: MAX_COMMENT_SIZE

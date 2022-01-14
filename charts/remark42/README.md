@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -63,8 +63,10 @@ $ helm uninstall my-release
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | strategy | object | `{}` | Pod deployment strategy |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
@@ -193,7 +195,8 @@ $ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| settings.notify.type | string | `"none"` | Notification type (none, telegram, slack, email) |
+| settings.notify.type.user | string | `"none"` | User notification type (none, telegram, slack, email) |
+| settings.notify.type.admin | string | `"none"` | Admin notification type (none, telegram, slack, email, webhook) |
 | settings.notify.queue | int | `100` | Size of notification queue |
 | settings.notify.telegram.token | string | `nil` | Telegram token |
 | settings.notify.telegram.channel | string | `nil` | Telegram channel |
@@ -202,7 +205,11 @@ $ helm uninstall my-release
 | settings.notify.slack.channel | string | `"general"` | Slack channel |
 | settings.notify.email.fromAddress | string | `nil` | Email from address |
 | settings.notify.email.verificationSubject | string | `"Email verification"` | Verification message subject |
-| settings.notify.email.emailAdmin | bool | `false` | Notify admin on new comments via admin.sharedEmail |
+| settings.notify.email.emailAdmin | bool | `false` | Notify admin on new comments via admin.sharedEmail (DEPRECATED OPTION - use `settings.notify.type.admin` = `"email"` instead) - This setting will overwrite `settings.notify.type.admin` |
+| settings.notify.webhook.url | string | `nil` | Webhook notification URL for admin notifications |
+| settings.notify.webhook.template | string | `{"text": ""}` | Webhook payload template |
+| settings.notify.webhook.headers |	string | `nil` | HTTP header in format Header1:Value1,Header2:Value2,... |
+| settings.notify.webhook.timeout | string | `5s` | Webhook request timeout |
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
