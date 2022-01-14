@@ -319,7 +319,7 @@ settings:
       ## Webhook notification URL for admin notifications
       url:
       ## Webhook payload template
-      template:	"{\"text\": \"\"}"
+      template: "{\"text\": \"\"}"
       ## HTTP header in format Header1:Value1,Header2:Value2,...
       headers:
       ## Webhook request timeout
