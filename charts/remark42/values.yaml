@@ -87,6 +87,18 @@ revisionHistoryLimit:
 
 containerPort: 8080
 
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup check
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
 ## Custom liveness probe (overwrites default liveness probe)
 customLivenessProbe: {}
 
@@ -275,8 +287,12 @@ settings:
       template:
 
   notify:
-    ## Notification type (none, telegram, slack, email)
-    type: "none"
+    ## Notification type configuration
+    type:
+      ## User notification type (none, telegram, slack, email)
+      user: "none"
+      ## Admin notification type (none, telegram, slack, email, webhook)
+      admin: "none"
     ## Size of notification queue
     queue: 100
     telegram:
@@ -296,8 +312,18 @@ settings:
       fromAddress:
       ## Verification message subject
       verificationSubject: "Email verification"
-      ## Notify admin on new comments via admin.sharedEmail
+      ## Notify admin on new comments via admin.sharedEmail (deprecated option - use settings.notify.type.admin: "email" instead)
+      ## This setting will overwrite settings.notify.type.admin with "email" when set to true
       emailAdmin: false
+    webhook:
+      ## Webhook notification URL for admin notifications
+      url:
+      ## Webhook payload template
+      template: "{\"text\": \"\"}"
+      ## HTTP header in format Header1:Value1,Header2:Value2,...
+      headers:
+      ## Webhook request timeout
+      timeout: "5s"
 
   ## Support for OAuth authentification for different providers
   oauth:
