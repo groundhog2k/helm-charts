@@ -1,9 +1,9 @@
 {{- $fullname := include "nextcloud.fullname" . }}
 {{- $labels := include "nextcloud.labels" . }}
 {{- $environment := include "nextcloud.environment" . }}
-{{- $kubeVersion := .Capabilities.KubeVersion.Version -}}
+{{- $apiVersion := .Capabilities.APIVersions -}}
 {{- range $job := .Values.defaultCronJobs }}
-{{- if semverCompare ">=1.21" $kubeVersion -}}
+{{- if $apiVersion.Has "batch/v1" }}
 apiVersion: batch/v1
 {{- else -}}
 apiVersion: batch/v1beta1

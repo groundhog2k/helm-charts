@@ -1,14 +1,18 @@
 # Nextcloud
 
-![Version: 0.10.1](https://img.shields.io/badge/Version-0.10.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.0.0-apache](https://img.shields.io/badge/AppVersion-23.0.0-informational?style=flat-square)
+![Version: 0.10.2](https://img.shields.io/badge/Version-0.10.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.0.0-apache](https://img.shields.io/badge/AppVersion-23.0.0-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Nextcloud on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/nextcloud
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/nextcloud
 ```
 
 ## Introduction
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/nextcloud
+helm install my-release groundhog2k/nextcloud
 ```
 
 ## Upgrading the Chart[](#upgrade)
@@ -36,7 +40,7 @@ $ helm install my-release groundhog2k/nextcloud
 To upgrade the chart or Nextcloud version with the release name `my-release`:
 
 ```bash
-$ helm upgrade my-release groundhog2k/nextcloud
+helm upgrade my-release groundhog2k/nextcloud
 ```
 
 ## Post-upgrade steps
@@ -46,14 +50,16 @@ After some Nextcloud version upgrades it's necessary to update database indicies
 The post upgrade will be started during the Nextcloud/chart upgrade after a delay, which is configurable by setting `postUpgradeHook.delay`. The default value is 30 seconds.
 
 ```bash
-$ helm upgrade my-release groundhog2k/nextcloud --set postUpgradeHook.delay=120
+helm upgrade my-release groundhog2k/nextcloud --set postUpgradeHook.delay=120
 ```
 
 ## Custom *.config.php files
+
 The chart supports adding [multiple Nextcloud configuration files](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#multiple-config-php-file) by setting file name and value in the `customConfigs:` section.
 
 Example:
-```
+
+```helm
 customConfigs:
   region.config.php: |
     <?php
@@ -69,7 +75,7 @@ The custom *.config.php files will be copied during a post-install/upgrade hook 
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements

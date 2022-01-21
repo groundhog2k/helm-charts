@@ -1,14 +1,14 @@
 # Remark42
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/remark42
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/remark42
 ```
 
 ## Introduction
@@ -30,7 +30,7 @@ The Remark42 image supports amd64 architecture only!
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/remark42
+helm install my-release groundhog2k/remark42
 ```
 
 ## Uninstalling the Chart
@@ -38,7 +38,7 @@ $ helm install my-release groundhog2k/remark42
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements
@@ -208,7 +208,7 @@ $ helm uninstall my-release
 | settings.notify.email.emailAdmin | bool | `false` | Notify admin on new comments via admin.sharedEmail (DEPRECATED OPTION - use `settings.notify.type.admin` = `"email"` instead) - This setting will overwrite `settings.notify.type.admin` |
 | settings.notify.webhook.url | string | `nil` | Webhook notification URL for admin notifications |
 | settings.notify.webhook.template | string | `{"text": ""}` | Webhook payload template |
-| settings.notify.webhook.headers |	string | `nil` | HTTP header in format Header1:Value1,Header2:Value2,... |
+| settings.notify.webhook.headers | string | `nil` | HTTP header in format Header1:Value1,Header2:Value2,... |
 | settings.notify.webhook.timeout | string | `5s` | Webhook request timeout |
 
 | Key | Type | Default | Description |
@@ -231,7 +231,6 @@ $ helm uninstall my-release
 | settings.oauth.yandex.enabled | bool | `false` | Enable Yandex OAuth |
 | settings.oauth.yandex.key | string | `nil` | Yandex OAuth key |
 | settings.oauth.yandex.secret | string | `nil` | Yandex OAuth secret |
-
 
 ## Storage parameters
 

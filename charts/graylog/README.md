@@ -1,14 +1,18 @@
 # Graylog
 
-![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.5](https://img.shields.io/badge/AppVersion-4.2.5-informational?style=flat-square)
+![Version: 0.3.8](https://img.shields.io/badge/Version-0.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.5](https://img.shields.io/badge/AppVersion-4.2.5-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Graylog on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/graylog
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/graylog
 ```
 
 ## Introduction
@@ -26,7 +30,7 @@ This chart uses the original [Graylog image from Docker Hub](https://hub.docker.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/graylog
+helm install my-release groundhog2k/graylog
 ```
 
 ## Uninstalling the Chart
@@ -34,7 +38,7 @@ $ helm install my-release groundhog2k/graylog
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements
@@ -62,8 +66,10 @@ $ helm uninstall my-release
 | initImage.repository | string | `"busybox"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
@@ -145,12 +151,13 @@ Section to define all additional UDP/TCP inputs for Graylog
 | elasticsearch.storage | object | `see values.yaml` | Elasticsearch storage settings |
 
 ## MaxMind GeoIP2 database
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | initGeoIPDatabase.enabled | bool | `false` | Enable GeoIP database download |
 | initGeoIPDatabase.accountId | string | `""` | MaxMind UserId / AccountId |
 | initGeoIPDatabase.licenseKey | string | `""` | MaxMind license key |
-| initGeoIPDatabase.editionId | string | `"GeoLite2-City"` | Default database edition id (https://www.maxmind.com/en/accounts/473747/geoip/downloads) |
+| initGeoIPDatabase.editionId | string | `"GeoLite2-City"` | Default database edition id - see [MaxMind page](https://www.maxmind.com/en/accounts/473747/geoip/downloads) |
 | initGeoIPDatabase.host | string | `""` | The MaxMind download host (not necessary to change that - default updates.maxmind.com)|
 | initGeoIPDatabase.proxy | string | `""` | A valid proxy if internet access is running through a proxy |
 | initGeoIPDatabase.proxyUserPassword | string | `""` | Proxy username and password in format "username:password" |
@@ -192,4 +199,4 @@ Section to define all additional UDP/TCP inputs for Graylog
 | settings.smtp.emailFrom | string | `"you@example.com"` | Mail from address |
 | settings.smtp.subjectPrefix | string | `"[graylog]"` | Mail subject prefix |
 
-Further Graylog parameter can be set via environment variables (see Deployment parameter: env)
+Further Graylog parameter can be set via environment variables (see Deployment parameter: `env:`)
