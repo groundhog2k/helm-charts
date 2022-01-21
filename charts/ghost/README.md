@@ -1,14 +1,18 @@
 # Ghost
 
-![Version: 0.33.3](https://img.shields.io/badge/Version-0.33.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.32.2](https://img.shields.io/badge/AppVersion-4.32.2-informational?style=flat-square)
+![Version: 0.33.4](https://img.shields.io/badge/Version-0.33.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.32.2](https://img.shields.io/badge/AppVersion-4.32.2-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Ghost blog on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/ghost
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/ghost
 ```
 
 ## Introduction
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/ghost
+helm install my-release groundhog2k/ghost
 ```
 
 ## Uninstalling the Chart
@@ -36,7 +40,7 @@ $ helm install my-release groundhog2k/ghost
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements
@@ -61,8 +65,10 @@ $ helm uninstall my-release
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | strategy | object | `{}` | Pod deployment strategy |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |

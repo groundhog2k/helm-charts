@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.4.14](https://img.shields.io/badge/Version-0.4.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.10](https://img.shields.io/badge/AppVersion-1.15.10-informational?style=flat-square)
+![Version: 0.4.15](https://img.shields.io/badge/Version-0.4.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.15.10](https://img.shields.io/badge/AppVersion-1.15.10-informational?style=flat-square)
 
 ## Changelog
 
@@ -11,8 +11,8 @@ A Helm chart for Gitea on Kubernetes
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/gitea
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/gitea
 ```
 
 ## Introduction
@@ -32,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/gitea
+helm install my-release groundhog2k/gitea
 ```
 
 ## Uninstalling the Chart
@@ -40,7 +40,7 @@ $ helm install my-release groundhog2k/gitea
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements

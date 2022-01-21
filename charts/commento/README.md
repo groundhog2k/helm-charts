@@ -1,14 +1,18 @@
 # Commento
 
-![Version: 0.1.20](https://img.shields.io/badge/Version-0.1.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.21](https://img.shields.io/badge/Version-0.1.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Commento on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/commento
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/commento
 ```
 
 ## Introduction
@@ -30,7 +34,7 @@ The Commento image only supports amd64 architecture!
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/commento
+helm install my-release groundhog2k/commento
 ```
 
 ## Uninstalling the Chart
@@ -38,7 +42,7 @@ $ helm install my-release groundhog2k/commento
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements
@@ -63,8 +67,10 @@ $ helm uninstall my-release
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | strategy | object | `{}` | Pod deployment strategy |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |

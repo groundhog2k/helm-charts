@@ -93,6 +93,23 @@ spec:
               containerPort: {{ $service.containerPort}}
               protocol: {{ $service.protocol }}
             {{- end }}
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            tcpSocket:
+              port: http
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe:
             {{- toYaml .Values.customLivenessProbe | nindent 12 }}

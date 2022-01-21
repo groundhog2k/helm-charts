@@ -1,14 +1,18 @@
 # RabbitMQ
 
-![Version: 0.4.7](https://img.shields.io/badge/Version-0.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.12](https://img.shields.io/badge/AppVersion-3.9.12-informational?style=flat-square)
+![Version: 0.3.13](https://img.shields.io/badge/Version-0.3.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.8.27](https://img.shields.io/badge/AppVersion-3.8.27-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/rabbitmq
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/rabbitmq
 ```
 
 ## Introduction
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/rabbitmq
+helm install my-release groundhog2k/rabbitmq
 ```
 
 ## Uninstalling the Chart
@@ -36,7 +40,7 @@ $ helm install my-release groundhog2k/rabbitmq
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Common parameters
@@ -57,8 +61,10 @@ $ helm uninstall my-release
 | initImage.repository | string | `"busybox"` | Init image name |
 | initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
@@ -139,7 +145,7 @@ Section to define custom services
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | clusterDomain | string | `"cluster.local"` | Kubernetes cluster domain (DNS) suffix |
-| plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: https://www.rabbitmq.com/plugins.html) |
+| plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: [RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)) |
 | authentication.user | string | `"guest"` | Initial user name |
 | authentication.password | string | `"guest"` | Initial password |
 | authentication.erlangCookie | string | `nil` | Erlang cookie (default: Random base64 value) |
@@ -202,5 +208,5 @@ Section for certificate support
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| customConfig | string | `nil` | Custom configuration entries for rabbitmq.conf (see https://www.rabbitmq.com/configure.html#config-file) |
-| customAdvancedConfig | string | `nil` | Custom advanced configuration entries for advanced.config (see https://www.rabbitmq.com/configure.html#advanced-config-file) |
+| customConfig | string | `nil` | Custom configuration entries for rabbitmq.conf (see [RabbitMQ config](https://www.rabbitmq.com/configure.html#config-file)) |
+| customAdvancedConfig | string | `nil` | Custom advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
