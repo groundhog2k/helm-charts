@@ -142,8 +142,7 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
             {{- if .Values.customConfig }}
-            - mountPath: /etc/postgresql/postgresql.conf
-              subPath: postgresql.conf
+            - mountPath: /etc/postgresql
               name: customconfig
             {{- end }}
             {{- if .Values.userDatabase }}
