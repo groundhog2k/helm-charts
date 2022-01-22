@@ -3,6 +3,23 @@ entries:
   commento:
   - apiVersion: v2
     appVersion: v1.8.0
+    created: "2022-01-22T07:55:42.816556178Z"
+    dependencies:
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.15
+    description: A Helm chart for Commento on Kubernetes
+    digest: 40589a7b98deface45c520ae95220a62662ec33405e56b9713cb8cc9ec964e23
+    maintainers:
+    - name: groundhog2k
+    name: commento
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/commento-0.1.23/commento-0.1.23.tgz
+    version: 0.1.23
+  - apiVersion: v2
+    appVersion: v1.8.0
     created: "2022-01-22T07:30:47.122619036Z"
     dependencies:
     - condition: postgres.enabled
@@ -645,6 +662,18 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.2.0/elasticsearch-0.2.0.tgz
     version: 0.2.0
+  - apiVersion: v2
+    appVersion: 7.10.2
+    created: "2022-01-22T07:55:42.948947486Z"
+    description: A Helm chart for Elasticsearch on Kubernetes
+    digest: 317fe1b7218b56ead9be50006cf3cd4277f7c9d3c77899426870a0d1182bfb04
+    maintainers:
+    - name: groundhog2k
+    name: elasticsearch
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.1.106/elasticsearch-0.1.106.tgz
+    version: 0.1.106
   - apiVersion: v2
     appVersion: 7.10.2
     created: "2022-01-21T18:40:06.102851073Z"
@@ -7894,6 +7923,18 @@ entries:
   rabbitmq:
   - apiVersion: v2
     appVersion: 3.9.13
+    created: "2022-01-22T07:55:43.05727833Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: eb8c0bcfd5c29c0f5cd6bf68b110b64c8070370484bfdb09d59ead18ff1b908e
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.4.9/rabbitmq-0.4.9.tgz
+    version: 0.4.9
+  - apiVersion: v2
+    appVersion: 3.9.13
     created: "2022-01-21T18:48:24.775431975Z"
     description: A Helm chart for a RabbitMQ cluster on Kubernetes
     digest: 86c23ab1366bc1674c48eea1691da0a5ae3d2da5c865da49a89edc0b14bc7e3a
@@ -9741,4 +9782,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-01-22T07:30:47.585367978Z"
+generated: "2022-01-22T07:55:43.062744167Z"
