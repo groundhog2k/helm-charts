@@ -5256,6 +5256,18 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.5.13
+    created: "2022-01-22T12:48:16.116852712Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: b89026cd233de81cc21f24dfad53765a880f914f20d5e59b2afd6135cc6b7caf
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.2.17/mariadb-0.2.17.tgz
+    version: 0.2.17
+  - apiVersion: v2
+    appVersion: 10.5.13
     created: "2022-01-06T14:48:39.392493854Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: 45fb57a93b9897e82ca3fd5ef2cb2a0fd7b390be7137743025e9813cba51c011
@@ -5808,6 +5820,18 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.3.0/mongodb-0.3.0.tgz
     version: 0.3.0
+  - apiVersion: v2
+    appVersion: 4.2.14
+    created: "2022-01-22T12:48:16.234334661Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 0e5ae3767b7795b7e7813ce6eae4d2ef3f4558a5244ceea1693cc822f45b2613
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.2.14/mongodb-0.2.14.tgz
+    version: 0.2.14
   - apiVersion: v2
     appVersion: 4.2.14
     created: "2021-05-21T17:27:53.15957569Z"
@@ -7622,6 +7646,18 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: "14.1"
+    created: "2022-01-22T12:48:16.365764887Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: f83d08b55f57df0518053d7ba6ba156a36b42e6607e008a02fceac263f5ce172
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.5/postgres-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
+    appVersion: "14.1"
     created: "2022-01-21T14:28:47.232169092Z"
     description: A Helm chart for PostgreSQL on Kubernetes
     digest: 055539aaf5a07484687a3f87b789ce453a474a9610e02c2c1c4300959d1e1782
@@ -8608,6 +8644,18 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: 6.2.6
+    created: "2022-01-22T12:48:16.502511942Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: d21b3dfc8638129bf02fde4734d56b93ff6ad55f2af9b4a52bcb4b48ba9a63de
+    maintainers:
+    - name: groundhog2k
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.4.10/redis-0.4.10.tgz
+    version: 0.4.10
+  - apiVersion: v2
+    appVersion: 6.2.6
     created: "2022-01-06T14:48:39.913759886Z"
     description: A Helm chart for Redis on Kubernetes
     digest: 9cb932b5227639531728dc1d7ecc6ca780bcffef3a5c2a3b03a8d4c6e84df251
@@ -9199,6 +9247,23 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.1.0/remark42-0.1.0.tgz
     version: 0.1.0
   wordpress:
+  - apiVersion: v2
+    appVersion: 5.8.3-apache
+    created: "2022-01-22T12:48:16.626334526Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.16
+    description: A Helm chart for Wordpress on Kubernetes
+    digest: d138bc392a94def4d0df2f2d2b953c5082294bb578dfc89a43585848eac18ef3
+    maintainers:
+    - name: groundhog2k
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.4.9/wordpress-0.4.9.tgz
+    version: 0.4.9
   - apiVersion: v2
     appVersion: 5.8.3-apache
     created: "2022-01-20T16:42:57.219277501Z"
@@ -9794,4 +9859,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-01-22T07:59:12.803560271Z"
+generated: "2022-01-22T12:48:16.636904484Z"
