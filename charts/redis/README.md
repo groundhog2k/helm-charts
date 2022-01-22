@@ -1,29 +1,34 @@
 # Redis
 
-![Version: 0.4.9](https://img.shields.io/badge/Version-0.4.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.6](https://img.shields.io/badge/AppVersion-6.2.6-informational?style=flat-square)
+![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.6](https://img.shields.io/badge/AppVersion-6.2.6-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Redis on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/redis
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/redis
 ```
 
-### Basic setup without high availability:
+### Basic setup without high availability
+
 `haMode.enabled: false`
 
 This will create one standalone Redis instance which can be reached based on the `service:` configuration (ClusterIP & Port 6379 by default)
 
-```
+```draw
 +-------------------+
 | Redis standalone  |
 +-------------------+
 ```
 
+### Advanced setup with high availability support
 
-### Advanced setup with high availability support:
 `haMode.enabled: true`
 
 This will create 3 pods by default, with 1 Redis master (M1) and 2 Redis replications (R1/R2). Every pod has 2 containers, one for the Redis server and one for the Redis sentinel (S1/S2/S3).
@@ -31,8 +36,7 @@ The default quorom to decide for a new master is set to 2. Have a look at all co
 
 A Sentinal instance can be reached based on the `service:` configuration (ClusterIP & Sentinel port 26379 by default).
 
-
-```
+```draw
        +----+
        | M1 |
        | S1 |
@@ -61,7 +65,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/redis
+helm install my-release groundhog2k/redis
 ```
 
 ## Uninstalling the Chart
@@ -69,7 +73,7 @@ $ helm install my-release groundhog2k/redis
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Common parameters
@@ -87,9 +91,11 @@ $ helm uninstall my-release
 | image.repository | string | `"redis"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
-| livenessProbe | object | `see values.yaml` | Liveness probe configurationm |
+| livenessProbe | object | `see values.yaml` | Liveness probe configuration |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Redis Sentinel - only when haMode is enabled) |

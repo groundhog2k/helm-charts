@@ -1,14 +1,18 @@
-#  Wordpress
+# Wordpress
 
-![Version: 0.4.8](https://img.shields.io/badge/Version-0.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.8.3-apache](https://img.shields.io/badge/AppVersion-5.8.3-informational?style=flat-square)
+![Version: 0.4.9](https://img.shields.io/badge/Version-0.4.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.8.3-apache](https://img.shields.io/badge/AppVersion-5.8.3-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for Wordpress on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/wordpress
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/wordpress
 ```
 
 ## Introduction
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/wordpress
+helm install my-release groundhog2k/wordpress
 ```
 
 ## Uninstalling the Chart
@@ -36,7 +40,7 @@ $ helm install my-release groundhog2k/wordpress
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Requirements
@@ -62,8 +66,10 @@ $ helm uninstall my-release
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | strategy | object | `{}` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |

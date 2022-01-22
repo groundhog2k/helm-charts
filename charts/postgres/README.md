@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1](https://img.shields.io/badge/AppVersion-14.1-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1](https://img.shields.io/badge/AppVersion-14.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -15,8 +15,8 @@ There is no automatic database upgrade from PostgreSQL 13.x (Chart version 0.2.x
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/postgres
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/postgres
 ```
 
 ## Introduction
@@ -24,7 +24,6 @@ $ helm install my-release groundhog2k/postgres
 This chart uses the original [PostgreSQL image from Docker Hub](https://hub.docker.com/_/postgres/) to deploy a stateful PostgreSQL instance in a Kubernetes cluster.
 
 It fully supports deployment of the multi-architecture docker image.
-
 
 ## Prerequisites
 
@@ -37,7 +36,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/postgres
+helm install my-release groundhog2k/postgres
 ```
 
 ## Uninstalling the Chart
@@ -45,7 +44,7 @@ $ helm install my-release groundhog2k/postgres
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Common parameters

@@ -47,6 +47,26 @@ spec:
             - name: mongodb
               containerPort: 27017
               protocol: TCP
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            exec:
+              command:
+                - mongo
+                - --eval
+                - "db.adminCommand('ping')"
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe:
             {{- toYaml .Values.customLivenessProbe | nindent 12 }}

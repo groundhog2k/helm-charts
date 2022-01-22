@@ -1,14 +1,18 @@
 # MariaDB
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.7.1](https://img.shields.io/badge/AppVersion-10.7.1-informational?style=flat-square)
+![Version: 0.2.17](https://img.shields.io/badge/Version-0.2.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.13](https://img.shields.io/badge/AppVersion-10.5.13-informational?style=flat-square)
+
+## Changelog
+
+see [RELEASENOTES.md](RELEASENOTES.md)
 
 A Helm chart for MariaDB on Kubernetes
 
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm install my-release groundhog2k/mariadb
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm install my-release groundhog2k/mariadb
 ```
 
 ## Introduction
@@ -28,7 +32,7 @@ It fully supports deployment of the multi-architecture docker image.
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release groundhog2k/mariadb
+helm install my-release groundhog2k/mariadb
 ```
 
 ## Uninstalling the Chart
@@ -36,7 +40,7 @@ $ helm install my-release groundhog2k/mariadb
 To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm uninstall my-release
+helm uninstall my-release
 ```
 
 ## Common parameters
@@ -54,8 +58,10 @@ $ helm uninstall my-release
 | image.repository | string | `"mariadb"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
