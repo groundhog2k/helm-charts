@@ -96,6 +96,18 @@ podDisruptionBudget: {}
   ## Maximum number of pods that can be unavailable after eviction
   # maxUnavailable:
 
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup probe
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
 ## Custom liveness probe (overwrites default liveness probe)
 customLivenessProbe: {}
 
