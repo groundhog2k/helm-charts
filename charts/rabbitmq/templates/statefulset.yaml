@@ -99,8 +99,11 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
-            tcpSocket:
-              port: http
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - rabbitmq-diagnostics -q check_running
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}

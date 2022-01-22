@@ -101,8 +101,12 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
-            tcpSocket:
+            httpGet:
+              path: /api/system/lbstatus
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:9000
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
