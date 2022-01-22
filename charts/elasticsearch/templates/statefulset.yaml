@@ -76,8 +76,12 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:9200
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
