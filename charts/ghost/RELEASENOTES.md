@@ -6,4 +6,5 @@
 | 0.33.5 | 4.32.3 | Upgraded to Ghost 4.32.3 |
 | 0.33.6 | 4.32.3 | Fixed startupProbe |
 | 0.33.7 | 4.32.3 | Updated chart dependencies |
+| 0.34.0 | 4.33.1 | Upgraded to Ghost 4.33.1 |
 | | | |
