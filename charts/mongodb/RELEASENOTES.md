@@ -7,4 +7,5 @@
 | 0.3.8 | 4.4.11 | Implemented startupProbe support |
 | 0.3.9 | 4.4.12 | Upgraded to MongoDB 4.4.12 |
 | 0.4.1 | 5.0.5 | Implemented startupProbe support |
+| 0.4.2 | 5.0.6 | Upgraded to MongoDB 5.0.6 |
 | | | |
