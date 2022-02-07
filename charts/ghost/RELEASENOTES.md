@@ -9,4 +9,5 @@
 | 0.34.0 | 4.33.1 | Upgraded to Ghost 4.33.1 |
 | 0.35.0 | 4.34.0 | Upgraded to Ghost 4.34.0 |
 | 0.35.1 | 4.34.3 | Upgraded to Ghost 4.34.3 |
+| 0.35.2 | 4.34.3 | Removed chart workaround introduced with #686 |
 | | | |
