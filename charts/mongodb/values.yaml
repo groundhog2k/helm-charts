@@ -166,10 +166,10 @@ extraSecrets: []
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
-  
+
   ## Internal volume name and prefix of a created PVC
   volumeName: "mongodb-volume"
-  
+
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
