@@ -140,7 +140,7 @@ userDatabase: {}
 customConfig: |
 
 ## A list of existing secrets that will be mounted into the container as environment variables
-## As an alternative these secrets can set the database superuser password or other options when settings.superuserPassword was not specified
+## As an alternative these secrets can set the database root user and password or other options when settings.rootUsername and settings.rootPassword was not specified
 ## For example: Setting MONGO_INITDB_DATABASE, USERDB_USER, USERDB_PASSWORD will allow creating a user database and grant access for the given user
 extraEnvSecrets: []
 
