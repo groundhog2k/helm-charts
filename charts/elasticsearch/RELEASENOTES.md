@@ -9,4 +9,5 @@
 | 0.6.5 | 7.16.3 | Fixed ingress API detection<br>Implemented startupProbe support |
 | 0.6.6 | 7.16.3 | Fixed startupProbe |
 | 0.7.0 | 7.17.0 | Upgraded to Elasticsearch 7.17.0 |
+| 0.8.0 | 8.0.0 | Upgraded to Elasticsearch 8.0.0 |
 | | | |
