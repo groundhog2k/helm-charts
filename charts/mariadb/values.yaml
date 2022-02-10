@@ -143,7 +143,7 @@ userDatabase: {}
   # password:
 
 ## Optional custom configuration block that will be mounted as file in /etc/mysql/conf.d/custom.cnf
-## For more flexible options see extraConfigs: section
+## For more flexible options see extraSecretConfigs: section
 customConfig: |
 
 ## A list of existing secrets that will be mounted into the container as environment variables
