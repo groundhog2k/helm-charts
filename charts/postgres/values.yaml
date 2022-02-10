@@ -112,7 +112,7 @@ readinessProbe:
   periodSeconds: 10
 
 ## Additional environment variables
-env:
+env: []
 
 ## Arguments for the container entrypoint process
 args: []
