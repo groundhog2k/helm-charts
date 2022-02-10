@@ -1,14 +1,4 @@
-{{- $existingRootPassword := "" }}
-{{- $existingUserDbName := "" }}
-{{- $existingUserDbUser := "" }}
-{{- $existingUserDbPassword := "" }}
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "mariadb.fullname" .) ) }}
-{{- if $secret }}
-{{- $existingRootPassword = index $secret.data "MYSQL_ROOT_PASSWORD" }}
-{{- $existingUserDbName = index $secret.data "MYSQL_DATABASE" }}
-{{- $existingUserDbUser = index $secret.data "MYSQL_USER" }}
-{{- $existingUserDbPassword = index $secret.data "MYSQL_PASSWORD" }}
-{{- end -}}
+{{- if include "mariadb.createSecureConfig" . }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -17,12 +7,22 @@ metadata:
     {{- include "mariadb.labels" . | nindent 4 }}
 type: Opaque
 data:
-  {{- $rootPassword := coalesce (.Values.settings.rootPassword | default "" | b64enc) $existingRootPassword (randAlphaNum 10 | b64enc) }}
-  MYSQL_ROOT_PASSWORD: {{ $rootPassword }}
-  {{- with .Values.userDatabase }}
-  {{- $userDbName := coalesce (.name | default "" | b64enc) $existingUserDbName }}
-  {{- $userDbUser := coalesce (.user | default "" | b64enc) $existingUserDbUser }}
-  MYSQL_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." $userDbName }}
-  MYSQL_USER: {{ required "Values: userDatabase.user is mandatory if userDatabase is specified." $userDbUser }}
-  MYSQL_PASSWORD: {{ coalesce (.password | default "" | b64enc) $existingUserDbPassword (randAlphaNum 10 | b64enc) }}
+  {{- with .Values.settings }}
+  {{- if .rootPassword }}
+  MARIADB_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
   {{- end }}
+  {{- if .allowEmptyRootPassword }}
+  MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: {{ "yes" | b64enc }}
+  {{- end }}
+  {{- if .skipTZInfo }}
+  MARIADB_INITDB_SKIP_TZINFO: {{ "yes" | b64enc }}
+  {{- end }}
+  {{- end }}
+  {{- with .Values.userDatabase }}
+  MARIADB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
+  {{- if .user }}
+  MARIADB_USER: {{ .user | b64enc }}
+  MARIADB_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- end }}
+  {{- end }}
+{{- end }}

@@ -20,6 +20,8 @@ spec:
     metadata:
       annotations:
         checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -35,6 +37,34 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext  }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            {{- if .Values.extraScripts }}
+            - mountPath: /extrascripts
+              name: extrascripts-volume
+            {{- end }}
+            {{- if .Values.extraSecretConfigs }}
+            - mountPath: /extraconfigs
+              name: extraconfigs-volume
+            {{- end }}
+            {{- if .Values.customConfig }}
+            - mountPath: /customconfig
+              name: customconfig-volume
+            {{- end }}
+            - mountPath: /initscripts
+              name: initscripts
+            - mountPath: /scripts
+              name: scripts
+            - mountPath: /configs
+              name: configs
+          command: [ "/initscripts/init.sh" ]
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext  }}
@@ -57,7 +87,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -77,7 +107,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -97,7 +127,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -113,14 +143,18 @@ spec:
           {{- end }}
           volumeMounts:
             - mountPath: /var/lib/mysql
-              name: db-volume
+              name: {{ .Values.storage.volumeName }}
             - mountPath: /tmp
               name: tmp-volume
             - mountPath: /var/run/mysqld
-              name: tmp-volume
-            {{- if .Values.customConfig }}
+              name: tmp-volume         
             - mountPath: /etc/mysql/conf.d
-              name: customConfig-volume
+              name: configs
+            - mountPath: /docker-entrypoint-initdb.d
+              name: scripts
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
             {{- end }}
           {{- if .Values.settings.arguments }}
           args:
@@ -131,10 +165,16 @@ spec:
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
-          {{- end }}          
+          {{- end }}
           envFrom:
+          {{- if include "mariadb.createSecureConfig" . }}
             - secretRef:
                 name: {{ include "mariadb.fullname" . }}
+          {{- end }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -150,16 +190,41 @@ spec:
       volumes:
         - name: tmp-volume
           emptyDir: {}
+        - name: configs
+          emptyDir: {}
+        - name: scripts
+          emptyDir: {}
+        - name: initscripts
+          configMap:
+            name: {{ include "mariadb.fullname" . }}-scripts
+            defaultMode: 0555
+      {{- if .Values.extraSecretConfigs }}
+        - name: extraconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretConfigs }}
+      {{- end }}
       {{- if .Values.customConfig }}
-        - name: customConfig-volume
+        - name: customconfig-volume
           configMap:
             name: {{ include "mariadb.fullname" . }}
       {{- end }}
+      {{- if .Values.extraScripts }}
+        - name: extrascripts-volume
+          configMap:
+            name: {{ .Values.extraScripts }}
+            defaultMode: 0555
+      {{- end }}
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
 {{- $fullname := include "mariadb.fullname" . }}
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
-        - name: db-volume
+        - name: {{ .volumeName }}
         {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
             claimName: {{ .persistentVolumeClaimName }}
@@ -169,7 +234,7 @@ spec:
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: db-volume
+        name: {{ .volumeName }}
       spec:
         {{- with .accessModes }}
         accessModes:

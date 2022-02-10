@@ -20,6 +20,8 @@ spec:
     metadata:
       annotations:
         checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -35,6 +37,34 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            {{- if .Values.extraScripts }}
+            - mountPath: /extrascripts
+              name: extrascripts-volume
+            {{- end }}
+            {{- if .Values.extraSecretConfigs }}
+            - mountPath: /extraconfigs
+              name: extraconfigs-volume
+            {{- end }}
+            {{- if .Values.customConfig }}
+            - mountPath: /customconfig
+              name: customconfig-volume
+            {{- end }}
+            - mountPath: /initscripts
+              name: initscripts
+            - mountPath: /scripts
+              name: scripts
+            - mountPath: /configs
+              name: configs
+          command: [ "/initscripts/init.sh" ]
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -62,8 +92,14 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
+          {{- if include "postgres.createSecureConfig" . }}
             - secretRef:
                 name: {{ include "postgres.fullname" . }}
+          {{- end }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           {{- if .Values.customStartupProbe }}
           startupProbe:
             {{- toYaml .Values.customStartupProbe | nindent 12 }}
@@ -140,15 +176,14 @@ spec:
             - mountPath: /tmp
               name: tmp
             - mountPath: /var/lib/postgresql/data
-              name: postgres-data
-            {{- if .Values.customConfig }}
+              name: {{ .Values.storage.volumeName }}
+            - mountPath: /docker-entrypoint-initdb.d
+              name: scripts
             - mountPath: /etc/postgresql
-              name: customconfig
-            {{- end }}
-            {{- if .Values.userDatabase }}
-            - mountPath: /docker-entrypoint-initdb.d/init-user-db.sh
-              subPath: init-user-db.sh
-              name: inituserdb
+              name: configs
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -167,21 +202,40 @@ spec:
           emptyDir: {}
         - name: tmp
           emptyDir: {}
+        - name: scripts
+          emptyDir: {}
+        - name: configs
+          emptyDir: {}
+        - name: initscripts
+          configMap:
+            name: {{ include "postgres.fullname" . }}-scripts
+            defaultMode: 0555
+        {{- if .Values.extraScripts }}
+        - name: extrascripts-volume
+          configMap:
+            name: {{ .Values.extraScripts }}
+            defaultMode: 0555
+        {{- end }}
+        {{- if .Values.extraSecretConfigs }}
+        - name: extraconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretConfigs }}
+        {{- end }}
         {{- if .Values.customConfig }}
-        - name: customconfig
+        - name: customconfig-volume
           configMap:
             name: {{ include "postgres.fullname" . }}-customconfig
         {{- end }}
-        {{- if .Values.userDatabase }}
-        - name: inituserdb
-          configMap:
-            name: {{ include "postgres.fullname" . }}-inituserdb
-            defaultMode: 0555
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
         {{- end }}
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
-        - name: postgres-data
+        - name: {{ .volumeName }}
         {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
             claimName: {{ .persistentVolumeClaimName }}
@@ -191,7 +245,7 @@ spec:
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: postgres-data
+        name: {{ .volumeName }}
       spec:
         {{- with .accessModes }}
         accessModes:

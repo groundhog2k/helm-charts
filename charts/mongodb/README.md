@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.0.6](https://img.shields.io/badge/AppVersion-5.0.6-informational?style=flat-square)
+![Version: 0.2.16](https://img.shields.io/badge/Version-0.2.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.18](https://img.shields.io/badge/AppVersion-4.2.18-informational?style=flat-square)
 
 ## Changelog
 
@@ -97,6 +97,7 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.volumeName | string | `"mongodb-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 
@@ -104,10 +105,16 @@ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in /etc/mongo/custom.conf |
 | settings.rootUsername | string | `admin` | The root username |
 | settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
 | userDatabase | object | `{}` | Optional MongoDB user database |
 | userDatabase.name | string | `nil` | Name of the user database |
 | userDatabase.user | string | `nil` | User name with full access to user database|
 | userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |
+| customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in `/etc/mongo/custom.conf` |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the mongodb configuration in addition to `/etc/mongo/custom.conf` |
+| extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.js`, `*.sh`) in `/docker-entrypoint-initdb.d` |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
