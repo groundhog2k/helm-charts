@@ -109,8 +109,8 @@ helm uninstall my-release
 | userDatabase.user | string | `""` | User name with full access to user database|
 | userDatabase.password | string | `""` | Password of created user |
 | settings.rootPassword | string | `nil` | MariaDB root password |
-| allowEmptyRootPassword | bool | `false` | Set true to allow an empty root password |
-| skipTZInfo | bool | `false` | Set true to skip loading timezone data during init |
+| settings.allowEmptyRootPassword | bool | `false` | Set true to allow an empty root password |
+| settings.skipTZInfo | bool | `false` | Set true to skip loading timezone data during init |
 | settings.arguments | list | `[]` | Additional arguments for mysqld (entrypoint process) |
 | customConfig | string | `nil` | Additional MariaDB custom configuration mounted as `/etc/mysql/custom.cnf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |

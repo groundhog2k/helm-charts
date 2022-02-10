@@ -11,12 +11,6 @@ data:
   {{- if .rootPassword }}
   MARIADB_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
   {{- end }}
-  {{- if .allowEmptyRootPassword }}
-  MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: {{ "yes" | b64enc }}
-  {{- end }}
-  {{- if .skipTZInfo }}
-  MARIADB_INITDB_SKIP_TZINFO: {{ "yes" | b64enc }}
-  {{- end }}
   {{- end }}
   {{- with .Values.userDatabase }}
   MARIADB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}

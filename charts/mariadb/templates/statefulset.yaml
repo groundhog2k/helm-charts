@@ -162,8 +162,16 @@ spec:
             - {{ . }}
             {{- end }}
           {{- end }}
-          {{- with .Values.env }}
           env:
+          {{- if .Values.settings.skipTZInfo }}
+            - name: MARIADB_INITDB_SKIP_TZINFO
+              value: "yes"
+          {{- end }}
+          {{- if .Values.settings.allowEmptyRootPassword }}
+            - name: MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
+              value: "yes"
+          {{- end }}
+          {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
