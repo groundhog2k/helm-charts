@@ -119,13 +119,18 @@ args: []
 
 ## Database configuration
 settings:
-  ## The superuser password (default: a 10 char. alpahnumerical random password will be generated)
+  ## The default postgres superuser (default when nothing is set: "postgres")
+  superuser:
+
+  ## The superuser password
   superuserPassword:
 
-  ## Postgres database authentication method (default: md5)
-  authMethod: "md5"
+  ## Postgres database authentication method
+  ## For example: "md5"
+  authMethod:
 
   ## Optional init database arguments
+  ## For example: "--auth-local=md5"
   initDbArgs:
 
 ## Optional user database which is created during first startup with user and password
@@ -136,16 +141,40 @@ userDatabase: {}
   ## Database user with full access rights
   # user:
 
-  ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+  ## Password of the database user
   # password:
 
 ## Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf
-customConfig: |-
+## For more flexible options see extraSecretConfigs: section
+customConfig: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+## As an alternative these secrets can set the database superuser password or other options when settings.superuserPassword was not specified
+## For example: Setting POSTGRES_DB, USERDB_USER, USERDB_PASSWORD will allow creating a user database and grant access for the given user
+extraEnvSecrets: []
+
+## An existing secret with files that will be added to the postgres configuration in addition to /etc/postgresql/postgresql.conf
+extraSecretConfigs:
+
+## An existing configMap with files that will be mounted into the container as script files (*.sql, *.sh) in /docker-entrypoint-initdb.d
+## For more details see https://hub.docker.com/_/postgres
+extraScripts:
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
+
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "postgres-data"
 
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
   requestedSize:

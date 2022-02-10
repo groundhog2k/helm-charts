@@ -1,16 +1,4 @@
-{{- $existingRootPassword := "" }}
-{{- $existingRootUser := "" }}
-{{- $existingUserDbName := "" }}
-{{- $existingUserDbUser := "" }}
-{{- $existingUserDbPassword := "" }}
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "mongodb.fullname" .) ) }}
-{{- if $secret }}
-{{- $existingRootPassword = index $secret.data "MONGO_INITDB_ROOT_PASSWORD" }}
-{{- $existingRootUser = index $secret.data "MONGO_INITDB_ROOT_USERNAME" }}
-{{- $existingUserDbName = index $secret.data "MONGO_INITDB_DATABASE" }}
-{{- $existingUserDbUser = index $secret.data "USERDB_USER" }}
-{{- $existingUserDbPassword = index $secret.data "USERDB_PASSWORD" }}
-{{- end -}}
+{{- if include "mongodb.createSecureConfig" . }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -20,14 +8,18 @@ metadata:
 type: Opaque
 data:
 {{- with .Values.userDatabase }}
-  {{- $userDbName := coalesce (.name | default "" | b64enc) $existingUserDbName }}
-  {{- $userDbUser := coalesce (.user | default "" | b64enc) $existingUserDbUser }}
-  MONGO_INITDB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." $userDbName }}
-  USERDB_USER: {{ required "Values: userDatabase.user is mandatory if userDatabase is specified." $userDbUser }}
-  USERDB_PASSWORD: {{ coalesce (.password | default "" | b64enc) $existingUserDbPassword (randAlphaNum 10 | b64enc) }}
+  MONGO_INITDB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
+  {{- if .user }}
+  USERDB_USER: {{ .user | b64enc }}
+  USERDB_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- end }}
 {{- end }}
 {{- with .Values.settings }}
-  {{- $rootUser := coalesce (.rootUsername | default "" | b64enc) $existingRootUser }}
-  MONGO_INITDB_ROOT_USERNAME: {{ required "Values: settings.rootUsername is mandatory." $rootUser }}
-  MONGO_INITDB_ROOT_PASSWORD: {{ coalesce (.rootPassword | default "" | b64enc) $existingRootPassword (randAlphaNum 10 | b64enc) }}
+  {{- if .rootUsername }}
+  MONGO_INITDB_ROOT_USERNAME: {{ .rootUsername | b64enc }}
+  {{- end }}
+  {{- if .rootPassword }}
+  MONGO_INITDB_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
+  {{- end }}
+{{- end }}
 {{- end }}

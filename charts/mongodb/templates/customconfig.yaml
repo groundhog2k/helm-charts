@@ -6,6 +6,6 @@ metadata:
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
 data:
-  custom.conf: |-
+  custom.conf: |
     {{- .Values.customConfig | nindent 4 }}
 {{- end }}

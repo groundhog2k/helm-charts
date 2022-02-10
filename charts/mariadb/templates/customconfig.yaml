@@ -6,6 +6,6 @@ metadata:
   labels:
     {{- include "mariadb.labels" . | nindent 4 }}
 data:
-  custom.cnf: |-
+  custom.cnf: |
     {{- .Values.customConfig | nindent 4 }}
 {{- end }}

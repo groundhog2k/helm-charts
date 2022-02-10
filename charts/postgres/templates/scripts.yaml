@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres.fullname" . }}-scripts
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+data:
+  01-init-userdb.sh: |
+    #!/bin/sh
+    create_user()
+    {
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -v USERDBNAME="$POSTGRES_DB" -v USERDBUSER="$USERDB_USER" -v USERDBPASSWORD="'$USERDB_PASSWORD'" <<-EOSQL
+      CREATE USER :USERDBUSER WITH PASSWORD :USERDBPASSWORD;
+      GRANT ALL PRIVILEGES ON DATABASE :USERDBNAME TO :USERDBUSER;
+    EOSQL
+    }
+    set -e
+    if [ ! -z "$POSTGRES_DB" ] && [ ! -z "$USERDB_USER" ] && [ ! -z "$USERDB_PASSWORD" ]; then
+      create_user
+    fi
+  init.sh: |
+    #!/bin/sh
+    echo "Start initialization"
+    echo "Copy init-userdb script"
+    cp /initscripts/01-init-userdb.sh /scripts
+    if [ -d /extrascripts ]; then
+      echo "Copy extra scripts"
+      cp /extrascripts/* /scripts
+    fi
+    if [ -d /customconfig ]; then
+      echo "Create postgres config"
+      cat /customconfig/* >>/configs/postgresql.conf
+    fi    
+    if [ -d /extraconfigs ]; then
+      echo "Add extra configs to postgres config"
+      cat /extraconfigs/* >>/configs/postgresql.conf
+    fi
+    echo "Initialization done."

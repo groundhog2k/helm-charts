@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.7.1](https://img.shields.io/badge/AppVersion-10.7.1-informational?style=flat-square)
+![Version: 0.2.18](https://img.shields.io/badge/Version-0.2.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.13](https://img.shields.io/badge/AppVersion-10.5.13-informational?style=flat-square)
 
 ## Changelog
 
@@ -96,6 +96,7 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.volumeName | string | `"db-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 
@@ -106,7 +107,15 @@ helm uninstall my-release
 | userDatabase | object | `{}` | Optional MariaDB user database |
 | userDatabase.name | string | `""` | Name of the user database |
 | userDatabase.user | string | `""` | User name with full access to user database|
-| userDatabase.password | string | `""` | Password of created user (Random value if not specified) |
-| settings.rootPassword | string | `nil` | MariaDB root password (Random value if not specified) |
+| userDatabase.password | string | `""` | Password of created user |
+| settings.rootPassword | string | `nil` | MariaDB root password |
+| settings.allowEmptyRootPassword | bool | `false` | Set true to allow an empty root password |
+| settings.skipTZInfo | bool | `false` | Set true to skip loading timezone data during init |
 | settings.arguments | list | `[]` | Additional arguments for mysqld (entrypoint process) |
-| customConfig | string | `nil` | Additional MariaDB custom configuration mounted as custom.cnf |
+| customConfig | string | `nil` | Additional MariaDB custom configuration mounted as `/etc/mysql/custom.cnf` |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraSecretConfigs | string | `nil` | An existing secret with files that will be mounted into the container as custom MariaDB configuration files (`*.cnf`) in `/etc/mysql/conf.d` |
+| extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.sql`, `*.sh`) in `/docker-entrypoint-initdb.d` |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |

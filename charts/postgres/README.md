@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1](https://img.shields.io/badge/AppVersion-14.1-informational?style=flat-square)
+![Version: 0.2.17](https://img.shields.io/badge/Version-0.2.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.5](https://img.shields.io/badge/AppVersion-13.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -101,18 +101,25 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.volumeName | string | `"postgres-data"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
-
 ## PostgreSQL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf |
-| settings.authMethod | string | `"md5"` | Postgres database authentication method |
+| settings.authMethod | string | `nil` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
-| settings.superuserPassword | string | `nil` | Password of superuser (Random value if not specified) |
+| settings.superuser | string | `nil` | Superuser name |
+| settings.superuserPassword | string | `nil` | Password of superuser |
 | userDatabase | object | `{}` | Optional PostgreSQL user database |
 | userDatabase.name | string | `nil` | Name of the user database |
 | userDatabase.user | string | `nil` | User name with full access to user database|
-| userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |
+| userDatabase.password | string | `nil` | Password of created user |
+| customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in `/etc/postgresql/postgresql.conf` |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the postgres configuration in addition to `/etc/postgresql/postgresql.conf` |
+| extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.sql`, `*.sh`) in `/docker-entrypoint-initdb.d` |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |

@@ -20,6 +20,8 @@ spec:
     metadata:
       annotations:
         checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -35,6 +37,34 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            {{- if .Values.extraScripts }}
+            - mountPath: /extrascripts
+              name: extrascripts-volume
+            {{- end }}
+            {{- if .Values.extraSecretConfigs }}
+            - mountPath: /extraconfigs
+              name: extraconfigs-volume
+            {{- end }}
+            {{- if .Values.customConfig }}
+            - mountPath: /customconfig
+              name: customconfig-volume
+            {{- end }}
+            - mountPath: /initscripts
+              name: initscripts
+            - mountPath: /scripts
+              name: scripts
+            - mountPath: /configs
+              name: configs
+          command: [ "/initscripts/init.sh" ]
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -112,8 +142,14 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
+            {{- if include "mongodb.createSecureConfig" . }}
             - secretRef:
                 name: {{ include "mongodb.fullname" . }}
+            {{- end }}
+            {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -129,17 +165,15 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-            - name: mongodb-volume
+            - name: {{ .Values.storage.volumeName }}
               mountPath: /data/db
-            {{- if .Values.customConfig }}
-            - mountPath: /etc/mongo/custom.conf
-              subPath: custom.conf
-              name: customconfig
-            {{- end }}
-            {{- if .Values.userDatabase }}
-            - mountPath: /docker-entrypoint-initdb.d/init-user-db.sh
-              subPath: init-user-db.sh
-              name: inituserdb
+            - mountPath: /docker-entrypoint-initdb.d
+              name: scripts
+            - mountPath: /etc/mongo
+              name: configs
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -156,40 +190,61 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+        - name: scripts
+          emptyDir: {}
+        - name: configs
+          emptyDir: {}
+        - name: initscripts
+          configMap:
+            name: {{ include "mongodb.fullname" . }}-scripts
+            defaultMode: 0555
+        {{- if .Values.extraScripts }}
+        - name: extrascripts-volume
+          configMap:
+            name: {{ .Values.extraScripts }}
+            defaultMode: 0555
+        {{- end }}        
+        {{- if .Values.extraSecretConfigs }}
+        - name: extraconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretConfigs }}
+        {{- end }}
         {{- if .Values.customConfig }}
-        - name: customconfig
+        - name: customconfig-volume
           configMap:
             name: {{ include "mongodb.fullname" . }}-customconfig
         {{- end }}
-        {{- if .Values.userDatabase }}
-        - name: inituserdb
-          configMap:
-            name: {{ include "mongodb.fullname" . }}-inituserdb
-            defaultMode: 0550
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
         {{- end }}
-  {{- if .Values.storage.persistentVolumeClaimName }}
-        - name: mongodb-volume
+{{- with .Values.storage }}
+  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.storage.persistentVolumeClaimName }}
-  {{- else }}
-  {{- if not .Values.storage.requestedSize }}
-        - name: mongodb-volume
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: mongodb-volume
+        name: {{ .volumeName }}
       spec:
-        {{- with .Values.storage.accessModes }}
+        {{- with .accessModes }}
         accessModes:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- if .Values.storage.className }}
-        storageClassName: {{ .Values.storage.className }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.storage.requestedSize }}
+            storage: {{ .requestedSize }}
   {{- end }}
-  {{- end }}
+{{- end }}
   

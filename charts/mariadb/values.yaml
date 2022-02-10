@@ -122,8 +122,14 @@ settings:
   #  - --character-set-server=utf8mb4
   #  - --collation-server=utf8mb4_unicode_ci
 
-  ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+  ## The root user password
   rootPassword:
+
+  ## Set true to allow an empty root password
+  allowEmptyRootPassword: false
+
+  ## Set true to skip loading timezone data during init
+  skipTZInfo: false
 
 ## Optional user database which is created during first startup with user and password
 userDatabase: {}
@@ -133,18 +139,43 @@ userDatabase: {}
   ## Database user with full access rights
   # user:
 
-  ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+  ## Password of the database user
   # password:
 
 ## Optional custom configuration block that will be mounted as file in /etc/mysql/conf.d/custom.cnf
-customConfig: |-
+## For more flexible options see extraSecretConfigs: section
+customConfig: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+## As an alternative these secrets can set the database root password or optional user database when userDatabase: and rootPassword: were not specified
+## For example: Setting MARIADB_DATABASE, MARIADB_USER, MARIADB_PASSWORD will allow creating a user database and grant access for the given user
+extraEnvSecrets: []
+
+## An existing secret with files that will be mounted into the container as custom MariaDB configuration files (*.cnf) in /etc/mysql/conf.d
+## For more details see https://hub.docker.com/_/mariadb
+extraSecretConfigs:
+
+## An existing configMap with files that will be mounted into the container as script files (*.sql, *.sh) in /docker-entrypoint-initdb.d
+## For more details see https://hub.docker.com/_/mariadb
+extraScripts:
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
-  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "db-volume"
+
+  ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
   ## the storage class name

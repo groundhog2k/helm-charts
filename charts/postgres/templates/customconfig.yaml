@@ -6,6 +6,6 @@ metadata:
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
 data:
-  postgresql.conf: |-
+  postgresql.conf: |
     {{- .Values.customConfig | nindent 4 }}
 {{- end }}
