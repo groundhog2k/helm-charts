@@ -76,12 +76,8 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:9200
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -97,12 +93,8 @@ spec:
           {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:9200
             {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -118,12 +110,8 @@ spec:
           {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:9200
             {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
