@@ -11,4 +11,5 @@
 | 0.7.0 | 7.17.0 | Upgraded to Elasticsearch 7.17.0 |
 | 0.8.0 | 8.0.0 | Upgraded to Elasticsearch 8.0.0 |
 | 0.8.1 | 8.0.0 | Fixed livenessProbe for Elasticsearch 8.x |
+| 0.8.2 | 8.0.0 | Deprecation notice added |
 | | | |
