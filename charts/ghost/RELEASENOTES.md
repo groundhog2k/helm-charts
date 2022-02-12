@@ -12,4 +12,5 @@
 | 0.35.2 | 4.34.3 | Removed chart workaround introduced with #686 |
 | 0.36.0 | 4.35.0 | Upgraded to Ghost 4.35.0 |
 | 0.36.1 | 4.35.0 | Updated chart dependencies (mariadb 0.2.18) |
+| 0.37.0 | 4.36.0 | Upgraded to Ghost 4.36.0 |
 | | | |
