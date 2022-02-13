@@ -10,6 +10,14 @@ data:
     echo "Initializing RabbitMQ instance..."
     echo "Copy configuration"
     cp /temp/rabbitmq/* /etc/rabbitmq
+    if [ -d /extraconfigs ]; then
+      echo "Add extra configs to rabbitmq config"
+      cat /extraconfigs/* >>/etc/rabbitmq/rabbitmq.conf
+    fi
+    if [ -d /extraadvancedconfigs ]; then
+      echo "Add extra advanced configs to rabbitmq advanced config"
+      cat /extraadvancedconfigs/* >>/etc/rabbitmq/advanced.conf
+    fi
     if [ -d /temp/plugins ]; then
       echo "Copy plugin configuration"
       cp /temp/plugins/* /etc/rabbitmq

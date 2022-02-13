@@ -58,6 +58,10 @@ data:
             echo "Adding optional redis configuration settings"
             cat /usr/local/etc/redis/redis.conf >>$REDIS_CONFIG
         fi
+        if [ -d /extraredisconfigs ]; then
+          echo "Adding extra redis configs to redis configuration"
+          cat /extraredisconfigs/* >>$REDIS_CONFIG
+        fi
         echo "Configuring redis server finished."
     }
   {{- if .Values.haMode.enabled }}
@@ -81,6 +85,10 @@ data:
         if [ -f /usr/local/etc/redis/sentinel.conf ]; then
             echo "Adding optional sentinel configuration settings"
             cat /usr/local/etc/redis/sentinel.conf >>$SENTINEL_CONFIG
+        fi
+        if [ -d /extrasentinelconfigs ]; then
+          echo "Adding extra sentinel configs to sentinel configuration"
+          cat /extrasentinelconfigs/* >>$SENTINEL_CONFIG
         fi
         echo "Configuring sentinel server finished."
     }

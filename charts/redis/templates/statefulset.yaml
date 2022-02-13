@@ -63,7 +63,18 @@ spec:
               subPath: sentinel.conf
               name: config
           {{- end }}
+          {{- if .Values.extraSecretRedisConfigs }}
+            - mountPath: /extraredisconfigs
+              name: extraredisconfigs-volume
+          {{- end }}
+          {{- if .Values.extraSecretSentinelConfigs }}
+            - mountPath: /extrasentinelconfigs
+              name: extrasentinelconfigs-volume
+          {{- end }}          
           command: [ "/scripts/init.sh" ]
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}-server
           {{- with .Values.securityContext }}
@@ -151,9 +162,18 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          envFrom:
+          {{- range .Values.extraRedisEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - name: redis-data
               mountPath: /data
+            {{- range $secret := .Values.extraRedisSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
         {{- if .Values.haMode.enabled }}
         - name: {{ .Chart.Name }}-sentinel
           {{- with .Values.securityContext }}
@@ -221,10 +241,22 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          envFrom:
+          {{- range .Values.extraSentinelEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - name: redis-data
               mountPath: /data
+            {{- range $secret := .Values.extraSentinelSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
         {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -246,6 +278,28 @@ spec:
         - name: config
           configMap:
             name: {{ include "redis.fullname" . }}
+        {{- end }}
+        {{- range $secret := .Values.extraRedisSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
+        {{- range $secret := .Values.extraSentinelSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
+        {{- if .Values.extraSecretRedisConfigs }}
+        - name: extraredisconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretRedisConfigs }}
+        {{- end }}
+        {{- if .Values.extraSecretSentinelConfigs }}
+        - name: extrasentinelconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretSentinelConfigs }}
         {{- end }}
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}

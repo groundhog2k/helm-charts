@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.6](https://img.shields.io/badge/AppVersion-6.2.6-informational?style=flat-square)
+![Version: 0.4.11](https://img.shields.io/badge/Version-0.4.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.6](https://img.shields.io/badge/AppVersion-6.2.6-informational?style=flat-square)
 
 ## Changelog
 
@@ -91,6 +91,8 @@ helm uninstall my-release
 | image.repository | string | `"redis"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| extraInitContainers | list | `[]` | Extra init containers |
+| extaContainers | list | `[]` | Extra containers for usage as sidecars |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
@@ -143,8 +145,18 @@ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| extraRedisEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the redis container as environment variables |
 | redisConfig | string | `nil` | Additional redis.conf |
+| extraSecretRedisConfigs | string | `nil` | An existing secret with files that will be added to the `redis.conf` |
+| extraRedisSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the redis container |
+| extraRedisSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraRedisSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraSentinelEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the sentinel container as environment variables |
 | sentinelConfig | string | `nil` | Additional sentinel.conf (only when haMode is enabled) |
+| extraSecretSentinelConfigs | string | `nil` | An existing secret with files that will be added to the `sentinel.conf` |
+| extraSentinelSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the sentinel container |
+| extraSentinelSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSentinelSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
 | haMode.masterGroupName | string | `"redisha"` | Mandatory redis HA-master group name |
 | haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
