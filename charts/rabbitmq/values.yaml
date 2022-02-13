@@ -193,6 +193,12 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
 
@@ -210,7 +216,7 @@ authentication:
   ## Initial password
   password: "guest"
 
-  ## Erlang cookie (default: Random base64 value)
+  ## Erlang cookie (mandatory)
   erlangCookie:
 
 # RabbitMQ specific configuration options described at https://www.rabbitmq.com/configure.html#config-items
@@ -263,7 +269,7 @@ certificates:
   password:
 
   ## A list of extra certificates
-  ## All certificates will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: options.customConfig)
+  ## All certificates will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: customConfig)
   extraCerts: []
        ## Name of the certificate (will be the filename of the mounted certificate - i.e.: /ssl/{name})
   #  - name:
@@ -271,12 +277,15 @@ certificates:
   #    cert:
 
 ## A list of additional existing secrets that will be mounted into the container
-## The mounted files of the secrets can be used for custom or advanced configuration option (see: options.customConfig)
+## The mounted files of the secrets can be used for custom or advanced configuration option (see: customConfig)
 extraSecrets: []
     ## Name of the existing K8s secret
 #  - name:
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
 
 ## Management UI plugin options
 managementPlugin:
@@ -304,8 +313,14 @@ prometheusPlugin:
 ## Custom configuration entries for rabbitmq.conf (see https://www.rabbitmq.com/configure.html#config-file)
 customConfig: |
 
+## An existing secret with files that will be added to the rabbitmq.conf
+extraSecretConfigs:
+
 ## Custom advanced configuration entries for advanced.config (see https://www.rabbitmq.com/configure.html#advanced-config-file)
 customAdvancedConfig: |
+
+## An existing secret with files that will be added to the advanced.conf
+extraSecretAdvancedConfigs:
 
 ## Common (recommended) cluster settings
 clustering:

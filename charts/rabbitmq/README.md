@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.4.9](https://img.shields.io/badge/Version-0.4.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
+![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
 
 ## Changelog
 
@@ -61,6 +61,8 @@ helm uninstall my-release
 | initImage.repository | string | `"busybox"` | Init image name |
 | initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| extraInitContainers | list | `[]` | Extra init containers |
+| extaContainers | list | `[]` | Extra containers for usage as sidecars |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | readinessProbe | object | `see values.yaml` | Readiness probe configuration |
@@ -186,7 +188,7 @@ Section for certificate support
 | certificates.cert | string | `nil` | Server certificate in base64 format |
 | certificates.key | string | `nil` | Private key in base64 format |
 | certificates.password | string | `nil` | Optional private key passwort |
-| certificates.extraCerts | list | `[]` | List of extra certificates that will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: options.customConfig) |
+| certificates.extraCerts | list | `[]` | List of extra certificates that will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: customConfig) |
 | certificates.extraCerts[].name | string | `nil` | Name of the certificate (will be the filename of the mounted certificate - i.e.: /ssl/{name}) |
 | certificates.extraCerts[].cert | string | `nil` | The certificate content in base64 format |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
@@ -209,4 +211,7 @@ Section for certificate support
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | customConfig | string | `nil` | Custom configuration entries for rabbitmq.conf (see [RabbitMQ config](https://www.rabbitmq.com/configure.html#config-file)) |
+| extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the `rabbitmq.conf` |
 | customAdvancedConfig | string | `nil` | Custom advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
+| extraSecretAdvancedConfigs | string | `nil` | An existing secret with files that will be added to the `advanced.conf` |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |

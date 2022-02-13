@@ -47,11 +47,21 @@ spec:
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           env:
+            {{- if .Values.authentication.erlangCookie }}
             - name: ERLANG_COOKIE
-              value: {{ .Values.authentication.erlangCookie | default (randAlphaNum 32) }}
+              value: {{ .Values.authentication.erlangCookie }}
+            {{- end }}
           volumeMounts:
             - name: config
               mountPath: /etc/rabbitmq
+            {{- if .Values.extraSecretConfigs }}
+            - mountPath: /extraconfigs
+              name: extraconfigs-volume
+            {{- end }}
+            {{- if .Values.extraSecretAdvancedConfigs }}
+            - mountPath: /extraadvancedconfigs
+              name: extraadvancedconfigs-volume
+            {{- end }}
             - name: rabbitconfig
               mountPath: /temp/rabbitmq
             - name: rabbitmq-volume
@@ -61,6 +71,9 @@ spec:
             - name: plugins
               mountPath: /temp/plugins
           command: [ "/scripts/init.sh" ]
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with  .Values.securityContext }}
@@ -194,6 +207,11 @@ spec:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          envFrom:
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}          
           {{- if .Values.args }}
           args:
             {{- range .Values.args }}
@@ -217,6 +235,9 @@ spec:
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
             {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -239,6 +260,16 @@ spec:
         - name: rabbitconfig
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-config
+        {{- if .Values.extraSecretConfigs }}
+        - name: extraconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretConfigs }}
+        {{- end }}
+        {{- if .Values.extraSecretAdvancedConfigs }}
+        - name: extraadvancedconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretAdvancedConfigs }}
+        {{- end }}
         - name: scripts
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-scripts

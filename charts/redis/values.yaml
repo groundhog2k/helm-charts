@@ -135,17 +135,51 @@ readinessProbe:
 ## Additional environment variables (Redis server and Sentinel)
 env: []
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 ## Arguments for the container entrypoint process (Redis server)
 args: []
 
-## Arguments for the container entrypoint process (Sentinel)
-sentinelArgs: []
+## A list of existing secrets that will be mounted into the redis container as environment variables
+extraRedisEnvSecrets: []
 
 ## Additional redis.conf
 redisConfig: |
 
+## An existing secret with files that will be added to the redis.conf
+extraSecretRedisConfigs:
+
+## A list of additional existing secrets that will be mounted into the redis container
+## The mounted files of the secrets can be used for custom configuration options (see: redisConfig, extraSecretRedisConfigs)
+extraRedisSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## Arguments for the container entrypoint process (Sentinel)
+sentinelArgs: []
+
+## A list of existing secrets that will be mounted into the sentinel container as environment variables
+extraSentinelEnvSecrets: []
+
 ## Additional sentinel.conf (only when haMode is enabled)
 sentinelConfig: |
+
+## An existing secret with files that will be added to the sentinel.conf
+extraSecretSentinelConfigs:
+
+## A list of additional existing secrets that will be mounted into the sentinel container
+## The mounted files of the secrets can be used for custom configuration options (see: sentinelConfig, extraSecretSentinelConfigs)
+extraSentinelSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## High availability mode (with master-slave replication and sentinel)
 haMode:
