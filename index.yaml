@@ -8653,6 +8653,18 @@ entries:
   rabbitmq:
   - apiVersion: v2
     appVersion: 3.9.13
+    created: "2022-02-13T19:04:55.518542508Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: e1111df4c9767b590818e8239b82ed444963e8286e0e7d13c73b364195e8af23
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.4.10/rabbitmq-0.4.10.tgz
+    version: 0.4.10
+  - apiVersion: v2
+    appVersion: 3.9.13
     created: "2022-01-22T07:55:43.05727833Z"
     description: A Helm chart for a RabbitMQ cluster on Kubernetes
     digest: eb8c0bcfd5c29c0f5cd6bf68b110b64c8070370484bfdb09d59ead18ff1b908e
@@ -9324,6 +9336,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.1.0/rabbitmq-0.1.0.tgz
     version: 0.1.0
   redis:
+  - apiVersion: v2
+    appVersion: 6.2.6
+    created: "2022-02-13T19:04:55.627084366Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: 7649c9e6091fc75bc6f3ef34589a2d7f0382ae56ba92a3ea97df7e6c127c6eeb
+    maintainers:
+    - name: groundhog2k
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-0.4.11/redis-0.4.11.tgz
+    version: 0.4.11
   - apiVersion: v2
     appVersion: 6.2.6
     created: "2022-01-22T12:48:16.502511942Z"
@@ -10609,4 +10633,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-12T10:00:36.274957053Z"
+generated: "2022-02-13T19:04:55.631251249Z"
