@@ -10,4 +10,5 @@
 | 0.3.3 | 10.6.5 | Implemented support for extra containers |
 | 0.4.1 | 10.7.1 | Implemented startupProbe support |
 | 0.4.2 | 10.7.1 | Implemented support for extra secrets and advanced configuration capabilites |
+| 0.4.3 | 10.7.1 | Implemented support for extra containers |
 | | | |
