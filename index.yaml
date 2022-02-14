@@ -5659,6 +5659,18 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 10.7.1
+    created: "2022-02-14T14:03:16.658243792Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: b93333bdb36fbd6b259183c6ac4bcb3faa4b8917e8074bf1fcb8a8e9f82617e2
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.4.3/mariadb-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
+    appVersion: 10.7.1
     created: "2022-02-10T18:24:53.652977743Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: 6a11d6023f8afd49e97bfe318c4094b0fd94571a06b98c0c05439a464aaf0dc1
@@ -6223,6 +6235,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.11.4/metrics-server-2.11.4.tgz
     version: 2.11.4
   mongodb:
+  - apiVersion: v2
+    appVersion: 5.0.6
+    created: "2022-02-14T14:03:16.782696303Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 905636ea9d277745e1f09868418a0034ca4adda37ca5b8330982ed5177409baa
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.4.4/mongodb-0.4.4.tgz
+    version: 0.4.4
   - apiVersion: v2
     appVersion: 5.0.6
     created: "2022-02-10T18:24:53.835596149Z"
@@ -10705,4 +10729,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-14T13:56:46.237026406Z"
+generated: "2022-02-14T14:03:16.789382589Z"
