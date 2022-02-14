@@ -112,6 +112,12 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 ## Additional environment variables
 env: []
 

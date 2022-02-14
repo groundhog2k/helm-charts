@@ -112,6 +112,12 @@ affinity: {}
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 ## Additional arguments for the container entrypoint process
 args: []
 
