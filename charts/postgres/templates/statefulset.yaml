@@ -65,6 +65,9 @@ spec:
             - mountPath: /configs
               name: configs
           command: [ "/initscripts/init.sh" ]
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -185,6 +188,9 @@ spec:
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
             {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

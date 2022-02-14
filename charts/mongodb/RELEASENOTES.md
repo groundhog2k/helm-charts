@@ -5,6 +5,7 @@
 | 0.2.14 | 4.2.14 | Implemented startupProbe support |
 | 0.2.15 | 4.2.18 | Upgraded to MongoDB 4.2.18 |
 | 0.2.16 | 4.2.18 | Implemented support for extra secrets and advanced configuration capabilites |
+| 0.2.17 | 4.2.18 | Implemented support for extra containers |
 | 0.3.8 | 4.4.11 | Implemented startupProbe support |
 | 0.3.9 | 4.4.12 | Upgraded to MongoDB 4.4.12 |
 | 0.3.10 | 4.4.13 | Implemented support for extra secrets and advanced configuration capabilites |
