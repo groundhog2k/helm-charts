@@ -8,4 +8,5 @@
 | 0.3.4 | 14.1 | Fixes bug with wrong mounted customConfig #811 |
 | 0.3.5 | 14.1 | Updated readme and release notes |
 | 0.3.6 | 14.1 | Implemented support for extra secrets and advanced configuration capabilites |
+| 0.3.7 | 14.1 | Implemented support for extra containers |
 | | | |
