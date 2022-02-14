@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.2.18](https://img.shields.io/badge/Version-0.2.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 13.5](https://img.shields.io/badge/AppVersion-13.5-informational?style=flat-square)
+![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 14.1](https://img.shields.io/badge/AppVersion-14.1-informational?style=flat-square)
 
 ## Changelog
 
