@@ -9,4 +9,5 @@
 | 0.3.5 | 14.1 | Updated readme and release notes |
 | 0.3.6 | 14.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.3.7 | 14.1 | Implemented support for extra containers |
+| 0.3.8 | 14.2 | Upgraded to Postgres 14.2 |
 | | | |
