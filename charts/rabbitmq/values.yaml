@@ -208,7 +208,8 @@ plugins: []
 # Default user and erlang cookie
 # The erlang cookie is important for clustered or container based usage
 # Find more information about it at https://hub.docker.com/_/rabbitmq and https://www.rabbitmq.com/clustering.html#erlang-cookie
-# If erlang cookie is not provided in configuration a random value will be generated
+# The erlang cookie is a MANDATORY VALUE
+# Alternative is to set the environment variable ERLANG_COOKIE
 authentication:
   ## Initial user name
   user: "guest"
@@ -216,7 +217,7 @@ authentication:
   ## Initial password
   password: "guest"
 
-  ## Erlang cookie (mandatory)
+  ## Erlang cookie (MANDATORY)
   erlangCookie:
 
 # RabbitMQ specific configuration options described at https://www.rabbitmq.com/configure.html#config-items

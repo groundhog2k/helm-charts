@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
+![Version: 0.4.11](https://img.shields.io/badge/Version-0.4.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
 
 ## Changelog
 
@@ -150,7 +150,7 @@ Section to define custom services
 | plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: [RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)) |
 | authentication.user | string | `"guest"` | Initial user name |
 | authentication.password | string | `"guest"` | Initial password |
-| authentication.erlangCookie | string | `nil` | Erlang cookie (default: Random base64 value) |
+| authentication.erlangCookie | string | `nil` | Erlang cookie (MANDATORY) (Alternative: Set the environment variable ERLANG_COOKIE) |
 | clustering.rebalance | bool | `true` | Enable rebalance queues with master when new replica is created |
 | clustering.useLongName | bool | `true` | Use FQDN for RabbitMQ node names |
 
