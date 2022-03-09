@@ -8,4 +8,5 @@
 | 0.4.9 | 3.9.13 | Fixed startupProbe |
 | 0.4.10 | 3.9.13 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.11 | 3.9.13 | Corrected chart documentation |
+| 0.4.12 | 3.9.13 | Fixed headless service and enabled publishNotReadyAddresses |
 | | | |

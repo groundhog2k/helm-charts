@@ -6,6 +6,7 @@ metadata:
     {{- include "rabbitmq.labels" . | nindent 4 }}
 spec:
   clusterIP: None
+  publishNotReadyAddresses: true
   ports:
     - port: {{ .Values.service.amqp.port }}
       targetPort: amqp
