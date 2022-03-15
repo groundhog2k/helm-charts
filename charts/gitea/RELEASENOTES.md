@@ -9,4 +9,5 @@
 | 0.5.2 | 1.16.1 | Updated chart dependencies (mariadb 0.2.18 / postgres 0.2.17) |
 | 0.5.3 | 1.16.2 | Updated to Gitea 1.16.2 |
 | 0.5.4 | 1.16.3 | Updated to Gitea 1.16.3 |
+| 0.5.5 | 1.16.4 | Updated to Gitea 1.16.4 |
 | | | |
