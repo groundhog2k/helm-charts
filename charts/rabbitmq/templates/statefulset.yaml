@@ -74,6 +74,9 @@ spec:
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with  .Values.securityContext }}
@@ -177,19 +180,14 @@ spec:
                 command:
                   - /bin/bash
                   - -ec
-                  - |
-                    until rabbitmqctl cluster_status >/dev/null; do
-                        echo "Waiting for cluster readiness..."
-                        sleep 5
-                    done
-                    rabbitmq-queues rebalance "all"
+                  - /scripts/startup.sh
           {{- end }}
             preStop:
               exec:
                 command:
                   - bash
                   - -ec
-                  - rabbitmqctl stop_app
+                  - /scripts/shutdown.sh
           env:
             - name: RABBITMQ_USE_LONGNAME
               value: {{ .Values.clustering.useLongName | quote }}
@@ -227,6 +225,8 @@ spec:
               mountPath: /var/lib/rabbitmq
             - name: config
               mountPath: /etc/rabbitmq
+            - name: scripts
+              mountPath: /scripts
             {{- if .Values.certificates.enabled }}
             - name: certs
               mountPath: /ssl

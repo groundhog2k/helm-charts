@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.4.12](https://img.shields.io/badge/Version-0.4.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
+![Version: 0.4.13](https://img.shields.io/badge/Version-0.4.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.9.13](https://img.shields.io/badge/AppVersion-3.9.13-informational?style=flat-square)
 
 ## Changelog
 
@@ -76,6 +76,7 @@ helm uninstall my-release
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
 | args | list | `[]` | Additional container command arguments |
+| terminationGracePeriodSeconds | int | `60` | Container termination grace period in seconds |
 | rbac.create | bool | `true` | Enable creation of RBAC |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `true` | Enable service account creation |
@@ -151,7 +152,7 @@ Section to define custom services
 | authentication.user | string | `"guest"` | Initial user name |
 | authentication.password | string | `"guest"` | Initial password |
 | authentication.erlangCookie | string | `nil` | Erlang cookie (MANDATORY) (Alternative: Set the environment variable ERLANG_COOKIE) |
-| clustering.rebalance | bool | `true` | Enable rebalance queues with master when new replica is created |
+| clustering.rebalance | bool | `false` | Enable rebalance queues with master when new replica is created |
 | clustering.useLongName | bool | `true` | Use FQDN for RabbitMQ node names |
 
 ## RabbitMQ memory parameters

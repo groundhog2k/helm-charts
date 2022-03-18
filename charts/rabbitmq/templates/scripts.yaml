@@ -33,3 +33,42 @@ data:
     fi
     chmod 600 /var/lib/rabbitmq/.erlang.cookie
     echo "Finished."
+  startup.sh: |
+    until rabbitmqctl cluster_status >/dev/null; do
+      echo "PostStart: Waiting for cluster readiness..." >/proc/1/fd/1
+      sleep 5
+    done
+    echo "PostStart: Rebalancing all queues.." >/proc/1/fd/1
+    rabbitmq-queues rebalance "all" >/proc/1/fd/1
+  shutdown.sh: |
+    {{- if and (.Values.terminationGracePeriodSeconds) (gt (int .Values.terminationGracePeriodSeconds) 10) }}
+    if rabbitmqctl cluster_status; then
+        echo "PreStop: Will wait up to {{ sub .Values.terminationGracePeriodSeconds 10 }} seconds for node to make sure cluster is healthy after node shutdown" >/proc/1/fd/1
+        timeout {{ sub .Values.terminationGracePeriodSeconds 10 }} /scripts/safeshutdown.sh
+    fi
+    {{- end }}
+    echo "PreStop: Stopping RabbitMQ" >/proc/1/fd/1
+    rabbitmqctl stop_app
+    echo "PreStop: RabbitMQ stopped" >/proc/1/fd/1
+    sleep 5
+  safeshutdown.sh: |
+    while true; do
+        waiting="false"
+        if ! rabbitmq-diagnostics -q check_if_node_is_mirror_sync_critical >/proc/1/fd/1; then
+            echo "PreStop: check_if_node_is_mirror_sync_critical returns error. Continuing to wait" >/proc/1/fd/1
+            waiting="true"
+        else
+            echo "PreStop: check_if_node_is_mirror_sync_critical returns o.k." >/proc/1/fd/1
+        fi
+        if ! rabbitmq-diagnostics -q check_if_node_is_quorum_critical >/proc/1/fd/1; then
+            echo "PreStop: check_if_node_is_quorum_critical returns error. Continuing to wait" >/proc/1/fd/1
+            waiting="true"
+        else
+            echo "PreStop: check_if_node_is_quorum_critical returns o.k." >/proc/1/fd/1
+        fi
+        if [ $waiting = "true" ]; then
+            sleep 1
+        else
+            break
+        fi
+    done
