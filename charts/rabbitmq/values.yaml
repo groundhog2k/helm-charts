@@ -202,6 +202,9 @@ extraContainers: []
 ## Default Kubernetes cluster domain
 clusterDomain: cluster.local
 
+## Container termination grace period
+terminationGracePeriodSeconds: 60
+
 # A list of plugins (without whitespace!) - f.e.: rabbitmq_federation_management,rabbitmq_mqtt,rabbitmq_stomp
 plugins: []
 
@@ -326,7 +329,7 @@ extraSecretAdvancedConfigs:
 ## Common (recommended) cluster settings
 clustering:
   ## Rebalance queues with master when new replica is created
-  rebalance: true
+  rebalance: false
   ## Use FQDN for RabbitMQ node names
   useLongName: true
 
