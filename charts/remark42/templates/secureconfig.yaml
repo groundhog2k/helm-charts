@@ -29,19 +29,19 @@ data:
   AUTH_GITHUB_CSEC: {{ .github.secret | b64enc }}
   {{- end }}
   {{- if .facebook.enabled }}
-  AUTH_FACEBOOK_CID: {{ .gitlab.key | b64enc }}
-  AUTH_FACEBOOK_CSEC: {{ .gitlab.secret | b64enc }}
+  AUTH_FACEBOOK_CID: {{ .facebook.key | b64enc }}
+  AUTH_FACEBOOK_CSEC: {{ .facebook.secret | b64enc }}
   {{- end }}
   {{- if .twitter.enabled }}
   AUTH_TWITTER_CID: {{ .twitter.key | b64enc }}
   AUTH_TWITTER_CSEC: {{ .twitter.secret | b64enc }}
   {{- end }}
   {{- if .microsoft.enabled }}
-  AUTH_MICROSOFT_CID: {{ .twitter.key | b64enc }}
-  AUTH_MICROSOFT_CSEC: {{ .twitter.secret | b64enc }}
+  AUTH_MICROSOFT_CID: {{ .microsoft.key | b64enc }}
+  AUTH_MICROSOFT_CSEC: {{ .microsoft.secret | b64enc }}
   {{- end }}
   {{- if .yandex.enabled }}
-  AUTH_YANDEX_CID: {{ .twitter.key | b64enc }}
-  AUTH_YANDEX_CSEC: {{ .twitter.secret | b64enc }}
+  AUTH_YANDEX_CID: {{ .yandex.key | b64enc }}
+  AUTH_YANDEX_CSEC: {{ .yandex.secret | b64enc }}
   {{- end }}
 {{- end }}
