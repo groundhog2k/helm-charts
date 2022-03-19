@@ -12,10 +12,8 @@ data:
 {{- end }}
 {{- with .Values.settings.smtp }}
   {{- if .enabled }}
-  {{- if .name }}
   SMTP_USERNAME: {{ .name | b64enc }}
   SMTP_PASSWORD: {{ .password | b64enc }}
-  {{- end }}
   {{- end }}
 {{- end }}
 {{- if .Values.settings.admin.sharedId }}
