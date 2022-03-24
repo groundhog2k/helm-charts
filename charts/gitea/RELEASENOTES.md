@@ -1,7 +1,7 @@
 | Chart version | App version | Change description |
 | :------------ | :---------- | :----------------- |
 | 0.4.14 | 1.15.10 | Updated to Gitea 1.15.10 |
-| 0.4.15 | 1.15.10 | Fixed ingress API detection<br>Implemented startupProbe support |
+| 0.4.15 | 1.15.10 | Fixed ingress API detection, Implemented startupProbe support |
 | 0.4.16 | 1.15.10 | Updated chart dependencies |
 | 0.4.17 | 1.15.11 | Updated to Gitea 1.15.11 |
 | 0.5.0 | 1.16.0 | Updated to Gitea 1.16.0 |
@@ -11,4 +11,5 @@
 | 0.5.4 | 1.16.3 | Updated to Gitea 1.16.3 |
 | 0.5.5 | 1.16.4 | Updated to Gitea 1.16.4 |
 | 0.5.6 | 1.16.4 | Updated chart dependencies (mariadb 0.2.20 / postgres 0.2.19 / redis 0.4.11) |
+| 0.5.7 | 1.16.5 | Updated to Gitea 1.16.5 |
 | | | |
