@@ -13,4 +13,5 @@
 | 0.4.12 | 3.9.13 | Fixed headless service and enabled publishNotReadyAddresses |
 | 0.4.13 | 3.9.13 | Added graceful shutdown hook |
 | 0.4.14 | 3.9.14 | Upgraded to RabbitMQ 3.9.14 |
+| 0.4.15 | 3.9.15 | Upgraded to RabbitMQ 3.9.15 |
 | | | |
