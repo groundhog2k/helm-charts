@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.3.12](https://img.shields.io/badge/Version-0.3.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.4.12](https://img.shields.io/badge/AppVersion-4.4.12-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.0.7](https://img.shields.io/badge/AppVersion-5.0.7-informational?style=flat-square)
 
 ## Changelog
 
