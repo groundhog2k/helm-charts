@@ -24,4 +24,5 @@
 | 0.41.0 | 4.41.1 | Upgraded to Ghost 4.41.1 |
 | 0.41.1 | 4.41.2 | Upgraded to Ghost 4.41.2 |
 | 0.41.2 | 4.41.3 | Upgraded to Ghost 4.41.3 |
+| 0.42.0 | 4.44.0 | Upgraded to Ghost 4.44.0 |
 | | | |
