@@ -18,4 +18,5 @@
 | 0.4.3 | 5.0.6 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.4 | 5.0.6 | Implemented support for extra containers |
 | 0.4.5 | 5.0.7 | Upgraded to MongoDB 5.0.7 |
+| 0.4.6 | 5.0.8 | Upgraded to MongoDB 5.0.8 |
 | | | |
