@@ -10,4 +10,5 @@
 | 0.10.7 | 23.0.2-apache | Updated chart dependencies (mariadb 0.2.20 / postgres 0.2.19 / redis 0.4.11) |
 | 0.10.8 | 23.0.3-apache | Upgraded to Nextcloud 23.0.3 |
 | 0.10.9 | 23.0.4-apache | Upgraded to Nextcloud 23.0.4 |
+| 0.11.0 | 24.0.0-apache | Upgraded to Nextcloud 24.0.0 |
 | | | |
