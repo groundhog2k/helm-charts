@@ -1,0 +1,264 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mysql.fullname" . }}
+  labels:
+    {{- include "mysql.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
+  serviceName: {{ include "mysql.fullname" . }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy: 
+    type: {{ .Values.updateStrategyType }}
+  selector:
+    matchLabels:
+      {{- include "mysql.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "mysql.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "mysql.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext  }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            {{- if .Values.extraScripts }}
+            - mountPath: /extrascripts
+              name: extrascripts-volume
+            {{- end }}
+            {{- if .Values.extraSecretConfigs }}
+            - mountPath: /extraconfigs
+              name: extraconfigs-volume
+            {{- end }}
+            {{- if .Values.customConfig }}
+            - mountPath: /customconfig
+              name: customconfig-volume
+            {{- end }}
+            - mountPath: /initscripts
+              name: initscripts
+            - mountPath: /scripts
+              name: scripts
+            - mountPath: /configs
+              name: configs
+          command: [ "/initscripts/init.sh" ]
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext  }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: sql
+              containerPort: 3306
+              protocol: TCP
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: {{ .Values.storage.volumeName }}
+            - mountPath: /tmp
+              name: tmp-volume
+            - mountPath: /var/run/mysqld
+              name: tmp-volume         
+            - mountPath: /etc/mysql/conf.d
+              name: configs
+            - mountPath: /docker-entrypoint-initdb.d
+              name: scripts
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+          {{- if .Values.settings.arguments }}
+          args:
+            {{- range .Values.settings.arguments }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          env:
+          {{- if .Values.settings.skipTZInfo }}
+            - name: MYSQL_INITDB_SKIP_TZINFO
+              value: "yes"
+          {{- end }}
+          {{- if .Values.settings.allowEmptyRootPassword }}
+            - name: MYSQL_ALLOW_EMPTY_ROOT_PASSWORD
+              value: "yes"
+          {{- end }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- if include "mysql.createSecureConfig" . }}
+            - secretRef:
+                name: {{ include "mysql.fullname" . }}
+          {{- end }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+        - name: configs
+          emptyDir: {}
+        - name: scripts
+          emptyDir: {}
+        - name: initscripts
+          configMap:
+            name: {{ include "mysql.fullname" . }}-scripts
+            defaultMode: 0555
+      {{- if .Values.extraSecretConfigs }}
+        - name: extraconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretConfigs }}
+      {{- end }}
+      {{- if .Values.customConfig }}
+        - name: customconfig-volume
+          configMap:
+            name: {{ include "mysql.fullname" . }}
+      {{- end }}
+      {{- if .Values.extraScripts }}
+        - name: extrascripts-volume
+          configMap:
+            name: {{ .Values.extraScripts }}
+            defaultMode: 0555
+      {{- end }}
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
+{{- $fullname := include "mysql.fullname" . }}
+{{- with .Values.storage }}
+  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .volumeName }}
+      spec:
+        {{- with .accessModes }}
+        accessModes:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .requestedSize }}
+  {{- end }}
+{{- end }}

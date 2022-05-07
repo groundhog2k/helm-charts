@@ -1,0 +1,192 @@
+## Default values for MySQL deployment
+
+## MySQL docker image
+image:
+  repository: mysql
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional node selector
+nodeSelector: {}
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod management policy
+podManagementPolicy: OrderedReady
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
+## Pod security options
+podSecurityContext:
+  fsGroup: 999
+
+## Default security options to run MySQL as non-root, read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+## Default database service port (default MySQL port)
+service:
+  type: ClusterIP
+  port: 3306
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
+
+# Resource limits and requests
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+tolerations: []
+
+affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup probe
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 120
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
+## Additional environment variables
+env: []
+
+## Database configuration
+settings:
+  ## Arguments for the container entrypoint process
+  arguments: []
+  #  - --character-set-server=utf8mb4
+  #  - --collation-server=utf8mb4_unicode_ci
+
+  ## The root user password
+  rootPassword:
+
+  ## Set true to allow an empty root password
+  allowEmptyRootPassword: false
+
+  ## Set true to skip loading timezone data during init
+  skipTZInfo: false
+
+## Optional user database which is created during first startup with user and password
+userDatabase: {}
+  ## Name of the user database
+  # name:
+
+  ## Database user with full access rights
+  # user:
+
+  ## Password of the database user
+  # password:
+
+## Optional custom configuration block that will be mounted as file in /etc/mysql/conf.d/custom.cnf
+## For more flexible options see extraSecretConfigs: section
+customConfig: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+## As an alternative these secrets can set the database root password or optional user database when userDatabase: and rootPassword: were not specified
+## For example: Setting MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD will allow creating a user database and grant access for the given user
+extraEnvSecrets: []
+
+## An existing secret with files that will be mounted into the container as custom MySQL configuration files (*.cnf) in /etc/mysql/conf.d
+## For more details see https://hub.docker.com/_/mysql
+extraSecretConfigs:
+
+## An existing configMap with files that will be mounted into the container as script files (*.sql, *.sh) in /docker-entrypoint-initdb.d
+## For more details see https://hub.docker.com/_/mysql
+extraScripts:
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "db-volume"
+
+  ## Alternative set requestedSize to define a size for a dynamically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
