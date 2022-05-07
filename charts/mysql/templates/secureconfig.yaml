@@ -1,0 +1,22 @@
+{{- if include "mysql.createSecureConfig" . }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mysql.fullname" . }}
+  labels:
+    {{- include "mysql.labels" . | nindent 4 }}
+type: Opaque
+data:
+  {{- with .Values.settings }}
+  {{- if .rootPassword }}
+  MYSQL_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
+  {{- end }}
+  {{- end }}
+  {{- with .Values.userDatabase }}
+  MYSQL_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
+  {{- if .user }}
+  MYSQL_USER: {{ .user | b64enc }}
+  MYSQL_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- end }}
+  {{- end }}
+{{- end }}
