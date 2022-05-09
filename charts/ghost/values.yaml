@@ -215,6 +215,25 @@ mariadb:
     ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
     # password:
 
+## MySQL configuration
+mysql:
+  ## Enable MySQL helm chart for deployment (default: false)
+  enabled: false
+
+  ## Database settings
+  settings:
+    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+    rootPassword:
+
+  ## Optional user database which is created during first startup with user and password
+  userDatabase: {}
+    ## Name of the user database
+    # name:
+    ## Database user with full access rights
+    # user:
+    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+    # password:
+
   # Storage parameters
   storage:
     ## Set persistentVolumenClaimName to reference an existing PVC

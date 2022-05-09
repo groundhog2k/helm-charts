@@ -1,8 +1,10 @@
 # Ghost
 
-![Version: 0.42.0](https://img.shields.io/badge/Version-0.42.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.44.0](https://img.shields.io/badge/AppVersion-4.44.0-informational?style=flat-square)
+![Version: 0.43.0](https://img.shields.io/badge/Version-0.43.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.46.2](https://img.shields.io/badge/AppVersion-4.46.2-informational?style=flat-square)
 
 ## Changelog
+
+### ⚠️ An upgrade to Ghost 4.46.x with MariaDB as database will fail
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
@@ -127,7 +129,13 @@ helm uninstall my-release
 | mariadb.userDatabase.name | string | `nil` | Name of the Ghost database |
 | mariadb.userDatabase.user | string | `nil` | User name with full access to ghost database |
 | mariadb.userDatabase.password | string | `nil` | Password of the ghost database user |
-| mariadb.storage | string | `nil` | MariaDB storage parameter (see storage parameters) |
+| mysql.storage | string | `nil` | MySQL storage parameter (see storage parameters) |
+| mysql.enabled | bool | `false` | Enables MySQL deployment (and switches off externalDatabase section) |
+| mysql.settings.rootPassword | string | `nil` | MySQL root password |
+| mysql.userDatabase.name | string | `nil` | Name of the Ghost database |
+| mysql.userDatabase.user | string | `nil` | User name with full access to ghost database |
+| mysql.userDatabase.password | string | `nil` | Password of the ghost database user |
+| mysql.storage | string | `nil` | MySQL storage parameter (see storage parameters) |
 | externalDatabase.host | string | `nil` | External database host |
 | externalDatabase.name | string | `"ghost"` | External database name |
 | externalDatabase.type | string | `"sqlite"` | External database type (mysql or mariadb - default: sqlite) |
