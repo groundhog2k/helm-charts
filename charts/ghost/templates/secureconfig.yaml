@@ -15,6 +15,16 @@ data:
   database__connection__password: {{ .password | b64enc }}
   {{- end }}
 {{- else }}
+{{- if .Values.mysql.enabled }}
+  database__client: {{ "mysql" | b64enc }}
+  database__connection__host: {{ (include "mysql.servicename" .) | b64enc }}
+  database__connection__port: {{ (.Values.mysql.service.port | toString) | b64enc }}
+  {{- with .Values.mysql.userDatabase }}  
+  database__connection__database: {{ .name | b64enc }}
+  database__connection__user: {{ .user | b64enc }}
+  database__connection__password: {{ .password | b64enc }}
+  {{- end }}
+{{- else }}
   {{- with .Values.externalDatabase }}
   {{- if or (eq .type "mariadb") (eq .type "mysql") }}
   database__client: {{ "mysql" | b64enc }}
@@ -27,6 +37,7 @@ data:
   database__client: {{ "sqlite3" | b64enc }}
   {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- with .Values.settings.mail }}
 {{- if .user }}
