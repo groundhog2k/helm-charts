@@ -1,10 +1,10 @@
 # Ghost
 
-![Version: 0.44.0](https://img.shields.io/badge/Version-0.44.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.47.0](https://img.shields.io/badge/AppVersion-4.47.0-informational?style=flat-square)
+![Version: 0.44.1](https://img.shields.io/badge/Version-0.44.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.47.1](https://img.shields.io/badge/AppVersion-4.47.1-informational?style=flat-square)
 
 ## Changelog
 
-### ⚠️ An upgrade to Ghost 4.46.x or Ghost 4.47.0 with MariaDB as database will fail
+### ⚠️ An upgrade to Ghost 4.46.x or Ghost 4.47.x with MariaDB as database will fail
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 

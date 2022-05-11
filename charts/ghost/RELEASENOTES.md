@@ -27,4 +27,5 @@
 | 0.42.0 | 4.44.0 | Upgraded to Ghost 4.44.0 |
 | 0.43.0 | 4.46.2 | Upgraded to Ghost 4.46.2 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL, MySQL chart dependency support was added |
 | 0.44.0 | 4.47.0 | Upgraded to Ghost 4.47.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
+| 0.44.1 | 4.47.1 | Upgraded to Ghost 4.47.1 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
 | | | |
