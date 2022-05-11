@@ -7,6 +7,7 @@
 | 0.3.15 | 3.8.28 | Upgraded to RabbitMQ 3.8.28, Added graceful shutdown hook, Fixed headless service and enabled publishNotReadyAddresses |
 | 0.3.16 | 3.8.29 | Upgraded to RabbitMQ 3.8.29 |
 | 0.3.17 | 3.8.30 | Upgraded to RabbitMQ 3.8.30 |
+| 0.3.18 | 3.8.31 | Upgraded to RabbitMQ 3.8.31 |
 | 0.4.8 | 3.9.13 | Upgraded to RabbitMQ 3.9.13, fixed ingress API detection, implemented startupProbe support |
 | 0.4.9 | 3.9.13 | Fixed startupProbe |
 | 0.4.10 | 3.9.13 | Implemented support for extra secrets and advanced configuration capabilites |
