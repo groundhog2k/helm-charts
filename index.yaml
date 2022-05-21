@@ -9244,6 +9244,18 @@ entries:
     version: 1.2.11
   postgres:
   - apiVersion: v2
+    appVersion: "14.3"
+    created: "2022-05-21T07:56:18.13073476Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: 01519c56983d43e565d823e1ddc77bb883d0ab90756fa6de3c1c3e3c60529de7
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.9/postgres-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
     appVersion: "14.2"
     created: "2022-02-15T15:23:17.120877404Z"
     description: A Helm chart for PostgreSQL on Kubernetes
@@ -11899,4 +11911,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-21T07:36:11.173045682Z"
+generated: "2022-05-21T07:56:18.137306246Z"
