@@ -19,6 +19,7 @@
 | 0.4.15 | 3.9.15 | Upgraded to RabbitMQ 3.9.15 |
 | 0.4.16 | 3.9.16 | Upgraded to RabbitMQ 3.9.16 |
 | 0.4.17 | 3.9.17 | Upgraded to RabbitMQ 3.9.17 |
+| 0.4.18 | 3.9.18 | Upgraded to RabbitMQ 3.9.18 |
 | 0.5.0 | 3.10.0 | Upgraded to RabbitMQ 3.10.0 |
 | 0.5.1 | 3.10.1 | Upgraded to RabbitMQ 3.10.1 |
 | | | |
