@@ -15,4 +15,5 @@
 | 0.5.8 | 1.16.6 | Updated to Gitea 1.16.6 |
 | 0.5.9 | 1.16.7 | Updated to Gitea 1.16.7 |
 | 0.5.10 | 1.16.8 | Updated to Gitea 1.16.8 |
+| 0.5.11 | 1.16.8 | Updated chart dependencies (postgres 0.2.20 / redis 0.5.0) |
 | | | |
