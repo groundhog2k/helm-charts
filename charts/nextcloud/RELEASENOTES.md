@@ -11,4 +11,5 @@
 | 0.10.8 | 23.0.3-apache | Upgraded to Nextcloud 23.0.3 |
 | 0.10.9 | 23.0.4-apache | Upgraded to Nextcloud 23.0.4 |
 | 0.11.0 | 24.0.0-apache | Upgraded to Nextcloud 24.0.0 |
+| 0.11.1 | 24.0.1-apache | Upgraded to Nextcloud 24.0.1 |
 | | | |
