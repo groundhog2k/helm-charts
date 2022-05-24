@@ -1,10 +1,10 @@
 # Ghost
 
-![Version: 0.45.0](https://img.shields.io/badge/Version-0.45.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.48.0](https://img.shields.io/badge/AppVersion-4.48.0-informational?style=flat-square)
+![Version: 0.46.0](https://img.shields.io/badge/Version-0.46.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.0.0](https://img.shields.io/badge/AppVersion-5.0.0-informational?style=flat-square)
 
 ## Changelog
 
-### ⚠️ An upgrade to Ghost 4.46.x or Ghost 4.47.x with MariaDB as database will fail
+### ⚠️ An upgrade to Ghost 4.46.x, Ghost 4.47.x or Ghost 4.48.x with MariaDB as database will fail - Upgrading to Ghost 5.0.0 with MariaDB as database backend works only with Ghost >=4.46.2 - Using MySQL as database backend is highly recommended and will support the full upgrade path
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 

@@ -26,8 +26,9 @@
 | 0.41.2 | 4.41.3 | Upgraded to Ghost 4.41.3 |
 | 0.42.0 | 4.44.0 | Upgraded to Ghost 4.44.0 |
 | 0.43.0 | 4.46.2 | Upgraded to Ghost 4.46.2 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL, MySQL chart dependency support was added |
-| 0.44.0 | 4.47.0 | Upgraded to Ghost 4.47.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
-| 0.44.1 | 4.47.1 | Upgraded to Ghost 4.47.1 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
-| 0.44.2 | 4.47.4 | Upgraded to Ghost 4.47.4 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
-| 0.45.0 | 4.48.0 | Upgraded to Ghost 4.48.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
+| 0.44.0 | 4.47.0 | Upgraded to Ghost 4.47.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL |
+| 0.44.1 | 4.47.1 | Upgraded to Ghost 4.47.1 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL |
+| 0.44.2 | 4.47.4 | Upgraded to Ghost 4.47.4 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL |
+| 0.45.0 | 4.48.0 | Upgraded to Ghost 4.48.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with MySQL |
+| 0.46.0 | 5.0.0 | Upgraded to Ghost 5.0.0 - Upgrade to Ghost 5.0.0 with MariaDB as database backend works only with Ghost >=4.46.2 - Using MySQL as database backend is highly recommended and will support the full upgrade path |
 | | | |
