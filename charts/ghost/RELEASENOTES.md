@@ -29,4 +29,5 @@
 | 0.44.0 | 4.47.0 | Upgraded to Ghost 4.47.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
 | 0.44.1 | 4.47.1 | Upgraded to Ghost 4.47.1 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
 | 0.44.2 | 4.47.4 | Upgraded to Ghost 4.47.4 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
+| 0.45.0 | 4.48.0 | Upgraded to Ghost 4.48.0 - due to a [bug](https://github.com/TryGhost/Ghost/issues/14634) this version upgrade works only with mySQL |
 | | | |
