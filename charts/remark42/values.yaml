@@ -240,7 +240,7 @@ settings:
     ## Maximum size of cached value
     maxValue: 65536
     ## Maximum size of all caches values
-    maxSize: 50000000
+    maxSize: "50000000"
 
   avatar:
     ## Avatar storage type (fs, bolt, uri)
@@ -252,7 +252,7 @@ settings:
     ## Image storage type (fs, bolt, uri)
     type: "fs"
     ## Maximum image size
-    maxSize: 5000000
+    maxSize: "5000000"
     ## Number of image partitions
     partitions: 100
     ## Image resizing

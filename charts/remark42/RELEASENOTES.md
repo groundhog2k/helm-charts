@@ -7,4 +7,5 @@
 | 0.3.4 | v1.9.0 | Fixed auth. configuration |
 | 0.3.5 | v1.9.0 | Updated chart dependencies (redis 0.4.11) |
 | 0.3.6 | v1.9.0 | Updated chart dependencies (redis 0.5.0) |
+| 0.4.0 | v1.10.0 | Upgraded to Remark42 v1.10.0 |
 | | | |
