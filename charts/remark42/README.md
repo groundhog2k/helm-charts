@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.0](https://img.shields.io/badge/AppVersion-v1.9.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.10.0](https://img.shields.io/badge/AppVersion-v1.10.0-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -165,7 +165,7 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | settings.cache.maxItems | int | `1000` | Maximum number of cached items |
 | settings.cache.maxValue | int | `65536` | Maximum size of cached value |
-| settings.cache.maxSize | int | `50000000` | Maximum size of all caches values |
+| settings.cache.maxSize | int | `"50000000"` | Maximum size of all caches values |
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -175,7 +175,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | settings.image.type | string | `"fs"` | Image storage type (fs, bolt, uri) |
-| settings.image.maxSize | int | `5000000` | Maximum image size |
+| settings.image.maxSize | int | `"5000000"` | Maximum image size |
 | settings.image.partitions | int | `10` | Number of image partitions |
 | settings.image.resize.width | int | `2400` | Width of resized image |
 | settings.image.resize.height | int | `900` | Height of resized image |
