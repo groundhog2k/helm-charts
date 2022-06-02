@@ -16,4 +16,5 @@
 | 0.4.2 | 10.7.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.3 | 10.7.1 | Implemented support for extra containers |
 | 0.4.4 | 10.7.3 | Upgraded MariaDB to 10.7.3 |
+| 0.4.5 | 10.7.4 | Upgraded MariaDB to 10.7.4 |
 | | | |
