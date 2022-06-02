@@ -9,6 +9,7 @@
 | 0.3.17 | 3.8.30 | Upgraded to RabbitMQ 3.8.30 |
 | 0.3.18 | 3.8.31 | Upgraded to RabbitMQ 3.8.31 |
 | 0.3.19 | 3.8.32 | Upgraded to RabbitMQ 3.8.32 |
+| 0.3.20 | 3.8.33 | Upgraded to RabbitMQ 3.8.33 |
 | 0.4.8 | 3.9.13 | Upgraded to RabbitMQ 3.9.13, fixed ingress API detection, implemented startupProbe support |
 | 0.4.9 | 3.9.13 | Fixed startupProbe |
 | 0.4.10 | 3.9.13 | Implemented support for extra secrets and advanced configuration capabilites |
