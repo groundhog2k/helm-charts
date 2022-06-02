@@ -11,6 +11,7 @@
 | 0.3.2 | 10.6.5 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.3.3 | 10.6.5 | Implemented support for extra containers |
 | 0.3.4 | 10.6.7 | Upgraded MariaDB to 10.6.7 |
+| 0.3.5 | 10.6.8 | Upgraded MariaDB to 10.6.8 |
 | 0.4.1 | 10.7.1 | Implemented startupProbe support |
 | 0.4.2 | 10.7.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.3 | 10.7.1 | Implemented support for extra containers |
