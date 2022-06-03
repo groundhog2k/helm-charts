@@ -35,4 +35,5 @@
 | 0.46.1 | 5.0.2 | Upgraded to Ghost 5.0.2 - Upgrade to Ghost 5.0.2 with MariaDB as database backend works only when upgraded to Ghost 4.48.1 before - Using MySQL as database backend is highly recommended and will support the full upgrade path |
 | 0.47.0 | 5.1.1 | Upgraded to Ghost 5.1.1 - Upgrade to Ghost 5.1.1 with MariaDB as database backend works only when upgraded to Ghost 4.48.1 before - Using MySQL as database backend is highly recommended and will support the full upgrade path |
 | 0.47.1 | 5.1.1 | Updated chart dependencies (mariadb 0.2.21) |
+| 0.48.0 | 5.2.1 | Upgraded to Ghost 5.2.1 |
 | | | |
