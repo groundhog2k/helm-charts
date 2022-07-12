@@ -330,6 +330,8 @@ extraSecretAdvancedConfigs:
 clustering:
   ## Rebalance queues with master when new replica is created
   rebalance: false
+  ## Force boot in case cluster peers are not available
+  forceBoot: false
   ## Use FQDN for RabbitMQ node names
   useLongName: true
 

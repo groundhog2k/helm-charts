@@ -174,7 +174,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           lifecycle:
-          {{- if and .Values.clustering.rebalance (gt (.Values.replicaCount | int) 1) }}
+          {{- if gt (.Values.replicaCount | int) 1 }}
             postStart:
               exec:
                 command:
