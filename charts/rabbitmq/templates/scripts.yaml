@@ -34,12 +34,18 @@ data:
     chmod 600 /var/lib/rabbitmq/.erlang.cookie
     echo "Finished."
   startup.sh: |
+    {{- if .Values.clustering.forceBoot }}
+    echo "Forcing boot of cluster instance" >/proc/1/fd/1
+    rabbitmqctl force_boot
+    {{- end }}
+    {{- if .Values.clustering.rebalance }}
     until rabbitmqctl cluster_status >/dev/null; do
       echo "PostStart: Waiting for cluster readiness..." >/proc/1/fd/1
       sleep 5
     done
     echo "PostStart: Rebalancing all queues.." >/proc/1/fd/1
     rabbitmq-queues rebalance "all" >/proc/1/fd/1
+    {{- end }}
   shutdown.sh: |
     {{- if and (.Values.terminationGracePeriodSeconds) (gt (int .Values.terminationGracePeriodSeconds) 10) }}
     if rabbitmqctl cluster_status; then
