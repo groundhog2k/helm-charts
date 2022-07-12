@@ -13,7 +13,7 @@ spec:
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
-  serviceName: {{ include "redis.fullname" . }}
+  serviceName: {{ include "redis.fullname" . }}-headless
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}

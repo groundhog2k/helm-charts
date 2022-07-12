@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "redis.fullname" . }}-headless
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+  {{- if .Values.haMode.enabled }}
+    - port: {{ .Values.service.sentinelPort }}
+      targetPort: sentinel
+      protocol: TCP
+      name: sentinel
+  {{- end }}
+    - port: {{ .Values.service.serverPort }}
+      targetPort: redis
+      protocol: TCP
+      name: redis
+  selector:
+    {{- include "redis.selectorLabels" . | nindent 4 }}
