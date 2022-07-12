@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.10.5](https://img.shields.io/badge/AppVersion-3.10.5-informational?style=flat-square)
+![Version: 0.5.6](https://img.shields.io/badge/Version-0.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.10.5](https://img.shields.io/badge/AppVersion-3.10.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -123,6 +123,18 @@ Section to define custom services
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
+
+## Service monitor parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| serviceMonitor.enabled | bool | `false` | Enable service monitor |
+| serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
+| serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
+| serviceMonitor.interval | Duration | `nil` | Scrape interval for prometheus |
+| serviceMonitor.scrapeTimeout | Duration | `nil` | Scrape timeout value |
+| serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
+| serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
 ## Storage parameters
 

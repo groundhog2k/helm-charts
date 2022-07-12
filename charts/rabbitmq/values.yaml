@@ -93,6 +93,24 @@ extraServices: []
     ## Annotations to add to the service
 #    annotations: {}
 
+## Service monitor configuration for Prometheus metrics
+## Prometheus plugin must be enabled to use this
+serviceMonitor:
+  ## Enable service monitor
+  enabled: false
+  ## Additional labels for the service monitor object
+  additionalLabels: {}
+  ## Annotations for the service monitor object
+  annotations: {}
+  ## The scrape interval for prometheus
+  # interval:
+  ## The scrape timeout value
+  # scrapeTimeout:
+  ## Extra parameters rendered to the service monitor endpoint
+  extraEndpointParameters: {}
+  ## Extra parameters rendered to the service monitor
+  extraParameters: {}
+
 ## Ingress configuration
 ingress:
   enabled: false
