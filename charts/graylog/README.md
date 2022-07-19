@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.3-jre11](https://img.shields.io/badge/AppVersion-4.3.3--jre11-informational?style=flat-square)
+![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.3-jre11](https://img.shields.io/badge/AppVersion-4.3.3--jre11-informational?style=flat-square)
 
 ## Changelog
 
@@ -45,7 +45,7 @@ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mongodb | 0.3.14 |
+| @groundhog2k | mongodb | 0.3.15 |
 | @groundhog2k | elasticsearch | 0.1.106 |
 
 ## Common parameters
