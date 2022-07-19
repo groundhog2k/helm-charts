@@ -10,4 +10,5 @@
 | 0.5.2 | 7.0.2 | Upgraded to Redis 7.0.2 |
 | 0.5.3 | 7.0.2 | Added headless service for redis and sentinel port |
 | 0.5.4 | 7.0.3 | Upgraded to Redis 7.0.3 |
+| 0.5.5 | 7.0.4 | Upgraded to Redis 7.0.4 |
 | | | |
