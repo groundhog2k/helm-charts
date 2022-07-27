@@ -42,4 +42,5 @@
 | 0.49.0 | 5.3.0 | Upgraded to Ghost 5.3.0 |
 | 0.49.1 | 5.3.1 | Upgraded to Ghost 5.3.1 |
 | 0.50.0 | 5.4.1 | Upgraded to Ghost 5.4.1 |
+| 0.51.0 | 5.5.0 | Upgraded to Ghost 5.5.0 |
 | | | |
