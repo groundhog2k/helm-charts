@@ -120,7 +120,7 @@ helm uninstall my-release
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
-## Service paramters
+## Service parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
