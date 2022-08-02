@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
+![Version: 0.5.6](https://img.shields.io/badge/Version-0.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -120,7 +120,7 @@ helm uninstall my-release
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
-## Service paramters
+## Service parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
