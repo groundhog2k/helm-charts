@@ -7,7 +7,7 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: 0.52.0
+version: 0.52.1
 
 appVersion: "5.7.0"
 
@@ -17,6 +17,6 @@ dependencies:
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mariadb.enabled
   - name: mysql
-    version: 0.1.0
+    version: 0.1.1
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mysql.enabled
