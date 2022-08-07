@@ -24,5 +24,5 @@
 | 0.4.5 | 5.0.7 | Upgraded to MongoDB 5.0.7 |
 | 0.4.6 | 5.0.8 | Upgraded to MongoDB 5.0.8 |
 | 0.4.7 | 5.0.9 | Upgraded to MongoDB 5.0.9 |
+| 0.4.8 | 5.0.10 | Upgraded to MongoDB 5.0.10 |
 | | | |
-
