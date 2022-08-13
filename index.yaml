@@ -972,6 +972,27 @@ entries:
     version: 0.0.1
   ghost:
   - apiVersion: v2
+    appVersion: 5.8.3
+    created: "2022-08-13T12:12:25.378305397Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.21
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.1
+    description: A Helm chart for Ghost on Kubernetes
+    digest: 2ab1cb7d372b8c2a7eacb98c09d9ed22bc87d38f8f2650d96cc1c2bcdcca8619
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.53.1/ghost-0.53.1.tgz
+    version: 0.53.1
+  - apiVersion: v2
     appVersion: 5.8.2
     created: "2022-08-09T15:13:13.26800261Z"
     dependencies:
@@ -8191,6 +8212,31 @@ entries:
     version: 0.1.0
   nextcloud:
   - apiVersion: v2
+    appVersion: 24.0.4-apache
+    created: "2022-08-13T12:12:25.641141454Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.21
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.20
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.5.5
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: 67c78539d5a4eed62cd17efe31446995f850c4767f88fe896d59a981befdb7af
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.11.8/nextcloud-0.11.8.tgz
+    version: 0.11.8
+  - apiVersion: v2
     appVersion: 24.0.3-apache
     created: "2022-07-19T16:52:14.483159866Z"
     dependencies:
@@ -13264,4 +13310,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-11T08:46:09.156471231Z"
+generated: "2022-08-13T12:12:25.648887873Z"
