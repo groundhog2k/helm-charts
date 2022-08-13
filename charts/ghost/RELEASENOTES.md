@@ -46,4 +46,5 @@
 | 0.52.0 | 5.7.0 | Upgraded to Ghost 5.7.0 |
 | 0.52.1 | 5.7.0 | Updated chart dependencies (mysql 0.1.1) |
 | 0.53.0 | 5.8.2 | Upgraded to Ghost 5.8.2 |
+| 0.53.1 | 5.8.3 | Upgraded to Ghost 5.8.3 |
 | | | |

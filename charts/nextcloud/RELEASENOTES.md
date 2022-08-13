@@ -18,4 +18,5 @@
 | 0.11.5 | 24.0.2-apache | Upgraded to Nextcloud 24.0.2 |
 | 0.11.6 | 24.0.3-apache | Upgraded to Nextcloud 24.0.3 |
 | 0.11.7 | 24.0.3-apache | Updated chart dependencies (redis 0.5.5) |
+| 0.11.8 | 24.0.4-apache | Upgraded to Nextcloud 24.0.4 |
 | | | |
