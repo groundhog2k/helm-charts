@@ -15,4 +15,5 @@
 | 0.3.8 | 14.2 | Upgraded to Postgres 14.2 |
 | 0.3.9 | 14.3 | Upgraded to Postgres 14.3 |
 | 0.3.10 | 14.4 | Upgraded to Postgres 14.4 |
+| 0.3.11 | 14.5 | Upgraded to Postgres 14.5 |
 | | | |
