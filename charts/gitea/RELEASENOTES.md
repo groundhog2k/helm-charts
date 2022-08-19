@@ -1,3 +1,5 @@
+# Changelog
+
 | Chart version | App version | Change description |
 | :------------ | :---------- | :----------------- |
 | 0.4.14 | 1.15.10 | Updated to Gitea 1.15.10 |
@@ -22,4 +24,5 @@
 | 0.5.15 | 1.16.9 | Updated chart dependencies (redis 0.5.5) |
 | 0.6.0 | 1.17.0 | Updated to Gitea 1.17.0 |
 | 0.6.1 | 1.17.0 | Updated chart dependencies (postgres 0.2.21) |
+| 0.6.1 | 1.17.1 | Updated to Gitea 1.17.1 |
 | | | |
