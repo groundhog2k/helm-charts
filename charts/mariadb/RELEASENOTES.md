@@ -22,4 +22,5 @@
 | 0.4.6 | 10.7.5 | Upgraded MariaDB to 10.7.5 |
 | 0.5.0 | 10.8.3 | Upgraded MariaDB to 10.8.3 |
 | 0.5.1 | 10.8.4 | Upgraded MariaDB to 10.8.4 |
+| 0.6.0 | 10.9.2 | Upgraded MariaDB to 10.9.2 |
 | | | |
