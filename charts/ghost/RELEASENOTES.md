@@ -51,4 +51,5 @@
 | 0.55.0 | 5.10.1 | Upgraded to Ghost 5.10.1 |
 | 0.56.0 | 5.11.0 | Upgraded to Ghost 5.11.0 |
 | 0.57.0 | 5.12.0 | Upgraded to Ghost 5.12.0 |
+| 0.57.1 | 5.12.0 | Updated chart dependencies (mariadb 0.2.22) |
 | | | |
