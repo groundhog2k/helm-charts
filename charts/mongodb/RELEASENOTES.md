@@ -18,6 +18,7 @@
 | 0.3.13 | 4.4.13 | Upgraded to MongoDB 4.4.13 |
 | 0.3.14 | 4.4.14 | Upgraded to MongoDB 4.4.14 |
 | 0.3.15 | 4.4.15 | Upgraded to MongoDB 4.4.15 |
+| 0.3.16 | 4.4.16 | Upgraded to MongoDB 4.4.16 |
 | 0.4.1 | 5.0.5 | Implemented startupProbe support |
 | 0.4.2 | 5.0.6 | Upgraded to MongoDB 5.0.6 |
 | 0.4.3 | 5.0.6 | Implemented support for extra secrets and advanced configuration capabilites |
