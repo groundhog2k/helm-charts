@@ -19,5 +19,6 @@
 | 0.4.3 | 10.7.1 | Implemented support for extra containers |
 | 0.4.4 | 10.7.3 | Upgraded MariaDB to 10.7.3 |
 | 0.4.5 | 10.7.4 | Upgraded MariaDB to 10.7.4 |
+| 0.4.6 | 10.7.5 | Upgraded MariaDB to 10.7.5 |
 | 0.5.0 | 10.8.3 | Upgraded MariaDB to 10.8.3 |
 | | | |
