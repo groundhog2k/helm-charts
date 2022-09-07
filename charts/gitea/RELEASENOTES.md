@@ -26,4 +26,5 @@
 | 0.6.1 | 1.17.0 | Updated chart dependencies (postgres 0.2.21) |
 | 0.6.2 | 1.17.1 | Updated to Gitea 1.17.1 |
 | 0.6.3 | 1.17.1 | Updated chart dependencies (mariadb 0.2.22) |
+| 0.6.4 | 1.17.2 | Updated to Gitea 1.17.2 |
 | | | |
