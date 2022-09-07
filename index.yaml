@@ -3737,6 +3737,31 @@ entries:
     version: 0.1.0
   gitea:
   - apiVersion: v2
+    appVersion: 1.17.2
+    created: "2022-09-07T16:46:21.543861822Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.22
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.21
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.5.5
+    description: A Helm chart for Gitea on Kubernetes
+    digest: 2afc71bdeffaa6ab1f439e07688442b598256599fe2f48b004e824c73fbf84ef
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.6.4/gitea-0.6.4.tgz
+    version: 0.6.4
+  - apiVersion: v2
     appVersion: 1.17.1
     created: "2022-08-28T09:48:32.924902494Z"
     dependencies:
@@ -5937,6 +5962,27 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.1.0/gitea-0.1.0.tgz
     version: 0.1.0
   graylog:
+  - apiVersion: v2
+    appVersion: 4.3.6-jre11
+    created: "2022-09-07T16:46:21.710380277Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.16
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.106
+    description: A Helm chart for Graylog on Kubernetes
+    digest: db87468b62ffb090e57d7157df345fafecfee5400c5527bac3e314d0836fac8e
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.4.9/graylog-0.4.9.tgz
+    version: 0.4.9
   - apiVersion: v2
     appVersion: 4.3.5-jre11
     created: "2022-08-28T09:48:33.180835733Z"
@@ -13753,4 +13799,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-02T07:29:44.217598721Z"
+generated: "2022-09-07T16:46:21.717755377Z"
