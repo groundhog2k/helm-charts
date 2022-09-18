@@ -6005,6 +6005,27 @@ entries:
     version: 0.1.0
   graylog:
   - apiVersion: v2
+    appVersion: 4.3.7-jre11
+    created: "2022-09-18T10:05:25.262808957Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.16
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.106
+    description: A Helm chart for Graylog on Kubernetes
+    digest: 79c7aa870b65d1d7703fff67e8210a699369cc0fb71a9846d4de07f01b37154c
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.4.10/graylog-0.4.10.tgz
+    version: 0.4.10
+  - apiVersion: v2
     appVersion: 4.3.6-jre11
     created: "2022-09-07T16:46:21.710380277Z"
     dependencies:
@@ -8008,6 +8029,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/metrics-server-2.11.4/metrics-server-2.11.4.tgz
     version: 2.11.4
   mongodb:
+  - apiVersion: v2
+    appVersion: 5.0.12
+    created: "2022-09-18T10:05:25.394896373Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 802d8ea45a02c2d9a2d4600f595c140fc85e117f4362c416d225ceeda28f8a42
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.4.10/mongodb-0.4.10.tgz
+    version: 0.4.10
   - apiVersion: v2
     appVersion: 5.0.11
     created: "2022-08-28T09:24:20.257410117Z"
@@ -13866,4 +13899,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-13T18:46:06.67397025Z"
+generated: "2022-09-18T10:05:25.401838269Z"
