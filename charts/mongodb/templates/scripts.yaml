@@ -9,7 +9,7 @@ data:
     #!/bin/sh
     create_user()
     {
-    mongo -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD <<EOF
+    mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD <<EOF
       var userdb = db.getSiblingDB('$MONGO_INITDB_DATABASE');
       userdb.createUser({user: '$USERDB_USER', pwd: '$USERDB_PASSWORD', roles: [ "readWrite", "dbAdmin" ]});
     EOF

@@ -88,7 +88,7 @@ spec:
           startupProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - "db.adminCommand('ping')"
           {{- with .Values.startupProbe }}
@@ -108,7 +108,7 @@ spec:
           livenessProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - "db.adminCommand('ping')"
           {{- with .Values.livenessProbe }}
@@ -128,7 +128,7 @@ spec:
           readinessProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - "db.adminCommand('ping')"
           {{- with .Values.readinessProbe }}
