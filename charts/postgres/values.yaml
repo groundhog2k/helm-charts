@@ -155,7 +155,7 @@ userDatabase: {}
 customConfig: |
 
 ## Optional custom scripts that can be defined inline and will be mounted as files in /docker-entrypoint-initdb.d
-customInlineScripts: {}
+customScripts: {}
 #  01-a-script.sh: |
 #    echo "hello"
 #  02-another-script.sh: |

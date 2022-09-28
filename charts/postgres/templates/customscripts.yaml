@@ -1,4 +1,4 @@
-{{- if .Values.customInlineScripts }}
+{{- if .Values.customScripts }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "postgres.labels" . | nindent 4 }}
 data:
-  {{- range $name, $value := .Values.customInlineScripts }}
+  {{- range $name, $value := .Values.customScripts }}
   {{- $name | nindent 2 }}: |
     {{- $value | nindent 4 }}
   {{- end }}
