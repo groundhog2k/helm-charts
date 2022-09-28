@@ -154,6 +154,13 @@ userDatabase: {}
 ## For more flexible options see extraSecretConfigs: section
 customConfig: |
 
+## Optional custom scripts that can be defined inline and will be mounted as files in /docker-entrypoint-initdb.d
+customScripts: {}
+#  01-a-script.sh: |
+#    echo "hello"
+#  02-another-script.sh: |
+#    echo "hello 2"
+
 ## A list of existing secrets that will be mounted into the container as environment variables
 ## As an alternative these secrets can set the database superuser password or other options when settings.superuserPassword was not specified
 ## For example: Setting POSTGRES_DB, USERDB_USER, USERDB_PASSWORD will allow creating a user database and grant access for the given user
