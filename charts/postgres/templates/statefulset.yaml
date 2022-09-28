@@ -51,7 +51,7 @@ spec:
             - mountPath: /extrascripts
               name: extrascripts-volume
             {{- end }}
-            {{- if .Values.customScripts }}
+            {{- if .Values.customInlineScripts }}
             - mountPath: /customscripts
               name: customscripts-volume
             {{- end }}
@@ -227,7 +227,7 @@ spec:
             name: {{ .Values.extraScripts }}
             defaultMode: 0555
         {{- end }}
-        {{- if .Values.customScripts }}
+        {{- if .Values.customInlineScripts }}
         - name: customscripts-volume
           configMap:
             name: {{ include "postgres.fullname" . }}-customscripts
