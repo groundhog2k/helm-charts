@@ -2,6 +2,7 @@
 
 ## RabbitMQ docker image
 image:
+  registry: docker.io
   repository: rabbitmq
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
@@ -9,6 +10,7 @@ image:
 
 # Default Init container image
 initImage:
+  registry: docker.io
   repository: busybox
   pullPolicy: IfNotPresent
   tag: "latest"

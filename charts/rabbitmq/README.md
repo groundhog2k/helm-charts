@@ -57,9 +57,11 @@ helm uninstall my-release
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.repository | string | `"rabbitmq"` | Image name |
 | image.tag | string | `""` | Image tag |
+| image.registry | string | `docker.io` | Image registry |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
 | initImage.repository | string | `"busybox"` | Init image name |
 | initImage.tag | string | `"latest"` | Init image tag |
+| initImage.registry | string | `docker.io` | Init image registry |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | extraInitContainers | list | `[]` | Extra init containers |
 | extaContainers | list | `[]` | Extra containers for usage as sidecars |
