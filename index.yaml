@@ -7736,6 +7736,18 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.5.17
+    created: "2022-09-30T10:18:23.86934648Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: 1e3ef6c7917ce500280ec78eadefc467114ce5d2a1b9828fd5c45dcbc7b38855
+    maintainers:
+    - name: groundhog2k
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-0.2.23/mariadb-0.2.23.tgz
+    version: 0.2.23
+  - apiVersion: v2
+    appVersion: 10.5.17
     created: "2022-08-28T09:30:29.157049585Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: 53f700ac341225a6cfd8b749bcadaf2021853ac65b3d38f09db357edd2e90eda
@@ -8420,6 +8432,18 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.4.0/mongodb-0.4.0.tgz
     version: 0.4.0
+  - apiVersion: v2
+    appVersion: 4.4.17
+    created: "2022-09-30T10:18:24.005586906Z"
+    description: A Helm chart to deploy MongoDB
+    digest: e0a4651421227288e69b8da12845cfae0b1a203b0e4c58e84a6227758c13e815
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.3.17/mongodb-0.3.17.tgz
+    version: 0.3.17
   - apiVersion: v2
     appVersion: 4.4.16
     created: "2022-08-28T09:21:21.231245631Z"
@@ -11274,6 +11298,18 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.0/postgres-0.3.0.tgz
     version: 0.3.0
+  - apiVersion: v2
+    appVersion: "13.8"
+    created: "2022-09-30T10:18:24.204988062Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: 81b3056e90bc99ca7c21ec33ea13f828294760f3e293d9c6e6967d9437ff076b
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.2.22/postgres-0.2.22.tgz
+    version: 0.2.22
   - apiVersion: v2
     appVersion: "13.8"
     created: "2022-08-13T12:37:56.926412563Z"
@@ -14355,4 +14391,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-30T09:09:14.859641706Z"
+generated: "2022-09-30T10:18:24.210780702Z"
