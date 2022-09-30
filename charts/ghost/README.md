@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.60.0](https://img.shields.io/badge/Version-0.60.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.16.2](https://img.shields.io/badge/AppVersion-5.16.2-informational?style=flat-square)
+![Version: 0.60.1](https://img.shields.io/badge/Version-0.60.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.16.2](https://img.shields.io/badge/AppVersion-5.16.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -64,6 +64,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
+| image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"ghost"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
@@ -137,11 +138,12 @@ helm uninstall my-release
 | mysql.userDatabase.user | string | `nil` | User name with full access to ghost database |
 | mysql.userDatabase.password | string | `nil` | Password of the ghost database user |
 | mysql.storage | string | `nil` | MySQL storage parameter (see storage parameters) |
-| externalDatabase.host | string | `nil` | External database host |
-| externalDatabase.name | string | `"ghost"` | External database name |
 | externalDatabase.type | string | `"sqlite"` | External database type (mysql or mariadb - default: sqlite) |
-| externalDatabase.user | string | `nil` | External database user |
-| externalDatabase.password | string | `nil` | External database password |
+| externalDatabase.sqliteDatabaseFile | string | `"content/data/ghost.db"` | Path to default SQLite database (only sqlite) |
+| externalDatabase.host | string | `nil` | External database host (only mysql/mariadb) |
+| externalDatabase.name | string | `"ghost"` | External database name (only mysql/mariadb) |
+| externalDatabase.user | string | `nil` | External database user (only mysql/mariadb) |
+| externalDatabase.password | string | `nil` | External database password (only mysql/mariadb) |
 | settings.mode | string | `"production"` | Ghost mode (production or development) |
 | settings.url | string | `nil` | URL of Ghost blog |
 | settings.logToStdout | bool | `true`| Log to stdout by default (otherwise logging will go to stdout and file) |

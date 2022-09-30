@@ -28,4 +28,5 @@
 | 0.6.3 | 1.17.1 | Updated chart dependencies (mariadb 0.2.22) |
 | 0.6.4 | 1.17.2 | Updated to Gitea 1.17.2 |
 | 0.6.5 | 1.17.2 | Updated chart dependencies (redis 0.5.6) |
+| 0.6.6 | 1.17.2 | Implemented support for image.registry option |
 | | | |

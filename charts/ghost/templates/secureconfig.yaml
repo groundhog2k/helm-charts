@@ -35,6 +35,7 @@ data:
   database__connection__database: {{ .name | b64enc }}
   {{- else }}
   database__client: {{ "sqlite3" | b64enc }}
+  database__connection__filename: {{ .sqliteDatabaseFile | b64enc }}
   {{- end }}
   {{- end }}
 {{- end }}

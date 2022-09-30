@@ -2,7 +2,8 @@
 
 ## PostgreSQL docker image
 image:
-  repository: postgres
+  registry: "docker.io"
+  repository: "postgres"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

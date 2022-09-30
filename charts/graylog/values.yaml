@@ -2,14 +2,16 @@
 
 ## Graylog docker image
 image:
-  repository: graylog/graylog
+  registry: "docker.io"
+  repository: "graylog/graylog"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 # Default Init container image
 initImage:
-  repository: maxmindinc/geoipupdate
+  registry: "docker.io"
+  repository: "maxmindinc/geoipupdate"
   pullPolicy: IfNotPresent
   tag: "latest"
 

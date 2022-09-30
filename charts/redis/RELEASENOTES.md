@@ -13,4 +13,5 @@
 | 0.5.5 | 7.0.4 | Upgraded to Redis 7.0.4 |
 | 0.5.6 | 7.0.4 | Fixed typo in README.md |
 | 0.5.7 | 7.0.5 | Upgraded to Redis 7.0.5 |
+| 0.5.8 | 7.0.5 | Implemented support for image.registry option |
 | | | |

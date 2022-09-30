@@ -35,4 +35,5 @@
 | 0.5.6 | 3.10.5 | Added service monitor support |
 | 0.5.7 | 3.10.6 | Added service monitor support |
 | 0.5.8 | 3.10.7 | Upgraded to RabbitMQ 3.10.7 |
+| 0.5.9 | 3.10.7 | Implemented support for image.registry option |
 | | | |

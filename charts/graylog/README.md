@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.7-jre11](https://img.shields.io/badge/AppVersion-4.3.7--jre11-informational?style=flat-square)
+![Version: 0.4.11](https://img.shields.io/badge/Version-0.4.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.7-jre11](https://img.shields.io/badge/AppVersion-4.3.7--jre11-informational?style=flat-square)
 
 ## Changelog
 
@@ -60,10 +60,12 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
+| image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"graylog/graylog"` | Image name |
 | image.tag | string | `""` | Image tag |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
-| initImage.repository | string | `"busybox"` | Default init container image |
+| initImage.registry | string | `"docker.io"` | Image registry |
+| initImage.repository | string | `"maxmindinc/geoipupdate"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |

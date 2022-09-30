@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.5.8](https://img.shields.io/badge/Version-0.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.10.7](https://img.shields.io/badge/AppVersion-3.10.7-informational?style=flat-square)
+![Version: 0.5.9](https://img.shields.io/badge/Version-0.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.10.7](https://img.shields.io/badge/AppVersion-3.10.7-informational?style=flat-square)
 
 ## Changelog
 
@@ -55,9 +55,11 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
+| image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"rabbitmq"` | Image name |
 | image.tag | string | `""` | Image tag |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
+| initImage.registry | string | `"docker.io"` | Image registry |
 | initImage.repository | string | `"busybox"` | Init image name |
 | initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |

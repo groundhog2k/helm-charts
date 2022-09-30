@@ -2,7 +2,8 @@
 
 ## Ghost docker image
 image:
-  repository: ghost
+  registry: "docker.io"
+  repository: "ghost"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -142,19 +143,22 @@ externalDatabase:
   ## Type of database ("mysql" or "mariadb" - default: sqlite)
   type: sqlite
 
+  ## Path to default SQLite database (only sqlite)
+  sqliteDatabaseFile: "content/data/ghost.db"
+
   ## Name of the database (default: ghost)
   name: ghost
 
-  ## Database user (only mysql)
+  ## Database user (only mysql/mariadb)
   user:
 
-  ## Database password (only mysql)
+  ## Database password (only mysql/mariadb)
   password:
 
-  ## Database host (only for mysql)
+  ## Database host (only for mysql/mariadb)
   host:
 
-  ## Database port (only for mysql)
+  ## Database port (only for mysql/mariadb)
   port:
 
 ## Ghost specific configuration
