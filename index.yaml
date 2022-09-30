@@ -10960,6 +10960,19 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/nfs-client-provisioner-1.2.11/nfs-client-provisioner-1.2.11.tgz
     version: 1.2.11
+  postgres:
+  - apiVersion: v2
+    appVersion: "14.5"
+    created: "2022-09-30T06:45:38.92642227Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: 696ed598cc9436b1724ca8f4cdc71bb8b9bfd974fcc0eeab98a1459ad3be8d9c
+    maintainers:
+    - name: groundhog2k
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.12/postgres-0.3.12.tgz
+    version: 0.3.12    
   - apiVersion: v2
     appVersion: "14.5"
     created: "2022-08-13T12:43:22.423006959Z"
@@ -11416,19 +11429,6 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
     version: 0.1.0
-  postgres:
-  - apiVersion: v2
-    appVersion: "14.5"
-    created: "2022-09-30T06:45:38.92642227Z"
-    description: A Helm chart for PostgreSQL on Kubernetes
-    digest: 696ed598cc9436b1724ca8f4cdc71bb8b9bfd974fcc0eeab98a1459ad3be8d9c
-    maintainers:
-    - name: groundhog2k
-    name: postgres
-    type: application
-    urls:
-    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.3.12/postgres-0.3.12.tgz
-    version: 0.3.12
   rabbitmq:
   - apiVersion: v2
     appVersion: 3.10.7
