@@ -27,6 +27,10 @@ data:
       echo "Copy extra scripts"
       cp /extrascripts/* /scripts
     fi
+    if [ -d /customscripts ]; then
+      echo "Copy custom scripts"
+      cp /customscripts/* /scripts
+    fi    
     if [ -d /customconfig ]; then
       echo "Create custom mongodb config"
       cat /customconfig/* >>/configs/custom.conf

@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.1](https://img.shields.io/badge/AppVersion-6.0.1-informational?style=flat-square)
+![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.1](https://img.shields.io/badge/AppVersion-6.0.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -116,6 +116,7 @@ helm uninstall my-release
 | customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in `/etc/mongo/custom.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the mongodb configuration in addition to `/etc/mongo/custom.conf` |
+| customScripts | object | `nil` | Optional custom scripts that can be defined inline and will be mounted as files in `/docker-entrypoint-initdb.d` |
 | extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.js`, `*.sh`) in `/docker-entrypoint-initdb.d` |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |

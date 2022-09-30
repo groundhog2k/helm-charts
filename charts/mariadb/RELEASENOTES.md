@@ -27,4 +27,5 @@
 | 0.5.2 | 10.8.5 | Upgraded MariaDB to 10.8.5 |
 | 0.6.0 | 10.9.2 | Upgraded MariaDB to 10.9.2 |
 | 0.6.1 | 10.9.3 | Upgraded MariaDB to 10.9.3 |
+| 0.6.2 | 10.9.3 | Implemented support for custom inline init scripts |
 | | | |
