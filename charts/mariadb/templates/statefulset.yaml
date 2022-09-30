@@ -21,6 +21,7 @@ spec:
       annotations:
         checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
         checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
+        checksum/customscripts: {{ include (print $.Template.BasePath "/customscripts.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -50,6 +51,10 @@ spec:
             - mountPath: /extrascripts
               name: extrascripts-volume
             {{- end }}
+            {{- if .Values.customScripts }}
+            - mountPath: /customscripts
+              name: customscripts-volume
+            {{- end }}            
             {{- if .Values.extraSecretConfigs }}
             - mountPath: /extraconfigs
               name: extraconfigs-volume
@@ -212,6 +217,12 @@ spec:
           configMap:
             name: {{ include "mariadb.fullname" . }}-scripts
             defaultMode: 0555
+      {{- if .Values.customScripts }}
+        - name: customscripts-volume
+          configMap:
+            name: {{ include "mariadb.fullname" . }}-customscripts
+            defaultMode: 0555
+      {{- end }}
       {{- if .Values.extraSecretConfigs }}
         - name: extraconfigs-volume
           secret:

@@ -152,6 +152,12 @@ userDatabase: {}
 ## For more flexible options see extraSecretConfigs: section
 customConfig: |
 
+customScripts: {}
+#  01-a-script.sh: |
+#    echo "hello"
+#  02-another-script.sh: |
+#    echo "hello 2"
+
 ## A list of existing secrets that will be mounted into the container as environment variables
 ## As an alternative these secrets can set the database root password or optional user database when userDatabase: and rootPassword: were not specified
 ## For example: Setting MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD will allow creating a user database and grant access for the given user

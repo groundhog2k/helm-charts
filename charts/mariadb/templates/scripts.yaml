@@ -12,6 +12,10 @@ data:
       echo "Copy extra scripts"
       cp /extrascripts/* /scripts
     fi
+    if [ -d /customscripts ]; then
+      echo "Copy custom scripts"
+      cp /customscripts/* /scripts
+    fi    
     if [ -d /extraconfigs ]; then
       echo "Copy extra configs"
       cp /extraconfigs/* /configs
