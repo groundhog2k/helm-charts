@@ -2,7 +2,8 @@
 
 ## MongoDB docker image
 image:
-  repository: mongo
+  registry: "docker.io"
+  repository: "mongo"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

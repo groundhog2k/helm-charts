@@ -5,7 +5,8 @@ replicaCount: 1
 
 ## Netxcloud docker image
 image:
-  repository: wordpress
+  registry: "docker.io"
+  repository: "wordpress"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

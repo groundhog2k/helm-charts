@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.11.12](https://img.shields.io/badge/Version-0.11.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 24.0.5-apache](https://img.shields.io/badge/AppVersion-24.0.5-informational?style=flat-square)
+![Version: 0.11.13](https://img.shields.io/badge/Version-0.11.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 24.0.5-apache](https://img.shields.io/badge/AppVersion-24.0.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -98,6 +98,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
+| image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"nextcloud"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
@@ -123,6 +124,7 @@ helm uninstall my-release
 | containerPort | int | `8000` | Internal http container port |
 | replicaCount | int | `1` | Number of replicas |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
+| initImage.registry | string | `"docker.io"` | Image registry |
 | initImage.repository | string | `"busybox"` | Default init container image |
 | initImage.tag | string | `"latest"` | Init container image tag |
 | postUpgradeHook.enabled | bool | `true` | Enable post upgrade hook |

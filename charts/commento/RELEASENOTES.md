@@ -10,4 +10,5 @@
 | 0.1.26 | v1.8.0 | Updated chart dependencies (postgres 0.2.19) |
 | 0.1.27 | v1.8.0 | Updated chart dependencies (postgres 0.2.20) |
 | 0.1.28 | v1.8.0 | Updated chart dependencies (postgres 0.2.21) |
+| 0.1.29 | v1.8.0 | Implemented support for image.registry option |
 | | | |

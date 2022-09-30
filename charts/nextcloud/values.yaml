@@ -2,14 +2,16 @@
 
 ## Netxcloud docker image
 image:
-  repository: nextcloud
+  registry: "docker.io"
+  repository: "nextcloud"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 # Default Init container image
 initImage:
-  repository: busybox
+  registry: "docker.io"
+  repository: "busybox"
   pullPolicy: IfNotPresent
   tag: "latest"
 

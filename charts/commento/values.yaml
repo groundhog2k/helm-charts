@@ -2,7 +2,8 @@
 
 ## Commento image
 image:
-  repository: registry.gitlab.com/commento/commento
+  registry: "registry.gitlab.com"
+  repository: "commento/commento"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

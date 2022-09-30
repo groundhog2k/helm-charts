@@ -2,7 +2,8 @@
 
 ## Commento image
 image:
-  repository: umputun/remark42
+  registry: "docker.io"
+  repository: "umputun/remark42"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

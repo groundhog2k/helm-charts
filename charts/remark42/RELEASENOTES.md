@@ -12,4 +12,5 @@
 | 0.4.2 | v1.10.1 | Updated chart dependencies (redis 0.5.1) |
 | 0.4.3 | v1.10.1 | Updated chart dependencies (redis 0.5.5) |
 | 0.4.4 | v1.10.1 | Updated chart dependencies (redis 0.5.6) |
+| 0.4.5 | v1.10.1 | Implemented support for image.registry option |
 | | | |

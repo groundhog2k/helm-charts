@@ -2,7 +2,8 @@
 
 ## Gitea docker image
 image:
-  repository: gitea/gitea
+  registry: "docker.io"
+  repository: "gitea/gitea"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
