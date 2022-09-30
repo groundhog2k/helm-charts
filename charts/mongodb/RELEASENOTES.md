@@ -34,4 +34,5 @@
 | 0.5.0 | 6.0.1 | Upgraded to MongoDB 6.0.1 |
 | 0.5.1 | 6.0.1 | Implemented support for custom inline init scripts |
 | 0.5.2 | 6.0.1 | Implemented support for image.registry option |
+| 0.5.3 | 6.0.2 | Upgraded to MongoDB 6.0.2 |
 | | | |
