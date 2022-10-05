@@ -60,4 +60,5 @@
 | 0.60.1 | 5.16.2 | Implemented support for image.registry option |
 | 0.60.2 | 5.16.2 | Updated chart dependencies (mariadb 0.2.23, mysql 0.1.3) |
 | 0.61.0 | 5.17.0 | Upgraded to Ghost 5.17.0 |
+| 0.61.1 | 5.17.1 | Upgraded to Ghost 5.17.1 |
 | | | |
