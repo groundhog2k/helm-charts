@@ -7,6 +7,22 @@ metadata:
 data:
   01-init-userdb.sh: |-
     #!/bin/sh
+    init_primary()
+    {
+      mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"{{ .Values.replicaSet.replicaSetName }}\",members:[{_id:0, host:\"$HOSTNAME.{{ include "mongodb.fullname" . }}-internal:{{ .Values.service.port }}\"}]})"
+    }
+    add_secondary()
+    {
+      primary=$(mongosh --quiet --host {{ include "mongodb.fullname" . }}-internal -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+      if [ ! -z "$primary" ]; then
+        echo "Primary $primary found"
+        suffix="{{ include "mongodb.fullname" . }}-internal"
+        mongosh -u --host $primary $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.add({host:\"$HOSTNAME.$suffix:{{ .Values.service.port }}\"})"
+      else
+        echo "Primary not found!"
+        exit -1
+      fi
+    }
     create_user()
     {
     mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD <<EOF
@@ -15,14 +31,23 @@ data:
     EOF
     }
     set -e
+    {{- if .Values.replicaSet.enable }}
+    if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ]; then
+      init_primary
+    fi
+    {{- end }}
     if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ] && [ ! -z "$MONGO_INITDB_DATABASE" ] && [ ! -z "$USERDB_USER" ] && [ ! -z "$USERDB_PASSWORD" ]; then
       create_user
     fi
+
   init.sh: |
     #!/bin/sh
     echo "Start initialization"
     echo "Copy init-userdb script"
-    cp /initscripts/01-init-userdb.sh /scripts
+    if [ "$HOSTNAME" = "{{ include "mongodb.fullname" . }}-0" ]; then
+      echo "Initialize first instance"
+      cp /initscripts/01-init-userdb.sh /scripts
+    fi
     if [ -d /extrascripts ]; then
       echo "Copy extra scripts"
       cp /extrascripts/* /scripts
@@ -30,7 +55,8 @@ data:
     if [ -d /customscripts ]; then
       echo "Copy custom scripts"
       cp /customscripts/* /scripts
-    fi    
+    fi
+    touch /configs/custom.conf
     if [ -d /customconfig ]; then
       echo "Create custom mongodb config"
       cat /customconfig/* >>/configs/custom.conf
@@ -39,4 +65,8 @@ data:
       echo "Add extra configs to custom mongodb config"
       cat /extraconfigs/* >>/configs/custom.conf
     fi
+    {{- if .Values.replicaSet.enable }}
+      echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
+      chmod 400 /replicaset/keyfile
+    {{- end }}
     echo "Initialization done."

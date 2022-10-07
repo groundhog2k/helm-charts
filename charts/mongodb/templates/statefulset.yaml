@@ -10,7 +10,9 @@ spec:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
   serviceName: {{ include "mongodb.fullname" . }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: 1
+  {{- if .Values.replicaSet.enable }}
+  replicas: {{ add1 .Values.replicaSet.secondaries }}
+  {{- end }}
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
@@ -69,6 +71,10 @@ spec:
               name: scripts
             - mountPath: /configs
               name: configs
+            {{- if .Values.replicaSet.enable }}
+            - mountPath: /replicaset
+              name: keyfile
+            {{- end }}              
           command: [ "/initscripts/init.sh" ]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
@@ -166,9 +172,13 @@ spec:
             {{- range .Values.args }}
             - {{ . }}
             {{- end }}
-            {{- if .Values.settings.customConfig }}
             - --config
             - /etc/mongo/custom.conf
+            {{- if .Values.replicaSet.enable }}
+            - --replSet 
+            - {{ .Values.replicaSet.replicaSetName | quote }}
+            - --keyFile
+            - "/replicaset/keyfile"
             {{- end }}
           volumeMounts:
             - name: tmp
@@ -179,6 +189,10 @@ spec:
               name: scripts
             - mountPath: /etc/mongo
               name: configs
+            {{- if .Values.replicaSet.enable }}
+            - mountPath: /replicaset
+              name: keyfile
+            {{- end }}
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
@@ -204,6 +218,8 @@ spec:
         - name: scripts
           emptyDir: {}
         - name: configs
+          emptyDir: {}
+        - name: keyfile
           emptyDir: {}
         - name: initscripts
           configMap:

@@ -35,4 +35,5 @@
 | 0.5.1 | 6.0.1 | Implemented support for custom inline init scripts |
 | 0.5.2 | 6.0.1 | Implemented support for image.registry option |
 | 0.5.3 | 6.0.2 | Upgraded to MongoDB 6.0.2 |
+| 0.5.4 | 6.0.2 | Implemented MongoDB replicaset support |
 | | | |
