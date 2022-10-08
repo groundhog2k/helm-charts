@@ -25,4 +25,5 @@
 | 0.11.12 | 24.0.5-apache | Updated chart dependencies (redis 0.5.6) |
 | 0.11.13 | 24.0.5-apache | Implemented support for image.registry option |
 | 0.11.14 | 24.0.5-apache | Updated chart dependencies (mariadb 0.2.23 / postgres 0.2.12 / redis 0.5.8) |
+| 0.11.15 | 24.0.6-apache | Upgraded to Nextcloud 24.0.6 |
 | | | |
