@@ -38,5 +38,6 @@
 | 0.5.8 | 3.10.7 | Upgraded to RabbitMQ 3.10.7 |
 | 0.5.9 | 3.10.7 | Implemented support for image.registry option |
 | 0.5.10 | 3.10.8 | Upgraded to RabbitMQ 3.10.8 |
+| 0.5.11 | 3.10.9 | Upgraded to RabbitMQ 3.10.9 |
 | 0.6.0 | 3.11.0 | Upgraded to RabbitMQ 3.11.0 |
 | | | |
