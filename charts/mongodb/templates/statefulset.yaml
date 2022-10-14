@@ -67,6 +67,8 @@ spec:
             {{- end }}
             - mountPath: /initscripts
               name: initscripts
+            - mountPath: /extrainitscripts
+              name: extrainitscripts
             - mountPath: /scripts
               name: scripts
             - mountPath: /configs
@@ -75,7 +77,7 @@ spec:
             - mountPath: /replicaset
               name: keyfile
             {{- end }}              
-          command: [ "/initscripts/init.sh" ]
+          command: [ "/scripts/init.sh" ]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -87,6 +89,19 @@ spec:
           {{- end }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "/extrainitscripts/extra-init.sh" ]
+          args:
+            {{- range .Values.args }}
+            - {{ . }}
+            {{- end }}
+            - --config
+            - /etc/mongo/custom.conf
+            {{- if .Values.replicaSet.enable }}
+            - --replSet 
+            - {{ .Values.replicaSet.replicaSetName | quote }}
+            - --keyFile
+            - "/replicaset/keyfile"
+            {{- end }}
           ports:
             - name: mongodb
               containerPort: 27017
@@ -168,25 +183,15 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          args:
-            {{- range .Values.args }}
-            - {{ . }}
-            {{- end }}
-            - --config
-            - /etc/mongo/custom.conf
-            {{- if .Values.replicaSet.enable }}
-            - --replSet 
-            - {{ .Values.replicaSet.replicaSetName | quote }}
-            - --keyFile
-            - "/replicaset/keyfile"
-            {{- end }}
           volumeMounts:
             - name: tmp
               mountPath: /tmp
+            - name: extrainitscripts
+              mountPath: /extrainitscripts
             - name: {{ .Values.storage.volumeName }}
               mountPath: /data/db
             - mountPath: /docker-entrypoint-initdb.d
-              name: scripts
+              name: initscripts
             - mountPath: /etc/mongo
               name: configs
             {{- if .Values.replicaSet.enable }}
@@ -215,13 +220,15 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
-        - name: scripts
+        - name: extrainitscripts
+          emptyDir: {}
+        - name: initscripts
           emptyDir: {}
         - name: configs
           emptyDir: {}
         - name: keyfile
           emptyDir: {}
-        - name: initscripts
+        - name: scripts
           configMap:
             name: {{ include "mongodb.fullname" . }}-scripts
             defaultMode: 0555

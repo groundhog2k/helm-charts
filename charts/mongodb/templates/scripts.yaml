@@ -7,47 +7,77 @@ metadata:
 data:
   01-init-userdb.sh: |-
     #!/bin/sh
-    init_primary()
-    {
-      mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"{{ .Values.replicaSet.replicaSetName }}\",members:[{_id:0, host:\"$HOSTNAME.{{ include "mongodb.fullname" . }}-internal:{{ .Values.service.port }}\"}]})"
-    }
-    add_secondary()
-    {
-      primary=$(mongosh --quiet --host {{ include "mongodb.fullname" . }}-internal -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
-      if [ ! -z "$primary" ]; then
-        echo "Primary $primary found"
-        suffix="{{ include "mongodb.fullname" . }}-internal"
-        mongosh -u --host $primary $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "rs.add({host:\"$HOSTNAME.$suffix:{{ .Values.service.port }}\"})"
-      else
-        echo "Primary not found!"
-        exit -1
-      fi
-    }
+    # //TODO: Do only once for replicaset
     create_user()
     {
-    mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD <<EOF
+    mongosh --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD <<EOF
       var userdb = db.getSiblingDB('$MONGO_INITDB_DATABASE');
       userdb.createUser({user: '$USERDB_USER', pwd: '$USERDB_PASSWORD', roles: [ "readWrite", "dbAdmin" ]});
     EOF
     }
     set -e
-    {{- if .Values.replicaSet.enable }}
-    if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ]; then
-      init_primary
-    fi
-    {{- end }}
     if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ] && [ ! -z "$MONGO_INITDB_DATABASE" ] && [ ! -z "$USERDB_USER" ] && [ ! -z "$USERDB_PASSWORD" ]; then
       create_user
     fi
+  
+  extra-init-replicaset.sh: |-
+    #!/bin/bash
+    # //TODO: Improve scripts
+    # //TODO: Allow arbiter and hidden
+    # //TODO: Config settings for removing outdated secondaries?
+    # //FIXME: investigate restart behavior
+    echo "***** EXTRA-INIT-REPLICASET: Init replicaset"
+    suffix="{{ include "mongodb.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}"
+    primary=$(mongosh --quiet --host $suffix --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+    if [ ! -z "$primary" ]; then
+      echo "***** EXTRA-INIT-REPLICASET: Primary $primary found"
+      secexists=$(mongosh --quiet --host $primary --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.name===\"$HOSTNAME.$suffix\";}).length")
+      if [ "$secexists" == "0" ]; then
+        echo "***** EXTRA-INIT-REPLICASET: Adding secondary $HOSTNAME.$suffix"
+        mongosh --quiet --host $primary --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.add({host:\"$HOSTNAME.$suffix\"})"
+      else
+        echo "***** EXTRA-INIT-REPLICASET: Secondary $HOSTNAME.$suffix already in cluster - doing nothing"
+      fi
+    else
+      echo "***** EXTRA-INIT-REPLICASET: Primary not found - initialize it!"
+      mongosh --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"{{ .Values.replicaSet.replicaSetName }}\",members:[{_id:0, host:\"$HOSTNAME.$suffix\"}]})"
+    fi
+    echo "***** EXTRA-INIT-REPLICASET: Done"
+
+  extra-init.sh: |-
+    #!/bin/bash
+    waitready() {
+      echo "***** EXTRA-INIT: Waiting until mongod is fully up and running"
+      tries=10
+      while true; do
+        mp=$(ps aux | grep "mongod --config /etc/mongo/custom.conf" | grep -v grep)
+        sleep 5
+        if [ ! -z "$mp" ]; then
+          break;
+        fi
+        (( tries-- ))
+        if [ "$tries" -le 0 ]; then
+          echo "***** EXTRA-INIT: mongod still not running.. Stopping hard"
+          kill -STOP 1
+          exit 1
+        fi
+      done
+      echo "***** EXTRA-INIT mongod is running"
+    }
+    echo "***** EXTRA-INIT: Starting original entrypoint in background"
+    docker-entrypoint.sh $@ &
+    {{- if .Values.replicaSet.enable }}
+    waitready
+    /extrainitscripts/extra-init-replicaset.sh
+    {{- end }}
+    wait
 
   init.sh: |
     #!/bin/sh
     echo "Start initialization"
-    echo "Copy init-userdb script"
-    if [ "$HOSTNAME" = "{{ include "mongodb.fullname" . }}-0" ]; then
-      echo "Initialize first instance"
-      cp /initscripts/01-init-userdb.sh /scripts
-    fi
+    echo "Copy init scripts"
+    cp /scripts/*-init-*.sh /initscripts
+    cp /scripts/extra-*.sh /extrainitscripts
     if [ -d /extrascripts ]; then
       echo "Copy extra scripts"
       cp /extrascripts/* /scripts
@@ -56,6 +86,7 @@ data:
       echo "Copy custom scripts"
       cp /customscripts/* /scripts
     fi
+    echo "Copy custom configuration"
     touch /configs/custom.conf
     if [ -d /customconfig ]; then
       echo "Create custom mongodb config"
@@ -66,7 +97,9 @@ data:
       cat /extraconfigs/* >>/configs/custom.conf
     fi
     {{- if .Values.replicaSet.enable }}
-      echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
-      chmod 400 /replicaset/keyfile
+    # //TODO: Allow replicaSet key from secret
+    echo "Copy replicaset key"
+    echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
+    chmod 400 /replicaset/keyfile
     {{- end }}
     echo "Initialization done."
