@@ -18,7 +18,7 @@ data:
     log "Start user database initalization"
     if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ] && [ ! -z "$MONGO_INITDB_DATABASE" ] && [ ! -z "$USERDB_USER" ] && [ ! -z "$USERDB_PASSWORD" ]; then
       log "Creating database $MONGO_INITDB_DATABASE"
-      /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "db.getSiblingDB(\"$MONGO_INITDB_DATABASE\").createUser({user: \"$USERDB_USER\", pwd: \"$USERDB_PASSWORD\", roles: [ \"readWrite\", \"dbAdmin\" ]})"
+      $MONGOSHELL --eval "db.getSiblingDB(\"$MONGO_INITDB_DATABASE\").createUser({user: \"$USERDB_USER\", pwd: \"$USERDB_PASSWORD\", roles: [ \"readWrite\", \"dbAdmin\" ]})"
     else
       log "Missing parameters to create database"
     fi
@@ -63,7 +63,7 @@ data:
     # $? - FQDN of primary instance or empty
     find_primary() {
       local service=$1
-      echo $(/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $service --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+      echo $($MONGOSHELL --host $service --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
     }
 
     # Init ReplicaSet primary instance
@@ -72,7 +72,7 @@ data:
     init_primary() {
       local primary=$1
       local replicaset=$2
-      /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"$replicaset\",members:[{_id:0, host:\"$primary\"}]})"
+      $MONGOSHELL --eval "rs.initiate({_id:\"$replicaset\",members:[{_id:0, host:\"$primary\"}]})"
       # //TODO: add error check
       log "$primary initialized as primary instance"
     }
@@ -84,7 +84,7 @@ data:
     detect_secondary() {
       local primary=$1
       local secondary=$2
-      echo $(/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$secondary\";}).length")
+      echo $($MONGOSHELL --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$secondary\";}).length")
     }
 
     # Adds a secondary instance to the ReplicaSet
@@ -96,7 +96,7 @@ data:
       local result=$(detect_secondary $primary $secondary)
       if [ "$result" = "0" ]; then
         log "Add $secondary as secondary instance"
-        /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $primary --eval "rs.add({host:\"$secondary\"})"
+        $MONGOSHELL --host $primary --eval "rs.add({host:\"$secondary\"})"
         # //TODO: add error check
         log "$secondary added to ReplicaSet"
       else
@@ -124,12 +124,12 @@ data:
 
     # Terminates a child process
     # $1 - PID of child process
-    # $2 - Delay before terminate (leave empty if no delay desired)
-    # $3 - Kill signal number
+    # $2 - Kill signal number
+    # $3 - Delay before terminate (leave empty if no delay desired)
     _terminate() {
       local childproc=$1
-      local delay=$2
-      local signal=$3
+      local signal=$2
+      local delay=$3
       log "Terminating entrypoint"
       if [ ! -z "$delay" ]; then
         log "Waiting $delay seconds before termination..."
@@ -149,6 +149,7 @@ data:
         mongoshell=$(which mongo)
       fi
       ln -s $mongoshell /extrainitscripts/mongoshell
+      export MONGOSHELL="/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD"
     }
 
     main() {
@@ -161,8 +162,8 @@ data:
       init_replicaset "{{ include "mongodb.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.replicaSetName }}"
       terminatedelay={{ .Values.replicaSet.shutdown.delay }}
       {{- end }}
-      trap "_terminate $mongoproc $terminatedelay 15" 15
-      trap "_terminate $mongoproc $terminatedelay 9" 9
+      trap "_terminate $mongoproc 15 $terminatedelay" 15
+      trap "_terminate $mongoproc 9 $terminatedelay" 9
       wait $mongoproc
     }
 
