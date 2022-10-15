@@ -116,7 +116,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - mongosh --eval "db.adminCommand('ping')"
+                - /extrainitscripts/mongoshell --eval "db.adminCommand('ping')"
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -136,7 +136,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - mongosh --eval "db.adminCommand('ping')"
+                - /extrainitscripts/mongoshell --eval "db.adminCommand('ping')"
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -156,7 +156,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - mongosh --eval "db.adminCommand('ping')"
+                - /extrainitscripts/mongoshell --eval "db.adminCommand('ping')"
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}

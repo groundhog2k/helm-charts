@@ -7,80 +7,186 @@ metadata:
 data:
   01-init-userdb.sh: |-
     #!/bin/sh
+    # Log a message in extra initialization phase
+    # $1 - the log message
+    log() {
+      echo "***** INIT: $1"
+      echo "$(date) ***** INIT: $1" >>/tmp/init.log
+    }
+
     set -e
+    log "Start user database initalization"
     if [ ! -z "$MONGO_INITDB_ROOT_USERNAME" ] && [ ! -z "$MONGO_INITDB_ROOT_PASSWORD" ] && [ ! -z "$MONGO_INITDB_DATABASE" ] && [ ! -z "$USERDB_USER" ] && [ ! -z "$USERDB_PASSWORD" ]; then
-      if [ "$HOSTNAME" = "{{ include "mongodb.fullname" . }}-0" ]; then
-        echo "***** INIT: Creating database $MONGO_INITDB_DATABASE"
-        mongosh --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "db.getSiblingDB(\"$MONGO_INITDB_DATABASE\").createUser({user: \"$USERDB_USER\", pwd: \"$USERDB_PASSWORD\", roles: [ \"readWrite\", \"dbAdmin\" ]})"
-      fi
-    fi
-  
-  extra-init-replicaset.sh: |-
-    #!/bin/bash
-    # //TODO: Improve scripts
-    # //TODO: Allow arbiter and hidden
-    # //TODO: Config settings for removing outdated secondaries?
-    # //TODO: mongosh / mongo switch
-    echo "***** EXTRA-INIT-REPLICASET: Init replicaset"
-    suffix="{{ include "mongodb.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}"
-    primary=$(mongosh --quiet --host $suffix --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
-    if [ ! -z "$primary" ]; then
-      echo "***** EXTRA-INIT-REPLICASET: Primary $primary found"
-      secexists=$(mongosh --quiet --host $primary --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.status().members.filter(function(rs) { return rs.name===\"$HOSTNAME.$suffix\";}).length")
-      if [ "$secexists" = "0" ]; then
-        echo "***** EXTRA-INIT-REPLICASET: Adding secondary $HOSTNAME.$suffix"
-        mongosh --quiet --host $primary --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.add({host:\"$HOSTNAME.$suffix\"})"
-      else
-        echo "***** EXTRA-INIT-REPLICASET: Secondary $HOSTNAME.$suffix already in cluster - doing nothing"
-      fi
+      log "Creating database $MONGO_INITDB_DATABASE"
+      /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "db.getSiblingDB(\"$MONGO_INITDB_DATABASE\").createUser({user: \"$USERDB_USER\", pwd: \"$USERDB_PASSWORD\", roles: [ \"readWrite\", \"dbAdmin\" ]})"
     else
-      echo "***** EXTRA-INIT-REPLICASET: Primary not found - initialize it!"
-      mongosh --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"{{ .Values.replicaSet.replicaSetName }}\",members:[{_id:0, host:\"$HOSTNAME.$suffix\"}]})"
+      log "Missing parameters to create database"
     fi
-    echo "***** EXTRA-INIT-REPLICASET: Done"
+    log "Done with user database initialization"
 
   extra-init.sh: |-
-    #!/bin/bash
-    waitready() {
-      echo "***** EXTRA-INIT: Waiting until mongod is fully up and running"
-      tries=10
+    #!/bin/sh    
+    # Log a message in extra initialization phase
+    # $1 - the log message
+    log() {
+      echo "***** EXTRA-INIT: $1"
+      echo "$(date) ***** EXTRA-INIT: $1" >>/tmp/extra-init.log
+    }
+
+    # Wait until final mongod is fully up and running in background
+    # see "replicaSet.extraInit" in values.yaml
+    # $1 - Number of retries
+    # $2 - Delay between retries
+    wait_ready() {
+      log "Waiting until mongod is fully up and running"
+      local retries=$1
+      local delay=$2
       while true; do
         mp=$(ps aux | grep "mongod --config /etc/mongo/custom.conf" | grep -v grep)
-        sleep 5
+        sleep $delay
         if [ ! -z "$mp" ]; then
           break;
         fi
-        (( tries-- ))
-        if [ "$tries" -le 0 ]; then
-          echo "***** EXTRA-INIT: mongod still not running.. Stopping hard"
+        (( retries-- ))
+        if [ "$retries" -le 0 ]; then
+          log "mongod is not running.. Stopping hard"
           kill -STOP 1
           exit 1
         fi
+        log "Waiting for mongod..."
       done
-      echo "***** EXTRA-INIT mongod is running"
+      log "mongod is running"
     }
-    echo "***** EXTRA-INIT: Starting original entrypoint in background"
-    docker-entrypoint.sh $@ &
-    {{- if .Values.replicaSet.enable }}
-    waitready
-    /extrainitscripts/extra-init-replicaset.sh
-    {{- end }}
-    wait
+
+    # Try to find primary instance of ReplicaSet
+    # $1 - FQDN of the headless service for this MongoDB cluster
+    # $? - FQDN of primary instance or empty
+    find_primary() {
+      local service=$1
+      echo $(/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $service --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+    }
+
+    # Init ReplicaSet primary instance
+    # $1 - FQDN of the new primary instance
+    # $2 - Name of the ReplicaSet
+    init_primary() {
+      local primary=$1
+      local replicaset=$2
+      /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval "rs.initiate({_id:\"$replicaset\",members:[{_id:0, host:\"$primary\"}]})"
+      # //TODO: add error check
+      log "$primary initialized as primary instance"
+    }
+
+    # Detects if a secondary instance with given name exists
+    # $1 - FQDN of primary instance for script execution
+    # $2 - FQDN of the secondary instance to find
+    # $? - "0" if no secondary instance was found - otherwise "1"
+    detect_secondary() {
+      local primary=$1
+      local secondary=$2
+      echo $(/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$secondary\";}).length")
+    }
+
+    # Adds a secondary instance to the ReplicaSet
+    # $1 - FQDN of primary instance for script execution
+    # $2 - FQDN of the secondary instance which should be added to the ReplicaSet
+    add_secondary() {
+      local primary=$1
+      local secondary=$2
+      local result=$(detect_secondary $primary $secondary)
+      if [ "$result" = "0" ]; then
+        log "Add $secondary as secondary instance"
+        /extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host $primary --eval "rs.add({host:\"$secondary\"})"
+        # //TODO: add error check
+        log "$secondary added to ReplicaSet"
+      else
+        log "Secondary instance $secondary already in ReplicaSet - doing nothing"
+      fi
+    }
+
+    # Try to initialize a ReplicaSet
+    # $1 - FQDN of the headless service for this MongoDB cluster
+    # $2 - Name of the ReplicaSet
+    init_replicaset() {
+      log "Start ReplicaSet initialization"
+      local service=$1
+      local replicaset=$2
+      local primary=$(find_primary $service)
+      if [ -z "$primary" ]; then
+        log "Primary not found - Initializing this instance as primary"
+        init_primary "$HOSTNAME.$service" $replicaset
+      else
+        log "Primary $primary found - Adding this instance as secondary"
+        add_secondary $primary "$HOSTNAME.$service"
+      fi
+      log "Done with ReplicaSet initialization\n-----"
+    }
+
+    # Terminates a child process
+    # $1 - PID of child process
+    # $2 - Delay before terminate (leave empty if no delay desired)
+    # $3 - Kill signal number
+    _terminate() {
+      local childproc=$1
+      local delay=$2
+      local signal=$3
+      log "Terminating entrypoint"
+      if [ ! -z "$delay" ]; then
+        log "Waiting $delay seconds before termination..."
+        sleep $delay
+      fi
+      log "Bye bye"
+      kill -s $signal $childproc
+    }
+
+    init() {
+      log "Try to detect default mongo shell executable"
+      mongoshell=$(which mongosh)
+      if [ ! -z "$mongoshell" ]; then
+        log "Using mongosh as default shell"
+      else
+        log "Using mongo as default shell"
+        mongoshell=$(which mongo)
+      fi
+      ln -s $mongoshell /extrainitscripts/mongoshell
+    }
+
+    main() {
+      log "Starting original entrypoint in background"
+      docker-entrypoint.sh $@ &
+      mongoproc=$!
+      log "Entrypoint pid: $mongoproc"
+      wait_ready {{ .Values.replicaSet.extraInit.retries }} {{ .Values.replicaSet.extraInit.delay }}
+      {{- if .Values.replicaSet.enable }}
+      init_replicaset "{{ include "mongodb.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.replicaSetName }}"
+      terminatedelay={{ .Values.replicaSet.shutdown.delay }}
+      {{- end }}
+      trap "_terminate $mongoproc $terminatedelay 15" 15
+      trap "_terminate $mongoproc $terminatedelay 9" 9
+      wait $mongoproc
+    }
+
+    init
+    main $@
 
   init.sh: |
     #!/bin/sh
     echo "Start initialization"
     echo "Copy init scripts"
-    cp /scripts/0*-init-*.sh /initscripts
+    # Copy optional initialization scripts only to first cluster instance (initial primary on a new replicaset)
+    if [ "$HOSTNAME" = "{{ include "mongodb.fullname" . }}-0" ]; then
+      cp /scripts/0*-init-*.sh /initscripts
+      if [ -d /extrascripts ]; then
+        echo "Copy extra scripts"
+        cp /extrascripts/* /scripts
+      fi
+      if [ -d /customscripts ]; then
+        echo "Copy custom scripts"
+        cp /customscripts/* /scripts
+      fi
+    fi
+    # Copy extra initialization scripts for ReplicaSet cluster
     cp /scripts/extra-*.sh /extrainitscripts
-    if [ -d /extrascripts ]; then
-      echo "Copy extra scripts"
-      cp /extrascripts/* /scripts
-    fi
-    if [ -d /customscripts ]; then
-      echo "Copy custom scripts"
-      cp /customscripts/* /scripts
-    fi
     echo "Copy custom configuration"
     touch /configs/custom.conf
     if [ -d /customconfig ]; then
@@ -98,3 +204,5 @@ data:
     chmod 400 /replicaset/keyfile
     {{- end }}
     echo "Initialization done."
+
+    # //TODO: Allow arbiter and hidden
