@@ -140,15 +140,19 @@ data:
     }
 
     init() {
-      log "Try to detect default mongo shell executable"
-      mongoshell=$(which mongosh)
-      if [ ! -z "$mongoshell" ]; then
-        log "Using mongosh as default shell"
+      if [ ! -f /extrainitscripts/mongoshell ]; then
+        log "Try to detect default mongo shell executable"
+        mongoshell=$(which mongosh)
+        if [ ! -z "$mongoshell" ]; then
+          log "Using mongosh as default shell"
+        else
+          log "Using mongo as default shell"
+          mongoshell=$(which mongo)
+        fi
+        ln -s $mongoshell /extrainitscripts/mongoshell
       else
-        log "Using mongo as default shell"
-        mongoshell=$(which mongo)
+        log "Symbolic link for mongoshell already exists"
       fi
-      ln -s $mongoshell /extrainitscripts/mongoshell
       export MONGOSHELL="/extrainitscripts/mongoshell --quiet --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD"
     }
 
