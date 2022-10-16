@@ -1,20 +1,19 @@
+{{- if and .Values.replicaSet.enabled .Values.replicaSet.arbiter.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "mongodb.fullname" . }}
+  name: {{ include "mongodb.fullname" . }}-arbiter
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
-    service-type: primary-secondary
+    service-type: arbiter
 spec:
   selector:
     matchLabels:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
-      service-type: primary-secondary
-  serviceName: {{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}
+      service-type: arbiter
+  serviceName: {{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.arbiter.headlessServiceSuffix }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  {{- if .Values.replicaSet.enabled }}
-  replicas: {{ add1 .Values.replicaSet.secondaries }}
-  {{- end }}
+  replicas: 1
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
@@ -25,14 +24,13 @@ spec:
       annotations:
         checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
         checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
-        checksum/customscripts: {{ include (print $.Template.BasePath "/customscripts.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "mongodb.selectorLabels" . | nindent 8 }}
-        service-type: primary-secondary
+        service-type: arbiter
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -52,34 +50,22 @@ spec:
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            {{- if .Values.extraScripts }}
-            - mountPath: /extrascripts
-              name: extrascripts-volume
-            {{- end }}
             {{- if .Values.extraSecretConfigs }}
             - mountPath: /extraconfigs
               name: extraconfigs-volume
-            {{- end }}
-            {{- if .Values.customScripts }}
-            - mountPath: /customscripts
-              name: customscripts-volume
             {{- end }}
             {{- if .Values.customConfig }}
             - mountPath: /customconfig
               name: customconfig-volume
             {{- end }}
-            - mountPath: /initscripts
-              name: initscripts
             - mountPath: /extrainitscripts
               name: extrainitscripts
             - mountPath: /scripts
               name: scripts
             - mountPath: /configs
               name: configs
-            {{- if .Values.replicaSet.enabled }}
             - mountPath: /replicaset
-              name: keyfile
-            {{- end }}              
+              name: keyfile          
           command: [ "/scripts/init.sh" ]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
@@ -99,12 +85,10 @@ spec:
             {{- end }}
             - --config
             - /etc/mongo/custom.conf
-            {{- if .Values.replicaSet.enabled }}
             - --replSet 
             - {{ .Values.replicaSet.replicaSetName | quote }}
             - --keyFile
             - "/replicaset/keyfile"
-            {{- end }}
           ports:
             - name: mongodb
               containerPort: 27017
@@ -182,8 +166,10 @@ spec:
             - secretRef:
                 name: {{ . }}
             {{- end }}
-          {{- with .Values.env }}
           env:
+            - name: "MONGOTYPE"
+              value: "ARBITER"
+          {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
@@ -191,16 +177,12 @@ spec:
               mountPath: /tmp
             - name: extrainitscripts
               mountPath: /extrainitscripts
-            - name: {{ .Values.storage.volumeName }}
+            - name: {{ .Values.replicaSet.arbiter.storage.volumeName }}
               mountPath: /data/db
-            - mountPath: /docker-entrypoint-initdb.d
-              name: initscripts
             - mountPath: /etc/mongo
               name: configs
-            {{- if .Values.replicaSet.enabled }}
             - mountPath: /replicaset
               name: keyfile
-            {{- end }}
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
@@ -225,8 +207,6 @@ spec:
           emptyDir: {}
         - name: extrainitscripts
           emptyDir: {}
-        - name: initscripts
-          emptyDir: {}
         - name: configs
           emptyDir: {}
         - name: keyfile
@@ -235,18 +215,6 @@ spec:
           configMap:
             name: {{ include "mongodb.fullname" . }}-scripts
             defaultMode: 0555
-        {{- if .Values.extraScripts }}
-        - name: extrascripts-volume
-          configMap:
-            name: {{ .Values.extraScripts }}
-            defaultMode: 0555
-        {{- end }}
-        {{- if .Values.customScripts }}
-        - name: customscripts-volume
-          configMap:
-            name: {{ include "mongodb.fullname" . }}-customscripts
-            defaultMode: 0555
-        {{- end }}
         {{- if .Values.extraSecretConfigs }}
         - name: extraconfigs-volume
           secret:
@@ -263,7 +231,7 @@ spec:
             secretName: {{ $secret.name }}
             defaultMode: 0440
         {{- end }}
-{{- with .Values.storage }}
+{{- with .Values.replicaSet.arbiter.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
         - name: {{ .volumeName }}
@@ -290,4 +258,4 @@ spec:
             storage: {{ .requestedSize }}
   {{- end }}
 {{- end }}
-  
+{{- end }}

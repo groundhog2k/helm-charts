@@ -45,6 +45,8 @@ securityContext:
   runAsUser: 999
 
 service:
+  # Suffix of the headless service name
+  headlessServiceSuffix: internal
   type: ClusterIP
   port: 27017
   ## The node port (only relevant for type LoadBalancer or NodePort)
@@ -122,7 +124,7 @@ extraContainers: []
 ## Parameters to build a MongoDB replica set
 replicaSet:
   ## Enables replica set deployment mode
-  enable: false
+  enabled: false
   ## Key for internal replica set authentication (base 64 encoded string 6-1024 chars.)
   key: 
   ## Default Kubernetes cluster domain
@@ -132,14 +134,34 @@ replicaSet:
   ## Number of secondary instances (should be at least 2)
   secondaries: 2
   ## Number of hidden secondary instances
-  hidden: 0
-  ## Create an additional arbiter
-  createArbiter: false
+  hiddenSecondaries: 0
+  ## Creates an additional arbiter when enabled
+  arbiter:
+    # Enable arbiter deployment
+    enabled: false
+    # Suffix of the arbiters headless service name
+    headlessServiceSuffix: arbiter
+    # Seconds to wait until primary service is ready
+    waitForPrimary: 30
+    # Storage of the arbiter
+    storage:
+      ## Set persistentVolumenClaimName to reference an existing PVC
+      persistentVolumeClaimName:
+      ## Internal volume name and prefix of a created PVC
+      volumeName: "mongodb-arbiter-volume"
+      ## Alternative set requestedSize to define a size for a dynamically created PVC
+      requestedSize:
+      ## the storage class name
+      className:
+      ## Default access mode (ReadWriteOnce)
+      accessModes:
+        - ReadWriteOnce
+  
   ## Internal configuration for extra initialization phase which is used during replicaset configuration
   extraInit:
     ## Number of retries to detect whether mongod is fully up and running in background
     retries: 10
-    ## Time to wait between retries
+    ## Seconds to wait between retries
     delay: 3
   ## Internal shutdown configuration
   shutdown:
