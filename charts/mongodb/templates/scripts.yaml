@@ -63,7 +63,13 @@ data:
     # $? - FQDN of primary instance or empty
     find_primary() {
       local service=$1
-      echo $($MONGOSHELL --host $service --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+      result=$($MONGOSHELL --host $service --eval "rs.status().members.filter(function(rs) { return rs.stateStr==='PRIMARY';})[0].name")
+      returncode=$?
+      if [ $returncode -eq 0 ]; then
+        echo $result
+      else
+        echo
+      fi
     }
 
     # Init ReplicaSet primary instance
@@ -87,7 +93,14 @@ data:
     detect_secondary() {
       local primary=$1
       local secondary=$2
-      echo $($MONGOSHELL --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$secondary\";}).length")
+      result=$($MONGOSHELL --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$secondary\";}).length")
+      returncode=$?
+      if [ $returncode -eq 0 ]; then
+        echo $result
+      else
+        log "Failed to query for instance $secondary in ReplicaSet - Exiting with errorcode: $returncode"
+        exit $returncode
+      fi      
     }
 
     # Adds a secondary instance to the ReplicaSet
