@@ -33,6 +33,18 @@ data:
       echo "$(date) ***** EXTRA-INIT: $1" >>/tmp/extra-init.log
     }
 
+    # Log error message and exit when errorcode is not 0
+    # $1 - Message to log in case of error
+    # $2 - Exit/Error code
+    logErrorAndExit() {
+      local message=$1
+      local errorcode=$2
+      if [ $errorcode -ne 0 ]; then
+        log "[ERROR] - $message"
+        exit $errorcode
+      fi
+    }
+
     # Wait until final mongod is fully up and running in background
     # see "replicaSet.extraInit" in values.yaml
     # $1 - Number of retries
