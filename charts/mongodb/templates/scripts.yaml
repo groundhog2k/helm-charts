@@ -223,18 +223,19 @@ data:
       local result=$(detect_instance $primary $arbiter)
       if [ "$result" = "0" ]; then
         log "Add $arbiter as ARBITER instance"
-        $MONGOSHELL --host $primary --eval "db.adminCommand({\"setDefaultRWConcern\" : 1,\"defaultWriteConcern\" : {\"w\" : 1}})"
-        result=$?
-        if [ $result -ne 0 ]; then
-          log "Failed to configure write concern - PRIMARY not ready? - Exiting with errorcode: $result"
-          exit $result
-        else
-          $MONGOSHELL --host $primary --eval "rs.addArb(\"$arbiter\")"
+        if [ "$IS_MONGODB_4" = "false" ]; then
+          $MONGOSHELL --host $primary --eval "db.adminCommand({\"setDefaultRWConcern\" : 1,\"defaultWriteConcern\" : {\"w\" : 1}})"
           result=$?
           if [ $result -ne 0 ]; then
-            log "Failed to add ARBITER - PRIMARY not ready? - Exiting with errorcode: $result"
+            log "Failed to configure write concern - PRIMARY not ready? - Exiting with errorcode: $result"
             exit $result
           fi
+        fi
+        $MONGOSHELL --host $primary --eval "rs.addArb(\"$arbiter\")"
+        result=$?
+        if [ $result -ne 0 ]; then
+          log "Failed to add ARBITER - PRIMARY not ready? - Exiting with errorcode: $result"
+          exit $result
         fi
         // Wait until instance reaches ARBITER state
         wait_for_state $primary $arbiter 7
