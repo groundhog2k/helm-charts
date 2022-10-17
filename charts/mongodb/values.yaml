@@ -163,6 +163,8 @@ replicaSet:
     retries: 10
     ## Seconds to wait between retries
     delay: 3
+    ## Seconds to wait after mongod is running to give it time for internal initialization
+    initDelay: 5
   ## Internal shutdown configuration
   shutdown:
     ## Delay until termination request is forwarded to mongod process to give ReplicaSet time for electing a new primary instance
