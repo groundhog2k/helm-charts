@@ -120,7 +120,7 @@ data:
           log "Failed to init PRIMARY - Exiting with errorcode: $result"
           exit $result
         else
-          // Wait until instance reaches PRIMARY state
+          # Wait until instance reaches PRIMARY state
           wait_for_state $primary $primary 1
           log "$primary initialized as PRIMARY instance"
         fi
@@ -189,7 +189,7 @@ data:
             log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
             exit $result
           fi
-          // Wait until instance reaches SECONDARY state
+          # Wait until instance reaches SECONDARY state
           wait_for_state $primary $secondary 2
           log "Reconfiguring priority and votes for $secondary"
           $MONGOSHELL --host $primary --eval "var config=rs.config(); var i=config.members.findIndex(m=>{return m.host===\"$secondary\"}); config.members[i].votes=1; config.members[i].priority=1; rs.reconfig(config);"
@@ -205,7 +205,7 @@ data:
             log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
             exit $result
           fi
-          // Wait until instance reaches SECONDARY state
+          # Wait until instance reaches SECONDARY state
           wait_for_state $primary $secondary 2
         fi
         log "$secondary added to ReplicaSet"
@@ -237,7 +237,7 @@ data:
           log "Failed to add ARBITER - PRIMARY not ready? - Exiting with errorcode: $result"
           exit $result
         fi
-        // Wait until instance reaches ARBITER state
+        # Wait until instance reaches ARBITER state
         wait_for_state $primary $arbiter 7
         log "$arbiter added to ReplicaSet as ARBITER"
       else
