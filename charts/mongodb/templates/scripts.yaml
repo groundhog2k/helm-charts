@@ -108,8 +108,10 @@ data:
           log "Failed to init PRIMARY - Exiting with errorcode: $result"
           exit $result
         else
+          // Wait until instance reaches PRIMARY state
+          wait_for_state $primary $primary 1
           log "$primary initialized as PRIMARY instance"
-        fi        
+        fi
       fi
     }
 
@@ -130,6 +132,34 @@ data:
       fi      
     }
 
+    # Waits until an instance has expected state
+    # $1 - FQDN of primary instance for script execution
+    # $2 - FQDN of the instance to find
+    # $3 - Expected state
+    wait_for_state() {
+      local primary=$1
+      local instance=$2
+      local state=$3
+      local delay=1
+      log "Waiting until $instance reaches state $3"
+      while true; do
+        result=$($MONGOSHELL --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$instance\" && rs.state==$state;}).length")
+        returncode=$?
+        if [ $returncode -ne 0 ]; then
+          log "Failed to get state of instance $instance in ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $returncode" $returncode
+          exit $returncode
+        else
+          if [ "$result" = "1" ]; then
+            break;
+          else
+            sleep $delay
+            log "Waiting..."
+          fi
+        fi
+      done
+      log "Ready - $instance reached state $state"
+    }
+
     # Adds a secondary instance to the ReplicaSet
     # $1 - FQDN of primary instance for script execution
     # $2 - FQDN of the secondary instance which should be added to the ReplicaSet
@@ -145,6 +175,8 @@ data:
           log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
           exit $result
         fi
+        // Wait until instance reaches SECONDARY state
+        wait_for_state $primary $secondary 2
         log "$secondary added to ReplicaSet"
       else
         log "SECONDARY instance $secondary already in ReplicaSet - doing nothing"
@@ -173,6 +205,8 @@ data:
             exit $result
           fi
         fi
+        // Wait until instance reaches ARBITER state
+        wait_for_state $primary $arbiter 7
         log "$arbiter added to ReplicaSet as ARBITER"
       else
         log "Arbiter instance $arbiter already in ReplicaSet - doing nothing"
@@ -185,6 +219,7 @@ data:
       local service=$1
       local arbiter_service=$2
       local delay=$3
+      log "Start arbiter initialization"
       detect_cluster $service
       if [ $? -eq 0 ]; then
         local primary=$(find_primary $service)
@@ -201,15 +236,16 @@ data:
           sleep $delay
           exit 1
       fi
+      log "Done with Arbiter initialization\n-----"
     }
 
     # Try to initialize a ReplicaSet
     # $1 - FQDN of the headless service for this MongoDB cluster
     # $2 - Name of the ReplicaSet
     init_replicaset() {
-      log "Start ReplicaSet initialization"
       local service=$1
       local replicaset=$2
+      log "Start ReplicaSet initialization"
       # First try to detect if other instance of this ReplicSet cluster are available
       detect_cluster $service
       if [ $? -eq 0 ]; then
