@@ -169,14 +169,33 @@ data:
       local result=$(detect_instance $primary $secondary)
       if [ "$result" = "0" ]; then
         log "Add $secondary as SECONDARY instance"
-        $MONGOSHELL --host $primary --eval "rs.add({host:\"$secondary\"})"
-        result=$?
-        if [ $result -ne 0 ]; then
-          log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
-          exit $result
+        if [ "$IS_MONGODB_4" = "true" ]; then
+          log "Using MongoDB 4.x fallback - Add secondary with votes=0 and priority=0"
+          $MONGOSHELL --host $primary --eval "rs.add({host:\"$secondary\", priority:0, votes:0})"
+          result=$?
+          if [ $result -ne 0 ]; then
+            log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
+            exit $result
+          fi
+          // Wait until instance reaches SECONDARY state
+          wait_for_state $primary $secondary 2
+          log "Reconfiguring priority and votes for $secondary"
+          $MONGOSHELL --host $primary --eval "var config=rs.config(); var i=config.members.findIndex(m=>{return m.host===\"$secondary\"}); config.members[i].votes=1; config.members[i].priority=1; rs.reconfig(config);"
+          result=$?
+          if [ $result -ne 0 ]; then
+            log "Failed to reconfigure secondary - Please investigate logs and fix manually! - Exiting with errorcode: $result"
+            exit $result
+          fi
+        else
+          $MONGOSHELL --host $primary --eval "rs.add({host:\"$secondary\"})"
+          result=$?
+          if [ $result -ne 0 ]; then
+            log "Failed to add secondary to ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $result"
+            exit $result
+          fi
+          // Wait until instance reaches SECONDARY state
+          wait_for_state $primary $secondary 2
         fi
-        // Wait until instance reaches SECONDARY state
-        wait_for_state $primary $secondary 2
         log "$secondary added to ReplicaSet"
       else
         log "SECONDARY instance $secondary already in ReplicaSet - doing nothing"
@@ -295,9 +314,11 @@ data:
         mongoshell=$(which mongosh)
         if [ ! -z "$mongoshell" ]; then
           log "Using mongosh as default shell"
+          export IS_MONGODB_4=false
         else
           log "Using mongo as default shell"
           mongoshell=$(which mongo)
+          export IS_MONGODB_4=true
         fi
         ln -s $mongoshell /extrainitscripts/mongoshell
       else
