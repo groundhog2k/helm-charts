@@ -158,7 +158,7 @@ data:
         result=$($MONGOSHELL --host $primary --eval "rs.status().members.filter(function(rs) { return rs.name===\"$instance\" && rs.state==$state;}).length")
         returncode=$?
         if [ $returncode -ne 0 ]; then
-          log "Failed to get state of instance $instance in ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $returncode" $returncode
+          log "Failed to get state of instance $instance in ReplicaSet - PRIMARY not ready? - Exiting with errorcode: $returncode"
           exit $returncode
         else
           if [ "$result" = "1" ]; then
@@ -223,7 +223,8 @@ data:
       local result=$(detect_instance $primary $arbiter)
       if [ "$result" = "0" ]; then
         log "Add $arbiter as ARBITER instance"
-        if [ "$IS_MONGODB_4" != "true" ]; then
+        if [ "$IS_MONGODB_4" = "false" ]; then
+          log "Setting default write concern to 1"
           $MONGOSHELL --host $primary --eval "db.adminCommand({\"setDefaultRWConcern\" : 1,\"defaultWriteConcern\" : {\"w\" : 1}})"
           result=$?
           if [ $result -ne 0 ]; then
@@ -322,17 +323,17 @@ data:
     }
 
     init() {
+      log "Try to detect default mongo shell executable"
+      local mongoshell=$(which mongosh)
+      if [ ! -z "$mongoshell" ]; then
+        log "Using mongosh as default shell"
+        export IS_MONGODB_4="false"
+      else
+        log "Using mongo as default shell"
+        mongoshell=$(which mongo)
+        export IS_MONGODB_4="true"
+      fi
       if [ ! -f /extrainitscripts/mongoshell ]; then
-        log "Try to detect default mongo shell executable"
-        mongoshell=$(which mongosh)
-        if [ ! -z "$mongoshell" ]; then
-          log "Using mongosh as default shell"
-          export IS_MONGODB_4="false"
-        else
-          log "Using mongo as default shell"
-          mongoshell=$(which mongo)
-          export IS_MONGODB_4="true"
-        fi
         ln -s $mongoshell /extrainitscripts/mongoshell
       else
         log "Symbolic link for mongoshell already exists"
