@@ -232,14 +232,20 @@ data:
             exit $result
           fi
         fi
-        $MONGOSHELL --host $primary --eval "rs.addArb(\"$arbiter\")"
-        result=$?
-        if [ $result -ne 0 ]; then
-          log "Failed to add ARBITER - PRIMARY not ready? - Exiting with errorcode: $result"
-          exit $result
+        result=$($MONGOSHELL --host $primary --eval "rs.addArb(\"$arbiter\").ok")
+        returncode=$?
+        if [ $returncode -ne 0 ]; then
+          log "Failed to add ARBITER - PRIMARY not ready? - Exiting with errorcode: $returncode"
+          exit $returncode
+        else
+          if [ "$result" = "1" ]; then
+            # Wait until instance reaches ARBITER state
+            wait_for_state $primary $arbiter 7
+          else
+            log "Failed to add ARBITER - Quorum check failed? - Exiting for retry"
+            exit 1
+          fi
         fi
-        # Wait until instance reaches ARBITER state
-        wait_for_state $primary $arbiter 7
         log "$arbiter added to ReplicaSet as ARBITER"
       else
         log "Arbiter instance $arbiter already in ReplicaSet - doing nothing"
