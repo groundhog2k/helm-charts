@@ -126,9 +126,11 @@ replicaSet:
   ## Enables replica set deployment mode
   enabled: false
   ## Replica set name
-  name: "repl"  
-  ## Key for internal replica set authentication (base 64 encoded string 6-1024 chars.)
-  key: 
+  name: "repl"
+  ## Key for internal replica set authentication (base64 encoded string 6-1024 chars.)
+  key:
+  ## Alternative to 'key' - Name of an existing secret with a file named "keyfile" containing the base64 encoded key string
+  keySecretName:
   ## Default Kubernetes cluster domain
   clusterDomain: cluster.local
   ## Number of secondary instances (should be at least 2 - or - one secondary and an arbiter)

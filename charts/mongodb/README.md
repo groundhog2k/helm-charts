@@ -129,6 +129,7 @@ helm uninstall my-release
 | replicaSet.enabled | bool | `false` | Enables MongoDB ReplicaSet deployment |
 | replicaSet.name | string | `nil` | Name of this MongoDB ReplicaSet |
 | replicaSet.key | string | `nil` | Base 64-encoded string with 6-1024 characters used as authentication key for internal communication |
+| replicaSet.keySecretName | string | `nil` | Alternative to `key` - Name of an existing secret with a file named "keyfile" containing the base64 encoded key string |
 | replicaSet.clusterDomain | string | `"cluster.local"` | Default Kubernetes cluster domain |
 | replicaSet.secondaries | int | `2` | Number of secondary instances (should be at least 2 - or - one secondary and an arbiter) |
 | replicaSet.hiddenSecondaries.instances | int | `0` | Number of hidden secondary instances |

@@ -431,11 +431,14 @@ data:
       cat /extraconfigs/* >>/configs/custom.conf
     fi
     {{- if .Values.replicaSet.enabled }}
-    # //TODO: Allow replicaSet key from secret
     echo "Copy replicaset key"
-    echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
-    chmod 400 /replicaset/keyfile
-    {{- end }}
+    if [ -f /keyfile-secret/keyfile ]; then
+      echo "Using keyfile from secret"
+      cp /keyfile-secret/keyfile /replicaset/keyfile
+    else
+      echo "Using configured key"
+      echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
+      chmod 400 /replicaset/keyfile
+      {{- end }}
+    fi
     echo "Initialization done."
-
-    # //TODO: Allow hidden secondaries

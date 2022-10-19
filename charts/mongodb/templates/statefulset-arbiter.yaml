@@ -65,7 +65,11 @@ spec:
             - mountPath: /configs
               name: configs
             - mountPath: /replicaset
-              name: keyfile          
+              name: keyfile
+            {{- if .Values.replicaSet.keySecretName }}
+            - mountPath: /keyfile-secret
+              name: keyfile-secret
+            {{- end }}
           command: [ "/scripts/init.sh" ]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
@@ -230,6 +234,12 @@ spec:
           secret:
             secretName: {{ $secret.name }}
             defaultMode: 0440
+        {{- end }}
+        {{- if and .Values.replicaSet.enabled .Values.replicaSet.keySecretName }}
+        - name: keyfile-secret
+          secret:
+            secretName: {{ .Values.replicaSet.keySecretName }}
+            defaultMode: 0400
         {{- end }}
 {{- with .Values.replicaSet.arbiter.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
