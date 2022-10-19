@@ -131,10 +131,16 @@ replicaSet:
   clusterDomain: cluster.local
   ## Replica set name
   replicaSetName: "repl"
-  ## Number of secondary instances (should be at least 2)
+  ## Number of secondary instances (should be at least 2 - or - one secondary and an arbiter)
   secondaries: 2
-  ## Number of hidden secondary instances
-  hiddenSecondaries: 0
+  ## Creates hidden secondary instances when configured
+  hiddenSecondaries:
+    # Number of hidden secondary instances
+    instances: 0
+    # Suffix of the headless service name for hidden secondary instances
+    headlessServiceSuffix: hidden
+    # Internal volume name and prefix of created PVC
+    volumeName: "mongodb-hidden-volume"
   ## Creates an additional arbiter when enabled
   arbiter:
     # Enable arbiter deployment

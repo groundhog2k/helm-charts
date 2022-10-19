@@ -252,12 +252,43 @@ data:
       fi
     }
 
+    # Try to initialize a hidden secondary
+    # $1 - FQDN of the headless service for this MongoDB cluster
+    # $2 - FQDN of the headless hidden service for this MongoDB cluster
+    init_hidden() {
+      local service=$1
+      local hidden_service=$2
+      log "Start hidden secondary initialization"
+      detect_cluster $service
+      if [ $? -eq 0 ]; then
+        local primary=$(find_primary $service)
+        if [ ! -z "$primary" ]; then
+          log "Primary $primary found - Adding this instance as HIDDEN SECONDARY"
+          add_secondary $primary "$HOSTNAME.$hidden_service"
+          log "Reconfiguring priority and hidden state for $HOSTNAME.$hidden_service"
+          $MONGOSHELL --host $primary --eval "var config=rs.config(); var i=config.members.findIndex(m=>{return m.host===\"$HOSTNAME.$hidden_service\"}); config.members[i].hidden=true; config.members[i].priority=0; rs.reconfig(config);"
+          result=$?
+          if [ $result -ne 0 ]; then
+            log "Failed to reconfigure HIDDEN SECONDARY - Please investigate logs and fix manually! - Exiting with errorcode: $result"
+            exit $result
+          fi
+        else
+          log "ERROR: Primary not found - Exiting"
+          exit 1
+        fi
+      else
+          log "ERROR: ReplicaSet cluster not running - Exiting"
+          exit 1
+      fi      
+      log "Done with hidden secondary initialization\n-----"
+    }
+
+    # Try to initialize an arbiter for the ReplicaSet
     # $1 - FQDN of the headless service for this MongoDB cluster
     # $2 - FQDN of the headless arbiter service for this MongoDB cluster
     init_arbiter() {
       local service=$1
       local arbiter_service=$2
-      local delay=$3
       log "Start arbiter initialization"
       detect_cluster $service
       if [ $? -eq 0 ]; then
@@ -353,9 +384,13 @@ data:
       {{- if .Values.replicaSet.enabled }}
       wait_ready {{ .Values.replicaSet.extraInit.retries }} {{ .Values.replicaSet.extraInit.delay }} {{ .Values.replicaSet.extraInit.initDelay }}
       if [ "$MONGOTYPE" = "ARBITER" ]; then
-        init_arbiter "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.arbiter.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" {{ .Values.replicaSet.arbiter.waitForPrimary }}
+        init_arbiter "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.arbiter.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}"
       else
-        init_replicaset "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.replicaSetName }}"
+        if [ "$MONGOTYPE" = "HIDDEN" ]; then
+          init_hidden "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.hiddenSecondaries.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}"
+        else
+          init_replicaset "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.replicaSetName }}"
+        fi
       fi
       terminatedelay={{ .Values.replicaSet.shutdown.delay }}
       {{- end }}
