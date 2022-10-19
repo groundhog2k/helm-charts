@@ -162,7 +162,7 @@ replicaSet:
       ## Default access mode (ReadWriteOnce)
       accessModes:
         - ReadWriteOnce
-  
+
   ## Internal configuration for extra initialization phase which is used during replicaset configuration
   extraInit:
     ## Number of retries to detect whether mongod is fully up and running in background
