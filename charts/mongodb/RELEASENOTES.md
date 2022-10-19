@@ -10,6 +10,7 @@
 | 0.2.19 | 4.2.20 | Upgraded to MongoDB 4.2.20 |
 | 0.2.20 | 4.2.21 | Upgraded to MongoDB 4.2.21 |
 | 0.2.21 | 4.2.22 | Upgraded to MongoDB 4.2.22 |
+| 0.2.22 | 4.2.23 | Upgraded to MongoDB 4.2.23 |
 | 0.3.8 | 4.4.11 | Implemented startupProbe support |
 | 0.3.9 | 4.4.12 | Upgraded to MongoDB 4.4.12 |
 | 0.3.10 | 4.4.13 | Implemented support for extra secrets and advanced configuration capabilites |
