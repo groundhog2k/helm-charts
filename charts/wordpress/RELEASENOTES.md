@@ -16,4 +16,5 @@
 | 0.6.4 | 6.0.2-apache | Upgraded to Wordpress 6.0.2 |
 | 0.6.5 | 6.0.2-apache | Implemented support for image.registry option |
 | 0.6.6 | 6.0.2-apache | Updated chart dependencies (mariadb 0.2.23) |
+| 0.6.7 | 6.0.3-apache | Upgraded to Wordpress 6.0.3 |
 | | | |
