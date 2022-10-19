@@ -102,7 +102,7 @@ spec:
             - /etc/mongo/custom.conf
             {{- if .Values.replicaSet.enabled }}
             - --replSet 
-            - {{ .Values.replicaSet.replicaSetName | quote }}
+            - {{ .Values.replicaSet.name | quote }}
             - --keyFile
             - "/replicaset/keyfile"
             {{- end }}

@@ -389,7 +389,7 @@ data:
         if [ "$MONGOTYPE" = "HIDDEN" ]; then
           init_hidden "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.hiddenSecondaries.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}"
         else
-          init_replicaset "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.replicaSetName }}"
+          init_replicaset "{{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}.{{ .Release.Namespace }}.svc.{{ .Values.replicaSet.clusterDomain }}:{{ .Values.service.port }}" "{{ .Values.replicaSet.name }}"
         fi
       fi
       terminatedelay={{ .Values.replicaSet.shutdown.delay }}

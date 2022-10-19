@@ -108,6 +108,10 @@ helm uninstall my-release
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| extraInit.retries | int | `10` | Number of retries to detect whether mongod is fully up and running in background |
+| extraInit.delay | int | `3` | Seconds to wait between retries |
+| extraInit.initDelay | int | `5` | Seconds to wait after mongod is running to give it time for internal initialization |
+| shutdown.delay | int | `10` | Delay until termination request is forwarded to mongod process to give ReplicaSet time for electing a new primary instance |
 | settings.rootUsername | string | `admin` | The root username |
 | settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
 | userDatabase | object | `{}` | Optional MongoDB user database |
@@ -122,3 +126,18 @@ helm uninstall my-release
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| replicaSet.enabled | bool | `false` | Enables MongoDB ReplicaSet deployment |
+| replicaSet.name | string | `nil` | Name of this MongoDB ReplicaSet |
+| replicaSet.key | string | `nil` | Base 64-encoded string with 6-1024 characters used as authentication key for internal communication |
+| replicaSet.clusterDomain | string | `"cluster.local"` | Default Kubernetes cluster domain |
+| replicaSet.secondaries | int | `2` | Number of secondary instances (should be at least 2 - or - one secondary and an arbiter) |
+| replicaSet.hiddenSecondaries.instances | int | `0` | Number of hidden secondary instances |
+| replicaSet.hiddenSecondaries.headlessServiceSuffix | string | `"hidden"` | Suffix of the headless service name for hidden secondary instances |
+| replicaSet.hiddenSecondaries.volumeName | string | `"mongodb-hidden-volume"` | Internal volume name and prefix of created PVC |
+| replicaSet.arbiter.enabled | bool | `false` | Enables arbiter deployment |
+| replicaSet.arbiter.headlessServiceSuffix | string | `"arbiter"` | Suffix of the arbiters headless service name |
+| replicaSet.arbiter.storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
+| replicaSet.arbiter.storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| replicaSet.arbiter.storage.volumeName | string | `"mongodb-arbiter-volume"` | Internal volume name and prefix of a created PVC |
+| replicaSet.arbiter.storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
+| replicaSet.arbiter.storage.className | string | `nil` | Storage class name |

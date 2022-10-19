@@ -125,12 +125,12 @@ extraContainers: []
 replicaSet:
   ## Enables replica set deployment mode
   enabled: false
+  ## Replica set name
+  name: "repl"  
   ## Key for internal replica set authentication (base 64 encoded string 6-1024 chars.)
   key: 
   ## Default Kubernetes cluster domain
   clusterDomain: cluster.local
-  ## Replica set name
-  replicaSetName: "repl"
   ## Number of secondary instances (should be at least 2 - or - one secondary and an arbiter)
   secondaries: 2
   ## Creates hidden secondary instances when configured

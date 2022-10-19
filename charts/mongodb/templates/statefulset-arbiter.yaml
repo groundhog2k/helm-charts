@@ -86,7 +86,7 @@ spec:
             - --config
             - /etc/mongo/custom.conf
             - --replSet 
-            - {{ .Values.replicaSet.replicaSetName | quote }}
+            - {{ .Values.replicaSet.name | quote }}
             - --keyFile
             - "/replicaset/keyfile"
           ports:
