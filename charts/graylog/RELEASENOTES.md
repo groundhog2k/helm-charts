@@ -26,4 +26,5 @@
 | 0.4.11 | 4.3.7-jre11 | Implemented support for image.registry option |
 | 0.4.12 | 4.3.7-jre11 | Updated chart dependencies (mongodb 0.3.17) |
 | 0.4.13 | 4.3.8-jre11 | Updated chart for Graylog 4.3.8 |
+| 0.4.14 | 4.3.8-jre11 | Updated chart dependencies (mongodb 0.3.18) |
 | | | |
