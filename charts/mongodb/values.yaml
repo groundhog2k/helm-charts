@@ -141,8 +141,6 @@ replicaSet:
     enabled: false
     # Suffix of the arbiters headless service name
     headlessServiceSuffix: arbiter
-    # Seconds to wait until primary service is ready
-    waitForPrimary: 30
     # Storage of the arbiter
     storage:
       ## Set persistentVolumenClaimName to reference an existing PVC

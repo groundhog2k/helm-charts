@@ -78,7 +78,7 @@ data:
     # returns - 0 when cluster exists otherwise errorcode
     detect_cluster() {
       local service=$1
-      $MONGOSHELL --host $service --eval "db.version"
+      $MONGOSHELL --host $service --eval "db.version()"
       result=$?
       if [ $result -eq 0 ]; then
         log "ReplicaSet cluster found"
@@ -266,13 +266,11 @@ data:
           log "Primary $primary found - Adding this instance as ARBITER"
           add_arbiter $primary "$HOSTNAME.$arbiter_service"
         else
-          log "ERROR: Primary not found - Waiting $delay seconds before retry"
-          sleep $delay
+          log "ERROR: Primary not found - Exiting"
           exit 1
         fi
       else
-          log "ERROR: ReplicaSet cluster not running - Waiting $delay seconds before retry"
-          sleep $delay
+          log "ERROR: ReplicaSet cluster not running - Exiting"
           exit 1
       fi
       log "Done with Arbiter initialization\n-----"
