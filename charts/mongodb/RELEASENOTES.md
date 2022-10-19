@@ -11,6 +11,7 @@
 | 0.2.20 | 4.2.21 | Upgraded to MongoDB 4.2.21 |
 | 0.2.21 | 4.2.22 | Upgraded to MongoDB 4.2.22 |
 | 0.2.22 | 4.2.23 | Upgraded to MongoDB 4.2.23 |
+| 0.2.22 | 4.2.23 | Upgraded to MongoDB 4.2.23 and implemented ReplicaSet deployment support |
 | 0.3.8 | 4.4.11 | Implemented startupProbe support |
 | 0.3.9 | 4.4.12 | Upgraded to MongoDB 4.4.12 |
 | 0.3.10 | 4.4.13 | Implemented support for extra secrets and advanced configuration capabilites |
@@ -21,6 +22,7 @@
 | 0.3.15 | 4.4.15 | Upgraded to MongoDB 4.4.15 |
 | 0.3.16 | 4.4.16 | Upgraded to MongoDB 4.4.16 |
 | 0.3.17 | 4.4.17 | Upgraded to MongoDB 4.4.17 |
+| 0.3.18 | 4.4.17 | Implemented ReplicaSet deployment support |
 | 0.4.1 | 5.0.5 | Implemented startupProbe support |
 | 0.4.2 | 5.0.6 | Upgraded to MongoDB 5.0.6 |
 | 0.4.3 | 5.0.6 | Implemented support for extra secrets and advanced configuration capabilites |
