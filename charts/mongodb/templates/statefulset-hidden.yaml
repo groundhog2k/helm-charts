@@ -1,19 +1,20 @@
+{{- if and .Values.replicaSet.enabled (gt (int .Values.replicaSet.hiddenSecondaries.instances | default 0) 0) }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "mongodb.fullname" . }}
+  name: {{ include "mongodb.fullname" . }}-hidden
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
-    service-type: primary-secondary
+    service-type: hidden-secondary
 spec:
   selector:
     matchLabels:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
-      service-type: primary-secondary
-  serviceName: {{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}
+      service-type: hidden-secondary
+  serviceName: {{ include "mongodb.fullname" . }}-{{ .Values.replicaSet.hiddenSecondaries.headlessServiceSuffix }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- if .Values.replicaSet.enabled }}
-  replicas: {{ add1 .Values.replicaSet.secondaries }}
+  replicas: {{ .Values.replicaSet.hiddenSecondaries.instances }}
   {{- end }}
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
@@ -32,7 +33,7 @@ spec:
       {{- end }}
       labels:
         {{- include "mongodb.selectorLabels" . | nindent 8 }}
-        service-type: primary-secondary
+        service-type: hidden-secondary
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -76,10 +77,8 @@ spec:
               name: scripts
             - mountPath: /configs
               name: configs
-            {{- if .Values.replicaSet.enabled }}
             - mountPath: /replicaset
               name: keyfile
-            {{- end }}
             {{- if .Values.replicaSet.keySecretName }}
             - mountPath: /keyfile-secret
               name: keyfile-secret
@@ -186,8 +185,10 @@ spec:
             - secretRef:
                 name: {{ . }}
             {{- end }}
-          {{- with .Values.env }}
           env:
+            - name: "MONGOTYPE"
+              value: "HIDDEN"
+          {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
@@ -195,7 +196,7 @@ spec:
               mountPath: /tmp
             - name: extrainitscripts
               mountPath: /extrainitscripts
-            - name: {{ .Values.storage.volumeName }}
+            - name: {{ .Values.replicaSet.hiddenSecondaries.volumeName }}
               mountPath: /data/db
             - mountPath: /docker-entrypoint-initdb.d
               name: initscripts
@@ -276,7 +277,7 @@ spec:
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
-        - name: {{ .volumeName }}
+        - name: {{ $.Values.replicaSet.hiddenSecondaries.volumeName }}
         {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
             claimName: {{ .persistentVolumeClaimName }}
@@ -286,7 +287,7 @@ spec:
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: {{ .volumeName }}
+        name: {{ $.Values.replicaSet.hiddenSecondaries.volumeName }}
       spec:
         {{- with .accessModes }}
         accessModes:
@@ -300,4 +301,4 @@ spec:
             storage: {{ .requestedSize }}
   {{- end }}
 {{- end }}
-  
+{{- end }}

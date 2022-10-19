@@ -45,6 +45,8 @@ securityContext:
   runAsUser: 999
 
 service:
+  # Suffix of the headless service name
+  headlessServiceSuffix: internal
   type: ClusterIP
   port: 27017
   ## The node port (only relevant for type LoadBalancer or NodePort)
@@ -118,6 +120,61 @@ extraInitContainers: []
 
 ## Extra containers for usage as sidecars
 extraContainers: []
+
+## Parameters to build a MongoDB replica set
+replicaSet:
+  ## Enables replica set deployment mode
+  enabled: false
+  ## Replica set name
+  name: "repl"
+  ## Key for internal replica set authentication (base64 encoded string 6-1024 chars.)
+  key:
+  ## Alternative to 'key' - Name of an existing secret with a file named "keyfile" containing the base64 encoded key string
+  keySecretName:
+  ## Default Kubernetes cluster domain
+  clusterDomain: cluster.local
+  ## Number of secondary instances (should be at least 2 - or - one secondary and an arbiter)
+  secondaries: 2
+  ## Creates hidden secondary instances when configured
+  hiddenSecondaries:
+    # Number of hidden secondary instances
+    instances: 0
+    # Suffix of the headless service name for hidden secondary instances
+    headlessServiceSuffix: hidden
+    # Internal volume name and prefix of created PVC
+    volumeName: "mongodb-hidden-volume"
+  ## Creates an additional arbiter when enabled
+  arbiter:
+    # Enable arbiter deployment
+    enabled: false
+    # Suffix of the arbiters headless service name
+    headlessServiceSuffix: arbiter
+    # Storage of the arbiter
+    storage:
+      ## Set persistentVolumenClaimName to reference an existing PVC
+      persistentVolumeClaimName:
+      ## Internal volume name and prefix of a created PVC
+      volumeName: "mongodb-arbiter-volume"
+      ## Alternative set requestedSize to define a size for a dynamically created PVC
+      requestedSize:
+      ## the storage class name
+      className:
+      ## Default access mode (ReadWriteOnce)
+      accessModes:
+        - ReadWriteOnce
+
+  ## Internal configuration for extra initialization phase which is used during replicaset configuration
+  extraInit:
+    ## Number of retries to detect whether mongod is fully up and running in background
+    retries: 10
+    ## Seconds to wait between retries
+    delay: 3
+    ## Seconds to wait after mongod is running to give it time for internal initialization
+    initDelay: 5
+  ## Internal shutdown configuration
+  shutdown:
+    ## Delay until termination request is forwarded to mongod process to give ReplicaSet time for electing a new primary instance
+    delay: 10
 
 ## Additional arguments for the container entrypoint process
 args: []
