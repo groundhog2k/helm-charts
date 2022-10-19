@@ -64,4 +64,5 @@
 | 0.61.2 | 5.17.2 | Upgraded to Ghost 5.17.2 |
 | 0.62.0 | 5.18.0 | Upgraded to Ghost 5.18.0 |
 | 0.63.0 | 5.19.0 | Upgraded to Ghost 5.19.0 |
+| 0.63.1 | 5.19.3 | Upgraded to Ghost 5.19.3 |
 | | | |
