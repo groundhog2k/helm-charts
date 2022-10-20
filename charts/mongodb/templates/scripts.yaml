@@ -439,6 +439,6 @@ data:
       echo "Using configured key"
       echo "{{ .Values.replicaSet.key }}" > /replicaset/keyfile
       chmod 400 /replicaset/keyfile
-      {{- end }}
     fi
+    {{- end }}    
     echo "Initialization done."
