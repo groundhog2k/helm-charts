@@ -37,6 +37,7 @@
 | 0.4.10 | 5.0.12 | Upgraded to MongoDB 5.0.12 |
 | 0.4.11 | 5.0.13 | Upgraded to MongoDB 5.0.13 |
 | 0.4.12 | 5.0.13 | Implemented ReplicaSet deployment support |
+| 0.4.13 | 5.0.13 | Fixed pod initialization bug when deployed without replicaset |
 | 0.5.0 | 6.0.1 | Upgraded to MongoDB 6.0.1 |
 | 0.5.1 | 6.0.1 | Implemented support for custom inline init scripts |
 | 0.5.2 | 6.0.1 | Implemented support for image.registry option |
