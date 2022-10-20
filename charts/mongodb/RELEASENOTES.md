@@ -24,6 +24,7 @@
 | 0.3.16 | 4.4.16 | Upgraded to MongoDB 4.4.16 |
 | 0.3.17 | 4.4.17 | Upgraded to MongoDB 4.4.17 |
 | 0.3.18 | 4.4.17 | Implemented ReplicaSet deployment support |
+| 0.3.19 | 4.4.17 | Fixed pod initialization bug when deployed without replicaset |
 | 0.4.1 | 5.0.5 | Implemented startupProbe support |
 | 0.4.2 | 5.0.6 | Upgraded to MongoDB 5.0.6 |
 | 0.4.3 | 5.0.6 | Implemented support for extra secrets and advanced configuration capabilites |
