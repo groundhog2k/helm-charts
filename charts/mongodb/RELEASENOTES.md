@@ -43,4 +43,5 @@
 | 0.5.2 | 6.0.1 | Implemented support for image.registry option |
 | 0.5.3 | 6.0.2 | Upgraded to MongoDB 6.0.2 |
 | 0.5.4 | 6.0.2 | Implemented MongoDB replicaset support |
+| 0.5.5 | 6.0.2 | Fixed pod initialization bug when deployed without replicaset |
 | | | |
