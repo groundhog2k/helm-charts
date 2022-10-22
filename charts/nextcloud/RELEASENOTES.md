@@ -27,4 +27,5 @@
 | 0.11.14 | 24.0.5-apache | Updated chart dependencies (mariadb 0.2.23 / postgres 0.2.12 / redis 0.5.8) |
 | 0.11.15 | 24.0.6-apache | Upgraded to Nextcloud 24.0.6 |
 | 0.12.0 | 25.0.0-apache | Upgraded to Nextcloud 25.0.0 |
+| 0.12.1 | 25.0.0-apache | Fixed image.registry option for cronJobs |
 | | | |
