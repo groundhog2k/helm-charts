@@ -47,4 +47,5 @@
 | 0.5.3 | 6.0.2 | Upgraded to MongoDB 6.0.2 |
 | 0.5.4 | 6.0.2 | Implemented MongoDB replicaset support |
 | 0.5.5 | 6.0.2 | Fixed pod initialization bug when deployed without replicaset |
+| 0.5.6 | 6.0.2 | Implemented support for more independent configuration of arbiters and hidden secondaries |
 | | | |
