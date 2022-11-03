@@ -35,7 +35,7 @@ podManagementPolicy: OrderedReady
 ## Pod update strategy
 updateStrategyType: RollingUpdate
 
-## Default security options to run Redis as non-root, read only container without privilege escalation
+## Default security options to run MongoDB as non-root, read only container without privilege escalation
 securityContext:
   allowPrivilegeEscalation: false
   privileged: false
@@ -141,6 +141,12 @@ replicaSet:
     instances: 0
     # Suffix of the headless service name for hidden secondary instances
     headlessServiceSuffix: hidden
+    ## Additional node selector
+    nodeSelector: {}
+    ## Pod tolerations
+    tolerations: []
+    ## Pod affinity
+    affinity: {}
     # Internal volume name and prefix of created PVC
     volumeName: "mongodb-hidden-volume"
   ## Creates an additional arbiter when enabled
@@ -149,6 +155,20 @@ replicaSet:
     enabled: false
     # Suffix of the arbiters headless service name
     headlessServiceSuffix: arbiter
+    ## Resource limits and requests for the arbiter
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+    ## Additional node selector
+    nodeSelector: {}
+    ## Pod tolerations
+    tolerations: []
+    ## Pod affinity
+    affinity: {}
     # Storage of the arbiter
     storage:
       ## Set persistentVolumenClaimName to reference an existing PVC
@@ -230,7 +250,7 @@ extraSecrets: []
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
 
-# Storage parameters
+# Storage parameters (for primary and all secondaries - incl. hidden secondaries)
 # When a persistentVolumenClaimName is configured the requestedSize and accessModes will be ignored and the existing PVC based on the name will be used
 # otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
 # If both parameters are missing a volatile emtpyDir volume will be used as storage

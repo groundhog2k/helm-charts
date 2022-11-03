@@ -157,7 +157,7 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
-          {{- with .Values.resources }}
+          {{- with .Values.replicaSet.arbiter.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -194,15 +194,15 @@ spec:
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.replicaSet.arbiter.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with .Values.replicaSet.arbiter.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.replicaSet.arbiter.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
