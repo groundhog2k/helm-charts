@@ -134,9 +134,16 @@ helm uninstall my-release
 | replicaSet.secondaries | int | `2` | Number of secondary instances (should be at least 2 - or - one secondary and an arbiter) |
 | replicaSet.hiddenSecondaries.instances | int | `0` | Number of hidden secondary instances |
 | replicaSet.hiddenSecondaries.headlessServiceSuffix | string | `"hidden"` | Suffix of the headless service name for hidden secondary instances |
+| replicaSet.hiddenSecondaries.nodeSelector | object | `{}` | Deployment node selector |
+| replicaSet.hiddenSecondaries.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.hiddenSecondaries.affinity | object | `{}` | Pod affinity |
 | replicaSet.hiddenSecondaries.volumeName | string | `"mongodb-hidden-volume"` | Internal volume name and prefix of created PVC |
 | replicaSet.arbiter.enabled | bool | `false` | Enables arbiter deployment |
 | replicaSet.arbiter.headlessServiceSuffix | string | `"arbiter"` | Suffix of the arbiters headless service name |
+| replicaSet.arbiter.resources | object | `{}` | Resource limits and requests for the arbiter |
+| replicaSet.arbiter.nodeSelector | object | `{}` | Deployment node selector |
+| replicaSet.arbiter.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.arbiter.affinity | object | `{}` | Pod affinity |
 | replicaSet.arbiter.storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | replicaSet.arbiter.storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | replicaSet.arbiter.storage.volumeName | string | `"mongodb-arbiter-volume"` | Internal volume name and prefix of a created PVC |
