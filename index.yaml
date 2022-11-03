@@ -8663,6 +8663,18 @@ entries:
   mongodb:
   - apiVersion: v2
     appVersion: 6.0.2
+    created: "2022-11-03T17:04:51.388632095Z"
+    description: A Helm chart to deploy MongoDB
+    digest: 884090dd527ddbd3d7534f0c0cebbae3122cca5997d0f253d5025cf2708771da
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.5.6/mongodb-0.5.6.tgz
+    version: 0.5.6
+  - apiVersion: v2
+    appVersion: 6.0.2
     created: "2022-10-20T17:24:13.16658915Z"
     description: A Helm chart to deploy MongoDB
     digest: 7cce63e40896b308d5e10a3a5ba9c8506309b28bb90a8a795909a81a51329cb2
@@ -15213,4 +15225,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-03T17:03:17.908594017Z"
+generated: "2022-11-03T17:04:51.397929417Z"
