@@ -28,4 +28,5 @@
 | 0.11.15 | 24.0.6-apache | Upgraded to Nextcloud 24.0.6 |
 | 0.12.0 | 25.0.0-apache | Upgraded to Nextcloud 25.0.0 |
 | 0.12.1 | 25.0.0-apache | Fixed image.registry option for cronJobs |
+| 0.12.2 | 25.0.1-apache | Upgraded to Nextcloud 25.0.1 |
 | | | |
