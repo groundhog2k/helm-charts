@@ -20,5 +20,6 @@
 | 0.3.11 | 14.5 | Upgraded to Postgres 14.5 |
 | 0.3.12 | 14.5 | Implemented support for custom inline init scripts |
 | 0.3.13 | 14.5 | Implemented support for image.registry option |
+| 0.3.14 | 14.6 | Upgraded to Postgres 14.6 |
 | 0.4.0 | 15.0 | Upgraded to Postgres 15.0 |
 | | | |
