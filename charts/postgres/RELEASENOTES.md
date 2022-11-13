@@ -22,4 +22,5 @@
 | 0.3.13 | 14.5 | Implemented support for image.registry option |
 | 0.3.14 | 14.6 | Upgraded to Postgres 14.6 |
 | 0.4.0 | 15.0 | Upgraded to Postgres 15.0 |
+| 0.4.1 | 15.1 | Upgraded to Postgres 15.1 |
 | | | |
