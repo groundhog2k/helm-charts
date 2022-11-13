@@ -37,4 +37,5 @@
 | 0.6.1 | 10.9.3 | Upgraded MariaDB to 10.9.3 |
 | 0.6.2 | 10.9.3 | Implemented support for custom inline init scripts |
 | 0.6.3 | 10.9.3 | Implemented support for image.registry option |
+| 0.6.4 | 10.9.4 | Upgraded MariaDB to 10.9.4 |
 | | | |
