@@ -32,6 +32,7 @@
 | 0.5.1 | 10.8.4 | Upgraded MariaDB to 10.8.4 |
 | 0.5.2 | 10.8.5 | Upgraded MariaDB to 10.8.5 |
 | 0.5.3 | 10.8.5 | Implemented support for custom inline init scripts and image.registry option |
+| 0.5.4 | 10.8.6 | Upgraded MariaDB to 10.8.6 |
 | 0.6.0 | 10.9.2 | Upgraded MariaDB to 10.9.2 |
 | 0.6.1 | 10.9.3 | Upgraded MariaDB to 10.9.3 |
 | 0.6.2 | 10.9.3 | Implemented support for custom inline init scripts |
