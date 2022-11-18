@@ -7,6 +7,6 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: 0.5.6
+version: 0.3.21
 
-appVersion: "6.0.2"
+appVersion: "4.4.18"
