@@ -29,4 +29,5 @@
 | 0.12.0 | 25.0.0-apache | Upgraded to Nextcloud 25.0.0 |
 | 0.12.1 | 25.0.0-apache | Fixed image.registry option for cronJobs |
 | 0.12.2 | 25.0.1-apache | Upgraded to Nextcloud 25.0.1 |
+| 0.12.3 | 25.0.1-apache | Updated chart dependencies (mariadb 0.2.24 / postgres 0.2.23) |
 | | | |

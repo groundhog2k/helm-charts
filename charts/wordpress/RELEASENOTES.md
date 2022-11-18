@@ -19,4 +19,5 @@
 | 0.6.7 | 6.0.3-apache | Upgraded to Wordpress 6.0.3 |
 | 0.7.0 | 6.1.0-apache | Upgraded to Wordpress 6.1.0 |
 | 0.7.1 | 6.1.1-apache | Upgraded to Wordpress 6.1.1 |
+| 0.7.2 | 6.1.1-apache | Updated chart dependencies (mariadb 0.2.24) |
 | | | |
