@@ -50,4 +50,5 @@
 | 0.6.2 | 3.11.2 | Upgraded to RabbitMQ 3.11.2 |
 | 0.6.2 | 3.11.2 | Upgraded to RabbitMQ 3.11.2 |
 | 0.6.3 | 3.11.3 | Upgraded to RabbitMQ 3.11.3 |
+| 0.6.4 | 3.11.4 | Upgraded to RabbitMQ 3.11.4 |
 | | | |
