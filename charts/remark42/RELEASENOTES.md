@@ -14,5 +14,6 @@
 | 0.4.4 | v1.10.1 | Updated chart dependencies (redis 0.5.6) |
 | 0.4.5 | v1.10.1 | Implemented support for image.registry option |
 | 0.4.6 | v1.10.1 | Updated chart dependencies (redis 0.5.8) |
-| 0.4.7 | v1.11.0 | Upgraded to Remark42 v1.11.0 |
+| 0.5.0 | v1.11.0 | Upgraded to Remark42 v1.11.0 |
+| 0.5.1 | v1.11.1 | Upgraded to Remark42 v1.11.1 |
 | | | |
