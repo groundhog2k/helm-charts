@@ -14417,6 +14417,23 @@ entries:
     version: 0.1.0
   remark42:
   - apiVersion: v2
+    appVersion: v1.11.1
+    created: "2022-12-02T15:34:24.217364795Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.5.8
+    description: A Helm chart for Remark42 comment system
+    digest: f9f256a5fad81a6b11a481e15b5d95158c5bbaf97c7e49fc2a9dd2decca378d1
+    maintainers:
+    - name: groundhog2k
+    name: remark42
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.5.1/remark42-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
     appVersion: v1.11.0
     created: "2022-10-19T09:11:55.049845419Z"
     dependencies:
@@ -15777,4 +15794,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-02T15:31:54.783078162Z"
+generated: "2022-12-02T15:34:24.226619467Z"
