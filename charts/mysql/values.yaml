@@ -70,6 +70,15 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# Resources of the default init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 tolerations: []
 
 affinity: {}

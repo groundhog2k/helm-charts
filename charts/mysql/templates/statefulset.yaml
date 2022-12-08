@@ -70,6 +70,10 @@ spec:
             - mountPath: /configs
               name: configs
           command: [ "/initscripts/init.sh" ]
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}          
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
