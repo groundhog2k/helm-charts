@@ -70,6 +70,15 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# Resource limits and requests
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 tolerations: []
 
 affinity: {}
