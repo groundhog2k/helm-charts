@@ -16,4 +16,5 @@
 | 0.4.6 | v1.10.1 | Updated chart dependencies (redis 0.5.8) |
 | 0.5.0 | v1.11.0 | Upgraded to Remark42 v1.11.0 |
 | 0.5.1 | v1.11.1 | Upgraded to Remark42 v1.11.1 |
+| 0.5.2 | v1.11.2 | Upgraded to Remark42 v1.11.2 |
 | | | |
