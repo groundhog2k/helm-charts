@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.5.8](https://img.shields.io/badge/Version-0.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.5](https://img.shields.io/badge/AppVersion-7.0.5-informational?style=flat-square)
+![Version: 0.5.9](https://img.shields.io/badge/Version-0.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.6](https://img.shields.io/badge/AppVersion-7.0.6-informational?style=flat-square)
 
 ## Changelog
 
@@ -100,6 +100,7 @@ helm uninstall my-release
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
+| initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Redis Sentinel - only when haMode is enabled) |
 | nodeSelector | object | `{}` | Deployment node selector |

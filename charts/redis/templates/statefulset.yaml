@@ -70,7 +70,11 @@ spec:
           {{- if .Values.extraSecretSentinelConfigs }}
             - mountPath: /extrasentinelconfigs
               name: extrasentinelconfigs-volume
-          {{- end }}          
+          {{- end }}
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           command: [ "/scripts/init.sh" ]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}

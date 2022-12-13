@@ -65,6 +65,15 @@ service:
   # Annotations to add to the service
   annotations: {}
 
+## Resources of the default init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 ## Resource limits and requests (for Redis)
 resources: {}
   # limits:
