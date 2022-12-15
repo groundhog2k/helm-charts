@@ -71,6 +71,10 @@ spec:
             - name: plugins
               mountPath: /temp/plugins
           command: [ "/scripts/init.sh" ]
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}

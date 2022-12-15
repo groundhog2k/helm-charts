@@ -134,6 +134,15 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+## Resources of the default init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 ## Resource limits and requests
 resources: {}
 # limits:
