@@ -15,4 +15,5 @@
 | 0.5.7 | 7.0.5 | Upgraded to Redis 7.0.5 |
 | 0.5.8 | 7.0.5 | Implemented support for image.registry option |
 | 0.5.9 | 7.0.6 | Upgraded to Redis 7.0.6 and added support for init container resources |
+| 0.5.10 | 7.0.7 | Upgraded to Redis 7.0.7 |
 | | | |
