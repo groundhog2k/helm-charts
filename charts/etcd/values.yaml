@@ -1,0 +1,160 @@
+# Default values for Etcd deployment
+
+## Etcd container image
+image:
+  registry: "quay.io/coreos"
+  repository: "etcd"
+  pullPolicy: IfNotPresent
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+replicas: 1
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod management policy
+podManagementPolicy: OrderedReady
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
+## Pod security context uses file system group 999 (postgres)
+podSecurityContext:
+  fsGroup: 999
+
+## Default security options to run PostgreSQL as non-root (postgres user), read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+## Etcd service ports (default: Client port 2379, Peer port 2380)
+service:
+  type: ClusterIP
+  ## Client service port
+  client:
+    port: 2379
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## Peer service port
+  peer:
+    port: 2380
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Additional node selector
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup check
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default health check
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
+## Additional environment variables
+env: []
+
+## Arguments for the container entrypoint process
+args: []
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
+
+settings:
+  name: "etcd0"
+  clusterToken: "etcd-cluster-0"
+  clusterDomain: cluster.local
+  autoTls: false
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "etcd-data"
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce

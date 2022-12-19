@@ -1,0 +1,9 @@
+apiVersion: v2
+name: etcd
+description: A Helm chart for etcd on Kubernetes
+
+type: application
+
+version: 0.1.0
+
+appVersion: "v3.5.6"
