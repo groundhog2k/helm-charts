@@ -14,7 +14,7 @@ fullnameOverride: ""
 
 ## Number of etcd replicas in the cluster
 ## Due to the nature of etcd cluster initialization this value must be set before deploying the cluster
-## Automatic scaling or manually scaling the etcd cluster after first deployment is not supported 
+## Automatic scaling or manually scaling the etcd cluster after first deployment is not supported
 replicas: 1
 
 ## Optional service account
