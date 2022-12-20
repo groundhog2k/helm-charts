@@ -12,7 +12,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-replicas: 3
+replicas: 1
 
 ## Optional service account
 serviceAccount:
@@ -65,14 +65,6 @@ service:
   loadBalancerIP:
   # Annotations to add to the service
   annotations: {}
-
-initResources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 resources: {}
   # limits:
@@ -143,10 +135,14 @@ args: []
 ## A list of existing secrets that will be mounted into the container as environment variables
 extraEnvSecrets: []
 
+## Default Kubernetes cluster domain
+clusterDomain: cluster.local
+
+## Etcd specific settings
 settings:
-  name: "etcd0"
+  ## Unique cluser token
   clusterToken: "etcd-cluster-0"
-  clusterDomain: cluster.local
+  ## Automatic TLS mode of etcd
   autoTls: false
 
 ## Storage parameters
