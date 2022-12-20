@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "etcd.fullname" . }}-scripts
+  labels:
+    {{- include "etcd.labels" . | nindent 4 }}
+data:
+  init.sh: |
+    #!/bin/sh
+    mkdir -p /data/etcd
+    chmod 700 /data/etcd
+
+  startup.sh: |
+    #!/bin/sh
+    {{- $replicaCount := int .Values.replicas }}
+    {{- $etcdFullname := include "etcd.fullname" . }}
+    {{- $releaseNamespace := .Release.Namespace }}
+    {{- $etcdHeadlessServiceName := printf "%s-internal" $etcdFullname }}
+    {{- $clusterDomain := .Values.settings.clusterDomain }}
+    {{- $initialCluster := list }}
+    {{- $protocol := .Values.settings.autoTls | ternary "https" "http" }}
+    echo "Initializing Etcd instance..."
+    export ETCD_DATA_DIR="/data/etcd"
+    export ETCD_NAME="${HOSTNAME}"
+    export ETCD_INITIAL_CLUSTER_TOKEN="{{ .Values.settings.clusterToken }}"
+    export ETCD_INITIAL_CLUSTER_STATE="new"
+    export ETCD_LISTEN_CLIENT_URLS="{{ $protocol }}://0.0.0.0:2379"
+    export ETCD_LISTEN_PEER_URLS="{{ $protocol }}://0.0.0.0:2380"
+    export ETCD_ADVERTISE_CLIENT_URLS="{{ $protocol }}://${HOSTNAME}.{{ include "etcd.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.settings.clusterDomain }}:2379"
+    export ETCD_INITIAL_ADVERTISE_PEER_URLS="{{ $protocol }}://${HOSTNAME}.{{ include "etcd.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.settings.clusterDomain }}:2380"
+
+    {{- range $e, $i := until $replicaCount }}
+    {{- $initialCluster = append $initialCluster (printf "%s-%d=%s://%s-%d.%s.%s.svc.%s:%d" $etcdFullname $i $protocol $etcdFullname $i $etcdHeadlessServiceName $releaseNamespace $clusterDomain 2380) }}
+
+    {{- end }}
+    export ETCD_INITIAL_CLUSTER="{{ join "," $initialCluster | quote }}"
+
+    {{- if .Values.settings.autoTls }}
+    export ETCD_AUTO_TLS="true"
+    export ETCD_PEER_AUTO_TLS="true"
+    {{- end }}
+    echo "Finished."
+    echo "Starting etcd..."
+    etcd $@ &
+    etcdproc=$!
+    trap "_terminate $etcdproc 15" 15
+    trap "_terminate $etcdproc 9" 9
+    wait $etcdproc
+
+    # Terminates a child process
+    # $1 - PID of child process
+    # $2 - Kill signal number
+    # $3 - Delay before terminate (leave empty if no delay desired)
+    _terminate() {
+      local childproc=$1
+      local signal=$2
+      local delay=$3
+      log "Terminating entrypoint"
+      etcd
+      kill -s $signal $childproc
+      if [ ! -z "$delay" ]; then
+        log "Waiting $delay seconds before termination..."
+        sleep $delay
+      fi
+      log "Bye bye"
+    }
+  
+  shutdown.sh: |
+
+  healthcheck.sh: |
+    #!/bin/sh
+    etcdctl endpoint health {{ .Values.settings.autoTls | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}

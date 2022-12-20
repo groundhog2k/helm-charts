@@ -19,6 +19,7 @@ spec:
   template:
     metadata:
       annotations:
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -32,12 +33,28 @@ spec:
       serviceAccountName: {{ include "etcd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers: 
+        - name: {{ .Chart.Name }}-init
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - /scripts/init.sh
+          volumeMounts:
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+            - name: scripts
+              mountPath: /scripts
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.extraContainers }}
-      {{- toYaml . | nindent 8 }}
-      {{- end }} 
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -55,12 +72,9 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
-            httpGet:
-              path: /health
-              port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:2379
+            exec:
+              command:
+                - /scripts/healthcheck.sh
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -76,12 +90,9 @@ spec:
           {{- else }}
           {{- if .Values.livenessProbe.enabled }}              
           livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:2379
+            exec:
+              command:
+                - /scripts/healthcheck.sh
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -97,12 +108,9 @@ spec:
           {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-              httpHeaders:
-                - name: Host
-                  value: localhost:2379
+            exec:
+              command:
+                - /scripts/healthcheck.sh
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -116,42 +124,16 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          command:
+            - /scripts/startup.sh
+          {{- if .Values.args }}
           args:
             {{- range .Values.args }}
             - {{ . }}
             {{- end }}
-          env:
-            - name: NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: "ETCD_DATA_DIR"
-              value: "/data"
-            - name: "ETCD_NAME"
-              value: "{{ .Values.settings.name }}"
-            - name: "ETCD_INITIAL_CLUSTER_TOKEN"
-              value: "{{ .Values.settings.clusterToken }}"
-            - name: "ETCD_INITIAL_CLUSTER_STATE"
-              value: "new"
-            - name: "ETCD_LISTEN_CLIENT_URLS"
-              value: "http://0.0.0.0:2379"
-            - name: "ETCD_LISTEN_PEER_URLS"
-              value: "http://0.0.0.0:2380"
-            - name: "ETCD_ADVERTISE_CLIENT_URLS"
-              value: "http://test-etcd-0.{{ include "etcd.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.settings.clusterDomain }}:2379"
-            - name: "ETCD_INITIAL_ADVERTISE_PEER_URLS"
-              value: "http://test-etcd-0.{{ include "etcd.fullname" . }}-internal.{{ .Release.Namespace }}.svc.{{ .Values.settings.clusterDomain }}:2380"
-            - name: "ETCD_DISCOVERY_SRV"
-              value: "{{ template "etcd.fullname" . }}-internal"
-            - name: "ETCD_DISCOVERY_SRV_NAME"
-              value: "{{ .Release.Namespace }}.svc.{{ .Values.settings.clusterDomain }}"
-            {{- if .Values.settings.autoTls }}
-            - name: "ETCD_AUTO_TLS"
-              value: "true"
-            - name: "ETCD_PEER_AUTO_TLS"
-              value: "true"
-            {{- end }}
+          {{- end }}
           {{- with .Values.env }}
+          env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
@@ -164,6 +146,11 @@ spec:
               mountPath: /data
             - name: tmp
               mountPath: /tmp
+            - name: scripts
+              mountPath: /scripts
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -179,6 +166,10 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ include "etcd.fullname" . }}-scripts
+            defaultMode: 0555
   {{- if .Values.storage.persistentVolumeClaimName }}
         - name: {{ .Values.storage.volumeName }}
           persistentVolumeClaim:

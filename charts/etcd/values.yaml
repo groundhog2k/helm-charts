@@ -12,7 +12,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-replicas: 1
+replicas: 3
 
 ## Optional service account
 serviceAccount:
@@ -28,7 +28,7 @@ serviceAccount:
 podAnnotations: {}
 
 ## Pod management policy
-podManagementPolicy: OrderedReady
+podManagementPolicy: Parallel
 
 ## Pod update strategy
 updateStrategyType: RollingUpdate
@@ -65,6 +65,14 @@ service:
   loadBalancerIP:
   # Annotations to add to the service
   annotations: {}
+
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 resources: {}
   # limits:
