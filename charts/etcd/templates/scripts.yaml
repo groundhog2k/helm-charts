@@ -11,7 +11,7 @@ data:
     {{- $etcdFullname := include "etcd.fullname" . }}
     {{- $etcdInternalServiceName := printf "%s-internal" $etcdFullname }}
     {{- $initialCluster := list }}
-    {{- $protocol := .Values.settings.autoTls | ternary "https" "http" }}
+    {{- $protocol := (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "https" "http" }}
     {{- $servicefqdn := printf "%s.%s.svc.%s" $etcdInternalServiceName .Release.Namespace .Values.clusterDomain }}
     echo "Initializing Etcd instance..."
     export ETCD_DATA_DIR="/data/etcd"
@@ -20,13 +20,16 @@ data:
     export ETCD_INITIAL_CLUSTER_STATE="new"
     export ETCD_LISTEN_CLIENT_URLS="{{ $protocol }}://0.0.0.0:2379"
     export ETCD_LISTEN_PEER_URLS="{{ $protocol }}://0.0.0.0:2380"
+    {{- if .Values.serviceMonitor.enabled }}
+    export ETCD_LISTEN_METRICS_URLS="http://0.0.0.0:12379"
+    {{- end }}
     export ETCD_ADVERTISE_CLIENT_URLS="{{ $protocol }}://${HOSTNAME}.{{ $servicefqdn }}:2379"
     export ETCD_INITIAL_ADVERTISE_PEER_URLS="{{ $protocol }}://${HOSTNAME}.{{ $servicefqdn }}:2380"
     {{- range $e, $i := until $replicaCount }}
     {{- $initialCluster = append $initialCluster (printf "%s-%d=%s://%s-%d.%s:%d" $etcdFullname $i $protocol $etcdFullname $i $servicefqdn 2380) }}
     {{- end }}
     export ETCD_INITIAL_CLUSTER="{{ join "," $initialCluster | quote }}"
-    {{- if .Values.settings.autoTls }}
+    {{- if .Values.settings.https.autoTls }}
     export ETCD_AUTO_TLS="true"
     export ETCD_PEER_AUTO_TLS="true"
     {{- end }}
@@ -36,8 +39,8 @@ data:
     echo "Starting etcd..."
     etcd $@ &
     etcdproc=$!
-    trap "_terminate $etcdproc 15" 15
-    trap "_terminate $etcdproc 9" 9
+    trap "_terminate $etcdproc 15 {{ .Values.settings.shutdownDelay }}" 15
+    trap "_terminate $etcdproc 9 {{ .Values.settings.shutdownDelay }}" 9
     wait $etcdproc
 
     # Terminates a child process
@@ -59,8 +62,6 @@ data:
       log "Bye bye"
     }
   
-  shutdown.sh: |
-
   healthcheck.sh: |
     #!/bin/sh
-    etcdctl endpoint health {{ .Values.settings.autoTls | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
+    etcdctl endpoint health {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}

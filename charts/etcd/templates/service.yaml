@@ -23,6 +23,14 @@ spec:
       {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.peer.nodePort) }}
       nodePort: {{ .Values.service.peer.nodePort }}
       {{- end }}
+    {{- if .Values.serviceMonitor.enabled }}
+    - port: {{ .Values.service.prometheus.port }}
+      targetPort: prometheus
+      name: prometheus
+      {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.prometheus.nodePort) }}
+      nodePort: {{ .Values.service.prometheus.nodePort }}
+      {{- end }}
+    {{- end }}
   {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}

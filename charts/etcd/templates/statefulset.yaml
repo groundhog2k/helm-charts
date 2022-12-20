@@ -48,6 +48,10 @@ spec:
               containerPort: 2379
             - name: peer
               containerPort: 2380
+            {{- if .Values.serviceMonitor.enabled }}
+            - name: prometheus
+              containerPort: 12379
+            {{- end }}
           {{- if .Values.customStartupProbe }}
           startupProbe:
             {{- toYaml .Values.customStartupProbe | nindent 12 }}
@@ -130,6 +134,10 @@ spec:
               mountPath: /tmp
             - name: scripts
               mountPath: /scripts
+            {{- range $secret := .Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }} 
@@ -152,6 +160,12 @@ spec:
           configMap:
             name: {{ include "etcd.fullname" . }}-scripts
             defaultMode: 0555
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
   {{- if .Values.storage.persistentVolumeClaimName }}
         - name: {{ .Values.storage.volumeName }}
           persistentVolumeClaim:
