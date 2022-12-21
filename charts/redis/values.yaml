@@ -151,6 +151,9 @@ extraInitContainers: []
 ## Extra containers for usage as sidecars
 extraContainers: []
 
+## Default Kubernetes cluster domain
+clusterDomain: cluster.local
+
 ## Arguments for the container entrypoint process (Redis server)
 args: []
 
@@ -195,6 +198,8 @@ extraSentinelSecrets: []
 haMode:
   ## Enable high availibility deployment mode
   enabled: false
+  ## Use DNS names instead of Pod IPs to build the cluster 
+  useDnsNames: false
   ## Mandatory redis HA-master group name (default "redisha")
   masterGroupName: "redisha"
   ## Number of replicas (minimum should be 3)
@@ -202,11 +207,11 @@ haMode:
   ## Quorum of sentinels that need to agree that a master node is not available
   quorum: 2
   ## Number of milliseconds after the master should be declared as unavailable
-  downAfterMilliseconds: 5000
+  downAfterMilliseconds: 30000
   ## Timeout for a failover
   failoverTimeout: 180000
   ## Number of parallel reconfigurations
-  parallelSyncs: 2
+  parallelSyncs: 1
   ## Timeout in seconds to detect if Redis master is alive
   masterAliveTestTimeout: 2
   ## Assumed wait time in seconds until failover should be finished

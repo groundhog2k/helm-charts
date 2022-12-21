@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.5.10](https://img.shields.io/badge/Version-0.5.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.7](https://img.shields.io/badge/AppVersion-7.0.7-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.7](https://img.shields.io/badge/AppVersion-7.0.7-informational?style=flat-square)
 
 ## Changelog
 
@@ -160,11 +160,12 @@ helm uninstall my-release
 | extraSentinelSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSentinelSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
+| haMode.useDnsNames | bool | `false` | Use DNS names instead of Pod IPs to build the cluster |
 | haMode.masterGroupName | string | `"redisha"` | Mandatory redis HA-master group name |
 | haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
 | haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
-| haMode.downAfterMilliseconds | int | `5000` | Number of milliseconds after the master should be declared as unavailable |
+| haMode.downAfterMilliseconds | int | `30000` | Number of milliseconds after the master should be declared as unavailable |
 | haMode.failoverTimeout | int | `180000` | Timeout for a failover |
-| haMode.parallelSyncs | int | `2` | Number of parallel reconfigurations
+| haMode.parallelSyncs | int | `1` | Number of parallel reconfigurations
 | haMode.masterAliveTestTimeout | int | `2` | Timeout in seconds to detect if Redis master is alive |
 | haMode.failoverWait | int | `5` | Assumed wait time in seconds until failover should be finished |
