@@ -1040,6 +1040,27 @@ entries:
     version: 0.0.1
   ghost:
   - apiVersion: v2
+    appVersion: 5.26.2
+    created: "2022-12-22T09:42:54.016741391Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.4
+    description: A Helm chart for Ghost on Kubernetes
+    digest: fe2030c56359ef7f7e8f9fbd8d31375d20eb72d05f7a0800c58cb5db6985a752
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.69.1/ghost-0.69.1.tgz
+    version: 0.69.1
+  - apiVersion: v2
     appVersion: 5.26.1
     created: "2022-12-17T08:57:34.821692134Z"
     dependencies:
@@ -4396,6 +4417,31 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.1.0/ghost-0.1.0.tgz
     version: 0.1.0
   gitea:
+  - apiVersion: v2
+    appVersion: 1.17.4
+    created: "2022-12-22T09:42:54.171395545Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.23
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.5.8
+    description: A Helm chart for Gitea on Kubernetes
+    digest: 285b7e0e188f06f1fd81294e9c6294d3a8f993d7298c3ca4daefd4b27c86d110
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.6.10/gitea-0.6.10.tgz
+    version: 0.6.10
   - apiVersion: v2
     appVersion: 1.17.3
     created: "2022-11-18T17:51:24.272908728Z"
@@ -16079,4 +16125,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-17T08:57:34.970406862Z"
+generated: "2022-12-22T09:42:54.178760785Z"
