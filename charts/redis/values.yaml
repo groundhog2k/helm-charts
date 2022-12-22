@@ -214,8 +214,10 @@ haMode:
   parallelSyncs: 1
   ## Timeout in seconds to detect if Redis master is alive
   masterAliveTestTimeout: 2
-  ## Assumed wait time in seconds until failover should be finished
-  failoverWait: 5
+  ## Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds)
+  failoverWait: 35
+  ## Keep old init logs in /data/init.log after a successful initialization (use only for debugging)
+  keepOldLogs: false
 
 ## Storage parameters
 storage:

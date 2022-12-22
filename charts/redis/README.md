@@ -165,7 +165,8 @@ helm uninstall my-release
 | haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
 | haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
 | haMode.downAfterMilliseconds | int | `30000` | Number of milliseconds after the master should be declared as unavailable |
-| haMode.failoverTimeout | int | `180000` | Timeout for a failover |
+| haMode.failoverTimeout | int | `180000` | Timeout for a failover in milliseoncds |
 | haMode.parallelSyncs | int | `1` | Number of parallel reconfigurations
 | haMode.masterAliveTestTimeout | int | `2` | Timeout in seconds to detect if Redis master is alive |
-| haMode.failoverWait | int | `5` | Assumed wait time in seconds until failover should be finished |
+| haMode.failoverWait | int | `35` | Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds) |
+| haMode.keepOldLogs | bool | `false` | Keep old init logs in /data/init.log after a successful initialization (use only for debugging) |
