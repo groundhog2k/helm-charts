@@ -198,7 +198,7 @@ extraSentinelSecrets: []
 haMode:
   ## Enable high availibility deployment mode
   enabled: false
-  ## Use DNS names instead of Pod IPs to build the cluster 
+  ## Use DNS names instead of Pod IPs to build the cluster
   useDnsNames: false
   ## Mandatory redis HA-master group name (default "redisha")
   masterGroupName: "redisha"
