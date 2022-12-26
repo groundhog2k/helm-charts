@@ -1,0 +1,25 @@
+apiVersion: v1
+name: codimd
+description: A CodiMD Helm chart for Kubernetes
+icon: https://hackmd.io/favicon.png
+keywords:
+  - codimd
+  - markdown
+  - collaboration
+maintainers:
+  - name: HackMD Inc. Dev Team
+    email: support@hackmd.io
+
+sources:
+  - https://github.com/hackmdio/codimd
+  - https://github.com/hackmdio/codimd-helm
+
+kubeVersion: ">=1.14.0-0"
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1.10
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application.
+appVersion: 2.3.2

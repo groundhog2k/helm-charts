@@ -1,0 +1,19 @@
+{{ if .Values.codimd.imageStorePersistentVolume.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "codimd.fullname" . }}
+  labels:
+    app.kubernetes.io/component: pvc
+  {{- include "codimd.labels" . | nindent 4}}
+spec:
+  accessModes:
+    {{ range .Values.codimd.imageStorePersistentVolume.accessModes }}
+    - {{ . | quote }}
+    {{ end  }}
+  volumeMode: {{ .Values.codimd.imageStorePersistentVolume.volumeMode }}
+  resources:
+    requests:
+      storage: {{ default "10G" .Values.codimd.imageStorePersistentVolume.size | quote }}
+  {{- include "codimd.storageClass" . | nindent 2 }}
+  {{ end }}

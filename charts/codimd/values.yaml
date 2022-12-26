@@ -1,0 +1,321 @@
+# Default values for codimd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# storageClass:
+# nameOverride:
+# fullnameOverride:
+
+image:
+  registry: "nabo.codimd.dev"
+  repository: "hackmdio/hackmd"
+  # When you use export pdf with CJK character, please change the tag with postfix `-cjk`.
+  # for example 2.2.0-cjk
+  tag: "2.3.2"
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+#    - myRegistryKeySecretName
+
+##
+## PostgreSQL chart configuration
+##
+## Reference: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+##
+## If you want to use external database, just set postgresql.enabled to false
+##
+postgresql:
+  enabled: true
+  volumePermissions:
+    enabled: true
+  postgresqlUsername: codimd
+  postgresqlPassword: changeme
+  postgresqlDatabase: codimd
+##
+## MariaDB chart configuration
+##
+## Reference: https://github.com/bitnami/charts/blob/master/bitnami/mariadb/values.yaml
+##
+## If you prefer MariaDB, we also supported.
+##
+mariadb:
+  enabled: false
+  volumePermissions:
+    enabled: true
+  db:
+    user: codimd
+    password: changeme
+    name: codimd
+  master:
+    persistence:
+      enabled: true
+  replication:
+    enabled: false
+
+
+##
+## Kubernetes service
+## use NodePort for minikube
+## other environment use LoadBalancer or ClusterIP
+##
+service:
+  annotations: {}
+  type: "LoadBalancer"
+  port: 80
+  # externalTrafficPolicy:
+  # loadBalancerIP:
+
+##
+## Ingress configuration
+##
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+      - /
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+
+##
+## CodiMD application configuration
+##
+codimd:
+  ##
+  ## Affinity for pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  ##
+  affinity: {}
+  ##
+  ## Tolerations for pod assignment. Evaluated as a template.
+  ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: {}
+  ##
+  ## Node labels for pod assignment. Evaluated as a template.
+  ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector: {}
+  ##
+  ## Pod annotations
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+  ##
+  podAnnotations: {}
+  ##
+  ## security context
+  ##
+  securityContext:
+    runAsGroup: 1500
+    runAsUser: 1500
+    fsGroup: 1500
+    runAsNonRoot: true
+
+  ##
+  ## connection setting
+  ##
+  connection:
+    ## if you doesn't using ingress, you can setup domain for your CodiMD instances
+    # domain:
+    ## if you want to add port number on your url
+    urlAddPort: false
+    ## if you use load balancer or setup TLS on ingress
+    protocolUseSSL: false
+
+  ##
+  ## External database configuration
+  ##   if you want to use external database
+  ##   database type only support mysql and postgres
+  ##
+  #  database:
+  #    type: postgres
+  #    host:
+  #    port:
+  #    username:
+  #    password:
+  #    databaseName:
+
+  ##
+  ## Image upload store
+  ##
+  imageUpload:
+    storeType: filesystem
+  #    imgur:
+  #      clientId:
+  #    azure:
+  #      connectionString:
+  #      container:
+  #    lutim:
+  #      url:
+  #    minio:
+  #      endpoint:
+  #      secure:
+  #      port:
+  #      accessKey:
+  #      secretKey:
+  #    s3:
+  #      endpoint:
+  #      region:
+  #      accessKeyId:
+  #      secretKey:
+  #      bucket:
+  imageStorePersistentVolume:
+    enabled: true
+    size: '10Gi'
+    storageClass: "-"
+    accessModes:
+      - ReadWriteOnce
+    volumeMode: Filesystem
+
+  ## for advanced used, manually setup environment for used
+  extraEnvironmentVariables: {}
+    # CMD_LOGLEVEL: info
+
+  ## automatically check new version
+  versionCheck: true
+
+  ##
+  ## about security setting
+  ##
+  security:
+    useCDN: 'false'
+    # session secret, please change this value
+    sessionSecret: 'changeit'
+    sessionLife: '1209600000'
+    ## HSTS setting
+    hstsEnabled: 'true'
+    hstsMaxAge: '31536000'
+    hstsIncludeSubdomain: 'false'
+    hstsPreload: 'true'
+    ## CSP setting
+    cspEnabled: 'true'
+    # cspReportUri:
+    ## setup allow origin
+    # allowOrigin:
+    ## use gravatar.com as user gravatar
+    allowGravatar: 'true'
+
+  ##
+  ## for tooBusy block user when server event loop lag more than ? ms
+  ##
+  responseMaxLag: '70'
+
+  ##
+  ## setting about note creation
+  ##
+  noteCreation:
+    freeUrlEnabled: 'false'
+    freeUrlForbiddenNoteIds: 'robots.txt,favicon.ico,api'
+    defaultPermission: 'editable'
+  ##
+  ## setting about note permission
+  ##
+  notePermission:
+    allowAnonymousEdit: true
+    allowAnonymousView: true
+  ##
+  ## allow export note to pdf
+  ##
+  allowPDFExport: false
+  ##
+  ## setting about markdown
+  ##
+  markdown:
+    # plantUMLServer:
+    useHardBreak: true
+    linkifyHeaderStyle: 'keep-case'
+
+  ##
+  ## User Authentication Methods
+  ##
+  authentication:
+    ##
+    ## authentication by Email and Password
+    local:
+      enabled: true
+      allowRegister: true
+    bitbucket:
+      enabled: false
+      key:
+      secret:
+    dropbox:
+      enabled: false
+      appKey:
+      appSecret:
+    facebook:
+      enabled: false
+      clientId:
+      secret:
+    github:
+      enabled: false
+      clientId:
+      secret:
+      ## provide enterprise url if you use GitHub Enterprise Version
+      enterpriseUrl:
+    gitlab:
+      enabled: false
+      domain:
+      scope:
+      applicationId:
+      secret:
+    google:
+      enabled: false
+      clientId:
+      secret:
+      hostedDomain:
+    ldap:
+      enabled: false
+      providerName:
+      url:
+      tlsCA:
+      bindDN:
+      bindCredentials:
+      searchBase:
+      searchFilter:
+      searchAttributes:
+      attributes:
+        id:
+        username:
+    mattermost:
+      enabled: false
+      domain:
+      clientId:
+      secret:
+    oauth2:
+      enabled: false
+      providerName:
+      domain:
+      clientId:
+      secret:
+      authorizationUrl:
+      tokenUrl:
+      userProfileUrl:
+      scope:
+      attributes:
+        username:
+        displayName:
+        email:
+    openID:
+      enabled: false
+    saml:
+      enabled: false
+      idpSSOUrl:
+      idpCert:
+      issuer:
+      identifierFormat:
+      disableRequestedAuthnContext:
+      groupAttribute:
+      externalGroups:
+      requiredGroups:
+      attributes:
+        id:
+        username:
+        email:
+    twitter:
+      enabled:
+      consumerKey:
+      comsumerSecret:
