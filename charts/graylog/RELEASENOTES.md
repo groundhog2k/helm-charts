@@ -31,4 +31,5 @@
 | 0.4.16 | 4.3.9-jre11 | Updated chart dependencies (mongodb 0.3.20) |
 | 0.4.17 | 4.3.9-jre11 | Updated chart dependencies (mongodb 0.3.21) |
 | 0.5.0 | 5.0.0 | Updated chart for Graylog 5.0.0 and chart dependencies (mongodb 0.4.15) |
+| 0.5.1 | 5.0.1 | Updated chart for Graylog 5.0.1 |
 | | | |
