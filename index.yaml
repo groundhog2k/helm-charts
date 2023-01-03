@@ -1038,6 +1038,19 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/elasticsearch-0.0.1/elasticsearch-0.0.1.tgz
     version: 0.0.1
+  etcd:
+  - apiVersion: v2
+    appVersion: v3.5.6
+    created: "2023-01-03T14:11:22.232671079Z"
+    description: A Helm chart for etcd on Kubernetes
+    digest: 6bb5f13d0d146b36882fc8c510b9c102e2d9dd1e051fcb6be52c86d874119721
+    maintainers:
+    - name: groundhog2k
+    name: etcd
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/etcd-0.1.0/etcd-0.1.0.tgz
+    version: 0.1.0
   ghost:
   - apiVersion: v2
     appVersion: 5.26.4
@@ -16267,4 +16280,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-03T14:04:51.070212409Z"
+generated: "2023-01-03T14:11:22.239939656Z"
