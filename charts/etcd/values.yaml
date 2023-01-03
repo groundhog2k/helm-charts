@@ -1,0 +1,206 @@
+# Default values for Etcd deployment
+
+## Etcd container image
+image:
+  registry: "quay.io/coreos"
+  repository: "etcd"
+  pullPolicy: IfNotPresent
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Number of etcd replicas in the cluster
+## Due to the nature of etcd cluster initialization this value must be set before deploying the cluster
+## Automatic scaling or manually scaling the etcd cluster after first deployment is not supported
+replicas: 1
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Pod management policy
+podManagementPolicy: Parallel
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
+## Pod security context uses file system group 999 (postgres)
+podSecurityContext:
+  fsGroup: 999
+
+## Default security options to run PostgreSQL as non-root (postgres user), read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 999
+  runAsUser: 999
+
+## Etcd service ports (default: Client port 2379, Peer port 2380)
+service:
+  type: ClusterIP
+  ## Client service port
+  client:
+    port: 2379
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## Peer service port
+  peer:
+    port: 2380
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## Prometheus service port
+  prometheus:
+    port: 12379
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
+
+## Service monitor configuration for Prometheus metrics
+serviceMonitor:
+  ## Enable service monitor
+  enabled: false
+  ## Additional labels for the service monitor object
+  additionalLabels: {}
+  ## Annotations for the service monitor object
+  annotations: {}
+  ## The scrape interval for prometheus
+  # interval:
+  ## The scrape timeout value
+  # scrapeTimeout:
+  ## Extra parameters rendered to the service monitor endpoint
+  extraEndpointParameters: {}
+  ## Extra parameters rendered to the service monitor
+  extraParameters: {}
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Additional node selector
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup check
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default health check
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
+## Additional environment variables
+env: []
+
+## Arguments for the container entrypoint process
+args: []
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
+
+## A list of additional existing secrets that will be mounted into the etcd container
+## The mounted files of the secrets can be used for custom configuration options (see https.enabled)
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## Default Kubernetes cluster domain
+clusterDomain: cluster.local
+
+## Etcd specific settings
+settings:
+  ## Unique cluser token
+  clusterToken: "etcd-cluster-0"
+  ## Configure secure transport
+  ## Certificates must be mounted into the container using `extraSecrets:` or generated automatically using autoTls: true
+  ## Other tls options have to be added manually using environment variables or args: (see https://etcd.io/docs/v3.5/op-guide/clustering/#tls and https://etcd.io/docs/v3.5/op-guide/configuration/)
+  https:
+    ## Enable HTTPS
+    enabled: false
+    ## Automatic TLS mode of etcd (TLS certs. created automaically)
+    autoTls: false
+
+  ## Delay after termination request to give etcd process time for graceful shutdown
+  shutdownDelay: 3
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "etcd-data"
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
