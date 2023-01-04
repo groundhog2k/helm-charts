@@ -54,4 +54,5 @@
 | 0.5.5 | 6.0.2 | Fixed pod initialization bug when deployed without replicaset |
 | 0.5.6 | 6.0.2 | Implemented support for more independent configuration of arbiters and hidden secondaries |
 | 0.5.7 | 6.0.3 | Upgraded to MongoDB 6.0.3 |
+| 0.5.8 | 6.0.3 | Fixed bug: Copy of custom scripts failed - thx @huber-and |
 | | | |
