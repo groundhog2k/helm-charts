@@ -411,11 +411,11 @@ data:
       cp /scripts/0*-init-*.sh /initscripts
       if [ -d /extrascripts ]; then
         echo "Copy extra scripts"
-        cp /extrascripts/* /scripts
+        cp /extrascripts/* /initscripts
       fi
       if [ -d /customscripts ]; then
         echo "Copy custom scripts"
-        cp /customscripts/* /scripts
+        cp /customscripts/* /initscripts
       fi
     fi
     # Copy extra initialization scripts for ReplicaSet cluster
