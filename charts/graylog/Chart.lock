@@ -1,9 +1,9 @@
 dependencies:
 - name: mongodb
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.4.15
+  version: 0.3.22
 - name: elasticsearch
   repository: https://groundhog2k.github.io/helm-charts
   version: 0.1.106
-digest: sha256:f0ef2ec0c5bb306d46a61e9bb6d917ca19a2c625ee91ce4f5437aac2a4801371
-generated: "2022-12-09T17:29:44.045589099+01:00"
+digest: sha256:fee8f95ca79bb68bef3cf2d9d9a96ffc5263888d80809ee1a6999b5bb8ee178f
+generated: "2023-01-05T16:14:56.418180457+01:00"
