@@ -54,4 +54,5 @@
 | 0.6.3 | 3.11.3 | Upgraded to RabbitMQ 3.11.3 |
 | 0.6.4 | 3.11.4 | Upgraded to RabbitMQ 3.11.4 |
 | 0.6.5 | 3.11.5 | Upgraded to RabbitMQ 3.11.5 and added support for init container resources |
+| 0.6.6 | 3.11.6 | Upgraded to RabbitMQ 3.11.6 |
 | | | |
