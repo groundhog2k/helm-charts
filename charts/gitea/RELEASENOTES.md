@@ -34,4 +34,5 @@
 | 0.6.9 | 1.17.3 | Updated chart dependencies (mariadb 0.2.24 / postgres 0.2.23) |
 | 0.6.10 | 1.17.4 | Updated to Gitea 1.17.4 |
 | 0.7.0 | 1.18.0 | Updated to Gitea 1.18.0 and chart dependencies (redis 0.6.0) |
+| 0.7.1 | 1.18.0 | Fixed values documentation - thx @generalovmaksim |
 | | | |

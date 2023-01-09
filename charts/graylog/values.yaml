@@ -266,7 +266,7 @@ mongodb:
   settings:
     ## The root username (default: admin)
     rootUsername: "admin"
-    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+    ## The root user password
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
@@ -277,7 +277,7 @@ mongodb:
     ## Database user with full access rights
     # user:
 
-    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+    ## Password of the database user
     # password:
 
   ## Custom configuration (use instead of command args)

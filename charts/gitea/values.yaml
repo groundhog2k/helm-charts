@@ -301,7 +301,7 @@ mariadb:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
 
-    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+    ## The root user password
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
@@ -310,7 +310,7 @@ mariadb:
     # name:
     ## Database user with full access rights
     # user:
-    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+    ## Password of the database user
     # password:
 
   # Storage parameters
@@ -332,7 +332,7 @@ postgres:
   ## Database configuration
   settings:
 
-    ## The superuser password (default: a 10 char. alpahnumerical random password will be generated)
+    ## The superuser password
     superuserPassword:
 
   ## User database which is created during first startup with user and password
@@ -341,7 +341,7 @@ postgres:
     # name:
     ## Database user
     # user:
-    ## Database password (default: 10 alphanum. random characters)
+    ## Database password
     # password:
 
   # Storage parameters

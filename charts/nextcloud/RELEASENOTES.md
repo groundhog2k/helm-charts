@@ -32,4 +32,5 @@
 | 0.12.3 | 25.0.1-apache | Updated chart dependencies (mariadb 0.2.24 / postgres 0.2.23) |
 | 0.12.4 | 25.0.2-apache | Upgraded to Nextcloud 25.0.2 |
 | 0.12.5 | 25.0.2-apache | Updated chart dependencies (redis 0.6.0) |
+| 0.12.6 | 25.0.2-apache | Fixed valued documentation - thx @generalovmaksim |
 | | | |
