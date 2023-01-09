@@ -35,4 +35,5 @@
 | 0.5.0 | 5.0.0 | Updated chart for Graylog 5.0.0 and chart dependencies (mongodb 0.4.15) |
 | 0.5.1 | 5.0.1 | Updated chart for Graylog 5.0.1 |
 | 0.5.2 | 5.0.2 | Updated chart for Graylog 5.0.2 and chart dependencies (mongodb 0.4.16) |
+| 0.5.3 | 5.0.2 | Fixed values documentation - thx @generalovmaksim |
 | | | |

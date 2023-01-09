@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.5.8](https://img.shields.io/badge/Version-0.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.3](https://img.shields.io/badge/AppVersion-6.0.3-informational?style=flat-square)
+![Version: 0.5.9](https://img.shields.io/badge/Version-0.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.3](https://img.shields.io/badge/AppVersion-6.0.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -113,11 +113,11 @@ helm uninstall my-release
 | extraInit.initDelay | int | `5` | Seconds to wait after mongod is running to give it time for internal initialization |
 | shutdown.delay | int | `10` | Delay until termination request is forwarded to mongod process to give ReplicaSet time for electing a new primary instance |
 | settings.rootUsername | string | `admin` | The root username |
-| settings.rootPassword | string | `{}` | The root users password (Random value if not specified) |
+| settings.rootPassword | string | `{}` | The root users password |
 | userDatabase | object | `{}` | Optional MongoDB user database |
 | userDatabase.name | string | `nil` | Name of the user database |
 | userDatabase.user | string | `nil` | User name with full access to user database|
-| userDatabase.password | string | `nil` | Password of created user (Random value if not specified) |
+| userDatabase.password | string | `nil` | Password of created user |
 | customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in `/etc/mongo/custom.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the mongodb configuration in addition to `/etc/mongo/custom.conf` |

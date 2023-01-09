@@ -210,7 +210,7 @@ mariadb:
 
   ## Database configuration
   settings:
-    ## The root user password (default: a 10 char. alpahnumerical random password will be generated)
+    ## The root user password
     rootPassword:
 
   ## Optional user database which is created during first startup with user and password
@@ -219,7 +219,7 @@ mariadb:
     # name:
     ## Database user with full access rights
     # user:
-    ## Password of the database user (default: a 10 char. alpahnumerical random password will be generated)
+    ## Password of the database user
     # password:
 
   # Storage parameters
