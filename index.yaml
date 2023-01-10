@@ -1070,6 +1070,27 @@ entries:
     version: 0.1.0
   ghost:
   - apiVersion: v2
+    appVersion: 5.28.0
+    created: "2023-01-10T15:24:13.726210724Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.4
+    description: A Helm chart for Ghost on Kubernetes
+    digest: ea73e6bcb34a562b32e26743e7f00410115bfea3903a5b96a8121c1a7d2d0072
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.71.0/ghost-0.71.0.tgz
+    version: 0.71.0
+  - apiVersion: v2
     appVersion: 5.27.0
     created: "2023-01-09T17:43:38.246867708Z"
     dependencies:
@@ -16562,4 +16583,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-09T17:43:39.144860192Z"
+generated: "2023-01-10T15:24:13.734389181Z"
