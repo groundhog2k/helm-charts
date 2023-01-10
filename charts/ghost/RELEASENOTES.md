@@ -87,4 +87,5 @@
 | 0.69.3 | 5.26.4 | Upgraded to Ghost 5.26.4 |
 | 0.70.0 | 5.27.0 | Upgraded to Ghost 5.27.0 |
 | 0.70.1 | 5.27.0 | Fixed values documentation - thx @generalovmaksim |
+| 0.71.0 | 5.28.0 | Upgraded to Ghost 5.28.0 |
 | | | |
