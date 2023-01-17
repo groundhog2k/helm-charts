@@ -35,4 +35,5 @@
 | 0.6.10 | 1.17.4 | Updated to Gitea 1.17.4 |
 | 0.7.0 | 1.18.0 | Updated to Gitea 1.18.0 and chart dependencies (redis 0.6.0) |
 | 0.7.1 | 1.18.0 | Fixed values documentation - thx @generalovmaksim |
+| 0.7.2 | 1.18.1 | Updated to Gitea 1.18.1 |
 | | | |
