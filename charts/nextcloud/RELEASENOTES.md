@@ -33,4 +33,5 @@
 | 0.12.4 | 25.0.2-apache | Upgraded to Nextcloud 25.0.2 |
 | 0.12.5 | 25.0.2-apache | Updated chart dependencies (redis 0.6.0) |
 | 0.12.6 | 25.0.2-apache | Fixed valued documentation - thx @generalovmaksim |
+| 0.12.7 | 25.0.3-apache | Upgraded to Nextcloud 25.0.3 and dependencies (redis 0.6.1) |
 | | | |
