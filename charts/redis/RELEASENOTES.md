@@ -17,4 +17,5 @@
 | 0.5.9 | 7.0.6 | Upgraded to Redis 7.0.6 and added support for init container resources |
 | 0.5.10 | 7.0.7 | Upgraded to Redis 7.0.7 |
 | 0.6.0 | 7.0.7 | Implemented alternative DNS option for cluster building |
+| 0.6.1 | 7.0.8 | Upgraded to Redis 7.0.8 |
 | | | |
