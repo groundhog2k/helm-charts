@@ -4617,6 +4617,31 @@ entries:
   gitea:
   - apiVersion: v2
     appVersion: 1.18.1
+    created: "2023-01-18T15:50:53.1682997Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.23
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.1
+    description: A Helm chart for Gitea on Kubernetes
+    digest: fa38d29c73949bbd6b4f644b29dc6fbb1689004a26d526a5f8b4288ebfab2867
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.7.3/gitea-0.7.3.tgz
+    version: 0.7.3
+  - apiVersion: v2
+    appVersion: 1.18.1
     created: "2023-01-17T18:51:05.075647984Z"
     dependencies:
     - condition: mariadb.enabled
@@ -15305,6 +15330,23 @@ entries:
   remark42:
   - apiVersion: v2
     appVersion: v1.11.2
+    created: "2023-01-18T15:50:53.350546942Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.1
+    description: A Helm chart for Remark42 comment system
+    digest: 7e005f54572585699d1fc796b723ae9417e6e8d7b82a3d48523e38af3712eac3
+    maintainers:
+    - name: groundhog2k
+    name: remark42
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.5.4/remark42-0.5.4.tgz
+    version: 0.5.4
+  - apiVersion: v2
+    appVersion: v1.11.2
     created: "2023-01-01T10:40:32.929713905Z"
     dependencies:
     - condition: redis.enabled
@@ -16732,4 +16774,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-18T15:46:44.790793327Z"
+generated: "2023-01-18T15:50:53.359291026Z"
