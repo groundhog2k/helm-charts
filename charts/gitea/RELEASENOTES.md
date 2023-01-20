@@ -37,4 +37,5 @@
 | 0.7.1 | 1.18.0 | Fixed values documentation - thx @generalovmaksim |
 | 0.7.2 | 1.18.1 | Updated to Gitea 1.18.1 |
 | 0.7.3 | 1.18.1 | Updated chart dependencies (redis 0.6.1) |
+| 0.7.4 | 1.18.2 | Updated to Gitea 1.18.2 |
 | | | |
