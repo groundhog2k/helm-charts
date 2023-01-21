@@ -10565,6 +10565,18 @@ entries:
     version: 0.1.0
   mysql:
   - apiVersion: v2
+    appVersion: 8.0.32-oracle
+    created: "2023-01-21T17:33:11.007739754Z"
+    description: A Helm chart for MySQL on Kubernetes
+    digest: 06248cc362eacf67030958bedf273923059b4af338d1e0174f6d5005bf387b26
+    maintainers:
+    - name: groundhog2k
+    name: mysql
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mysql-0.1.6/mysql-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
     appVersion: 8.0.31-oracle
     created: "2022-12-08T16:04:59.516398579Z"
     description: A Helm chart for MySQL on Kubernetes
@@ -16820,4 +16832,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-21T17:31:29.707483694Z"
+generated: "2023-01-21T17:33:11.015058118Z"
