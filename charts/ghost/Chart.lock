@@ -4,6 +4,6 @@ dependencies:
   version: 0.2.24
 - name: mysql
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.1.4
-digest: sha256:94975f8eca258cd221781588d261030cfcad03cb5efadb45955b783ed426e0ce
-generated: "2022-11-18T18:50:02.519400945+01:00"
+  version: 0.1.6
+digest: sha256:6322a4a469107bd1797a6b3ffeaa12bfe50af24c16c243e9071b66afb15a7e39
+generated: "2023-01-21T18:35:14.755523591+01:00"
