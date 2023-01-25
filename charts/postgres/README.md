@@ -115,11 +115,11 @@ helm uninstall my-release
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
 | settings.superuser | string | `nil` | Superuser name |
 | settings.superuserPassword | string | `nil` | Password of superuser |
+| settings.publicSchemaAccess | bool | `false` | Grant access to public schema for the database user |
 | userDatabase | object | `{}` | Optional PostgreSQL user database |
 | userDatabase.name | string | `nil` | Name of the user database |
 | userDatabase.user | string | `nil` | User name with full access to user database|
 | userDatabase.password | string | `nil` | Password of created user |
-| userDatabase.publicSchemaAccess | bool | `false` | Grant access to public schema for the database user |
 | customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in `/etc/postgresql/postgresql.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the postgres configuration in addition to `/etc/postgresql/postgresql.conf` |

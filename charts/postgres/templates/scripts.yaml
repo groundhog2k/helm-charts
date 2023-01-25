@@ -12,8 +12,8 @@ data:
     psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -v USERDBNAME="$POSTGRES_DB" -v USERDBUSER="$USERDB_USER" -v USERDBPASSWORD="'$USERDB_PASSWORD'" <<-EOSQL
       CREATE USER :USERDBUSER WITH PASSWORD :USERDBPASSWORD;
       GRANT ALL PRIVILEGES ON DATABASE :USERDBNAME TO :USERDBUSER;
-    {{- if and (.Values.userDatabase) (.Values.userDatabase.publicSchemaAccess) }}
-      GRANT USAGE ON SCHEMA public TO :USERDBUSER;
+    {{- if and (.Values.settings.publicSchemaAccess) }}
+      GRANT ALL ON SCHEMA public TO :USERDBUSER;
     {{- end }}
     EOSQL
     }
