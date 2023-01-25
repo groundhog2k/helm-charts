@@ -23,4 +23,5 @@
 | 0.3.14 | 14.6 | Upgraded to Postgres 14.6 |
 | 0.4.0 | 15.0 | Upgraded to Postgres 15.0 |
 | 0.4.1 | 15.1 | Upgraded to Postgres 15.1 |
+| 0.4.2 | 15.1 | Implemented feature for optional public schema access of database user  - thx @giannoug |
 | | | |

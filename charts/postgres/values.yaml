@@ -151,6 +151,9 @@ userDatabase: {}
   ## Password of the database user
   # password:
 
+  ## Grant access to public schema for the database user
+  # publicSchemaAccess: false
+
 ## Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf
 ## For more flexible options see extraSecretConfigs: section
 customConfig: |

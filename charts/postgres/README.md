@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 15.1](https://img.shields.io/badge/AppVersion-15.1-informational?style=flat-square)
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 15.1](https://img.shields.io/badge/AppVersion-15.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -119,6 +119,7 @@ helm uninstall my-release
 | userDatabase.name | string | `nil` | Name of the user database |
 | userDatabase.user | string | `nil` | User name with full access to user database|
 | userDatabase.password | string | `nil` | Password of created user |
+| userDatabase.publicSchemaAccess | bool | `false` | Grant access to public schema for the database user |
 | customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in `/etc/postgresql/postgresql.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the postgres configuration in addition to `/etc/postgresql/postgresql.conf` |
