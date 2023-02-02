@@ -31,6 +31,7 @@
 | 0.4.25 | 3.9.25 | Upgraded to RabbitMQ 3.9.25 |
 | 0.4.26 | 3.9.26 | Upgraded to RabbitMQ 3.9.26 |
 | 0.4.27 | 3.9.27 | Upgraded to RabbitMQ 3.9.27 and added support for init container resources |
+| 0.4.28 | 3.9.28 | Upgraded to RabbitMQ 3.9.28 |
 | 0.5.0 | 3.10.0 | Upgraded to RabbitMQ 3.10.0 |
 | 0.5.1 | 3.10.1 | Upgraded to RabbitMQ 3.10.1 |
 | 0.5.2 | 3.10.2 | Upgraded to RabbitMQ 3.10.2 |
