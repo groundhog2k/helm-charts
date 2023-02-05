@@ -56,4 +56,5 @@
 | 0.5.7 | 6.0.3 | Upgraded to MongoDB 6.0.3 |
 | 0.5.8 | 6.0.3 | Fixed bug: Copy of custom scripts failed - thx @huber-and |
 | 0.5.9 | 6.0.3 | Fixed values documentation - thx @generalovmaksim |
+| 0.5.10 | 6.0.4 | Upgraded to MongoDB 6.0.4 |
 | | | |
