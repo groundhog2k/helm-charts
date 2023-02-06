@@ -19,4 +19,5 @@
 | 0.5.10 | 7.0.7 | Upgraded to Redis 7.0.7 |
 | 0.6.0 | 7.0.7 | Implemented alternative DNS option for cluster building |
 | 0.6.1 | 7.0.8 | Upgraded to Redis 7.0.8 |
+| 0.6.2 | 7.0.8 | Updated version detection for pod disruption budget |
 | | | |
