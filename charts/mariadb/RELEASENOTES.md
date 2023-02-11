@@ -45,4 +45,5 @@
 | 0.6.5 | 10.9.5 | Upgraded MariaDB to 10.9.5 |
 | 0.7.0 | 10.10.2 | Upgraded MariaDB to 10.10.2 |
 | 0.7.1 | 10.10.2 | Added support for init container resources (thx @Footur) |
+| 0.7.2 | 10.10.3 | Upgraded MariaDB to 10.10.3 |
 | | | |
