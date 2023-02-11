@@ -39,4 +39,5 @@
 | 0.7.3 | 1.18.1 | Updated chart dependencies (redis 0.6.1) |
 | 0.7.4 | 1.18.2 | Updated to Gitea 1.18.2 |
 | 0.7.5 | 1.18.3 | Updated to Gitea 1.18.3 |
+| 0.7.6 | 1.18.3 | Updated chart dependencies (mariadb 0.2.25 / postgres 0.2.24) |
 | | | |

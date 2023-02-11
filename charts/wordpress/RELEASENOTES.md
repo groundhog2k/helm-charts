@@ -22,4 +22,5 @@
 | 0.7.2 | 6.1.1-apache | Updated chart dependencies (mariadb 0.2.24) |
 | 0.7.3 | 6.1.1-apache | Fixed values documentation - thx @generalovmaksim |
 | 0.7.4 | 6.1.1-apache | Updated version detection for pod disruption budget |
+| 0.7.5 | 6.1.1-apache | Updated chart dependencies (mariadb 0.2.25) |
 | | | |

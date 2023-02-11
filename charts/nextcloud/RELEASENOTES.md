@@ -35,4 +35,5 @@
 | 0.12.6 | 25.0.2-apache | Fixed valued documentation - thx @generalovmaksim |
 | 0.12.7 | 25.0.3-apache | Upgraded to Nextcloud 25.0.3 and dependencies (redis 0.6.1) |
 | 0.12.8 | 25.0.3-apache | Updated version detection for pod disruption budget |
+| 0.12.9 | 25.0.3-apache | Updated chart dependencies (mariadb 0.2.25 / postgres 0.2.24) |
 | | | |
