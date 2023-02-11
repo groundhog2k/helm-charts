@@ -20,6 +20,7 @@
 | 0.3.7 | 10.6.10 | Upgraded MariaDB to 10.6.10 |
 | 0.3.8 | 10.6.10 | Implemented support for custom inline init scripts and image.registry option |
 | 0.3.9 | 10.6.11 | Upgraded MariaDB to 10.6.11 |
+| 0.3.10 | 10.6.12 | Upgraded MariaDB to 10.6.12 |
 | 0.4.1 | 10.7.1 | Implemented startupProbe support |
 | 0.4.2 | 10.7.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.3 | 10.7.1 | Implemented support for extra containers |
