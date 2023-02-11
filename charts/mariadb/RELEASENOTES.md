@@ -42,6 +42,7 @@
 | 0.6.2 | 10.9.3 | Implemented support for custom inline init scripts |
 | 0.6.3 | 10.9.3 | Implemented support for image.registry option |
 | 0.6.4 | 10.9.4 | Upgraded MariaDB to 10.9.4 |
+| 0.6.5 | 10.9.5 | Upgraded MariaDB to 10.9.5 |
 | 0.7.0 | 10.10.2 | Upgraded MariaDB to 10.10.2 |
 | 0.7.1 | 10.10.2 | Added support for init container resources (thx @Footur) |
 | | | |
