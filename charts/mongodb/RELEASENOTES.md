@@ -31,6 +31,7 @@
 | 0.3.20 | 4.4.17 | Implemented support for more independent configuration of arbiters and hidden secondaries |
 | 0.3.21 | 4.4.18 | Upgraded to MongoDB 4.4.18 |
 | 0.3.22 | 4.4.18 | Fixed bug: Copy of custom scripts failed - thx @huber-and |
+| 0.3.23 | 4.4.19 | Upgraded to MongoDB 4.4.19 |
 | 0.4.1 | 5.0.5 | Implemented startupProbe support |
 | 0.4.2 | 5.0.6 | Upgraded to MongoDB 5.0.6 |
 | 0.4.3 | 5.0.6 | Implemented support for extra secrets and advanced configuration capabilites |
