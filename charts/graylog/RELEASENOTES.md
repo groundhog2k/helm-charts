@@ -40,4 +40,5 @@
 | 0.5.3 | 5.0.2 | Fixed values documentation - thx @generalovmaksim |
 | 0.5.4 | 5.0.3 | Updated chart for Graylog 5.0.3 | 
 | 0.5.5 | 5.0.3 | Updated version detection for pod disruption budget |
+| 0.5.6 | 5.0.4 | Updated chart for Graylog 5.0.4 |
 | | | |
