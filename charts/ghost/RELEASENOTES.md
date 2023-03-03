@@ -104,4 +104,5 @@
 | 0.78.0 | 5.35.0 | Upgraded to Ghost 5.35.0 |
 | 0.78.1 | 5.35.1 | Upgraded to Ghost 5.35.1 |
 | 0.79.0 | 5.36.0 | Upgraded to Ghost 5.36.0 |
+| 0.79.1 | 5.36.1 | Upgraded to Ghost 5.36.1 |
 | | | |
