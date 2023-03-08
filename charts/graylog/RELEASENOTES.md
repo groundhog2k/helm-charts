@@ -41,4 +41,5 @@
 | 0.5.4 | 5.0.3 | Updated chart for Graylog 5.0.3 | 
 | 0.5.5 | 5.0.3 | Updated version detection for pod disruption budget |
 | 0.5.6 | 5.0.4 | Updated chart for Graylog 5.0.4 |
+| 0.5.7 | 5.0.5 | Updated chart for Graylog 5.0.5 |
 | | | |
