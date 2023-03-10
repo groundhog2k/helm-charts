@@ -194,6 +194,9 @@ extraSentinelSecrets: []
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
 
+## Use Kubernetes Deployment instead of StatefulSet when in Non-HA mode
+useDeploymentWhenNonHA: true
+
 ## High availability mode (with master-slave replication and sentinel)
 haMode:
   ## Enable high availibility deployment mode

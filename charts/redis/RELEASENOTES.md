@@ -7,6 +7,7 @@
 | 0.4.12 | 6.2.7 | Upgraded to Redis 6.2.7 |
 | 0.4.13 | 6.2.10 | Upgraded to Redis 6.2.10 |
 | 0.4.14 | 6.2.11 | Upgraded to Redis 6.2.11 |
+| 0.4.15 | 6.2.11 | Added option to use Deployment instead of StatefulSet for Non-HA deployments - thx @tim-hanssen |
 | 0.5.0 | 7.0.0 | Upgraded to Redis 7.0.0 |
 | 0.5.1 | 7.0.1 | Upgraded to Redis 7.0.1 |
 | 0.5.2 | 7.0.2 | Upgraded to Redis 7.0.2 |
@@ -22,4 +23,5 @@
 | 0.6.1 | 7.0.8 | Upgraded to Redis 7.0.8 |
 | 0.6.2 | 7.0.8 | Updated version detection for pod disruption budget |
 | 0.6.3 | 7.0.9 | Upgraded to Redis 7.0.9 |
+| 0.6.4 | 7.0.9 | Added option to use Deployment instead of StatefulSet for Non-HA deployments - thx @tim-hanssen |
 | | | |

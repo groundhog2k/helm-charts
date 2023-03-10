@@ -1,5 +1,9 @@
 apiVersion: apps/v1
+{{- if and (not .Values.haMode.enabled) (.Values.useDeploymentWhenNonHA) }}
+kind: Deployment
+{{- else }}
 kind: StatefulSet
+{{- end }}
 metadata:
   name: {{ include "redis.fullname" . }}
   labels:
@@ -13,10 +17,12 @@ spec:
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
+  {{- if or (.Values.haMode.enabled) (not .Values.useDeploymentWhenNonHA) }}
   serviceName: {{ include "redis.fullname" . }}-headless
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "redis.selectorLabels" . | nindent 6 }}

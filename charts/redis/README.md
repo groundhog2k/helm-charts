@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.9](https://img.shields.io/badge/AppVersion-7.0.9-informational?style=flat-square)
+![Version: 0.6.4](https://img.shields.io/badge/Version-0.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.9](https://img.shields.io/badge/AppVersion-7.0.9-informational?style=flat-square)
 
 ## Changelog
 
@@ -159,6 +159,7 @@ helm uninstall my-release
 | extraSentinelSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the sentinel container |
 | extraSentinelSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSentinelSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| useDeploymentWhenNonHA | bool | `true` | Use Deployment instead of StatefulSet for Non-HA deployments |
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
 | haMode.useDnsNames | bool | `false` | Use DNS names instead of Pod IPs to build the cluster |
 | haMode.masterGroupName | string | `"redisha"` | Mandatory redis HA-master group name |
