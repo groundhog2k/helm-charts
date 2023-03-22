@@ -66,4 +66,5 @@
 | 0.6.9 | 3.11.8 | Updated version detection for pod disruption budget |
 | 0.6.10 | 3.11.9 | Upgraded to RabbitMQ 3.11.9 |
 | 0.6.11 | 3.11.10 | Upgraded to RabbitMQ 3.11.10 |
+| 0.6.12 | 3.11.11 | Upgraded to RabbitMQ 3.11.11 |
 | | | |
