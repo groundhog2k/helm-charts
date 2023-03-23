@@ -37,4 +37,5 @@
 | 0.12.8 | 25.0.3-apache | Updated version detection for pod disruption budget |
 | 0.12.9 | 25.0.3-apache | Updated chart dependencies (mariadb 0.2.25 / postgres 0.2.24) |
 | 0.12.10 | 25.0.4-apache | Upgraded to Nextcloud 25.0.4 |
+| 0.13.0 | 26.0.0-apache | Upgraded to Nextcloud 26.0.0 |
 | | | |
