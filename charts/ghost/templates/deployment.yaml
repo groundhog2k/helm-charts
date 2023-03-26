@@ -96,6 +96,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:2368
+                {{- if hasPrefix "https" (default "" .Values.settings.url) }}
+                - name: x-forwarded-proto
+                  value: https
+                {{- end }}
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -117,6 +121,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:2368
+                {{- if hasPrefix "https" (default "" .Values.settings.url) }}
+                - name: x-forwarded-proto
+                  value: https
+                {{- end }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -138,6 +146,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost:2368
+                {{- if hasPrefix "https" (default "" .Values.settings.url) }}
+                - name: x-forwarded-proto
+                  value: https
+                {{- end }}
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
