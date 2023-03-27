@@ -1,11 +1,14 @@
+{{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
+{{- $deployWithNonHA := and (not .Values.haMode.enabled) (.Values.useDeploymentWhenNonHA) }}
+{{- $fullname := include "redis.fullname" . }}
 apiVersion: apps/v1
-{{- if and (not .Values.haMode.enabled) (.Values.useDeploymentWhenNonHA) }}
+{{- if $deployWithNonHA }}
 kind: Deployment
 {{- else }}
 kind: StatefulSet
 {{- end }}
 metadata:
-  name: {{ include "redis.fullname" . }}
+  name: {{ $fullname }}
   labels:
     {{- include "redis.labels" . | nindent 4 }}
 spec:
@@ -18,7 +21,7 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
   {{- if or (.Values.haMode.enabled) (not .Values.useDeploymentWhenNonHA) }}
-  serviceName: {{ include "redis.fullname" . }}-headless
+  serviceName: {{ $fullname }}-headless
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
@@ -282,12 +285,12 @@ spec:
       volumes:
         - name: scripts
           configMap:
-            name: {{ include "redis.fullname" . }}-scripts
+            name: {{ $fullname }}-scripts
             defaultMode: 0555
         {{- if or (.Values.redisConfig) (.Values.sentinelConfig) }}
         - name: config
           configMap:
-            name: {{ include "redis.fullname" . }}
+            name: {{ $fullname }}
         {{- end }}
         {{- range $secret := .Values.extraRedisSecrets }}
         - name: {{ $secret.name }}
@@ -312,7 +315,6 @@ spec:
             secretName: {{ .Values.extraSecretSentinelConfigs }}
         {{- end }}
 {{- with .Values.storage }}
-  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
         - name: redis-data
         {{- if .persistentVolumeClaimName }}
@@ -321,6 +323,11 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+  {{- else }}
+  {{- if $deployWithNonHA }}
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: {{ $fullname }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
@@ -336,5 +343,6 @@ spec:
         resources:
           requests:
             storage: {{ .requestedSize }}
+  {{- end }}
   {{- end }}
 {{- end }}

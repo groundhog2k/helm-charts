@@ -236,3 +236,6 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
+  keepPvc: false

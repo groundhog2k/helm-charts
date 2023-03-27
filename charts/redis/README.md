@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.6.5](https://img.shields.io/badge/Version-0.6.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.10](https://img.shields.io/badge/AppVersion-7.0.10-informational?style=flat-square)
+![Version: 0.6.6](https://img.shields.io/badge/Version-0.6.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.10](https://img.shields.io/badge/AppVersion-7.0.10-informational?style=flat-square)
 
 ## Changelog
 
@@ -142,6 +142,7 @@ helm uninstall my-release
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
 
 ## Redis parameters
 
