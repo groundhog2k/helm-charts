@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.11.2](https://img.shields.io/badge/AppVersion-10.11.2-informational?style=flat-square)
+![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.11.2](https://img.shields.io/badge/AppVersion-10.11.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -103,11 +103,13 @@ helm uninstall my-release
 | storage.volumeName | string | `"db-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
 
 ## MariaDB parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | userDatabase | object | `{}` | Optional MariaDB user database |
 | userDatabase.name | string | `""` | Name of the user database |
 | userDatabase.user | string | `""` | User name with full access to user database|

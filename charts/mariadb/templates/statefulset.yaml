@@ -1,7 +1,13 @@
+{{- $usedeployment := .Values.useDeployment }}
+{{- $fullname := include "mariadb.fullname" . }}
 apiVersion: apps/v1
+{{- if $usedeployment }}
+kind: Deployment
+{{- else }}
 kind: StatefulSet
+{{- end }}
 metadata:
-  name: {{ include "mariadb.fullname" . }}
+  name: {{ $fullname }}
   labels:
     {{- include "mariadb.labels" . | nindent 4 }}
 spec:
@@ -9,10 +15,12 @@ spec:
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
-  serviceName: {{ include "mariadb.fullname" . }}
+  {{- if not $usedeployment }}
+  serviceName: {{ $fullname }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "mariadb.selectorLabels" . | nindent 6 }}
@@ -189,7 +197,7 @@ spec:
           envFrom:
           {{- if include "mariadb.createSecureConfig" . }}
             - secretRef:
-                name: {{ include "mariadb.fullname" . }}
+                name: {{ $fullname }}
           {{- end }}
           {{- range .Values.extraEnvSecrets }}
             - secretRef:
@@ -219,12 +227,12 @@ spec:
           emptyDir: {}
         - name: initscripts
           configMap:
-            name: {{ include "mariadb.fullname" . }}-scripts
+            name: {{ $fullname }}-scripts
             defaultMode: 0555
       {{- if .Values.customScripts }}
         - name: customscripts-volume
           configMap:
-            name: {{ include "mariadb.fullname" . }}-customscripts
+            name: {{ $fullname }}-customscripts
             defaultMode: 0555
       {{- end }}
       {{- if .Values.extraSecretConfigs }}
@@ -235,7 +243,7 @@ spec:
       {{- if .Values.customConfig }}
         - name: customconfig-volume
           configMap:
-            name: {{ include "mariadb.fullname" . }}
+            name: {{ $fullname }}
       {{- end }}
       {{- if .Values.extraScripts }}
         - name: extrascripts-volume
@@ -249,7 +257,6 @@ spec:
             secretName: {{ $secret.name }}
             defaultMode: 0440
         {{- end }}
-{{- $fullname := include "mariadb.fullname" . }}
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
@@ -260,6 +267,11 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+  {{- else }}
+  {{- if $usedeployment }}
+        - name: {{ .volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ $fullname }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
@@ -275,5 +287,6 @@ spec:
         resources:
           requests:
             storage: {{ .requestedSize }}
+  {{- end }}
   {{- end }}
 {{- end }}
