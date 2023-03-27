@@ -103,11 +103,13 @@ helm uninstall my-release
 | storage.volumeName | string | `"db-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
 
 ## MariaDB parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | userDatabase | object | `{}` | Optional MariaDB user database |
 | userDatabase.name | string | `""` | Name of the user database |
 | userDatabase.user | string | `""` | User name with full access to user database|
