@@ -23,8 +23,11 @@ spec:
   {{- if or (.Values.haMode.enabled) (not .Values.useDeploymentWhenNonHA) }}
   serviceName: {{ $fullname }}-headless
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  updateStrategy: 
+  updateStrategy:
     type: {{ .Values.updateStrategyType }}
+  {{- else }}
+  strategy:
+    type: Recreate
   {{- end }}
   selector:
     matchLabels:

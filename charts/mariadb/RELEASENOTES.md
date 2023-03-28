@@ -48,4 +48,5 @@
 | 0.7.2 | 10.10.3 | Upgraded MariaDB to 10.10.3 |
 | 0.8.0 | 10.11.2 | Upgraded MariaDB to 10.11.2 |
 | 0.8.1 | 10.11.2 | Implemented alternative distribution with `Deployment` template (thx @tim-hanssen) |
+| 0.8.2 | 10.11.2 | Fix default update strategy to `Recreate` for distribution with `Deployment` |
 | | | |

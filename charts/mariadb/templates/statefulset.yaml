@@ -20,6 +20,9 @@ spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy: 
     type: {{ .Values.updateStrategyType }}
+  {{- else }}
+  strategy:
+    type: Recreate
   {{- end }}
   selector:
     matchLabels:
