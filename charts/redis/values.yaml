@@ -227,6 +227,9 @@ storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "redis-data"
+
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
   requestedSize:
 

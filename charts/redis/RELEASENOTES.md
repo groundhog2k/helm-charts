@@ -27,4 +27,5 @@
 | 0.6.5 | 7.0.10 | Upgraded to Redis 7.0.10 |
 | 0.6.6 | 7.0.10 | Fixed redis volume deployment in non-HA mode |
 | 0.6.7 | 7.0.10 | Fix default update strategy to `Recreate` for distribution with `Deployment` |
+| 0.6.8 | 7.0.10 | Made internal volume name configurable |
 | | | |

@@ -1,25 +1,37 @@
+{{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
+{{- $deployWithNonHA := and (not .Values.replicaSet.enabled) (.Values.useDeploymentWhenNonHA) }}
+{{- $fullname := include "mongodb.fullname" . }}
 apiVersion: apps/v1
+{{- if $deployWithNonHA }}
+kind: Deployment
+{{- else }}
 kind: StatefulSet
+{{- end }}
 metadata:
-  name: {{ include "mongodb.fullname" . }}
+  name: {{ $fullname }}
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
     service-type: primary-secondary
 spec:
-  selector:
-    matchLabels:
-      {{- include "mongodb.selectorLabels" . | nindent 6 }}
-      service-type: primary-secondary
-  serviceName: {{ include "mongodb.fullname" . }}-{{ .Values.service.headlessServiceSuffix }}
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- if .Values.replicaSet.enabled }}
   replicas: {{ add1 .Values.replicaSet.secondaries }}
   {{- end }}
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
-  updateStrategy: 
-    type: {{ .Values.updateStrategyType }}  
+  {{- if or (.Values.replicaSet.enabled) (not .Values.useDeploymentWhenNonHA) }}
+  serviceName: {{ $fullname }}-{{ .Values.service.headlessServiceSuffix }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy:
+    type: {{ .Values.updateStrategyType }}
+  {{- else }}
+  strategy:
+    type: Recreate
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "mongodb.selectorLabels" . | nindent 6 }}
+      service-type: primary-secondary
   template:
     metadata:
       annotations:
@@ -180,7 +192,7 @@ spec:
           envFrom:
             {{- if include "mongodb.createSecureConfig" . }}
             - secretRef:
-                name: {{ include "mongodb.fullname" . }}
+                name: {{ $fullname }}
             {{- end }}
             {{- range .Values.extraEnvSecrets }}
             - secretRef:
@@ -237,7 +249,7 @@ spec:
           emptyDir: {}
         - name: scripts
           configMap:
-            name: {{ include "mongodb.fullname" . }}-scripts
+            name: {{ $fullname }}-scripts
             defaultMode: 0555
         {{- if .Values.extraScripts }}
         - name: extrascripts-volume
@@ -248,7 +260,7 @@ spec:
         {{- if .Values.customScripts }}
         - name: customscripts-volume
           configMap:
-            name: {{ include "mongodb.fullname" . }}-customscripts
+            name: {{ $fullname }}-customscripts
             defaultMode: 0555
         {{- end }}
         {{- if .Values.extraSecretConfigs }}
@@ -259,7 +271,7 @@ spec:
         {{- if .Values.customConfig }}
         - name: customconfig-volume
           configMap:
-            name: {{ include "mongodb.fullname" . }}-customconfig
+            name: {{ $fullname }}-customconfig
         {{- end }}
         {{- range $secret := .Values.extraSecrets }}
         - name: {{ $secret.name }}
@@ -274,7 +286,6 @@ spec:
             defaultMode: 0400
         {{- end }}
 {{- with .Values.storage }}
-  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
   {{- if not $createPvc }}
         - name: {{ .volumeName }}
         {{- if .persistentVolumeClaimName }}
@@ -283,6 +294,11 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+  {{- else }}
+  {{- if $deployWithNonHA }}
+        - name: {{ .volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ $fullname }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
@@ -298,6 +314,7 @@ spec:
         resources:
           requests:
             storage: {{ .requestedSize }}
+  {{- end }}
   {{- end }}
 {{- end }}
   
