@@ -1,6 +1,6 @@
 # MySQL
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.32](https://img.shields.io/badge/AppVersion-8.0.32--oracle-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.32](https://img.shields.io/badge/AppVersion-8.0.32--oracle-informational?style=flat-square)
 
 ## Changelog
 
@@ -103,11 +103,13 @@ helm uninstall my-release
 | storage.volumeName | string | `"db-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
 
 ## MySQL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | userDatabase | object | `{}` | Optional MySQL user database |
 | userDatabase.name | string | `""` | Name of the user database |
 | userDatabase.user | string | `""` | User name with full access to user database|

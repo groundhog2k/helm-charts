@@ -9,4 +9,5 @@
 | 0.1.4 | 8.0.31 | Upgraded MySQL to 8.0.31 |
 | 0.1.5 | 8.0.31 | Added support for init container resources (thx @Footur) |
 | 0.1.6 | 8.0.32 | Upgraded MySQL to 8.0.32 |
+| 0.1.7 | 8.0.32 | Implemented alternative distribution with `Deployment` template |
 | | | |
