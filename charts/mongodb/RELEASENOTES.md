@@ -61,4 +61,5 @@
 | 0.5.9 | 6.0.3 | Fixed values documentation - thx @generalovmaksim |
 | 0.5.10 | 6.0.4 | Upgraded to MongoDB 6.0.4 |
 | 0.5.11 | 6.0.5 | Upgraded to MongoDB 6.0.5 |
+| 0.5.12 | 6.0.5 | Implemented alternative distribution with `Deployment` template |
 | | | |

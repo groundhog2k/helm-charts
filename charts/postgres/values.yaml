@@ -124,6 +124,9 @@ env: []
 ## Arguments for the container entrypoint process
 args: []
 
+## Use Kubernetes Deployment instead of StatefulSet
+useDeployment: false
+
 ## Database configuration
 settings:
   ## The default postgres superuser (default when nothing is set: "postgres")
@@ -199,3 +202,6 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
+  keepPvc: false

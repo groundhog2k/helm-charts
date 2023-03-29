@@ -121,7 +121,10 @@ extraInitContainers: []
 ## Extra containers for usage as sidecars
 extraContainers: []
 
-## Parameters to build a MongoDB replica set
+## Use Kubernetes Deployment instead of StatefulSet when in Non-HA mode
+useDeploymentWhenNonHA: false
+
+## Parameters to build a MongoDB replica set (HA mode)
 replicaSet:
   ## Enables replica set deployment mode
   enabled: false
@@ -270,3 +273,6 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
+  keepPvc: false

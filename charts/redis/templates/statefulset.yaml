@@ -62,7 +62,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - mountPath: /data
-              name: redis-data
+              name: {{ .Values.storage.volumeName }}
             - name: scripts
               mountPath: /scripts
           {{- if .Values.redisConfig }}
@@ -184,7 +184,7 @@ spec:
                 name: {{ . }}
           {{- end }}
           volumeMounts:
-            - name: redis-data
+            - name: {{ .Values.storage.volumeName }}
               mountPath: /data
             {{- range $secret := .Values.extraRedisSecrets }}
             - name: {{ $secret.name }}
@@ -263,7 +263,7 @@ spec:
                 name: {{ . }}
           {{- end }}
           volumeMounts:
-            - name: redis-data
+            - name: {{ .Values.storage.volumeName }}
               mountPath: /data
             {{- range $secret := .Values.extraSentinelSecrets }}
             - name: {{ $secret.name }}
@@ -319,7 +319,7 @@ spec:
         {{- end }}
 {{- with .Values.storage }}
   {{- if not $createPvc }}
-        - name: redis-data
+        - name: {{ .volumeName }}
         {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
             claimName: {{ .persistentVolumeClaimName }}
@@ -328,13 +328,13 @@ spec:
         {{- end }}
   {{- else }}
   {{- if $deployWithNonHA }}
-        - name: redis-data
+        - name: {{ .volumeName }}
           persistentVolumeClaim:
             claimName: {{ $fullname }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: redis-data
+        name: {{ .volumeName }}
       spec:
         {{- with .accessModes }}
         accessModes:

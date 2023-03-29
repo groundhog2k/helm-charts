@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.5.11](https://img.shields.io/badge/Version-0.5.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.5](https://img.shields.io/badge/AppVersion-6.0.5-informational?style=flat-square)
+![Version: 0.5.12](https://img.shields.io/badge/Version-0.5.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.0.5](https://img.shields.io/badge/AppVersion-6.0.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -103,6 +103,7 @@ helm uninstall my-release
 | storage.volumeName | string | `"mongodb-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
 
 ## MongoDB parameters
 
@@ -126,7 +127,8 @@ helm uninstall my-release
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
-| replicaSet.enabled | bool | `false` | Enables MongoDB ReplicaSet deployment |
+| useDeploymentWhenNonHA | bool | `false` | Use Deployment instead of StatefulSet for Non-HA deployments |
+| replicaSet.enabled | bool | `false` | Enables MongoDB ReplicaSet deployment (HA mode) |
 | replicaSet.name | string | `nil` | Name of this MongoDB ReplicaSet |
 | replicaSet.key | string | `nil` | Base 64-encoded string with 6-1024 characters used as authentication key for internal communication |
 | replicaSet.keySecretName | string | `nil` | Alternative to `key` - Name of an existing secret with a file named "keyfile" containing the base64 encoded key string |

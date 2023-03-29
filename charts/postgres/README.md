@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 15.2](https://img.shields.io/badge/AppVersion-15.2-informational?style=flat-square)
+![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 15.2](https://img.shields.io/badge/AppVersion-15.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -107,10 +107,13 @@ helm uninstall my-release
 | storage.volumeName | string | `"postgres-data"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
+
 ## PostgreSQL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | settings.authMethod | string | `nil` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
 | settings.superuser | string | `nil` | Superuser name |
