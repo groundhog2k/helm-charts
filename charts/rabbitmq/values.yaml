@@ -29,6 +29,8 @@ podAnnotations: {}
 ## Pod security options
 podSecurityContext:
   fsGroup: 999
+  supplementalGroups:
+    - 999
 
 ## Pod management policy
 podManagementPolicy: OrderedReady
@@ -44,6 +46,9 @@ securityContext:
   runAsNonRoot: true
   runAsGroup: 999
   runAsUser: 999
+  capabilities:
+    drop:
+      - ALL
 
 ## Default RabbitMq service ports (default: AMQP port 5672, Secure AMQP port 5671, Management UI port 15672)
 service:
