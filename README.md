@@ -4,8 +4,8 @@ Helm charts for some famous open source projects - ready to use in your Kubernet
 ## TL;DR
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
-$ helm repo update
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm repo update
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ The advantage is that most of these charts are platform independent and will run
 To add this repository to the helm configuration:
 
 ```bash
-$ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
+helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
 ```
 
 ## Using this helm repository
@@ -32,7 +32,7 @@ $ helm repo add groundhog2k https://groundhog2k.github.io/helm-charts/
 To install a chart from this repository (example with Redis):
 
 ```bash
-$ helm install my-redis groundhog2k/redis
+helm install my-redis groundhog2k/redis
 ```
 
 ## Removing this helm repository
@@ -40,5 +40,5 @@ $ helm install my-redis groundhog2k/redis
 To remove the helm repository from helm configuration:
 
 ```bash
-$ helm repo remove groundhog2k
+helm repo remove groundhog2k
 ```
