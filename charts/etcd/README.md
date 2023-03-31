@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.7](https://img.shields.io/badge/AppVersion-v3.5.7-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.7](https://img.shields.io/badge/AppVersion-v3.5.7-informational?style=flat-square)
 
 ## Changelog
 
@@ -58,6 +58,10 @@ helm uninstall my-release
 | image.registry | string | `"quay.io/coreos"` | Image registry |
 | image.repository | string | `"etcd"` | Image name |
 | image.tag | string | `""` | Image tag |
+| initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
+| initImage.registry | string | `"docker.io"` | Image registry |
+| initImage.repository | string | `"busybox"` | Init image name |
+| initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | extraInitContainers | list | `[]` | Extra init containers |
 | extaContainers | list | `[]` | Extra containers for usage as sidecars |

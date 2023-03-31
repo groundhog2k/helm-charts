@@ -27,4 +27,5 @@
 | 0.4.1 | 15.1 | Upgraded to Postgres 15.1 |
 | 0.4.2 | 15.2 | Upgraded to Postgres 15.2 |
 | 0.4.3 | 15.2 | Implemented alternative distribution with `Deployment` template |
+| 0.4.4 | 15.2 | Updated default security context |
 | | | |

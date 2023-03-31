@@ -1,7 +1,12 @@
+{{- $fullname := include "etcd.fullname" . }}
+{{- $etcdInternalServiceName := printf "%s-internal" $fullname }}
+{{- $protocol := (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "https" "http" }}
+{{- $servicefqdn := printf "%s.%s.svc.%s" $etcdInternalServiceName .Release.Namespace .Values.clusterDomain }}
+{{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "etcd.fullname" . }}
+  name: {{ $fullname }}
   labels:
     {{- include "etcd.labels" . | nindent 4 }}
 spec:
@@ -9,9 +14,9 @@ spec:
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
-  serviceName: {{ include "etcd.fullname" . }}-internal
+  serviceName: {{ $fullname }}-internal
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  updateStrategy: 
+  updateStrategy:
     type: {{ .Values.updateStrategyType }}
   selector:
     matchLabels:
@@ -19,7 +24,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
+        checksum/etcdconfig: {{ include (print $.Template.BasePath "/etcdconfig.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -33,7 +38,19 @@ spec:
       serviceAccountName: {{ include "etcd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      initContainers: 
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.initImage.registry }}/{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          volumeMounts:
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: /data
+          command: ["/bin/sh"]
+          args: ["-c", "mkdir -p /data/etcd && chmod 700 /data/etcd"]
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -60,7 +77,10 @@ spec:
           startupProbe:
             exec:
               command:
-                - /scripts/healthcheck.sh
+                - /usr/local/bin/etcdctl 
+                - endpoint 
+                - health 
+                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -78,7 +98,10 @@ spec:
           livenessProbe:
             exec:
               command:
-                - /scripts/healthcheck.sh
+                - /usr/local/bin/etcdctl 
+                - endpoint 
+                - health 
+                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -96,7 +119,10 @@ spec:
           readinessProbe:
             exec:
               command:
-                - /scripts/healthcheck.sh
+                - /usr/local/bin/etcdctl 
+                - endpoint 
+                - health 
+                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -110,19 +136,29 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          command:
-            - /scripts/startup.sh
           {{- if .Values.args }}
           args:
             {{- range .Values.args }}
             - {{ . }}
             {{- end }}
           {{- end }}
-          {{- with .Values.env }}
           env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: ETCD_NAME
+              value: $(NODE_NAME)
+            - name: ETCD_ADVERTISE_CLIENT_URLS
+              value: "{{ $protocol }}://$(NODE_NAME).{{ $servicefqdn }}:2379"
+            - name: ETCD_INITIAL_ADVERTISE_PEER_URLS
+              value: "{{ $protocol }}://$(NODE_NAME).{{ $servicefqdn }}:2380"
+          {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
+            - configMapRef:
+                name: {{ $fullname }}
           {{- range .Values.extraEnvSecrets }}
             - secretRef:
                 name: {{ . }}
@@ -132,8 +168,6 @@ spec:
               mountPath: /data
             - name: tmp
               mountPath: /tmp
-            - name: scripts
-              mountPath: /scripts
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
@@ -156,38 +190,35 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
-        - name: scripts
-          configMap:
-            name: {{ include "etcd.fullname" . }}-scripts
-            defaultMode: 0555
         {{- range $secret := .Values.extraSecrets }}
         - name: {{ $secret.name }}
           secret:
             secretName: {{ $secret.name }}
             defaultMode: 0440
         {{- end }}
-  {{- if .Values.storage.persistentVolumeClaimName }}
-        - name: {{ .Values.storage.volumeName }}
+{{- with .Values.storage }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.storage.persistentVolumeClaimName }}
-  {{- else }}
-  {{- if not .Values.storage.requestedSize }}
-        - name: {{ .Values.storage.volumeName }}
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: {{ .Values.storage.volumeName }}
+        name: {{ .volumeName }}
       spec:
-        {{- with .Values.storage.accessModes }}
+        {{- with .accessModes }}
         accessModes:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- if .Values.storage.className }}
-        storageClassName: {{ .Values.storage.className }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.storage.requestedSize }}
+            storage: {{ .requestedSize }}
   {{- end }}
-  {{- end }}
+{{- end }}

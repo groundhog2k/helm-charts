@@ -1,0 +1,29 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "etcd.fullname" . }}
+  labels:
+    {{- include "etcd.labels" . | nindent 4 }}
+data:
+  {{- $replicaCount := int .Values.replicas }}
+  {{- $initialCluster := list }}
+  {{- $etcdFullname := include "etcd.fullname" . }}
+  {{- $etcdInternalServiceName := printf "%s-internal" $etcdFullname }}
+  {{- $protocol := (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "https" "http" }}
+  {{- $servicefqdn := printf "%s.%s.svc.%s" $etcdInternalServiceName .Release.Namespace .Values.clusterDomain }}
+  ETCD_DATA_DIR: "/data/etcd"
+  ETCD_INITIAL_CLUSTER_TOKEN: "{{ .Values.settings.clusterToken }}"
+  ETCD_INITIAL_CLUSTER_STATE: "new"
+  ETCD_LISTEN_CLIENT_URLS: "{{ $protocol }}://0.0.0.0:2379"
+  ETCD_LISTEN_PEER_URLS: "{{ $protocol }}://0.0.0.0:2380"
+  {{- if .Values.serviceMonitor.enabled }}
+  ETCD_LISTEN_METRICS_URLS: "http://0.0.0.0:12379"
+  {{- end }}
+  {{- range $e, $i := until $replicaCount }}
+  {{- $initialCluster = append $initialCluster (printf "%s-%d=%s://%s-%d.%s:%d" $etcdFullname $i $protocol $etcdFullname $i $servicefqdn 2380) }}
+  {{- end }}
+  ETCD_INITIAL_CLUSTER: {{ join "," $initialCluster | quote }}
+  {{- if .Values.settings.https.autoTls }}
+  ETCD_AUTO_TLS: "true"
+  ETCD_PEER_AUTO_TLS: "true"
+  {{- end }}
