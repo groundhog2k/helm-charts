@@ -58,6 +58,10 @@ helm uninstall my-release
 | image.registry | string | `"quay.io/coreos"` | Image registry |
 | image.repository | string | `"etcd"` | Image name |
 | image.tag | string | `""` | Image tag |
+| initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
+| initImage.registry | string | `"docker.io"` | Image registry |
+| initImage.repository | string | `"busybox"` | Init image name |
+| initImage.tag | string | `"latest"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | extraInitContainers | list | `[]` | Extra init containers |
 | extaContainers | list | `[]` | Extra containers for usage as sidecars |
