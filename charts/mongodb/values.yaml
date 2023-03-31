@@ -28,6 +28,8 @@ podAnnotations: {}
 ## Pod security options
 podSecurityContext:
   fsGroup: 999
+  supplementalGroups:
+    - 999
 
 ## Pod management policy
 podManagementPolicy: OrderedReady
@@ -43,6 +45,9 @@ securityContext:
   runAsNonRoot: true
   runAsGroup: 999
   runAsUser: 999
+  capabilities:
+    drop:
+      - ALL
 
 service:
   # Suffix of the headless service name

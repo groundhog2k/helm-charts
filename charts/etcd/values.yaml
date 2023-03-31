@@ -39,6 +39,8 @@ updateStrategyType: RollingUpdate
 ## Pod security context uses file system group 999 (postgres)
 podSecurityContext:
   fsGroup: 999
+  supplementalGroups:
+    - 999
 
 ## Default security options to run PostgreSQL as non-root (postgres user), read only container without privilege escalation
 securityContext:
@@ -48,6 +50,9 @@ securityContext:
   runAsNonRoot: true
   runAsGroup: 999
   runAsUser: 999
+  capabilities:
+    drop:
+      - ALL
 
 ## Etcd service ports (default: Client port 2379, Peer port 2380)
 service:

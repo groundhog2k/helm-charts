@@ -65,7 +65,7 @@ Create the name of the service account to use
 Generate secret with configuration
 */}}
 {{- define "mongodb.createSecureConfig" -}}
-  {{- if or (or (.Values.settings.rootPassword) (.Values.settings.rootUsername)) (.Values.userDatabase) }}
+  {{- if or (or ((.Values.settings).rootPassword) ((.Values.settings).rootUsername)) (.Values.userDatabase) }}
 true
   {{- end }}
 {{- end }}
