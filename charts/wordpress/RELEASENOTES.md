@@ -25,4 +25,5 @@
 | 0.7.5 | 6.1.1-apache | Updated chart dependencies (mariadb 0.2.25) |
 | 0.7.6 | 6.1.1-apache | Fixed health probe warnings |
 | 0.8.0 | 6.2.0-apache | Upgraded to Wordpress 6.2.0 |
+| 0.8.1 | 6.2.0-apache | Updated chart dependencies (mariadb 0.3.11) |
 | | | |
