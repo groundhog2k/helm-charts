@@ -5099,6 +5099,31 @@ entries:
   gitea:
   - apiVersion: v2
     appVersion: 1.19.0
+    created: "2023-04-04T17:35:34.116755088Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.25
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.9
+    description: A Helm chart for Gitea on Kubernetes
+    digest: d62c21ec9e43ab5c301531f2f0dfa9cd367e4b4384b30e4e6ff1731fccc85f91
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.8.1/gitea-0.8.1.tgz
+    version: 0.8.1
+  - apiVersion: v2
+    appVersion: 1.19.0
     created: "2023-03-20T16:10:20.480105958Z"
     dependencies:
     - condition: mariadb.enabled
@@ -11603,6 +11628,31 @@ entries:
   nextcloud:
   - apiVersion: v2
     appVersion: 26.0.0-apache
+    created: "2023-04-04T17:35:34.351156544Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.11
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.4.4
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.9
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: 49c627834ec50690ce1bb9e5e40b5cf3f12f508344d326f3d86273ffac545376
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.13.1/nextcloud-0.13.1.tgz
+    version: 0.13.1
+  - apiVersion: v2
+    appVersion: 26.0.0-apache
     created: "2023-03-23T15:49:50.729430436Z"
     dependencies:
     - condition: mariadb.enabled
@@ -16788,6 +16838,23 @@ entries:
   remark42:
   - apiVersion: v2
     appVersion: v1.11.3
+    created: "2023-04-04T17:35:34.579711415Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.9
+    description: A Helm chart for Remark42 comment system
+    digest: eb46738a88c08c3a962a083aa9965998255991437d149fbf5e5e233e8723fb28
+    maintainers:
+    - name: groundhog2k
+    name: remark42
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.5.6/remark42-0.5.6.tgz
+    version: 0.5.6
+  - apiVersion: v2
+    appVersion: v1.11.3
     created: "2023-01-22T09:46:49.114192261Z"
     dependencies:
     - condition: redis.enabled
@@ -17331,6 +17398,23 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.1.0/remark42-0.1.0.tgz
     version: 0.1.0
   wordpress:
+  - apiVersion: v2
+    appVersion: 6.2.0-apache
+    created: "2023-04-04T17:35:34.776359271Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.11
+    description: A Helm chart for Wordpress on Kubernetes
+    digest: eb9d6ebb47da1d5bd90d0f0e6e9be7f5321e5a36a25411869fa2c692c620f2ee
+    maintainers:
+    - name: groundhog2k
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.8.1/wordpress-0.8.1.tgz
+    version: 0.8.1
   - apiVersion: v2
     appVersion: 6.2.0-apache
     created: "2023-03-31T19:49:54.089406315Z"
@@ -18317,4 +18401,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-04T17:26:00.747577256Z"
+generated: "2023-04-04T17:35:34.779203607Z"
