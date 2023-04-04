@@ -111,4 +111,5 @@
 | 0.83.0 | 5.40.1 | Upgraded to Ghost 5.40.1 |
 | 0.83.1 | 5.40.1 | Fixed health probe warnings |
 | 0.83.2 | 5.40.2 | Upgraded to Ghost 5.40.2 |
+| 0.84.0 | 5.41.0 | Upgraded to Ghost 5.41.0 |
 | | | |
