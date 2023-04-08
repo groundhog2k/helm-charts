@@ -79,8 +79,10 @@ spec:
               command:
                 - /usr/local/bin/etcdctl 
                 - endpoint 
-                - health 
-                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
+                - health
+                {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
+                - --insecure-skip-tls-verify=true --insecure-transport=false
+                {{- end }}
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -100,8 +102,10 @@ spec:
               command:
                 - /usr/local/bin/etcdctl 
                 - endpoint 
-                - health 
-                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
+                - health
+                {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
+                - --insecure-skip-tls-verify=true --insecure-transport=false
+                {{- end }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -121,8 +125,10 @@ spec:
               command:
                 - /usr/local/bin/etcdctl 
                 - endpoint 
-                - health 
-                - {{ (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "--insecure-skip-tls-verify=true --insecure-transport=false" "" }}
+                - health
+                {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
+                - --insecure-skip-tls-verify=true --insecure-transport=false
+                {{- end }}
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
