@@ -1136,6 +1136,27 @@ entries:
   ghost:
   - apiVersion: v2
     appVersion: 5.44.0
+    created: "2023-04-19T14:29:42.769075482Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.25
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.9
+    description: A Helm chart for Ghost on Kubernetes
+    digest: a01a5bf0b77de6eb5ee0dc6e3629f59bb7d5c966c88a6faa0a24117330fa35b1
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.87.1/ghost-0.87.1.tgz
+    version: 0.87.1
+  - apiVersion: v2
+    appVersion: 5.44.0
     created: "2023-04-18T14:49:14.963524087Z"
     dependencies:
     - condition: mariadb.enabled
@@ -5205,6 +5226,31 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.1.0/ghost-0.1.0.tgz
     version: 0.1.0
   gitea:
+  - apiVersion: v2
+    appVersion: 1.19.1
+    created: "2023-04-19T14:29:42.903937161Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.25
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.24
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.10
+    description: A Helm chart for Gitea on Kubernetes
+    digest: 5f2ef3217ac730be3e775c1efddd20040071f95a3427fb8c5e826c2fc90b5f77
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.8.3/gitea-0.8.3.tgz
+    version: 0.8.3
   - apiVersion: v2
     appVersion: 1.19.1
     created: "2023-04-13T15:46:46.109616978Z"
@@ -11818,6 +11864,31 @@ entries:
   nextcloud:
   - apiVersion: v2
     appVersion: 26.0.0-apache
+    created: "2023-04-19T14:29:43.232681029Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.11
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.4.4
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.10
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: 56a00812f7c54578350f1a1c8f4e97e34d182193705f4da95069b5b2782cbaa0
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.13.2/nextcloud-0.13.2.tgz
+    version: 0.13.2
+  - apiVersion: v2
+    appVersion: 26.0.0-apache
     created: "2023-04-04T17:35:34.351156544Z"
     dependencies:
     - condition: mariadb.enabled
@@ -17052,6 +17123,23 @@ entries:
   remark42:
   - apiVersion: v2
     appVersion: v1.11.3
+    created: "2023-04-19T14:29:43.35474361Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.10
+    description: A Helm chart for Remark42 comment system
+    digest: c8ff44616e32c4293079697c1450fcd8a99dac21597d01d6143911de10de3be6
+    maintainers:
+    - name: groundhog2k
+    name: remark42
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/remark42-0.5.7/remark42-0.5.7.tgz
+    version: 0.5.7
+  - apiVersion: v2
+    appVersion: v1.11.3
     created: "2023-04-04T17:35:34.579711415Z"
     dependencies:
     - condition: redis.enabled
@@ -18615,4 +18703,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-19T14:22:49.265615809Z"
+generated: "2023-04-19T14:29:43.357482353Z"
