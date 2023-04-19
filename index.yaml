@@ -1074,6 +1074,18 @@ entries:
     version: 0.0.1
   etcd:
   - apiVersion: v2
+    appVersion: v3.5.8
+    created: "2023-04-19T14:21:27.588089097Z"
+    description: A Helm chart for etcd on Kubernetes
+    digest: 185df33a430e1214e8616dd1dceba8336e44e34b63dce00a8d115d2d822d8f3b
+    maintainers:
+    - name: groundhog2k
+    name: etcd
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/etcd-0.1.4/etcd-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     appVersion: v3.5.7
     created: "2023-04-08T08:49:36.802188694Z"
     description: A Helm chart for etcd on Kubernetes
@@ -11035,6 +11047,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.4.0/mongodb-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
+    appVersion: 4.4.20
+    created: "2023-04-19T14:21:27.746907946Z"
+    description: A Helm chart to deploy MongoDB
+    digest: ac82553709988605b4ac180fb95260db077dacb939473231af6045aeaf65402e
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.3.24/mongodb-0.3.24.tgz
+    version: 0.3.24
+  - apiVersion: v2
     appVersion: 4.4.19
     created: "2023-02-26T10:18:04.931708843Z"
     description: A Helm chart to deploy MongoDB
@@ -11659,6 +11683,18 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.1.0/mongodb-0.1.0.tgz
     version: 0.1.0
   mysql:
+  - apiVersion: v2
+    appVersion: 8.0.33-oracle
+    created: "2023-04-19T14:21:27.9002431Z"
+    description: A Helm chart for MySQL on Kubernetes
+    digest: 43da3e1c872b92dc3ec91091f41b7a47fc655b5e5e04824175671b7e89cc7958
+    maintainers:
+    - name: groundhog2k
+    name: mysql
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mysql-0.1.9/mysql-0.1.9.tgz
+    version: 0.1.9
   - apiVersion: v2
     appVersion: 8.0.32-oracle
     created: "2023-03-31T19:42:51.10952032Z"
@@ -18567,4 +18603,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-18T15:30:30.626826264Z"
+generated: "2023-04-19T14:21:27.902542997Z"
