@@ -6,4 +6,5 @@
 | 0.1.1 | v3.5.7 | Upgraded etcd to v3.5.7 |
 | 0.1.2 | v3.5.7 | Updated default security context |
 | 0.1.3 | v3.5.7 | Fixed "nil" syntax error for health checks (thx @omegazeng) |
+| 0.1.4 | v3.5.8 | Upgraded etcd to v3.5.8 |
 | | | |

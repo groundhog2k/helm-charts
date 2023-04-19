@@ -11,4 +11,5 @@
 | 0.1.6 | 8.0.32 | Upgraded MySQL to 8.0.32 |
 | 0.1.7 | 8.0.32 | Implemented alternative distribution with `Deployment` template |
 | 0.1.8 | 8.0.32 | Updated default security context |
+| 0.1.9 | 8.0.33 | Upgraded MySQL to 8.0.33 |
 | | | |
