@@ -111,6 +111,16 @@ data:
     }
 
     configure_redis_cluster() {
+      log "Try to resolve cluster service.."
+      SERVICE="$(getent hosts {{ template "redis.fullname" . }})"
+      if [ -z "$SERVICE" ]; then
+        log "Can't resolve service - Will restart after DNS failure wait"
+        sleep {{ .Values.haMode.dnsFailureWait }}
+        log "Restart"
+        exit 1
+      else
+        log "Service resolved: ${SERVICE}"
+      fi
       log "Try to detect cluster master.."
       MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s redis-cli -h {{ template "redis.fullname" . }} -p {{ .Values.service.sentinelPort }} sentinel get-master-addr-by-name {{ include "redis.masterGroupName" . }} | head -n 1)"
       if [ -z "$MASTER" ]; then
