@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.6.14](https://img.shields.io/badge/Version-0.6.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.13](https://img.shields.io/badge/AppVersion-3.11.13-informational?style=flat-square)
+![Version: 0.6.15](https://img.shields.io/badge/Version-0.6.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.14](https://img.shields.io/badge/AppVersion-3.11.14-informational?style=flat-square)
 
 ## Changelog
 

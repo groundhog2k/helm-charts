@@ -71,4 +71,5 @@
 | 0.6.12 | 3.11.11 | Upgraded to RabbitMQ 3.11.11 |
 | 0.6.13 | 3.11.11 | Updated default security context |
 | 0.6.14 | 3.11.13 | Upgraded to RabbitMQ 3.11.13 |
+| 0.6.15 | 3.11.14 | Upgraded to RabbitMQ 3.11.14 |
 | | | |
