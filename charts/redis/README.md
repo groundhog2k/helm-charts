@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.6.10](https://img.shields.io/badge/Version-0.6.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.11](https://img.shields.io/badge/AppVersion-7.0.11-informational?style=flat-square)
+![Version: 0.6.11](https://img.shields.io/badge/Version-0.6.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.11](https://img.shields.io/badge/AppVersion-7.0.11-informational?style=flat-square)
 
 ## Changelog
 
@@ -172,4 +172,5 @@ helm uninstall my-release
 | haMode.parallelSyncs | int | `1` | Number of parallel reconfigurations
 | haMode.masterAliveTestTimeout | int | `2` | Timeout in seconds to detect if Redis master is alive |
 | haMode.failoverWait | int | `35` | Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds) |
+| haMode.dnsFailureWait | int | `15` | Wait time in seconds before restart will be forced after a DNS failure during initialization |
 | haMode.keepOldLogs | bool | `false` | Keep old init logs in /data/init.log after a successful initialization (use only for debugging) |

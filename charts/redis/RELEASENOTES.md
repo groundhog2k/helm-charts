@@ -31,4 +31,5 @@
 | 0.6.8 | 7.0.10 | Made internal volume name configurable |
 | 0.6.9 | 7.0.10 | Updated default security context |
 | 0.6.10 | 7.0.11 | Upgraded to Redis 7.0.11 |
+| 0.6.11 | 7.0.11 | Fixed split brain bug - thx @tim-hanssen @tomswinkels |
 | | | |

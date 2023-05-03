@@ -224,6 +224,8 @@ haMode:
   masterAliveTestTimeout: 2
   ## Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds)
   failoverWait: 35
+  ## Wait time in seconds before restart will be forced after a DNS failure during initialization
+  dnsFailureWait: 15
   ## Keep old init logs in /data/init.log after a successful initialization (use only for debugging)
   keepOldLogs: false
 
