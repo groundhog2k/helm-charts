@@ -141,6 +141,7 @@ helm uninstall my-release
 | settings.memoryLimit | string | `128M` | PHP memory limit |
 | settings.configExtra | string | `nil` | Extra values embedded inside wp-config.php |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
 
 ## Storage parameters
 

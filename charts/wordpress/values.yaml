@@ -190,6 +190,9 @@ apacheDefaultSiteConfig: |
 ## A list of existing secrets that will be mounted into the container as environment variables
 extraEnvSecrets: []
 
+## A list of existing configmaps that will be mounted into the container as environment variables
+extraEnvConfigs: []
+
 ## Storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC

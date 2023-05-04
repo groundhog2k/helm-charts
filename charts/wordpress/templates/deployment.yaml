@@ -51,6 +51,10 @@ spec:
             - secretRef:
                 name: {{ . }}
           {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
