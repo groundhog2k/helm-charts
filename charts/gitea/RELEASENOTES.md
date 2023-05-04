@@ -47,4 +47,5 @@
 | 0.8.2 | 1.19.1 | Updated to Gitea 1.19.1 |
 | 0.8.3 | 1.19.1 | Updated chart dependencies (redis 0.6.10) |
 | 0.8.4 | 1.19.2 | Updated to Gitea 1.19.2 |
+| 0.8.5 | 1.19.3 | Updated to Gitea 1.19.3 |
 | | | |

@@ -43,4 +43,5 @@
 | 0.5.6 | 5.0.4 | Updated chart for Graylog 5.0.4 |
 | 0.5.7 | 5.0.5 | Updated chart for Graylog 5.0.5 |
 | 0.5.8 | 5.0.6 | Updated chart for Graylog 5.0.6 and chart dependencies (mongodb 0.5.13) |
+| 0.5.9 | 5.0.7 | Updated chart for Graylog 5.0.7 |
 | | | |
