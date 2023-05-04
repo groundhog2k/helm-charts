@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.0-apache](https://img.shields.io/badge/AppVersion-6.2.0--apache-informational?style=flat-square)
+![Version: 0.8.2](https://img.shields.io/badge/Version-0.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.0-apache](https://img.shields.io/badge/AppVersion-6.2.0--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -139,6 +139,8 @@ helm uninstall my-release
 | settings.tablePrefix | string | `nil` | Database table name prefix |
 | settings.maxFileUploadSize | string | `64M` | Maximum file upload size |
 | settings.memoryLimit | string | `128M` | PHP memory limit |
+| settings.configExtra | string | `nil` | Extra values embedded inside wp-config.php |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 
 ## Storage parameters
 

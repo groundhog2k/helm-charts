@@ -175,6 +175,8 @@ settings:
   maxFileUploadSize: 64M
   ## PHP memory limit (default: 128M)
   memoryLimit: 128M
+  ## Extra values embedded inside wp-config.php
+  configExtra:
 
 ## Additional PHP custom.ini
 customPhpConfig: |
@@ -184,6 +186,9 @@ apachePortsConfig: |
 
 ## Overwrite default apache 000-default.conf
 apacheDefaultSiteConfig: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
 
 ## Storage parameters
 storage:

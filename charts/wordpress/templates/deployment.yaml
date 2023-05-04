@@ -47,6 +47,10 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "wordpress.fullname" . }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}

@@ -24,4 +24,7 @@ data:
   {{- if .tablePrefix }}
   WORDPRESS_TABLE_PREFIX: {{ .tablePrefix | b64enc }}
   {{- end }}
+  {{- if .configExtra }}
+  WORDPRESS_CONFIG_EXTRA: {{ .configExtra | b64enc }}
+  {{- end }}  
 {{- end }}
