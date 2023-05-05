@@ -26,4 +26,5 @@
 | 0.7.6 | 6.1.1-apache | Fixed health probe warnings |
 | 0.8.0 | 6.2.0-apache | Upgraded to Wordpress 6.2.0 |
 | 0.8.1 | 6.2.0-apache | Updated chart dependencies (mariadb 0.3.11) |
+| 0.8.2 | 6.2.0-apache | Added support for extra configuration (WORDPRESS_CONFIG_EXTRA) - thx @MihaiMoldovanu |
 | | | |

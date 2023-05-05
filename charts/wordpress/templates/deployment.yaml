@@ -36,6 +36,10 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.extraInitContainers }}
+      initContainers:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -47,6 +51,14 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "wordpress.fullname" . }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -149,7 +161,14 @@ spec:
               name: extended
             - mountPath: /usr/local/etc/php/conf.d/custom.ini
               subPath: custom.ini
-              name: extended              
+              name: extended
+            {{- range $secret := .Values.extraSecrets }}
+            - mountPath: {{ $secret.mountPath }}
+              name: {{ $secret.name }}
+            {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -170,6 +189,12 @@ spec:
         - name: extended
           configMap:
             name: {{ include "wordpress.fullname" . }}-extended
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
         - name: wordpress-vol
         {{- if .Values.storage.persistentVolumeClaimName }}
           persistentVolumeClaim:

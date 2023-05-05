@@ -130,6 +130,12 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers:
+
 tolerations: []
 
 affinity: {}
@@ -175,6 +181,8 @@ settings:
   maxFileUploadSize: 64M
   ## PHP memory limit (default: 128M)
   memoryLimit: 128M
+  ## Extra values embedded inside wp-config.php
+  configExtra:
 
 ## Additional PHP custom.ini
 customPhpConfig: |
@@ -184,6 +192,20 @@ apachePortsConfig: |
 
 ## Overwrite default apache 000-default.conf
 apacheDefaultSiteConfig: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
+
+## A list of existing configmaps that will be mounted into the container as environment variables
+extraEnvConfigs: []
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## Storage parameters
 storage:
