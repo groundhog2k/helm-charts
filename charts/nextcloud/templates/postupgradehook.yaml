@@ -29,6 +29,14 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "nextcloud.fullname" . }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           env:
             - name: NEXTCLOUD_DATA_DIR
               value: /var/datavolume/data

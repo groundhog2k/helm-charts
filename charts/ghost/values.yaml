@@ -133,33 +133,36 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 ## Additional environment variables
 env: []
 
 ## Arguments for the container entrypoint process
 args: []
 
-externalDatabase:
-  ## Type of database ("mysql" or "mariadb" - default: sqlite)
-  type: sqlite
-
-  ## Path to default SQLite database (only sqlite)
-  sqliteDatabaseFile: "content/data/ghost.db"
+externalDatabase: {}
+  ## Type of database ("mysql" or "mariadb")
+  # type:
 
   ## Name of the database (default: ghost)
-  name: ghost
+  # name: ghost
 
   ## Database user (only mysql/mariadb)
-  user:
+  # user:
 
   ## Database password (only mysql/mariadb)
-  password:
+  # password:
 
   ## Database host (only for mysql/mariadb)
-  host:
+  # host:
 
   ## Database port (only for mysql/mariadb)
-  port:
+  # port:
 
 ## Ghost specific configuration
 settings:
@@ -172,15 +175,35 @@ settings:
   ## Environment mode (development or production - default: production)
   mode: production
 
+  ## Use internal Sqlite when no externalDatabase: or mariadb.enabled / mysql.enabled was configured
+  ## Set false in case you want to use own environment variables to configure a database connection
+  useSqlite: true
+  ## Path to default SQLite database (only sqlite)
+  sqliteDatabaseFile: "content/data/ghost.db"
+
   ## SMTP connection details
-  mail:
-    from:
-    transport: SMTP
-    host:
-    port:
-    service:
-    user:
-    password:
+  mail: {}
+  #  from:
+  #  transport: SMTP
+  #  host:
+  #  port:
+  #  service:
+  #  user:
+  #  password:
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
+
+## A list of existing configmaps that will be mounted into the container as environment variables
+extraEnvConfigs: []
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## Storage parameters
 storage:
