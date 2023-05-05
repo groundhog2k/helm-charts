@@ -65,6 +65,8 @@ helm uninstall my-release
 | image.repository | string | `"wordpress"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| extraInitContainers | list | `[]` | Extra init containers |
+| extaContainers | list | `[]` | Extra containers for usage as sidecars |
 | strategy | object | `{}` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
@@ -142,6 +144,7 @@ helm uninstall my-release
 | settings.configExtra | string | `nil` | Extra values embedded inside wp-config.php |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 
 ## Storage parameters
 
