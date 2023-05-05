@@ -37,6 +37,14 @@ spec:
               envFrom:
                 - secretRef:
                     name: {{ $fullname }}
+              {{- range $.Values.extraEnvSecrets }}
+                - secretRef:
+                    name: {{ . }}
+              {{- end }}
+              {{- range $.Values.extraEnvConfigs }}
+                - configMapRef:
+                    name: {{ . }}
+              {{- end }}
               env:
                 - name: NEXTCLOUD_DATA_DIR
                   value: /var/datavolume/data
@@ -57,6 +65,10 @@ spec:
                   name: tmp
                 - mountPath: /var/run
                   name: run
+                {{- range $secret := $.Values.extraSecrets }}
+                - mountPath: {{ $secret.mountPath }}
+                  name: {{ $secret.name }}
+                {{- end }}
               resources:
                 {{- toYaml $job.resources | nindent 18 }}
           {{- if $job.nodeSelector -}}
@@ -83,6 +95,12 @@ spec:
               emptyDir: {}
             - name: run
               emptyDir: {}
+            {{- range $secret := $.Values.extraSecrets }}
+            - name: {{ $secret.name }}
+              secret:
+                secretName: {{ $secret.name }}
+                defaultMode: 0440
+            {{- end }}
             - name: nextcloud-vol
             {{- if $.Values.storage.nextcloud.persistentVolumeClaimName }}
               persistentVolumeClaim:

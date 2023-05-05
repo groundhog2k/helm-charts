@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.13.3](https://img.shields.io/badge/Version-0.13.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 26.0.1-apache](https://img.shields.io/badge/AppVersion-26.0.1-informational?style=flat-square)
+![Version: 0.13.4](https://img.shields.io/badge/Version-0.13.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 26.0.1-apache](https://img.shields.io/badge/AppVersion-26.0.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -102,6 +102,8 @@ helm uninstall my-release
 | image.repository | string | `"nextcloud"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| extraInitContainers | list | `[]` | Extra init containers |
+| extaContainers | list | `[]` | Extra containers for usage as sidecars |
 | strategy.type | object | `"RollingUpdate"` | Pod deployment strategy |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
@@ -222,6 +224,8 @@ helm uninstall my-release
 | settings.admin.name | string | `nil` | Nextcloud administrator user |
 | settings.admin.password | string | `nil` | Nextcloud admin user password |
 | settings.update | bool | `false` | Enable update (Only necessary if custom command is used) |
+| settings.useSqlite | bool | `true` | Use internal Sqlite when no externalDatabase: or mariadb.enabled was configured |
+| settings.sqliteDbName | string | `"nextcloud"` | Sqlite database name |
 | settings.maxFileUploadSize | string | `512M` | Maximum file upload size |
 | settings.memoryLimit | string | `512M` | PHP memory limit |
 | settings.disableRewriteIP | bool | `false` | Disable rewriting IP address |
@@ -236,6 +240,9 @@ helm uninstall my-release
 | settings.smtp.name | string | `nil` | SMTP user name |
 | settings.smtp.password | string | `nil` | SMTP password |
 | settings.smtp.secure | bool | `true` | Use secure SMTP |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 
 ## Storage parameters
 

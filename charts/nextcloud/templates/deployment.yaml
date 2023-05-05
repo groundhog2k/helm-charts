@@ -84,7 +84,10 @@ spec:
               subPath: 000-default.conf
               name: extendedconfigs
             - mountPath: /scripts
-              name: scripts              
+              name: scripts
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -96,6 +99,14 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "nextcloud.fullname" . }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           env:
             - name: NEXTCLOUD_DATA_DIR
               value: /var/datavolume/data
@@ -193,6 +204,13 @@ spec:
               name: apache2
             - mountPath: /usr/local/etc/php/conf.d
               name: confd
+            {{- range $secret := .Values.extraSecrets }}
+            - mountPath: {{ $secret.mountPath }}
+              name: {{ $secret.name }}
+            {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -221,6 +239,12 @@ spec:
           configMap:
             name: {{ include "nextcloud.fullname" . }}-scripts
             defaultMode: 0555
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
         - name: nextcloud-vol
         {{- if .Values.storage.nextcloud.persistentVolumeClaimName }}
           persistentVolumeClaim:
