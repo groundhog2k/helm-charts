@@ -123,4 +123,5 @@
 | 0.90.0 | 5.47.0 | Upgraded to Ghost 5.47.0 |
 | 0.90.1 | 5.47.1 | Upgraded to Ghost 5.47.1 |
 | 0.90.2 | 5.47.1 | Updated chart dependencies (mariadb 0.2.26) |
+| 0.90.3 | 5.47.1 | Added support for custom secrets and additional environment configurations |
 | | | |

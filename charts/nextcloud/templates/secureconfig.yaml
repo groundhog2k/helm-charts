@@ -32,9 +32,10 @@ data:
   POSTGRES_USER: {{ .user | b64enc }}
   POSTGRES_PASSWORD: {{ .password | b64enc }}
   POSTGRES_HOST: {{ .host | b64enc }}
-  {{- else if eq .type "sqlite" }}
-  SQLITE_DATABASE: {{ .name | b64enc }}
   {{- end }}
+{{- end }}
+{{- if and .Values.settings.useSqlite (not .Values.externalDatabase) }}
+  SQLITE_DATABASE: {{ .Values.settings.sqliteDbName | b64enc }}
 {{- end }}
 {{- end }}
 {{- end }}

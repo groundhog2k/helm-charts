@@ -134,7 +134,7 @@ readinessProbe:
 extraInitContainers: []
 
 ## Extra containers for usage as sidecars
-extraContainers:
+extraContainers: []
 
 tolerations: []
 

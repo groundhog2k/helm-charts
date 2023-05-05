@@ -1,3 +1,7 @@
+# ⚠️ Deprecation and Archive Notice
+
+This chart version (v0.1.34) is the last update and the chart is deprecated and will no longer be maintained.
+
 # Commento
 
 ![Version: 0.1.34](https://img.shields.io/badge/Version-0.1.34-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
