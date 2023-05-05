@@ -159,3 +159,5 @@ helm uninstall my-release
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |

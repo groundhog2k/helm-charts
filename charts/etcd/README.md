@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.9](https://img.shields.io/badge/AppVersion-v3.5.9-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.9](https://img.shields.io/badge/AppVersion-v3.5.9-informational?style=flat-square)
 
 ## Changelog
 
@@ -145,3 +145,4 @@ helm uninstall my-release
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
