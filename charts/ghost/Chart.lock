@@ -1,9 +1,9 @@
 dependencies:
 - name: mariadb
   repository: https://groundhog2k.github.io/helm-charts
-  version: 0.2.25
+  version: 0.2.26
 - name: mysql
   repository: https://groundhog2k.github.io/helm-charts
   version: 0.1.9
-digest: sha256:74bd3f531836da09a99eb6455ade151929115961cf623336abbd0e1cccf6672e
-generated: "2023-04-19T16:27:04.120445384+02:00"
+digest: sha256:a3e2686eba2a83bc0cca6eeaabecec9a5e64bf3d855b82aa7e4db6d93abb4383
+generated: "2023-05-14T17:05:54.351507888+02:00"

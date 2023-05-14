@@ -8,13 +8,13 @@ maintainers:
 type: application
 
 # This is the chart version.
-version: "0.8.2"
+version: "0.8.3"
 
 # This is the version number of the application being deployed.
 appVersion: "6.2.0-apache"
 
 dependencies:
   - name: mariadb
-    version: "0.3.11"
+    version: "0.3.12"
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mariadb.enabled
