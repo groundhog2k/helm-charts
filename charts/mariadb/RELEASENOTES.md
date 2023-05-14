@@ -11,6 +11,7 @@
 | 0.2.23 | 10.5.17 | Implemented support for custom inline init scripts and image.registry option |
 | 0.2.24 | 10.5.18 | Upgraded MariaDB to 10.5.18 |
 | 0.2.25 | 10.5.19 | Upgraded MariaDB to 10.5.19 |
+| 0.2.26 | 10.5.20 | Upgraded MariaDB to 10.5.20 |
 | 0.3.1 | 10.6.5 | Implemented startupProbe support |
 | 0.3.2 | 10.6.5 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.3.3 | 10.6.5 | Implemented support for extra containers |
