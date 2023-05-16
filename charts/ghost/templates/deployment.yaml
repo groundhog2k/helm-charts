@@ -35,6 +35,10 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.extraInitContainers }}
+      initContainers:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -50,6 +54,14 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ghost.fullname" . }}
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           env:
             {{- if .Values.settings.url }}
             - name: url
@@ -174,6 +186,13 @@ spec:
               name: tmp
             - mountPath: /var/lib/ghost/content
               name: ghost-vol
+            {{- range $secret := .Values.extraSecrets }}
+            - mountPath: {{ $secret.mountPath }}
+              name: {{ $secret.name }}
+            {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -189,6 +208,12 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+        {{- range $secret := .Values.extraSecrets }}
+        - name: {{ $secret.name }}
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
         - name: ghost-vol
         {{- if .Values.storage.persistentVolumeClaimName }}
           persistentVolumeClaim:

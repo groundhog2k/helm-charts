@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.90.3](https://img.shields.io/badge/Version-0.90.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.47.2](https://img.shields.io/badge/AppVersion-5.47.2-informational?style=flat-square)
+![Version: 0.90.4](https://img.shields.io/badge/Version-0.90.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.47.2](https://img.shields.io/badge/AppVersion-5.47.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -68,6 +68,8 @@ helm uninstall my-release
 | image.repository | string | `"ghost"` | Image name |
 | image.tag | string | `""` | Image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
+| extraInitContainers | list | `[]` | Extra init containers |
+| extaContainers | list | `[]` | Extra containers for usage as sidecars |
 | strategy | object | `{}` | Pod deployment strategy |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
 | livenessProbe | object | `see values.yaml` | Liveness probe configuration |
@@ -138,13 +140,13 @@ helm uninstall my-release
 | mysql.userDatabase.user | string | `nil` | User name with full access to ghost database |
 | mysql.userDatabase.password | string | `nil` | Password of the ghost database user |
 | mysql.storage | string | `nil` | MySQL storage parameter (see storage parameters) |
-| externalDatabase.type | string | `"sqlite"` | External database type (mysql or mariadb - default: sqlite) |
-| externalDatabase.sqliteDatabaseFile | string | `"content/data/ghost.db"` | Path to default SQLite database (only sqlite) |
 | externalDatabase.host | string | `nil` | External database host (only mysql/mariadb) |
 | externalDatabase.name | string | `"ghost"` | External database name (only mysql/mariadb) |
 | externalDatabase.user | string | `nil` | External database user (only mysql/mariadb) |
 | externalDatabase.password | string | `nil` | External database password (only mysql/mariadb) |
 | settings.mode | string | `"production"` | Ghost mode (production or development) |
+| settings.useSqlite | bool | `true` | Use internal Sqlite when no externalDatabase: or mariadb.enabled / mysql.enabled was configured |
+| settings.sqliteDatabaseFile | string | `"content/data/ghost.db"` | Path to default SQLite database (only sqlite) |
 | settings.url | string | `nil` | URL of Ghost blog |
 | settings.logToStdout | bool | `true`| Log to stdout by default (otherwise logging will go to stdout and file) |
 | settings.mail.from | string | `nil` | Mail from address |
@@ -154,3 +156,8 @@ helm uninstall my-release
 | settings.mail.service | string | `nil` | Service for mail transport (Mailgun, Sendgrid, Gmail, SES) |
 | settings.mail.user | string | `nil` | Mail auth user |
 | settings.mail.passwort | string | `nil` | Mail auth password |
+| extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |

@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.0-apache](https://img.shields.io/badge/AppVersion-6.2.0--apache-informational?style=flat-square)
+![Version: 0.8.4](https://img.shields.io/badge/Version-0.8.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.0-apache](https://img.shields.io/badge/AppVersion-6.2.0--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -145,6 +145,8 @@ helm uninstall my-release
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraEnvConfigs | list | `[]` | A list of existing configmaps that will be mounted into the container as environment variables |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
 
 ## Storage parameters
 

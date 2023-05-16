@@ -169,6 +169,10 @@ spec:
             - secretRef:
                 name: {{ . }}
           {{- end }}
+          {{- range .Values.extraEnvConfigs }}
+            - configMapRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - name: {{ .Values.storage.volumeName }}
               mountPath: /data

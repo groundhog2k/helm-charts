@@ -156,6 +156,12 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
 tolerations: []
 
 affinity: {}
@@ -203,21 +209,21 @@ customConfigsHook:
   retries: 10
 
 ## External database settings (is used when mariadb.enabled is false and postgres.enabled is false)
-externalDatabase:
-  ## Type of database ("sqlite", "mysql" or "mariadb", "postgres" are supported - default: sqlite)
-  type: sqlite
+externalDatabase: {}
+  ## Type of database ("mysql" or "mariadb", "postgres" are supported)
+  # type:
 
-  ## Name of the database (default: nextcloud)
-  name: nextcloud
+  ## Name of the database (default)
+  # name:
 
   ## Database user (only for postgres or mysql)
-  user:
+  # user:
 
   ## Database password (only for postgres or mysql)
-  password:
+  # password:
 
   ## Database host (only for postgres or mysql)
-  host:
+  # host:
 
 ## External redis cache settings
 externalCache:
@@ -237,6 +243,12 @@ externalCache:
 settings:
   ## Enable update processing (Only necessary if custom command is used)
   update: false
+
+  ## Use internal Sqlite when no externalDatabase: or mariadb.enabled was configured
+  ## Set false in case you want to use own environment variables to configure a database connection
+  useSqlite: true
+  ## Sqlite database name (default: "nextcloud")
+  sqliteDbName: "nextcloud"
 
   ## Maximum file upload size (default: 512M)
   maxFileUploadSize: 512M
@@ -314,6 +326,20 @@ customConfigs:
   #     'default_phone_region' => 'DE',
   #   );
   # email.config.php: |
+
+## A list of existing secrets that will be mounted into the container as environment variables
+extraEnvSecrets: []
+
+## A list of existing configmaps that will be mounted into the container as environment variables
+extraEnvConfigs: []
+
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
+extraSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
 
 ## Storage parameters
 storage:
