@@ -1164,6 +1164,27 @@ entries:
     version: 0.1.0
   ghost:
   - apiVersion: v2
+    appVersion: 5.47.2
+    created: "2023-05-16T15:40:36.156088947Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.26
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.1.9
+    description: A Helm chart for Ghost on Kubernetes
+    digest: 2e1b6fbf3dac0fecc688258eb1ad373adc0be87cb632aca8583fd63df759976b
+    maintainers:
+    - name: groundhog2k
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/ghost-0.90.3/ghost-0.90.3.tgz
+    version: 0.90.3
+  - apiVersion: v2
     appVersion: 5.47.1
     created: "2023-05-14T15:07:25.398066202Z"
     dependencies:
@@ -15478,6 +15499,18 @@ entries:
     version: 0.1.0
   rabbitmq:
   - apiVersion: v2
+    appVersion: 3.11.16
+    created: "2023-05-16T15:40:36.392218492Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 1122d5520ecd2da629bdd3d71e86ef0ffeef3c785ab4e7ea488c6fbf5774f6bc
+    maintainers:
+    - name: groundhog2k
+    name: rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.6.17/rabbitmq-0.6.17.tgz
+    version: 0.6.17
+  - apiVersion: v2
     appVersion: 3.11.15
     created: "2023-05-03T17:51:31.762023738Z"
     description: A Helm chart for a RabbitMQ cluster on Kubernetes
@@ -19272,4 +19305,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-14T15:16:53.966954912Z"
+generated: "2023-05-16T15:40:36.397019558Z"
