@@ -128,7 +128,7 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | metrics.enabled | bool | `false` | Enable metrics support  |
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| metrics.exporter.image.registry | string | `"dockerhub.devops.telekom.de"` | Image registry |
+| metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
 | metrics.exporter.image.tag | string | `"v1.50.0"` | Image tag |
 | metrics.exporter.resources | object | `{}` | Resource limits and requests |
