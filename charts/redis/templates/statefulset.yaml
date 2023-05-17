@@ -187,7 +187,7 @@ spec:
             - name: {{ .Values.storage.volumeName }}
               mountPath: /data
             {{- range $secret := .Values.extraRedisSecrets }}
-            - name: {{ $secret.name }}
+            - name: {{ $secret.name }}-redis
               mountPath: {{ $secret.mountPath }}
             {{- end }}
         {{- if .Values.haMode.enabled }}
@@ -266,9 +266,103 @@ spec:
             - name: {{ .Values.storage.volumeName }}
               mountPath: /data
             {{- range $secret := .Values.extraSentinelSecrets }}
-            - name: {{ $secret.name }}
+            - name: {{ $secret.name }}-sentinel
               mountPath: {{ $secret.mountPath }}
             {{- end }}
+        {{- end }}
+
+        {{- if .Values.metrics.enabled }}
+        {{- with .Values.metrics }}
+        - name: {{ $.Chart.Name }}-exporter
+          {{- with .exporter.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .exporter.image.registry }}/{{ .exporter.image.repository }}:{{ .exporter.image.tag }}"
+          imagePullPolicy: {{ .exporter.image.pullPolicy }}
+          ports:
+            - name: exporter
+              containerPort: {{ .service.containerPort }}
+              protocol: TCP
+          {{- with .exporter.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .exporter.args }}
+          args:
+            {{- range . }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- with .exporter.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .exporter.extraExporterEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- if .exporter.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .exporter.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .exporter.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.livenessProbe.enabled }}              
+          livenessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .exporter.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            {{- range $secret := .exporter.extraExporterSecrets }}
+            - name: {{ $secret.name }}-exporter
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+        {{- end }}
         {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
@@ -296,16 +390,24 @@ spec:
             name: {{ $fullname }}
         {{- end }}
         {{- range $secret := .Values.extraRedisSecrets }}
-        - name: {{ $secret.name }}
+        - name: {{ $secret.name }}-redis
           secret:
             secretName: {{ $secret.name }}
             defaultMode: 0440
         {{- end }}
         {{- range $secret := .Values.extraSentinelSecrets }}
-        - name: {{ $secret.name }}
+        - name: {{ $secret.name }}-sentinel
           secret:
             secretName: {{ $secret.name }}
             defaultMode: 0440
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        {{- range $secret := .Values.metrics.exporter.extraExporterSecrets }}
+        - name: {{ $secret.name }}-exporter
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: 0440
+        {{- end }}
         {{- end }}
         {{- if .Values.extraSecretRedisConfigs }}
         - name: extraredisconfigs-volume
