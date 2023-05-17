@@ -53,6 +53,126 @@ securityContext:
     drop:
       - ALL
 
+## Prometheus metrics and service monitor configuration
+metrics:
+  ## Enable metrics export
+  enabled: false
+  ## Metrics exporter configuration
+  exporter:
+    ## Redis exporter image
+    image:
+      registry: "docker.io"
+      repository: "oliver006/redis_exporter"
+      pullPolicy: IfNotPresent
+      tag: "v1.50.0"
+    ## Default security options to run Exporter as non-root, read only container without privilege escalation
+    securityContext:
+      allowPrivilegeEscalation: false
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 999
+      runAsGroup: 999
+      capabilities:
+        drop:
+          - ALL
+    ## Resource limits and requests
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+    ## Custom startup probe (overwrites default startup probe)
+    customStartupProbe: {}
+
+    ## Default startup probe
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom liveness probe (overwrites default liveness probe)
+    customLivenessProbe: {}
+
+    ## Default liveness probe
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom readiness probe (overwrites default readiness probe)
+    customReadinessProbe: {}
+
+    ## Default readiness probe
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Arguments for the container entrypoint process (exporter only)
+    args: []
+    ## Additional environment variables (exporter only)
+    env: []
+    ## A list of existing secrets that will be mounted into the exporter container as environment variables (see: https://github.com/oliver006/redis_exporter#command-line-flags)
+    extraExporterEnvSecrets: []
+    ## A list of additional existing secrets that will be mounted into the exporter container
+    ## The mounted files of the secrets can be used for custom configuration options (see: https://github.com/oliver006/redis_exporter#command-line-flags)
+    extraExporterSecrets: []
+        ## Name of the existing K8s secret
+    #  - name:
+        ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+    #    mountPath:
+  ## Exporter service configuration
+  service:
+    ## Enable metrics service
+    enabled: true
+    ## Type of service (not available when haMode is enabled)
+    type: ClusterIP
+    ## Redis exporter service port
+    servicePort: 9121
+    ## Redis exporter container port
+    containerPort: 9121
+    ## The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled)
+    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
+    loadBalancerIP:
+    # Annotations to add to the service
+    annotations: {}
+  ## Prometheus service monitor configuration
+  serviceMonitor:
+    ## Enable service monitor
+    enabled: true
+    ## Additional labels for the service monitor object
+    additionalLabels: {}
+    ## Annotations for the service monitor object
+    annotations: {}
+    ## The scrape interval for prometheus
+    # interval:
+    ## The scrape timeout value
+    # scrapeTimeout:
+    ## Extra parameters rendered to the service monitor endpoint
+    extraEndpointParameters: {}
+    ## Extra parameters rendered to the service monitor
+    extraParameters: {}
+    ## Path to metrics
+    path: "/metrics"
+    ## Scheme to use for metrics endpoint
+    scheme: http
+
 ## Default redis service port (default Redis server port 6379, defaul Redis sentinel port 26379)
 service:
   ## Type of service (not available when haMode is enabled)

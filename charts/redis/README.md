@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 0.6.11](https://img.shields.io/badge/Version-0.6.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.11](https://img.shields.io/badge/AppVersion-7.0.11-informational?style=flat-square)
+![Version: 0.6.12](https://img.shields.io/badge/Version-0.6.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.11](https://img.shields.io/badge/AppVersion-7.0.11-informational?style=flat-square)
 
 ## Changelog
 
@@ -121,6 +121,42 @@ helm uninstall my-release
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
+
+## Metrics support parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| metrics.enabled | bool | `false` | Enable metrics support  |
+| metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
+| metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
+| metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
+| metrics.exporter.image.tag | string | `"v1.50.0"` | Image tag |
+| metrics.exporter.resources | object | `{}` | Resource limits and requests |
+| metrics.exporter.livenessProbe | object | `see values.yaml` | Liveness probe configuration |
+| metrics.exporter.startupProbe | object | `see values.yaml` | Startup probe configuration |
+| metrics.exporter.readinessProbe | object | `see values.yaml` | Readiness probe configuration |
+| metrics.exporter.customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
+| metrics.exporter.customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
+| metrics.exporter.customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
+| metrics.exporter.env | list | `[]` | Additional container environmment variables (Exporter only) |
+| metrics.exporter.args | list | `[]` | Additional container command arguments (Exporter only) |
+| metrics.exporter.extraExporterEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the exporter container as environment variables |
+| metrics.exporter.extraExporterSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the exporter container |
+| metrics.exporter.extraExporterSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| metrics.exporter.extraExporterSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| metrics.service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
+| metrics.service.servicePort | int | `9121` | Redis metrics exporter service port |
+| metrics.service.containerPort | int | `9121` | Redis metrics exporter container port |
+| metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
+| metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| metrics.service.annotations | object | `{}` | Additional service annotations |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
+| metrics.serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
+| metrics.serviceMonitor.interval | Duration | `nil` | Scrape interval for prometheus |
+| metrics.serviceMonitor.scrapeTimeout | Duration | `nil` | Scrape timeout value |
+| metrics.serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
+| metrics.serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
 ## Service parameters
 
