@@ -61,7 +61,7 @@ metrics:
   exporter:
     ## Redis exporter image
     image:
-      registry: "dockerhub.devops.telekom.de"
+      registry: "docker.io"
       repository: "oliver006/redis_exporter"
       pullPolicy: IfNotPresent
       tag: "v1.50.0"
