@@ -171,8 +171,9 @@ spec:
               name: tmp-volume
             - mountPath: /var/run/mysqld
               name: tmp-volume         
-            - mountPath: /etc/mysql/conf.d
+            - mountPath: /etc/mysql/conf.d/custom.cnf
               name: configs
+              subPath: custom.cnf
             - mountPath: /docker-entrypoint-initdb.d
               name: scripts
             {{- range $secret := .Values.extraSecrets }}
