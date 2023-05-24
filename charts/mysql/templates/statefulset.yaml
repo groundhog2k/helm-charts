@@ -171,10 +171,13 @@ spec:
               name: tmp-volume
             - mountPath: /var/run/mysqld
               name: tmp-volume
-            {{- if or .Values.customConfig .Values.extraSecretConfigs }}
+            {{- if and .Values.customConfig -z .Values.extraSecretConfigs }}
             - mountPath: /etc/mysql/conf.d/custom.cnf
               name: configs
               subPath: custom.cnf
+            {{- else }}
+            - mountPath: /etc/mysql/conf.d
+              name: configs
             {{- end }}
             - mountPath: /docker-entrypoint-initdb.d
               name: scripts
