@@ -57,4 +57,5 @@
 | 0.8.2 | 10.11.2 | Fix default update strategy to `Recreate` for distribution with `Deployment` |
 | 0.8.3 | 10.11.2 | Updated default security context |
 | 0.8.4 | 10.11.3 | Upgraded MariaDB to 10.11.3 |
+| 0.8.5 | 10.11.3 | Avoid deleting all files in conf.d folder for mysql with subpath mount - thx @Erik-Outreach |
 | | | |
