@@ -75,4 +75,5 @@
 | 0.6.15 | 3.11.14 | Upgraded to RabbitMQ 3.11.14 |
 | 0.6.16 | 3.11.15 | Upgraded to RabbitMQ 3.11.15 |
 | 0.6.17 | 3.11.16 | Upgraded to RabbitMQ 3.11.16 |
+| 0.6.18 | 3.11.16 | Simplified configuration options |
 | | | |

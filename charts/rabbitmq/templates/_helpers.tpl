@@ -137,8 +137,10 @@ Main RabbitMQ options
 */}}
 {{- define "rabbitmq.options" -}}
 ## Initial login user
-default_user = {{ (.Values.authentication).user | default "guest" }}
-default_pass = {{ (.Values.authentication).password | default "guest" }}
+{{- if and (.Values.authentication).user (.Values.authentication).password }}
+default_user = {{ .Values.authentication.user }}
+default_pass = {{ .Values.authentication.password }}
+{{- end }}
 loopback_users.guest = false
 ## RabbitMQ options
 listeners.tcp.default = {{ .Values.options.tcp.port }}
@@ -154,22 +156,6 @@ ssl_options.verify = verify_none
 ssl_options.fail_if_no_peer_cert = {{ .failIfNoPeerCert }}
 {{- if .depth }}
 ssl_options.depth = {{ .depth }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- with .Values.certificates }}
-{{- if .enabled }}
-{{- if .cacert }}
-ssl_options.cacertfile = /ssl/cacert
-{{- end }}
-{{- if .cert }}
-ssl_options.certfile = /ssl/cert
-{{- end }}
-{{- if .key }}
-ssl_options.keyfile = /ssl/key
-{{- end }}
-{{- if .password }}
-ssl_options.password = {{ .password }}
 {{- end }}
 {{- end }}
 {{- end }}

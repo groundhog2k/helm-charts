@@ -22,7 +22,6 @@ spec:
         checksum/rabbit-config: {{ include (print $.Template.BasePath "/rabbit-config.yaml") . | sha256sum }}
         checksum/plugins-config: {{ include (print $.Template.BasePath "/plugins-config.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
-        checksum/certs: {{ include (print $.Template.BasePath "/certs.yaml") . | sha256sum }}
     {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
@@ -231,10 +230,6 @@ spec:
               mountPath: /etc/rabbitmq
             - name: scripts
               mountPath: /scripts
-            {{- if .Values.certificates.enabled }}
-            - name: certs
-              mountPath: /ssl
-            {{- end }}
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
@@ -281,12 +276,6 @@ spec:
         - name: plugins
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-plugins
-        {{- if .Values.certificates.enabled }}
-        - name: certs
-          secret:
-            secretName: {{ include "rabbitmq.fullname" . }}-certs
-            defaultMode: 0440
-        {{- end }}
         {{- range $secret := .Values.extraSecrets }}
         - name: {{ $secret.name }}
           secret:
