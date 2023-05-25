@@ -245,16 +245,15 @@ plugins: []
 # Default user and erlang cookie
 # The erlang cookie is important for clustered or container based usage
 # Find more information about it at https://hub.docker.com/_/rabbitmq and https://www.rabbitmq.com/clustering.html#erlang-cookie
-# The erlang cookie is a MANDATORY VALUE
-# Alternative is to set the environment variable ERLANG_COOKIE
+# The erlang cookie is a MANDATORY value
 authentication:
-  ## Initial user name
-  user: "guest"
+  ## Initial user name (alternative: set environment variable RABBITMQ_DEFAULT_USER)
+  user:
 
-  ## Initial password
-  password: "guest"
+  ## Initial password (alternative: set environment variable RABBITMQ_DEFAULT_PASS)
+  password:
 
-  ## Erlang cookie (MANDATORY)
+  ## Erlang cookie (MANDATORY) (alternative: set environment variable ERLANG_COOKIE)
   erlangCookie:
 
 # RabbitMQ specific configuration options described at https://www.rabbitmq.com/configure.html#config-items
@@ -280,6 +279,8 @@ options:
     ## AMQP tcp port (default: 5672)
     port: 5672
   ## RabbitMQ AMQP-over-SSL options are described at https://www.rabbitmq.com/ssl.html
+  ## If SSL is enabled certifactes must be provided as extraSecrets: and configured by customConfig: options
+  ## ssl_options.cacertfile, ssl_options.certfile, ssl_options.keyfile, ssl_options.password
   ssl:
     ## Enable secure AMQP (amqps)
     enabled: false
@@ -291,28 +292,6 @@ options:
     failIfNoPeerCert: false
     ## Client certificate verification depth
     depth:
-
-## Certificate support for RabbitMQ
-certificates:
-  ## Enable mounting following certificates into folder /ssl
-  enabled: false
-  ## Certificates that will be used for AMQP-over-SSL (AMPQS) - see: options.ssl
-  ## CA certificate(s) in base64 format
-  cacert:
-  ## Server certificate in base64 format
-  cert:
-  ## Private key in base64 format
-  key:
-  ## Optional private key passwort
-  password:
-
-  ## A list of extra certificates
-  ## All certificates will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: customConfig)
-  extraCerts: []
-       ## Name of the certificate (will be the filename of the mounted certificate - i.e.: /ssl/{name})
-  #  - name:
-       ## The certificate content in base64 format
-  #    cert:
 
 ## A list of additional existing secrets that will be mounted into the container
 ## The mounted files of the secrets can be used for custom or advanced configuration option (see: customConfig)

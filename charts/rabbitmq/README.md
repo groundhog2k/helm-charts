@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.6.17](https://img.shields.io/badge/Version-0.6.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.16](https://img.shields.io/badge/AppVersion-3.11.16-informational?style=flat-square)
+![Version: 0.6.18](https://img.shields.io/badge/Version-0.6.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.16](https://img.shields.io/badge/AppVersion-3.11.16-informational?style=flat-square)
 
 ## Changelog
 
@@ -164,8 +164,8 @@ Section to define custom services
 |-----|------|---------|-------------|
 | clusterDomain | string | `"cluster.local"` | Kubernetes cluster domain (DNS) suffix |
 | plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: [RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)) |
-| authentication.user | string | `"guest"` | Initial user name |
-| authentication.password | string | `"guest"` | Initial password |
+| authentication.user | string | `nil` | Initial user name (guest) (Alternative: Set environment variable RABBITMQ_DEFAULT_USER) |
+| authentication.password | string | `nil` | Initial password (guest) (Alternative: set environment variable RABBITMQ_DEFAULT_PASS) |
 | authentication.erlangCookie | string | `nil` | Erlang cookie (MANDATORY) (Alternative: Set the environment variable ERLANG_COOKIE) |
 | clustering.rebalance | bool | `false` | Enable rebalance queues with master when new replica is created |
 | clustering.forceBoot | bool | `false` | Force boot in case cluster peers are not available |
@@ -187,30 +187,11 @@ Section to define custom services
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | options.tcp.port | int | `5672` | AMQP tcp port |
-| options.ssl.enabled | bool | `false` | Enable secure AMQP (amqps) |
+| options.ssl.enabled | bool | `false` | Enable secure AMQP (amqps) (see `values.yaml` for more details) |
 | options.ssl.port | int | `5671` | AMQPS tcp port |
 | options.ssl.verify | bool | `false` | Enables or disables peer verification |
 | options.ssl.failIfNoPeerCert | bool | `false` | Reject TLS connection when client fails to provide a certificate |
 | options.ssl.depth | int | `nil` | Client certificate verification depth |
-
-## RabbitMQ certificate parameters
-
-Section for certificate support
-(cacert,cert,key,password will be used for AMQP-over-SSL (AMPQS) - see: options.ssl)
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| certificates.enabled | bool | `false` | Enable mounting following certificates into folder /ssl |
-| certificates.cacert | string | `nil` | CA certificate(s) in base64 format |
-| certificates.cert | string | `nil` | Server certificate in base64 format |
-| certificates.key | string | `nil` | Private key in base64 format |
-| certificates.password | string | `nil` | Optional private key passwort |
-| certificates.extraCerts | list | `[]` | List of extra certificates that will be mounted to the container into /ssl and can be used for custom/advanced configuration (see: customConfig) |
-| certificates.extraCerts[].name | string | `nil` | Name of the certificate (will be the filename of the mounted certificate - i.e.: /ssl/{name}) |
-| certificates.extraCerts[].cert | string | `nil` | The certificate content in base64 format |
-| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
-| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
-| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
 
 ## RabbitMQ plugin base parameters
 
@@ -232,3 +213,6 @@ Section for certificate support
 | customAdvancedConfig | string | `nil` | Custom advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
 | extraSecretAdvancedConfigs | string | `nil` | An existing secret with files that will be added to the `advanced.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
+| extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
