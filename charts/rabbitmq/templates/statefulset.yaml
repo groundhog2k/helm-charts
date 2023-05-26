@@ -50,6 +50,14 @@ spec:
             - name: ERLANG_COOKIE
               value: {{ .Values.authentication.erlangCookie }}
             {{- end }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .Values.extraEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - name: config
               mountPath: /etc/rabbitmq
