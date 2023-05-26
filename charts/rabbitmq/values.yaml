@@ -279,8 +279,9 @@ options:
     ## AMQP tcp port (default: 5672)
     port: 5672
   ## RabbitMQ AMQP-over-SSL options are described at https://www.rabbitmq.com/ssl.html
-  ## If SSL is enabled certifactes must be provided as extraSecrets: and configured by customConfig: options
-  ## ssl_options.cacertfile, ssl_options.certfile, ssl_options.keyfile, ssl_options.password
+  ## If SSL is enabled certifactes must be provided as extraSecrets:
+  ## ssl_options.cacertfile, ssl_options.certfile, ssl_options.keyfile are configurable by certPaths:
+  ## Optional ssl_options.password needs to be provided as extraSecretConfig
   ssl:
     ## Enable secure AMQP (amqps)
     enabled: false
@@ -292,6 +293,14 @@ options:
     failIfNoPeerCert: false
     ## Client certificate verification depth
     depth:
+    ## Pathes of the certificate files
+    certPaths: {}
+      ## Path to the CA certificate(s) file
+      # cacert:
+      ## Path to the server certificate file
+      # cert:
+      ## Path to the private key file (Hint: ssl_options.password configuration needs to be provided as extraSecretConfig:)
+      # key:
 
 ## A list of additional existing secrets that will be mounted into the container
 ## The mounted files of the secrets can be used for custom or advanced configuration option (see: customConfig)
