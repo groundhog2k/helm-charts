@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.6.18](https://img.shields.io/badge/Version-0.6.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.16](https://img.shields.io/badge/AppVersion-3.11.16-informational?style=flat-square)
+![Version: 0.6.19](https://img.shields.io/badge/Version-0.6.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.16](https://img.shields.io/badge/AppVersion-3.11.16-informational?style=flat-square)
 
 ## Changelog
 
@@ -182,7 +182,7 @@ Section to define custom services
 | options.memory.totalAvailableOverrideValue | int | `nil` | Overwrites the value that is automatically calculated from resource.limits.memory |
 | options.memory.calculationStrategy | string | `nil` | Strategy for memory usage report (rss or allocated) |
 
-## RabbitMQ communication parameters
+## RabbitMQ communication and SSL parameters
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
@@ -192,6 +192,10 @@ Section to define custom services
 | options.ssl.verify | bool | `false` | Enables or disables peer verification |
 | options.ssl.failIfNoPeerCert | bool | `false` | Reject TLS connection when client fails to provide a certificate |
 | options.ssl.depth | int | `nil` | Client certificate verification depth |
+| options.ssl.certPaths | object | `{}` | Pathes of the certificate files |
+| options.ssl.certPaths.cacert | string | `nil` | Path to the CA certificate(s) file |
+| options.ssl.certPaths.cert | string | `nil` | Path to the server certificate file |
+| options.ssl.certPaths.key | string | `nil` | Path to the private key file (Hint: ssl_options.password configuration needs to be provided as `extraSecretConfig:`) |
 
 ## RabbitMQ plugin base parameters
 
@@ -208,11 +212,11 @@ Section to define custom services
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| customConfig | string | `nil` | Custom configuration entries for rabbitmq.conf (see [RabbitMQ config](https://www.rabbitmq.com/configure.html#config-file)) |
+| customConfig | string | `nil` | Custom inline configuration entries for rabbitmq.conf (see [RabbitMQ config](https://www.rabbitmq.com/configure.html#config-file)) |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the `rabbitmq.conf` |
-| customAdvancedConfig | string | `nil` | Custom advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
+| customAdvancedConfig | string | `nil` | Custom inline advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
 | extraSecretAdvancedConfigs | string | `nil` | An existing secret with files that will be added to the `advanced.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
-| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].name | string | `nil` | Name of the existing Kubernetes secret |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |

@@ -292,6 +292,14 @@ options:
     failIfNoPeerCert: false
     ## Client certificate verification depth
     depth:
+    ## Pathes of the certificate files
+    certPaths: {}
+      ## Path to the CA certificate(s) file
+      # cacert:
+      ## Path to the server certificate file
+      # cert:
+      ## Path to the private key file (Hint: ssl_options.password configuration needs to be provided as extraSecretConfig:)
+      # key:
 
 ## A list of additional existing secrets that will be mounted into the container
 ## The mounted files of the secrets can be used for custom or advanced configuration option (see: customConfig)

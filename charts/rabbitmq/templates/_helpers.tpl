@@ -157,6 +157,17 @@ ssl_options.fail_if_no_peer_cert = {{ .failIfNoPeerCert }}
 {{- if .depth }}
 ssl_options.depth = {{ .depth }}
 {{- end }}
+{{- with .certPaths }}
+{{- if .cacert }}
+ssl_options.cacertfile = {{ .cacert }}
+{{- end }}
+{{- if .cert }}
+ssl_options.certfile = {{ .cert }}
+{{- end }}
+{{- if .key }}
+ssl_options.keyfile = {{ .key }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 ## Memory options
