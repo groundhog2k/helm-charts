@@ -78,4 +78,5 @@
 | 0.6.18 | 3.11.16 | Simplified configuration options |
 | 0.6.19 | 3.11.16 | Simplified and refactored SSL/TLS configuration options |
 | 0.6.20 | 3.11.16 | Fixed erlang cookie initialization |
+| 0.6.21 | 3.11.17 | Upgraded to RabbitMQ 3.11.17 |
 | | | |
