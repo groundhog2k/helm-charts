@@ -56,6 +56,7 @@
 | 0.5.20 | 3.10.20 | Upgraded to RabbitMQ 3.10.20 |
 | 0.5.21 | 3.10.21 | Upgraded to RabbitMQ 3.10.21 |
 | 0.5.22 | 3.10.22 | Upgraded to RabbitMQ 3.10.22 |
+| 0.5.23 | 3.10.23 | Upgraded to RabbitMQ 3.10.23 |
 | 0.6.0 | 3.11.0 | Upgraded to RabbitMQ 3.11.0 |
 | 0.6.1 | 3.11.1 | Upgraded to RabbitMQ 3.11.1 |
 | 0.6.2 | 3.11.2 | Upgraded to RabbitMQ 3.11.2 |
