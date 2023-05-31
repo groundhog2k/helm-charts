@@ -41,5 +41,6 @@
 | 0.13.1 | 26.0.0-apache | Updated chart dependencies (mariadb 0.3.11 / postgres 0.4.4 / redis 0.6.9) |
 | 0.13.2 | 26.0.0-apache | Updated chart dependencies (redis 0.6.10) |
 | 0.13.3 | 26.0.1-apache | Upgraded to Nextcloud 26.0.1 |
-| 0.13.3 | 26.0.1-apache | Updated chart dependencies (mariadb 0.3.12 / postgres 0.4.5 / redis 0.6.11) |
+| 0.13.4 | 26.0.1-apache | Updated chart dependencies (mariadb 0.3.12 / postgres 0.4.5 / redis 0.6.11) |
+| 0.13.5 | 26.0.2-apache | Upgraded to Nextcloud 26.0.2 |
 | | | |
