@@ -1,12 +1,14 @@
 # RabbitMQ
 
-![Version: 0.6.22](https://img.shields.io/badge/Version-0.6.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.11.18](https://img.shields.io/badge/AppVersion-3.11.18-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.0](https://img.shields.io/badge/AppVersion-3.12.0-informational?style=flat-square)
+
+A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
 ## Changelog
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
-A Helm chart for a RabbitMQ HA-cluster on Kubernetes
+### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x
 
 ## TL;DR
 
