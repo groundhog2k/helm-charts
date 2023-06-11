@@ -45,8 +45,8 @@ spec:
           volumeMounts:
             - mountPath: /srvtmp
               name: remark-vol
-          command: [ "/bin/sh" ]
-          args: [ "-c", "find /srvtmp -maxdepth 1 -type f -delete && rm -rf /srvtmp/web && cp -R /srv/* /srvtmp && mkdir -p /srvtmp/var" ]
+          command: {{- toYaml .Values.initCommand | nindent 12}}
+          args: {{- toYaml .Values.initArgs | nindent 12}}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
