@@ -45,8 +45,8 @@ spec:
           volumeMounts:
             - mountPath: /srvtmp
               name: remark-vol
-          command: {{- toYaml .Values.initCommand | nindent 12}}
-          args: {{- toYaml .Values.initArgs | nindent 12}}
+          command: {{- toYaml .Values.initCommand | nindent 12 }}
+          args: {{- toYaml .Values.initArgs | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
