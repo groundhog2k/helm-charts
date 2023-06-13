@@ -8,6 +8,15 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+## Init container command
+initCommand:
+  - /bin/sh
+
+## Init container command args
+initArgs:
+  - -c
+  - find /srvtmp -maxdepth 1 -type f -delete && rm -rf /srvtmp/web && cp -R /srv/* /srvtmp && mkdir -p /srvtmp/var
+
 ## Pull secrets and name override options
 imagePullSecrets: []
 nameOverride: ""

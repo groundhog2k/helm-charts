@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.5.8](https://img.shields.io/badge/Version-0.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.3](https://img.shields.io/badge/AppVersion-v1.11.3-informational?style=flat-square)
+![Version: 0.5.9](https://img.shields.io/badge/Version-0.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.3](https://img.shields.io/badge/AppVersion-v1.11.3-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -62,6 +62,8 @@ helm uninstall my-release
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"umputun/remark42"` | Image name |
 | image.tag | string | `""` | Image tag |
+| initCommand | list | `["/bin/sh"]` | Init container command |
+| initArgs | list | `["-c","find /srvtmp -maxdepth 1 -type f -delete && rm -rf /srvtmp/web && cp -R /srv/* /srvtmp && mkdir -p /srvtmp/var"]` | Init container command args |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | strategy | object | `{}` | Pod deployment strategy |
 | startupProbe | object | `see values.yaml` | Startup probe configuration |
