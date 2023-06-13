@@ -406,3 +406,21 @@ redis:
 
     ## the storage class name
     className:
+
+extraResources: []
+  # - |
+  #   apiVersion: projectcontour.io/v1
+  #   kind: HTTPProxy
+  #   metadata:
+  #     name: {{ include "remark42.fullname" . }}
+  #     namespace: {{ .Values.namespace | default .Release.Namespace }}
+  #     labels:
+  #       {{- include "remark42.labels" . | nindent 4 }}
+  #   spec:
+  #     ingressClassName: contour
+  #     virtualhost:
+  #       fqdn: {{.Values.settings.url | trimPrefix "http://"}}
+  #     routes:
+  #     - services:
+  #       - name: {{ include "remark42.fullname" . }}
+  #         port: {{ .Values.service.port }}

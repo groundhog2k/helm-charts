@@ -261,3 +261,16 @@ Commento settings via environment variables
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Renders a value that contains template.
+Usage:
+{{ include "remark42.render" ( dict "value" .Values.path.to.the.Value "context" $) }}
+*/}}
+{{- define "remark42.render" -}}
+  {{- if typeIs "string" .value }}
+    {{- tpl .value .context }}
+  {{- else }}
+    {{- tpl (.value | toYaml) .context }}
+  {{- end }}
+{{- end -}}

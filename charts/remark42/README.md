@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.5.9](https://img.shields.io/badge/Version-0.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.3](https://img.shields.io/badge/AppVersion-v1.11.3-informational?style=flat-square)
+![Version: 0.5.10](https://img.shields.io/badge/Version-0.5.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.3](https://img.shields.io/badge/AppVersion-v1.11.3-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -245,3 +245,9 @@ helm uninstall my-release
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
+
+## Extra resources
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| extraResources | list | `nil` | List of extra resource deployments |
