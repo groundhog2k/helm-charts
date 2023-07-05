@@ -47,4 +47,5 @@
 | 0.6.0 | 5.1.0 | Updated chart for Graylog 5.1.0 |
 | 0.6.1 | 5.1.1 | Updated chart for Graylog 5.1.1 |
 | 0.6.2 | 5.1.2 | Updated chart for Graylog 5.1.2 |
+| 0.6.3 | 5.1.3 | Updated chart for Graylog 5.1.3 |
 | | | |
