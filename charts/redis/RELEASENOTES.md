@@ -34,4 +34,5 @@
 | 0.6.11 | 7.0.11 | Fixed split brain bug - thx @tim-hanssen @tomswinkels |
 | 0.6.12 | 7.0.11 | Added metrics and service monitor support |
 | 0.6.13 | 7.0.12 | Upgraded to Redis 7.0.12 |
+| 0.6.14 | 7.0.12 | Updated metrics exporter to v1.51.0 |
 | | | |
