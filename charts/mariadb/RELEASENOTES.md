@@ -25,6 +25,7 @@
 | 0.3.10 | 10.6.12 | Upgraded MariaDB to 10.6.12 |
 | 0.3.11 | 10.6.12 | Upgraded MariaDB to 10.6.12 (Fixed MariaDB version) |
 | 0.3.12 | 10.6.13 | Upgraded MariaDB to 10.6.13 |
+| 0.3.13 | 10.6.14 | Upgraded MariaDB to 10.6.14 |
 | 0.4.1 | 10.7.1 | Implemented startupProbe support |
 | 0.4.2 | 10.7.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.4.3 | 10.7.1 | Implemented support for extra containers |
