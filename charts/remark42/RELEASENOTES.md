@@ -25,4 +25,5 @@
 | 0.5.8 | v1.11.3 | Updated chart dependencies (redis 0.6.11) |
 | 0.5.9 | v1.11.3 | Added support for init container command and arguments (thx @IxDay) |
 | 0.5.10 | v1.11.3 | Added support for extraResources (thx @IxDay) |
+| 0.5.11 | v1.11.3 | Updated chart dependencies (redis 0.6.14) |
 | | | |
