@@ -110,7 +110,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
+                - healthcheck.sh --connect --innodb_initialized
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -130,7 +130,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
+                - healthcheck.sh --connect --innodb_initialized
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -150,7 +150,7 @@ spec:
               command:
                 - bash
                 - -c
-                - mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD
+                - healthcheck.sh --connect --innodb_initialized
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
