@@ -38,7 +38,7 @@
 | 0.5.1 | 5.0.1 | Updated chart for Graylog 5.0.1 |
 | 0.5.2 | 5.0.2 | Updated chart for Graylog 5.0.2 and chart dependencies (mongodb 0.4.16) |
 | 0.5.3 | 5.0.2 | Fixed values documentation - thx @generalovmaksim |
-| 0.5.4 | 5.0.3 | Updated chart for Graylog 5.0.3 | 
+| 0.5.4 | 5.0.3 | Updated chart for Graylog 5.0.3 |
 | 0.5.5 | 5.0.3 | Updated version detection for pod disruption budget |
 | 0.5.6 | 5.0.4 | Updated chart for Graylog 5.0.4 |
 | 0.5.7 | 5.0.5 | Updated chart for Graylog 5.0.5 |
@@ -48,4 +48,5 @@
 | 0.6.1 | 5.1.1 | Updated chart for Graylog 5.1.1 |
 | 0.6.2 | 5.1.2 | Updated chart for Graylog 5.1.2 |
 | 0.6.3 | 5.1.3 | Updated chart for Graylog 5.1.3 |
+| 0.6.4 | 5.1.3 | Updated chart dependencies (mongodb 0.5.16) |
 | | | |
