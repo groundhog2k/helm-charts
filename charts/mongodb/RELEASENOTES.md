@@ -71,4 +71,5 @@
 | 0.5.13 | 6.0.5 | Updated default security context |
 | 0.5.14 | 6.0.6 | Upgraded to MongoDB 6.0.6 |
 | 0.5.15 | 6.0.7 | Upgraded to MongoDB 6.0.7 |
+| 0.5.16 | 6.0.8 | Upgraded to MongoDB 6.0.8 |
 | | | |
