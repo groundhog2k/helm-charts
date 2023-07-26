@@ -217,13 +217,15 @@ gitea:
       LEVEL: "info"
       ACCESS: "console"
       ENABLE_ACCESS_LOG: "false"
+    
+    lfs:
+      PATH: "/data/gitea/lfs"
 
     server:
       PROTOCOL: http
       DISABLE_SSH: "false"
       START_SSH_SERVER: "true"
       LFS_START_SERVER: "true"
-      LFS_CONTENT_PATH: "/data/gitea/lfs"
       OFFLINE_MODE: "false"
       # LFS JWT secret
       LFS_JWT_SECRET:
