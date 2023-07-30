@@ -141,4 +141,5 @@
 | 0.96.2 | 5.54.3 | Upgraded to Ghost 5.54.3 |
 | 0.96.3 | 5.54.4 | Upgraded to Ghost 5.54.4 |
 | 0.97.0 | 5.55.0 | Upgraded to Ghost 5.55.0 |
+| 0.97.1 | 5.55.2 | Upgraded to Ghost 5.55.2 |
 | | | |
