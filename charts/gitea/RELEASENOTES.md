@@ -54,4 +54,5 @@
 | 0.8.9 | 1.19.4 | Updated chart dependencies (redis 0.6.14 / mariadb 0.2.27) |
 | 0.9.0 | 1.20.0 | Updated to Gitea 1.20.0 |
 | 0.9.1 | 1.20.1 | Updated to Gitea 1.20.1 |
+| 0.9.2 | 1.20.2 | Updated to Gitea 1.20.2 |
 | | | |
