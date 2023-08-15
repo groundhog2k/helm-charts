@@ -68,4 +68,5 @@
 | 0.8.5 | 10.11.4 | Upgraded MariaDB to 10.11.4 |
 | 0.8.6 | 10.11.5 | Upgraded MariaDB to 10.11.5 |
 | 0.9.0 | 11.0.2 | Upgraded MariaDB to 11.0.2 |
+| 0.9.1 | 11.0.3 | Upgraded MariaDB to 11.0.3 |
 | | | |
