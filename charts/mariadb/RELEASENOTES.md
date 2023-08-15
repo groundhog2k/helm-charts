@@ -66,5 +66,6 @@
 | 0.8.3 | 10.11.2 | Updated default security context |
 | 0.8.4 | 10.11.3 | Upgraded MariaDB to 10.11.3 |
 | 0.8.5 | 10.11.4 | Upgraded MariaDB to 10.11.4 |
+| 0.8.6 | 10.11.5 | Upgraded MariaDB to 10.11.5 |
 | 0.9.0 | 11.0.2 | Upgraded MariaDB to 11.0.2 |
 | | | |
