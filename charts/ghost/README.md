@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.100.0](https://img.shields.io/badge/Version-0.100.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.59.0](https://img.shields.io/badge/AppVersion-5.59.0-informational?style=flat-square)
+![Version: 0.100.1](https://img.shields.io/badge/Version-0.100.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.59.0](https://img.shields.io/badge/AppVersion-5.59.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -49,7 +49,7 @@ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mariadb | 0.2.27 |
+| @groundhog2k | mariadb | 0.2.28 |
 | @groundhog2k | mysql | 0.1.10 |
 
 ## Common parameters

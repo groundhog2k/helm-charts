@@ -147,4 +147,5 @@
 | 0.99.0 | 5.58.0 | Upgraded to Ghost 5.58.0 |
 | 0.99.1 | 5.58.0 | Updated chart dependencies (mysql 0.1.10) |
 | 0.100.0 | 5.59.0 | Upgraded to Ghost 5.59.0 |
+| 0.100.1 | 5.59.0 | Updated chart dependencies (mariadb 0.2.28) |
 | | | |

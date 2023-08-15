@@ -55,4 +55,5 @@
 | 0.9.0 | 1.20.0 | Updated to Gitea 1.20.0 |
 | 0.9.1 | 1.20.1 | Updated to Gitea 1.20.1 |
 | 0.9.2 | 1.20.2 | Updated to Gitea 1.20.2 |
+| 0.9.3 | 1.20.2 | Updated chart dependencies (mariadb 0.2.28) |
 | | | |
