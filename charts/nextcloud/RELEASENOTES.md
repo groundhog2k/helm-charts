@@ -48,4 +48,5 @@
 | 0.14.2 | 27.0.1-apache | Upgraded to Nextcloud 27.0.1 |
 | 0.14.3 | 27.0.2-apache | Upgraded to Nextcloud 27.0.2 |
 | 0.14.4 | 27.0.2-apache | Updated chart dependencies (mariadb 0.3.14) |
+| 0.14.5 | 27.0.2-apache | Updated chart dependencies (postgres 0.4.6) |
 | | | |

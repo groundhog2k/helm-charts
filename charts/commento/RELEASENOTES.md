@@ -16,4 +16,5 @@
 | 0.1.32 | v1.8.0 | Fixed values documentation - thx @generalovmaksim |
 | 0.1.33 | v1.8.0 | Updated version detection for pod disruption budget |
 | 0.1.34 | v1.8.0 | Updated chart dependencies (postgres 0.2.25) |
+| 0.1.35 | v1.8.0 | Updated chart dependencies (postgres 0.2.26) |
 | | | |

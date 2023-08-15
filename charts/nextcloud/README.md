@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.14.4](https://img.shields.io/badge/Version-0.14.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 27.0.2-apache](https://img.shields.io/badge/AppVersion-27.0.2-informational?style=flat-square)
+![Version: 0.14.5](https://img.shields.io/badge/Version-0.14.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 27.0.2-apache](https://img.shields.io/badge/AppVersion-27.0.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -83,7 +83,7 @@ helm uninstall my-release
 | Repository | Name | Version |
 |------------|------|---------|
 | @groundhog2k | mariadb | 0.3.14 |
-| @groundhog2k | postgres | 0.4.5 |
+| @groundhog2k | postgres | 0.4.6 |
 | @groundhog2k | redis | 0.6.14 |
 
 ## Common parameters

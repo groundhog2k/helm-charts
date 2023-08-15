@@ -7,12 +7,12 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: "0.1.34"
+version: "0.1.35"
 
 appVersion: "v1.8.0"
 
 dependencies:
   - name: postgres
-    version: "0.2.25"
+    version: "0.2.26"
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: postgres.enabled

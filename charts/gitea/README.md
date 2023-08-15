@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.9.3](https://img.shields.io/badge/Version-0.9.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.20.2](https://img.shields.io/badge/AppVersion-1.20.2-informational?style=flat-square)
+![Version: 0.9.4](https://img.shields.io/badge/Version-0.9.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.20.2](https://img.shields.io/badge/AppVersion-1.20.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -48,7 +48,7 @@ helm uninstall my-release
 | Repository | Name | Version |
 |------------|------|---------|
 | @groundhog2k | mariadb | 0.2.28 |
-| @groundhog2k | postgres | 0.2.25 |
+| @groundhog2k | postgres | 0.2.26 |
 | @groundhog2k | redis | 0.6.14 |
 
 ## Common parameters
