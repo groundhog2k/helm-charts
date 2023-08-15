@@ -13,6 +13,7 @@
 | 0.2.25 | 10.5.19 | Upgraded MariaDB to 10.5.19 |
 | 0.2.26 | 10.5.20 | Upgraded MariaDB to 10.5.20 |
 | 0.2.27 | 10.5.21 | Upgraded MariaDB to 10.5.21 |
+| 0.2.28 | 10.5.22 | Upgraded MariaDB to 10.5.22 |
 | 0.3.1 | 10.6.5 | Implemented startupProbe support |
 | 0.3.2 | 10.6.5 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.3.3 | 10.6.5 | Implemented support for extra containers |
