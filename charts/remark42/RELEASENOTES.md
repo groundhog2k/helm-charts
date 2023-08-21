@@ -27,4 +27,5 @@
 | 0.5.10 | v1.11.3 | Added support for extraResources (thx @IxDay) |
 | 0.5.11 | v1.11.3 | Updated chart dependencies (redis 0.6.14) |
 | 0.6.0 | v1.12.0 | Upgraded to Remark42 v1.12.0 |
+| 0.6.1 | v1.12.1 | Upgraded to Remark42 v1.12.1 |
 | | | |
