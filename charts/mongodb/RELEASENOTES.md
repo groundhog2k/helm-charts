@@ -57,6 +57,7 @@
 | 0.4.19 | 5.0.17 | Upgraded to MongoDB 5.0.17 |
 | 0.4.20 | 5.0.18 | Upgraded to MongoDB 5.0.18 |
 | 0.4.21 | 5.0.19 | Upgraded to MongoDB 5.0.19 |
+| 0.4.22 | 5.0.20 | Upgraded to MongoDB 5.0.20 |
 | 0.5.0 | 6.0.1 | Upgraded to MongoDB 6.0.1 |
 | 0.5.1 | 6.0.1 | Implemented support for custom inline init scripts |
 | 0.5.2 | 6.0.1 | Implemented support for image.registry option |
