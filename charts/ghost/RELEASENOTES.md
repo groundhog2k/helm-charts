@@ -151,4 +151,5 @@
 | 0.100.2 | 5.59.1 | Upgraded to Ghost 5.59.1 |
 | 0.100.3 | 5.59.1 | Updated chart dependencies (mysql 0.2.0) |
 | 0.100.4 | 5.59.2 | Upgraded to Ghost 5.59.2 |
+| 0.100.5 | 5.59.4 | Upgraded to Ghost 5.59.4 |
 | | | |
