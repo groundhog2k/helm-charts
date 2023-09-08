@@ -51,4 +51,5 @@
 | 0.6.4 | 5.1.3 | Updated chart dependencies (mongodb 0.5.16) |
 | 0.6.5 | 5.1.4 | Updated chart for Graylog 5.1.4 |
 | 0.6.6 | 5.1.4 | Updated chart dependencies (mongodb 0.5.17) |
+| 0.6.7 | 5.1.5 | Updated chart for Graylog 5.1.5 |
 | | | |
