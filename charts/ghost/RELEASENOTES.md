@@ -155,4 +155,5 @@
 | 0.101.0 | 5.60.0 | Upgraded to Ghost 5.60.0 |
 | 0.102.0 | 5.61.2 | Upgraded to Ghost 5.61.2 |
 | 0.102.1 | 5.61.3 | Upgraded to Ghost 5.61.3 |
+| 0.103.0 | 5.62.0 | Upgraded to Ghost 5.62.0 |
 | | | |
