@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.14.5](https://img.shields.io/badge/Version-0.14.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 27.0.2-apache](https://img.shields.io/badge/AppVersion-27.0.2-informational?style=flat-square)
+![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 27.1.0-apache](https://img.shields.io/badge/AppVersion-27.1.0-informational?style=flat-square)
 
 ## Changelog
 
