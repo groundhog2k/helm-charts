@@ -34,4 +34,5 @@
 | 0.4.4 | 15.2 | Updated default security context |
 | 0.4.5 | 15.3 | Upgraded to Postgres 15.3 |
 | 0.4.6 | 15.4 | Upgraded to Postgres 15.4 |
+| 0.5.0 | 16.0 | Upgraded to Postgres 16.0 |
 | | | |
