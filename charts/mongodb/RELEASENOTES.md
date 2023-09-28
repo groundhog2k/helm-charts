@@ -78,4 +78,5 @@
 | 0.5.15 | 6.0.7 | Upgraded to MongoDB 6.0.7 |
 | 0.5.16 | 6.0.8 | Upgraded to MongoDB 6.0.8 |
 | 0.5.17 | 6.0.9 | Upgraded to MongoDB 6.0.9 |
+| 0.5.18 | 6.0.10 | Upgraded to MongoDB 6.0.10 |
 | | | |
