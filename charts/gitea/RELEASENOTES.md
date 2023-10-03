@@ -59,4 +59,5 @@
 | 0.9.4 | 1.20.2 | Updated chart dependencies (postgres 0.2.26) |
 | 0.9.5 | 1.20.3 | Updated to Gitea 1.20.3 |
 | 0.9.6 | 1.20.4 | Updated to Gitea 1.20.4 |
+| 0.9.7 | 1.20.5 | Updated to Gitea 1.20.5 |
 | | | |
