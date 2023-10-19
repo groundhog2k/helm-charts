@@ -160,6 +160,16 @@ Section to define custom services
 | ingress.hosts[0].host.paths[0] | string | `"/"` | Path for the RabbitMQ Management UI |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
+
 ## RabbitMQ base parameters
 
 | Key | Type | Default | Description |
