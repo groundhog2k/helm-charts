@@ -96,4 +96,5 @@
 | 0.7.4 | 3.12.4 | Upgraded to RabbitMQ 3.12.4 |
 | 0.7.5 | 3.12.5 | Upgraded to RabbitMQ 3.12.5 |
 | 0.7.6 | 3.12.6 | Upgraded to RabbitMQ 3.12.6 |
+| 0.7.7 | 3.12.7 | Upgraded to RabbitMQ 3.12.7 |
 | | | |
