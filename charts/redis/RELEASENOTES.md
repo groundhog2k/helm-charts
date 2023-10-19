@@ -38,6 +38,7 @@
 | 0.6.13 | 7.0.12 | Upgraded to Redis 7.0.12 |
 | 0.6.14 | 7.0.12 | Updated metrics exporter to v1.51.0 |
 | 0.6.15 | 7.0.13 | Upgraded to Redis 7.0.13 |
+| 0.6.16 | 7.0.14 | Upgraded to Redis 7.0.14 |
 | 0.7.0 | 7.2.0 | Upgraded to Redis 7.2.0 |
 | 0.7.1 | 7.2.1 | Upgraded to Redis 7.2.1 |
 | 0.7.2 | 7.2.1 | Upgraded to Redis 7.2.1 |
