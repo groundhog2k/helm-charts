@@ -181,6 +181,16 @@ helm uninstall my-release
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
 
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
+
 ## Redis parameters
 
 | Key | Type | Default | Description |

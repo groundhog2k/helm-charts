@@ -10,6 +10,7 @@
 | 0.4.15 | 6.2.11 | Added option to use Deployment instead of StatefulSet for Non-HA deployments - thx @tim-hanssen |
 | 0.4.16 | 6.2.12 | Upgraded to Redis 6.2.12 |
 | 0.4.17 | 6.2.13 | Upgraded to Redis 6.2.13 |
+| 0.4.18 | 6.2.14 | Upgraded to Redis 6.2.14 |
 | 0.5.0 | 7.0.0 | Upgraded to Redis 7.0.0 |
 | 0.5.1 | 7.0.1 | Upgraded to Redis 7.0.1 |
 | 0.5.2 | 7.0.2 | Upgraded to Redis 7.0.2 |
