@@ -13,5 +13,6 @@
 | 0.1.8 | 8.0.32 | Updated default security context |
 | 0.1.9 | 8.0.33 | Upgraded MySQL to 8.0.33 |
 | 0.1.10 | 8.0.34 | Upgraded MySQL to 8.0.34 |
+| 0.1.11 | 8.0.35 | Upgraded MySQL to 8.0.35 |
 | 0.2.0 | 8.1.0 | Upgraded MySQL to 8.1.0 |
 | | | |
