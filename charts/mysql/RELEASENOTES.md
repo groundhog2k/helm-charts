@@ -15,4 +15,5 @@
 | 0.1.10 | 8.0.34 | Upgraded MySQL to 8.0.34 |
 | 0.1.11 | 8.0.35 | Upgraded MySQL to 8.0.35 |
 | 0.2.0 | 8.1.0 | Upgraded MySQL to 8.1.0 |
+| 0.3.0 | 8.2.0 | Upgraded MySQL to 8.2.0 |
 | | | |
