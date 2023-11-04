@@ -8,15 +8,19 @@ metadata:
 type: Opaque
 data:
   {{- with .Values.settings }}
-  {{- if .rootPassword }}
-  MARIADB_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
+  {{- if (.rootPassword).value }}
+  MARIADB_ROOT_PASSWORD: {{ .rootPassword.value | b64enc }}
   {{- end }}
   {{- end }}
   {{- with .Values.userDatabase }}
-  MARIADB_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
-  {{- if .user }}
-  MARIADB_USER: {{ .user | b64enc }}
-  MARIADB_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- if not .existingSecret }}
+  {{- $_ := required "Values: userDatabase.name is mandatory if userDatabase is specified without existing secret" .name }}
+  MARIADB_DATABASE: {{ required "Values: userDatabase.name.value is mandatory if userDatabase is specified without existingSecret." .name.value | b64enc }}
+  {{- if (.user).value }}
+  MARIADB_USER: {{ .user.value | b64enc }}
+  {{- $_ := required "Values: userDatabase.password is mandatory if userDatabase is specified without existing secret" .password }}
+  MARIADB_PASSWORD: {{ required "Values: userDatabase.password.value is mandatory if userDatabase.user is specified without existingSecret." .password.value | b64enc }}
+  {{- end }}
   {{- end }}
   {{- end }}
 {{- end }}

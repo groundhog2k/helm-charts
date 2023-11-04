@@ -70,4 +70,5 @@
 | 0.9.0 | 11.0.2 | Upgraded MariaDB to 11.0.2 |
 | 0.9.1 | 11.0.3 | Upgraded MariaDB to 11.0.3 |
 | 0.10.2 | 11.1.2 | Upgraded MariaDB to 11.1.2 |
+| 0.10.3 | 11.1.2 | Allow usage of existing secret reference |
 | | | |
