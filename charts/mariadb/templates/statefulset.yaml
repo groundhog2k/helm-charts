@@ -186,6 +186,30 @@ spec:
             {{- end }}
           {{- end }}
           env:
+          {{- if or (.Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mariadb.fullname" .) .Values.settings.existingSecret }}
+                  key: {{ default "MARIADB_ROOT_PASSWORD" (.Values.settings.rootPassword).secretKey }}
+          {{- end }}
+          {{- with .Values.userDatabase }}
+            - name: MARIADB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_DATABASE" .name.secretKey }}
+            - name: MARIADB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_USER" .user.secretKey }}
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_PASSWORD" .password.secretKey }}
+          {{- end }}
           {{- if .Values.settings.skipTZInfo }}
             - name: MARIADB_INITDB_SKIP_TZINFO
               value: "yes"
@@ -197,14 +221,12 @@ spec:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.extraEnvSecrets }}
           envFrom:
-          {{- if include "mariadb.createSecureConfig" . }}
-            - secretRef:
-                name: {{ $fullname }}
-          {{- end }}
-          {{- range .Values.extraEnvSecrets }}
+          {{- range . }}
             - secretRef:
                 name: {{ . }}
+          {{- end }}
           {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}

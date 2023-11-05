@@ -1,6 +1,5 @@
-{{- if .Values.useDeployment }}
 {{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
-{{- if $createPvc }}
+{{- if and (.Values.useDeployment) ($createPvc) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -23,5 +22,4 @@ spec:
   storageClassName: {{ .className }}
   {{- end }}
   {{- end }}  
-{{- end }}
 {{- end }}
