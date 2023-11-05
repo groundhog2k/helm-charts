@@ -61,16 +61,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{/*
-Generate secret with configuration
-*/}}
-{{- define "mariadb.createSecureConfig" -}}
-  {{- if and (not .Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
-true
-  {{- else }}
-  {{- if and (.Values.userDatabase) (not .Values.userDatabase.existingSecret) }}
-true
-  {{- end }}
-  {{- end }}
-{{- end }}

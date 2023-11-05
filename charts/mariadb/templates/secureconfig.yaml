@@ -1,4 +1,6 @@
-{{- if include "mariadb.createSecureConfig" . }}
+{{- $rootSet := and (not .Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
+{{- $userDatabaseSet := and (.Values.userDatabase) (not .Values.userDatabase.existingSecret) }}
+{{- if or ($rootSet) ($userDatabaseSet) }}
 apiVersion: v1
 kind: Secret
 metadata:

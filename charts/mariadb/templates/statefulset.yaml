@@ -186,31 +186,29 @@ spec:
             {{- end }}
           {{- end }}
           env:
-          {{- if .Values.settings.existingSecret }}
+          {{- if or (.Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.settings.existingSecret }}
-                  key: {{ required "Values: .settings.rootPassword.secretKey is mandatory if .settings.existingSecret is specified." .Values.settings.rootPassword.secretKey }}
+                  name: {{ default (include "mariadb.fullname" .) .Values.settings.existingSecret }}
+                  key: {{ default "MARIADB_ROOT_PASSWORD" (.Values.settings.rootPassword).secretKey }}
           {{- end }}
           {{- with .Values.userDatabase }}
-          {{- if .existingSecret }}
             - name: MARIADB_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: {{ .existingSecret }}
-                  key: {{ required "Values: .userDatabase.name.secretKey is mandatory if .settings.userDatabase.existingSecret is specified." .name.secretKey }}
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_DATABASE" .name.secretKey }}
             - name: MARIADB_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .existingSecret }}
-                  key: {{ required "Values: .userDatabase.user.secretKey is mandatory if .settings.userDatabase.existingSecret is specified." .user.secretKey }}
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_USER" .user.secretKey }}
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .existingSecret }}
-                  key: {{ required "Values: .userDatabase.password.secretKey is mandatory if .settings.userDatabase.existingSecret is specified." .password.secretKey }}
-          {{- end }}
+                  name: {{ default (include "mariadb.fullname" $) .existingSecret }}
+                  key: {{ default "MARIADB_PASSWORD" .password.secretKey }}
           {{- end }}
           {{- if .Values.settings.skipTZInfo }}
             - name: MARIADB_INITDB_SKIP_TZINFO
@@ -223,14 +221,12 @@ spec:
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.extraEnvSecrets }}
           envFrom:
-          {{- if include "mariadb.createSecureConfig" . }}
-            - secretRef:
-                name: {{ $fullname }}
-          {{- end }}
-          {{- range .Values.extraEnvSecrets }}
+          {{- range . }}
             - secretRef:
                 name: {{ . }}
+          {{- end }}
           {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
