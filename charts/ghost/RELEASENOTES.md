@@ -170,5 +170,6 @@
 | 0.111.0 | 5.70.1 | Upgraded to Ghost 5.70.1 |
 | 0.111.1 | 5.70.2 | Upgraded to Ghost 5.70.2 |
 | 0.112.1 | 5.71.0 | Upgraded to Ghost 5.71.0 |
-| 0.113.1 | 5.72.0 | Upgraded to Ghost 5.72.0 |
+| 0.113.0 | 5.72.0 | Upgraded to Ghost 5.72.0 |
+| 0.113.1 | 5.72.1 | Upgraded to Ghost 5.72.1 |
 | | | |
