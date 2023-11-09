@@ -76,6 +76,8 @@ helm uninstall my-release
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
+| statefulsetLabels | object | `{}` | Additional StatefulSet labels |
+| statefulsetAnnotations | object | `{}` | Additional StatefulSet annotations |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |

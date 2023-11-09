@@ -4,6 +4,13 @@ metadata:
   name: {{ include "rabbitmq.fullname" . }}
   labels:
     {{- include "rabbitmq.labels" . | nindent 4 }}
+    {{- with .Values.statefulsetLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.statefulsetAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   selector:
     matchLabels:
