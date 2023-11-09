@@ -35,4 +35,5 @@
 | 0.9.0 | 6.3.0-apache | Upgraded to Wordpress 6.3.0 |
 | 0.9.1 | 6.3.1-apache | Upgraded to Wordpress 6.3.1 |
 | 0.9.2 | 6.3.2-apache | Upgraded to Wordpress 6.3.2 |
+| 0.10.0 | 6.4.0-apache | Upgraded to Wordpress 6.4.0 |
 | | | |
