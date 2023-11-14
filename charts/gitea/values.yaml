@@ -217,7 +217,7 @@ gitea:
       LEVEL: "info"
       ACCESS: "console"
       ENABLE_ACCESS_LOG: "false"
-    
+
     lfs:
       PATH: "/data/gitea/lfs"
 
