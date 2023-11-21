@@ -71,6 +71,7 @@
 | 0.9.1 | 11.0.3 | Upgraded MariaDB to 11.0.3 |
 | 0.10.2 | 11.1.2 | Upgraded MariaDB to 11.1.2 |
 | 1.0.0 | 10.4.31 | Bumped to stable major chart version - Allows usage of existing secret reference and added network policy support |
+| 1.0.1 | 10.4.32 | Upgraded MaraiDB to 10.4.32 |
 | 1.1.0 | 10.5.22 | Bumped to stable major chart version - Allows usage of existing secret reference and added network policy support |
 | 1.2.0 | 10.6.15 | Bumped to stable major chart version - Allows usage of existing secret reference and added network policy support |
 | 1.3.0 | 10.11.5 | Bumped to stable major chart version - Allows usage of existing secret reference and added network policy support |
