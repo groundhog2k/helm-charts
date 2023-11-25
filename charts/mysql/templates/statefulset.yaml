@@ -186,25 +186,47 @@ spec:
             {{- end }}
           {{- end }}
           env:
+          {{- if or (.Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mysql.fullname" .) .Values.settings.existingSecret }}
+                  key: {{ default "MYSQL_ROOT_PASSWORD" (.Values.settings.rootPassword).secretKey }}
+          {{- end }}
+          {{- with .Values.userDatabase }}
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mysql.fullname" $) .existingSecret }}
+                  key: {{ default "MYSQL_DATABASE" .name.secretKey }}
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mysql.fullname" $) .existingSecret }}
+                  key: {{ default "MYSQL_USER" .user.secretKey }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (include "mysql.fullname" $) .existingSecret }}
+                  key: {{ default "MYSQL_PASSWORD" .password.secretKey }}
+          {{- end }}
           {{- if .Values.settings.skipTZInfo }}
             - name: MYSQL_INITDB_SKIP_TZINFO
               value: "yes"
           {{- end }}
           {{- if .Values.settings.allowEmptyRootPassword }}
-            - name: MYSQL_ALLOW_EMPTY_ROOT_PASSWORD
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
               value: "yes"
           {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.extraEnvSecrets }}
           envFrom:
-          {{- if include "mysql.createSecureConfig" . }}
-            - secretRef:
-                name: {{ $fullname }}
-          {{- end }}
-          {{- range .Values.extraEnvSecrets }}
+          {{- range . }}
             - secretRef:
                 name: {{ . }}
+          {{- end }}
           {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
