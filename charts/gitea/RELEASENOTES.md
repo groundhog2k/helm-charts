@@ -61,4 +61,5 @@
 | 0.9.6 | 1.20.4 | Updated to Gitea 1.20.4 |
 | 0.9.7 | 1.20.5 | Updated to Gitea 1.20.5 |
 | 0.10.0 | 1.21.0 | Updated to Gitea 1.21.0 |
+| 0.10.1 | 1.21.1 | Updated to Gitea 1.21.1 |
 | | | |
