@@ -94,6 +94,16 @@ helm uninstall my-release
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
+
 ## Storage parameters
 
 | Key | Type | Default | Description |
@@ -111,10 +121,16 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | userDatabase | object | `{}` | Optional MySQL user database |
-| userDatabase.name | string | `""` | Name of the user database |
-| userDatabase.user | string | `""` | User name with full access to user database|
-| userDatabase.password | string | `""` | Password of created user |
-| settings.rootPassword | string | `nil` | MySQL root password |
+| userDatabase.existingSecret | string | `nil` | Optional existing secret with database name, user and password |
+| userDatabase.name.secretKey | string | `""` | Key of the existingSecret with database name |
+| userDatabase.name.value | string | `""` | Name of the user database (if no existingSecret was specified) |
+| userDatabase.user.secretKey | string | `""` | Key of the existingSecret with database user |
+| userDatabase.user.value | string | `""` | User name with full access to user database (if no existingSecret was specified) |
+| userDatabase.password.secretKey | string | `""` | Key of the existingSecret with password of created user |
+| userDatabase.password.value | string | `""` | Password of created user (if no existingSecret was specified) |
+| settings.existingSecret | string | `nil` | Optional existing secret for the root password |
+| settings.rootPassword.secretKey | string | `nil` | Key of existingSecret for the MariaDB root password |
+| settings.rootPassword.value | string | `nil` | MariaDB root password (if no existingSecret was specified) |
 | settings.allowEmptyRootPassword | bool | `false` | Set true to allow an empty root password |
 | settings.skipTZInfo | bool | `false` | Set true to skip loading timezone data during init |
 | settings.arguments | list | `[]` | Additional arguments for mysqld (entrypoint process) |

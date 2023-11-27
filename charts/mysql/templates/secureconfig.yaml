@@ -1,4 +1,6 @@
-{{- if include "mysql.createSecureConfig" . }}
+{{- $rootSet := and (not .Values.settings.existingSecret) ((.Values.settings.rootPassword).value) }}
+{{- $userDatabaseSet := and (.Values.userDatabase) (not .Values.userDatabase.existingSecret) }}
+{{- if or ($rootSet) ($userDatabaseSet) }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -8,15 +10,19 @@ metadata:
 type: Opaque
 data:
   {{- with .Values.settings }}
-  {{- if .rootPassword }}
-  MYSQL_ROOT_PASSWORD: {{ .rootPassword | b64enc }}
+  {{- if (.rootPassword).value }}
+  MYSQL_ROOT_PASSWORD: {{ .rootPassword.value | b64enc }}
   {{- end }}
   {{- end }}
   {{- with .Values.userDatabase }}
-  MYSQL_DATABASE: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
-  {{- if .user }}
-  MYSQL_USER: {{ .user | b64enc }}
-  MYSQL_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- if not .existingSecret }}
+  {{- $_ := required "Values: userDatabase.name is mandatory if userDatabase is specified without existing secret" .name }}
+  MYSQL_DATABASE: {{ required "Values: userDatabase.name.value is mandatory if userDatabase is specified without existingSecret." .name.value | b64enc }}
+  {{- if (.user).value }}
+  MYSQL_USER: {{ .user.value | b64enc }}
+  {{- $_ := required "Values: userDatabase.password is mandatory if userDatabase is specified without existing secret" .password }}
+  MYSQL_PASSWORD: {{ required "Values: userDatabase.password.value is mandatory if userDatabase.user is specified without existingSecret." .password.value | b64enc }}
+  {{- end }}
   {{- end }}
   {{- end }}
 {{- end }}

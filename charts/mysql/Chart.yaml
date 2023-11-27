@@ -6,7 +6,12 @@ type: application
 
 maintainers:
   - name: groundhog2k
+    url: https://github.com/groundhog2k/helm-charts
 
-version: "0.3.0"
+keywords:
+  - database
+  - mysql
 
-appVersion: "8.2.0"
+version: "1.0.0"
+
+appVersion: "8.0.35"

@@ -16,4 +16,5 @@
 | 0.1.11 | 8.0.35 | Upgraded MySQL to 8.0.35 |
 | 0.2.0 | 8.1.0 | Upgraded MySQL to 8.1.0 |
 | 0.3.0 | 8.2.0 | Upgraded MySQL to 8.2.0 |
+| 1.0.0 | 8.0.35 | Bumped to stable major chart version - Allows usage of existing secret references and network policies |
 | | | |
