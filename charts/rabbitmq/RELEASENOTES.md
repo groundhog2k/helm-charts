@@ -103,4 +103,5 @@
 | 0.7.8 | 3.12.8 | Upgraded to RabbitMQ 3.12.8 |
 | 0.7.9 | 3.12.8 | Added additional StatefulSet annotations and labels |
 | 0.7.10 | 3.12.9 | Upgraded to RabbitMQ 3.12.9 |
+| 0.7.11 | 3.12.10 | Upgraded to RabbitMQ 3.12.10 |
 | | | |
