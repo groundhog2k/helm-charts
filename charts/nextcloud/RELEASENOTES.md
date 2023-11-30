@@ -53,4 +53,5 @@
 | 0.15.1 | 27.1.1-apache | Upgraded to Nextcloud 27.1.1 |
 | 0.15.2 | 27.1.2-apache | Upgraded to Nextcloud 27.1.2 |
 | 0.15.3 | 27.1.3-apache | Upgraded to Nextcloud 27.1.3 |
+| 0.15.4 | 27.1.4-apache | Upgraded to Nextcloud 27.1.4 |
 | | | |
