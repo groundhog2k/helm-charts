@@ -114,6 +114,7 @@ helm uninstall my-release
 | service.prometheus.port | int | `15692` | Prometheus service port |
 | service.prometheus.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Extra services parameters
 
@@ -130,6 +131,7 @@ Section to define custom services
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
+| extraServices[].labels | object | `{}` | Additional service labels |
 
 ## Service monitor parameters
 

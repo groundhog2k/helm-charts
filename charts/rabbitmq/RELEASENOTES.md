@@ -94,6 +94,7 @@
 | 0.6.31 | 3.11.26 | Upgraded to RabbitMQ 3.11.26 |
 | 0.6.32 | 3.11.27 | Upgraded to RabbitMQ 3.11.27 |
 | 0.6.33 | 3.11.28 | Upgraded to RabbitMQ 3.11.28 |
+| 0.6.34 | 3.11.28 | Added additional service labels - thx @m4r1u2 |
 | 0.7.0 | 3.12.0 | Upgraded to RabbitMQ 3.12.0 |
 | 0.7.1 | 3.12.1 | Upgraded to RabbitMQ 3.12.1 |
 | 0.7.2 | 3.12.2 | Upgraded to RabbitMQ 3.12.2 |
