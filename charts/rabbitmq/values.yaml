@@ -83,9 +83,9 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## Annotations to add to the service
   annotations: {}
-  # Labels to add to the service
+  ## Labels to add to the service
   labels: {}
 
 ## Custom list of extra services
@@ -107,6 +107,8 @@ extraServices: []
 #    loadBalancerIP:
     ## Annotations to add to the service
 #    annotations: {}
+    ## Labels to add to the service
+#    labels: {}
 
 ## Service monitor configuration for Prometheus metrics
 ## Prometheus plugin must be enabled to use this

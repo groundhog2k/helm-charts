@@ -131,6 +131,7 @@ Section to define custom services
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
+| extraServices[].labels | object | `{}` | Additional service labels |
 
 ## Service monitor parameters
 
