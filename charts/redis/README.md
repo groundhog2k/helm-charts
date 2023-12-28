@@ -169,6 +169,7 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.lables | object | `{}` | Additional service labels |
 
 ## Storage parameters
 

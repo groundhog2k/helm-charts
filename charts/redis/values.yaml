@@ -152,6 +152,9 @@ metrics:
     loadBalancerIP:
     # Annotations to add to the service
     annotations: {}
+    # Labels to add to the service
+    labels: {}
+
   ## Prometheus service monitor configuration
   serviceMonitor:
     ## Enable service monitor
