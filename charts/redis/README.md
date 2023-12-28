@@ -106,6 +106,7 @@ helm uninstall my-release
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
+| podTopologySpreadConstraints | object | `{}` | Pod Toplology Spread Constraints |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables (Redis server and Sentinel) |
 | args | list | `[]` | Additional container command arguments (Redis server) |
