@@ -32,6 +32,9 @@ podAnnotations: {}
 ## Pod management policy
 podManagementPolicy: OrderedReady
 
+## Pod topology spread constraints
+podTopologySpreadConstraints: {}
+
 ## Pod update strategy
 updateStrategyType: RollingUpdate
 
