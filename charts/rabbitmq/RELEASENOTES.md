@@ -108,4 +108,5 @@
 | 0.7.10 | 3.12.9 | Upgraded to RabbitMQ 3.12.9 |
 | 0.7.11 | 3.12.10 | Upgraded to RabbitMQ 3.12.10 |
 | 0.7.12 | 3.12.11 | Upgraded to RabbitMQ 3.12.11 and added additional service labels - thx @m4r1u2 |
+| 0.7.13 | 3.12.11 | Added pod topology spread constraints |
 | | | |
