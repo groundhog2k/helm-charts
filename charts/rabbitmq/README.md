@@ -114,6 +114,7 @@ helm uninstall my-release
 | service.prometheus.port | int | `15692` | Prometheus service port |
 | service.prometheus.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Extra services parameters
 

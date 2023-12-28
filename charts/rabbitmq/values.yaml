@@ -85,6 +85,8 @@ service:
   loadBalancerIP:
   # Annotations to add to the service
   annotations: {}
+  # Labels to add to the service
+  labels: {}
 
 ## Custom list of extra services
 extraServices: []
