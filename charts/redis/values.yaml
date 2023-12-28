@@ -33,7 +33,7 @@ podAnnotations: {}
 podManagementPolicy: OrderedReady
 
 ## Pod topology spread constraints
-podTopologySpreadConstraints : {}
+podTopologySpreadConstraints: {}
 
 ## Pod update strategy
 updateStrategyType: RollingUpdate
