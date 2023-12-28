@@ -32,7 +32,7 @@ podAnnotations: {}
 ## Pod management policy
 podManagementPolicy: OrderedReady
 
-## Pod TopologySpreadConstraints
+## Pod topology spread constraints
 podTopologySpreadConstraints : {}
 
 ## Pod update strategy
