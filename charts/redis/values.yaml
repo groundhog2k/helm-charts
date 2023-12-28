@@ -192,6 +192,8 @@ service:
   loadBalancerIP:
   # Annotations to add to the service
   annotations: {}
+  # Labels to add to the service
+  labels: {}
 
 ## Resources of the default init container
 initResources: {}

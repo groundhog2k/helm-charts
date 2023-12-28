@@ -46,6 +46,9 @@ metadata:
   labels:
     {{- include "redis.labels" . | nindent 4 }}
     redis/metrics-service: {{ include "redis.fullname" . }}-metrics
+    {{- with .Values.metrics.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- with .Values.metrics.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
