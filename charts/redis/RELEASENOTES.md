@@ -45,4 +45,5 @@
 | 0.7.3 | 7.2.1 | Updated metrics exporter to v1.55.0 |
 | 0.7.4 | 7.2.2 | Upgraded to Redis 7.2.2 |
 | 0.7.5 | 7.2.3 | Upgraded to Redis 7.2.3 |
+| 0.7.6 | 7.2.3 | Added additional service labels - thx @m4r1u2 |
 | | | |
