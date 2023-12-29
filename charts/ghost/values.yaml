@@ -68,12 +68,16 @@ ingress:
   annotations: {}
    # kubernetes.io/ingress.class: nginx
    # kubernetes.io/tls-acme: "true"
+  
+  ## Additional ingress labels
+  labels: {}
 
   ## Hosts
   hosts:
     - host:
       paths:
-        - /
+        - path: /
+          pathType: ImplementationSpecific
 
   ## TLS settings for hosts
   tls: []

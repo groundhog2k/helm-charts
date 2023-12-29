@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.116.3](https://img.shields.io/badge/Version-0.116.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.75.2](https://img.shields.io/badge/AppVersion-5.75.2-informational?style=flat-square)
+![Version: 0.116.4](https://img.shields.io/badge/Version-0.116.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.75.2](https://img.shields.io/badge/AppVersion-5.75.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -106,10 +106,12 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Ghost service |
-| ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.className | object | `{}` | Optional ingress class name |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | string | `nil` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
-| ingress.hosts[0].host.paths[0] | string | `"/"` | Path of the Ghost UI |
+| ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Ghost UI |
+| ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"2m"` | Maximum body size for post requests |
 

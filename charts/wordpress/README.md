@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.10.3](https://img.shields.io/badge/Version-0.10.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.4.2-apache](https://img.shields.io/badge/AppVersion-6.4.2--apache-informational?style=flat-square)
+![Version: 0.10.4](https://img.shields.io/badge/Version-0.10.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.4.2-apache](https://img.shields.io/badge/AppVersion-6.4.2--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -111,6 +111,7 @@ helm uninstall my-release
 | ingress.enabled | bool | `false` | Enable ingress for Wordpress service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.labels | string | `nil` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0].path | string | `"/"` | Default root path |
 | ingress.hosts[0].host.paths[0].pathType | string | `ImplementationSpecific` | Ingress path type (ImplementationSpecific, Prefix, Exact) |

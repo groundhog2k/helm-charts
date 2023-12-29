@@ -1,29 +1,35 @@
 {{- if .Values.ingress.enabled }}
 {{- $fullName := include "nextcloud.fullname" . -}}
+{{- $labels := include "nextcloud.labels" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $maxSize := .Values.ingress.maxBodySize -}}
 {{- $webroot := .Values.settings.overwriteWebRoot -}}
+{{- with .Values.ingress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "nextcloud.labels" . | nindent 4 }}
+    {{- $labels | nindent 4 }}
+  {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: {{ $maxSize }}
+    {{- if .maxBodySize }}
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .maxBodySize }}
+    {{- end }}
     {{- if $webroot }}
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     {{- end }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .className }}
+  ingressClassName: {{ .className }}
   {{- end }}
-  {{- if .Values.ingress.tls }}
+  {{- if .tls }}
   tls:
-    {{- range .Values.ingress.tls }}
+    {{- range .tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -32,7 +38,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -55,16 +61,19 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}-dav
   labels:
-    {{- include "nextcloud.labels" . | nindent 4 }}
+    {{- $labels | nindent 4 }}
+  {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /remote.php/dav/$2
 spec:
-  {{- if .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .className }}
+  ingressClassName: {{ .className }}
   {{- end }}
-  {{- if .Values.ingress.tls }}
+  {{- if .tls }}
   tls:
-    {{- range .Values.ingress.tls }}
+    {{- range .tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -73,7 +82,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -89,4 +98,5 @@ spec:
                 port:
                   number: {{ $svcPort }}
     {{- end }}
+{{- end }}
 {{- end }}
