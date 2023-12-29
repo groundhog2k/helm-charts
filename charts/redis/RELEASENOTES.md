@@ -47,4 +47,5 @@
 | 0.7.5 | 7.2.3 | Upgraded to Redis 7.2.3 |
 | 0.7.6 | 7.2.3 | Added additional service labels - thx @m4r1u2 |
 | 0.7.7 | 7.2.3 | Added pod topology spread constraints - thx @tim-hanssen |
+| 0.7.8 | 7.2.3 | Renamed property for topology spread constraints |
 | | | |

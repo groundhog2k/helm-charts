@@ -41,9 +41,6 @@ podSecurityContext:
 ## Pod management policy
 podManagementPolicy: OrderedReady
 
-## Pod topology spread constraints
-podTopologySpreadConstraints: {}
-
 ## Pod update strategy
 updateStrategyType: RollingUpdate
 
@@ -173,8 +170,14 @@ resources: {}
 ## Additional node selector
 nodeSelector: {}
 
+## Tolerations for pod assignment
 tolerations: []
+
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
