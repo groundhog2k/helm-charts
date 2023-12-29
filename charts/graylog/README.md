@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -126,6 +126,7 @@ Section to define all additional UDP/TCP inputs for Graylog
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[].host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.hosts[].host.paths[] | string | `nil` | Path routing for the ingress endpoint host |

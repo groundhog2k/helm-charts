@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.7.14](https://img.shields.io/badge/Version-0.7.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
+![Version: 0.7.15](https://img.shields.io/badge/Version-0.7.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -160,6 +160,7 @@ Section to define custom services
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for the Management UI service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[0].host: | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0] | string | `"/"` | Path for the RabbitMQ Management UI |

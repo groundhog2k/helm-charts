@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.16.1](https://img.shields.io/badge/Version-0.16.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 28.0.1-apache](https://img.shields.io/badge/AppVersion-28.0.1-informational?style=flat-square)
+![Version: 0.16.2](https://img.shields.io/badge/Version-0.16.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 28.0.1-apache](https://img.shields.io/badge/AppVersion-28.0.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -171,6 +171,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Nextcloud service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.tls | list | `[]` | Ingress TLS parameters |

@@ -93,6 +93,9 @@ ingress:
   ## Enable ingress endpoint
   enabled: false
 
+  ## Optional ingress class name
+  className:
+
   ## Maximal body size (default: 512m - increase if uploads to nextcloud failing)
   maxBodySize: 512m
 

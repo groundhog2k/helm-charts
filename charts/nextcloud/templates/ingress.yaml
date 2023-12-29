@@ -3,16 +3,7 @@
 {{- $svcPort := .Values.service.port -}}
 {{- $maxSize := .Values.ingress.maxBodySize -}}
 {{- $webroot := .Values.settings.overwriteWebRoot -}}
-{{- $apiVersion := .Capabilities.APIVersions -}}
-{{- if $apiVersion.Has "networking.k8s.io/v1" }}
 apiVersion: networking.k8s.io/v1
-{{- else }}
-{{- if $apiVersion.Has "networking.k8s.io/v1beta1" }}
-apiVersion: networking.k8s.io/v1beta1
-{{- else }}
-apiVersion: extensions/v1beta1
-{{- end }}
-{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -27,6 +18,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
@@ -47,31 +41,16 @@ spec:
           {{- else }}
           - path: /
           {{- end }}
-            {{- if $apiVersion.Has "networking.k8s.io/v1" }}
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-            {{- else }}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
-            {{- end }}
     {{- end }}
 
 ---
-
-{{- if $apiVersion.Has "networking.k8s.io/v1" }}
 apiVersion: networking.k8s.io/v1
-{{- else }}
-{{- if $apiVersion.Has "networking.k8s.io/v1beta1" }}
-apiVersion: networking.k8s.io/v1beta1
-{{- else }}
-apiVersion: extensions/v1beta1
-{{- end }}
-{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}-dav
@@ -80,6 +59,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /remote.php/dav/$2
 spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
@@ -100,17 +82,11 @@ spec:
           {{- else }}
           - path: /.well-known/ca(l|rd)dav(/|.*)
           {{- end }}
-            {{- if $apiVersion.Has "networking.k8s.io/v1" }}
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-            {{- else -}}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
-            {{- end }}
     {{- end }}
 {{- end }}

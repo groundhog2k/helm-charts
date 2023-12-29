@@ -132,6 +132,9 @@ serviceMonitor:
 ingress:
   enabled: false
 
+  ## Optional ingress class name
+  className:
+
   ## Additional ingress annotations
   annotations: {}
   # kubernetes.io/ingress.class: nginx

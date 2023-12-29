@@ -17,4 +17,5 @@
 | 0.1.33 | v1.8.0 | Updated version detection for pod disruption budget |
 | 0.1.34 | v1.8.0 | Updated chart dependencies (postgres 0.2.25) |
 | 0.1.35 | v1.8.0 | Updated chart dependencies (postgres 0.2.26) |
+| 0.1.36 | v1.8.0 | Added optional ingressClassName and removed deprecated api support |
 | | | |

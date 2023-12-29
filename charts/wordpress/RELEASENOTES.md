@@ -38,4 +38,5 @@
 | 0.10.0 | 6.4.0-apache | Upgraded to Wordpress 6.4.0 |
 | 0.10.1 | 6.4.1-apache | Upgraded to Wordpress 6.4.1 |
 | 0.10.2 | 6.4.2-apache | Upgraded to Wordpress 6.4.2 |
+| 0.10.3 | 6.4.2-apache | Added optional ingressClassName and removed deprecated api support |
 | | | |

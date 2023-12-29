@@ -72,6 +72,9 @@ services:
 ingress:
   enabled: false
 
+  ## Optional ingress class name
+  className:
+
   ## Maximal body size (default: 64m - increase if uploads to gitea failing)
   maxBodySize: 64m
 
