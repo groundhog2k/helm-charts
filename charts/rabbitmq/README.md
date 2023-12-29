@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.7.13](https://img.shields.io/badge/Version-0.7.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
+![Version: 0.7.14](https://img.shields.io/badge/Version-0.7.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -90,8 +90,8 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| podTopologySpreadConstraints | object | `{}` | Pod topology spread constraints |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | replicaCount | int | `1` | Number of replicas |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history

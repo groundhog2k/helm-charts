@@ -23,17 +23,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Additional node selector
-nodeSelector: {}
-
 ## Additional pod annotations
 podAnnotations: {}
 
 ## Pod management policy
 podManagementPolicy: OrderedReady
-
-## Pod topology spread constraints
-podTopologySpreadConstraints: {}
 
 ## Pod update strategy
 updateStrategyType: RollingUpdate
@@ -225,9 +219,17 @@ sentinelResources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Additional node selector
+nodeSelector: {}
+
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
