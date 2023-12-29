@@ -99,10 +99,15 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
+  ## Additional ingress labels
+  labels: {}
+
   ## Hosts
   hosts:
     - host:
-      paths: []
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
 
   ## TLS settings for hosts
   tls: []
@@ -264,6 +269,10 @@ storage:
 mongodb:
   ## Enable MongoDB helm chart for deployment (default: false)
   enabled: false
+
+  fullnameOverride:
+
+  nameOverride:
 
   ## Database settings
   settings:

@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.10.4](https://img.shields.io/badge/Version-0.10.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
+![Version: 0.10.5](https://img.shields.io/badge/Version-0.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -114,7 +114,10 @@ helm uninstall my-release
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.labels | string | `nil` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
+| ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Gitea UI |
+| ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
 

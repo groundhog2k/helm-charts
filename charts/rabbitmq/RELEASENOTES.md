@@ -111,4 +111,5 @@
 | 0.7.13 | 3.12.11 | Added pod topology spread constraints |
 | 0.7.14 | 3.12.11 | Renamed property for topology spread constraints |
 | 0.7.15 | 3.12.11 | Added optional ingressClassName and removed deprecated api support |
+| 0.7.16 | 3.12.11 | Refactored ingress configuration and added optional labels and pathType |
 | | | |

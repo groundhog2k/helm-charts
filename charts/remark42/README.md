@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
+![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -104,8 +104,14 @@ helm uninstall my-release
 | ingress.enabled | bool | `false` | Enable ingress for Remark42 service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
+| ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Ghost UI |
+| ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
+
 | ingress.host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.path | string | `/` | Ingress endpoint path
+
 | ingress.tls | object | `{}` | Ingress TLS parameters |
 | ingress.tls.secretName | string | `nil` | Ingress TLS secret name |
 

@@ -180,4 +180,5 @@
 | 0.116.1 | 5.75.1 | Upgraded to Ghost 5.75.1 |
 | 0.116.2 | 5.75.2 | Upgraded to Ghost 5.75.2 |
 | 0.116.3 | 5.75.2 | Added optional ingressClassName and removed deprecated api support |
+| 0.116.4 | 5.75.2 | Refactored ingress configuration and added optional labels and pathType |
 | | | |
