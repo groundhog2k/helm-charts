@@ -64,6 +64,9 @@ ingress:
   ## Enable ingress endpoint
   enabled: false
 
+  ## Optional ingress class name
+  className:
+
   ## Maximal body size (default: 64m - increase if uploads to Wordpress failing)
   maxBodySize: 64m
 

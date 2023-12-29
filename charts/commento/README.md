@@ -1,6 +1,6 @@
 # Commento
 
-![Version: 0.1.35](https://img.shields.io/badge/Version-0.1.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
+![Version: 0.1.36](https://img.shields.io/badge/Version-0.1.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.0](https://img.shields.io/badge/AppVersion-v1.8.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -108,6 +108,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Commento service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.tls | object | `{}` | Ingress TLS parameters |

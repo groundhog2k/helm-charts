@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -102,6 +102,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Remark42 service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.path | string | `/` | Ingress endpoint path

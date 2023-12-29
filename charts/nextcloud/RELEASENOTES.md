@@ -56,4 +56,5 @@
 | 0.15.4 | 27.1.4-apache | Upgraded to Nextcloud 27.1.4 |
 | 0.16.0 | 28.0.0-apache | Upgraded to Nextcloud 28.0.0 |
 | 0.16.1 | 28.0.1-apache | Upgraded to Nextcloud 28.0.1 |
+| 0.16.2 | 28.0.1-apache | Added optional ingressClassName and removed deprecated api support |
 | | | |

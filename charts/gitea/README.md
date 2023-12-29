@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.10.3](https://img.shields.io/badge/Version-0.10.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
+![Version: 0.10.4](https://img.shields.io/badge/Version-0.10.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -112,6 +112,7 @@ helm uninstall my-release
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
+| ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | string | `nil` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.tls | list | `[]` | Ingress TLS parameters |

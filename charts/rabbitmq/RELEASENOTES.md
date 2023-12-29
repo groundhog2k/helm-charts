@@ -110,4 +110,5 @@
 | 0.7.12 | 3.12.11 | Upgraded to RabbitMQ 3.12.11 and added additional service labels - thx @m4r1u2 |
 | 0.7.13 | 3.12.11 | Added pod topology spread constraints |
 | 0.7.14 | 3.12.11 | Renamed property for topology spread constraints |
+| 0.7.15 | 3.12.11 | Added optional ingressClassName and removed deprecated api support |
 | | | |
