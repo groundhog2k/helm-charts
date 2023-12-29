@@ -60,7 +60,7 @@ ingress:
 
   ## Optional ingress class name
   className:
-  
+
   ## Maximal body size (default: 2m - increase if uploads failing)
   maxBodySize: 2m
 
