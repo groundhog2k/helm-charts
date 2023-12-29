@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -45,8 +45,7 @@ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | mongodb | 0.5.19 |
-| @groundhog2k | elasticsearch | 0.1.106 |
+| @groundhog2k | mongodb | 0.5.20 |
 
 ## Common parameters
 
@@ -148,10 +147,6 @@ Section to define all additional UDP/TCP inputs for Graylog
 | mongodb.userDatabase.user | string | `nil` | User name with full access to user database|
 | mongodb.userDatabase.password | string | `nil` | Password of created user |
 | mongodb.storage | object | `see values.yaml` | MongoDB storage settings |
-| elasticsearch.enabled | bool | `false` | Enable Elasticsearch deployment (will disable `elastic.hosts` setting) |
-| elasticsearch.javaOpts | string | `"-Xms512m -Xmx512m"` | Additional JVM options for Elasticsearch |
-| elasticsearch.clusterName | string | `"graylog"` | Elasticsearch cluster name |
-| elasticsearch.storage | object | `see values.yaml` | Elasticsearch storage settings |
 
 ## MaxMind GeoIP2 database
 
