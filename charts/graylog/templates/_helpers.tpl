@@ -23,19 +23,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 {{- end }}
 
-{{- define "elasticsearch.servicename" -}}
-{{- if .Values.elasticsearch.fullnameOverride }}
-{{- .Values.elasticsearch.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default "elasticsearch" .Values.elasticsearch.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
-
 {{- define "mongodb.servicename" -}}
 {{- if .Values.mongodb.fullnameOverride }}
 {{- .Values.mongodb.fullnameOverride | trunc 63 | trimSuffix "-" }}
@@ -91,15 +78,10 @@ Create the name of the service account to use
 Graylog settings via environment variables
 */}}
 {{- define "graylog.environment" -}}
-{{- if .Values.elasticsearch.enabled }}
-- name: GRAYLOG_ELASTICSEARCH_HOSTS
-  value: http://{{ include "elasticsearch.servicename" . }}:{{ .Values.elasticsearch.service.httpPort }}
-{{- else }}
 {{- if .Values.settings.elastic.hosts }}
 - name: GRAYLOG_ELASTICSEARCH_HOSTS
   value: {{ .Values.settings.elastic.hosts | quote }}
 {{- end }}
-{{- end }}   
 {{- if .Values.settings.javaOpts }}
 - name: GRAYLOG_SERVER_JAVA_OPTS
   value: {{ .Values.settings.javaOpts | quote }}
