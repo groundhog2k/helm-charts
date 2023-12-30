@@ -394,3 +394,9 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

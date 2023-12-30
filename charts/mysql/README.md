@@ -1,6 +1,6 @@
 # MySQL
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
+![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -79,6 +79,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history

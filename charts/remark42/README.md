@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
+![Version: 0.6.4](https://img.shields.io/badge/Version-0.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -83,6 +83,7 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerPort | int | `8080` | Internal http container port |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 
@@ -114,6 +115,16 @@ helm uninstall my-release
 
 | ingress.tls | object | `{}` | Ingress TLS parameters |
 | ingress.tls.secretName | string | `nil` | Ingress TLS secret name |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis cache
 

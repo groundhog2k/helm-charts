@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 16.1](https://img.shields.io/badge/AppVersion-16.1-informational?style=flat-square)
+![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 16.1](https://img.shields.io/badge/AppVersion-16.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -81,8 +81,9 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `false` | Enable service account creation |
 | serviceAccount.name | string | `""` | Name of the service account |
-| affinity | object | `{}` |  |
-| tolerations | list | `[]` |  |
+| affinity | object | `{}` | Affinity for pod assignment |
+| tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -97,6 +98,16 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 

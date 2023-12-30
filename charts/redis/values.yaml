@@ -379,3 +379,9 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
   keepPvc: false
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

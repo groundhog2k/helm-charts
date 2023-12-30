@@ -213,16 +213,20 @@ spec:
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.replicaSet.arbiter.nodeSelector }}
+      {{- with .Values.replicaSet.hiddenSecondaries.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.replicaSet.arbiter.affinity }}
+      {{- with .Values.replicaSet.hiddenSecondaries.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.replicaSet.arbiter.tolerations }}
+      {{- with .Values.replicaSet.hiddenSecondaries.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.replicaSet.hiddenSecondaries.topologySpreadConstraints }}
+      topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:

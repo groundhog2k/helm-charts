@@ -206,6 +206,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.replicaSet.arbiter.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: tmp
           emptyDir: {}

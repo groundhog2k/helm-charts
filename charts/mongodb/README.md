@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -79,6 +79,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Pod affinity |
 | tolerations | list | `[]` | Pod tolerations |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -93,6 +94,16 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
@@ -138,6 +149,7 @@ helm uninstall my-release
 | replicaSet.hiddenSecondaries.headlessServiceSuffix | string | `"hidden"` | Suffix of the headless service name for hidden secondary instances |
 | replicaSet.hiddenSecondaries.nodeSelector | object | `{}` | Deployment node selector |
 | replicaSet.hiddenSecondaries.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.hiddenSecondaries.topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | replicaSet.hiddenSecondaries.affinity | object | `{}` | Pod affinity |
 | replicaSet.hiddenSecondaries.volumeName | string | `"mongodb-hidden-volume"` | Internal volume name and prefix of created PVC |
 | replicaSet.arbiter.enabled | bool | `false` | Enables arbiter deployment |
@@ -145,6 +157,7 @@ helm uninstall my-release
 | replicaSet.arbiter.resources | object | `{}` | Resource limits and requests for the arbiter |
 | replicaSet.arbiter.nodeSelector | object | `{}` | Deployment node selector |
 | replicaSet.arbiter.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.arbiter.topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | replicaSet.arbiter.affinity | object | `{}` | Pod affinity |
 | replicaSet.arbiter.storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | replicaSet.arbiter.storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |

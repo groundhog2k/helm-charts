@@ -100,9 +100,14 @@ resources: {}
 nodeSelector:
   kubernetes.io/arch: amd64
 
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -436,3 +441,9 @@ extraResources: []
   #     - services:
   #       - name: {{ include "remark42.fullname" . }}
   #         port: {{ .Values.service.port }}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

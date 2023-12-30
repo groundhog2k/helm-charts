@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.10.5](https://img.shields.io/badge/Version-0.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
+![Version: 0.10.6](https://img.shields.io/badge/Version-0.10.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -86,6 +86,7 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerHttpPort | int | `8000` | Internal http container port |
 | containerSshPort | int | `8022` | Internal ssh container port |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -120,6 +121,16 @@ helm uninstall my-release
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis session cache
 

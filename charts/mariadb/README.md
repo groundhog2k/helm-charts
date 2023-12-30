@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.1.3](https://img.shields.io/badge/AppVersion-11.1.3-informational?style=flat-square)
+![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.1.3](https://img.shields.io/badge/AppVersion-11.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -79,6 +79,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history

@@ -29,9 +29,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Additional node selector
-nodeSelector: {}
-
 ## Additional pod annotations
 podAnnotations: {}
 
@@ -142,9 +139,17 @@ extraInitContainers: []
 ## Extra containers for usage as sidecars
 extraContainers:
 
+## Additional node selector
+nodeSelector: {}
+
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -260,3 +265,9 @@ mariadb:
 
     ## the storage class name
     className:
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

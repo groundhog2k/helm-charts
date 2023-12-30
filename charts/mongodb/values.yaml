@@ -111,11 +111,14 @@ readinessProbe:
 ## Additional node selector
 nodeSelector: {}
 
-## Pod tolerations
+## Tolerations for pod assignment
 tolerations: []
 
-## Pod affinity
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -155,6 +158,8 @@ replicaSet:
     tolerations: []
     ## Pod affinity
     affinity: {}
+    ## Topology spread constraints for pods
+    topologySpreadConstraints: {}
     # Internal volume name and prefix of created PVC
     volumeName: "mongodb-hidden-volume"
   ## Creates an additional arbiter when enabled
@@ -177,6 +182,8 @@ replicaSet:
     tolerations: []
     ## Pod affinity
     affinity: {}
+    ## Topology spread constraints for pods
+    topologySpreadConstraints: {}
     # Storage of the arbiter
     storage:
       ## Set persistentVolumenClaimName to reference an existing PVC
@@ -281,3 +288,9 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
   keepPvc: false
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}
