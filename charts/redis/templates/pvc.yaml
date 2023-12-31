@@ -7,9 +7,17 @@ metadata:
   name: {{ include "redis.fullname" . }}
   labels:
     {{- include "redis.labels" . | nindent 4 }}
-  {{- if .Values.storage.keepPvc }}
+    {{- with .Values.storage.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.storage.keepPvc .Values.storage.annotations }}
   annotations:
+  {{- if .Values.storage.keepPvc }}
     "helm.sh/resource-policy": keep
+  {{- end }}
+  {{- with .Values.storage.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- end }}
 spec:
   {{- with .Values.storage }}

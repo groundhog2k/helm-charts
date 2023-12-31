@@ -254,3 +254,9 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
   keepPvc: false
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}

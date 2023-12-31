@@ -247,6 +247,12 @@ storage:
   ## Keep a created Persistent volume claim when uninstalling the helm chart
   keepPvc: false
 
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)
@@ -276,6 +282,12 @@ mariadb:
 
     ## the storage class name
     className:
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
 
 ## Network policies
 networkPolicy: {}

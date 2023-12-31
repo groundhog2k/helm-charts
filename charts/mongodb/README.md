@@ -119,6 +119,8 @@ The policyTypes will be automatically set
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## MongoDB parameters
 
@@ -168,3 +170,5 @@ The policyTypes will be automatically set
 | replicaSet.arbiter.storage.volumeName | string | `"mongodb-arbiter-volume"` | Internal volume name and prefix of a created PVC |
 | replicaSet.arbiter.storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | replicaSet.arbiter.storage.className | string | `nil` | Storage class name |
+| replicaSet.arbiter.storage.annotations | object | `{}` | Additional storage annotations |
+| replicaSet.arbiter.storage.labels | object | `{}` | Additional storage labels |

@@ -233,6 +233,12 @@ storage:
   accessModes:
     - ReadWriteOnce
 
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
 ## Network policies
 networkPolicy: {}
   ## Ingress and Egress policies

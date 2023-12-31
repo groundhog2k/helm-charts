@@ -263,9 +263,13 @@ The policyTypes will be automatically set
 | storage.nextcloud.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.nextcloud.className | string | `nil` | Storage class name |
 | storage.nextcloud.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
-| storage.nextcloudData | object | `{}` | Nextcloud user data storage |
+| storage.nextcloud.annotations | object | `{}` | Additional storage annotations |
+| storage.nextcloudData.labels | object | `{}` | Additional storage labels |
+| storage.nextcloud | object | `{}` | Nextcloud user data storage |
 | storage.nextcloudData.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.nextcloudData.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.nextcloudData.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.nextcloudData.className | string | `nil` | Storage class name |
 | storage.nextcloudData.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
+| storage.nextcloudData.annotations | object | `{}` | Additional storage annotations |
+| storage.nextcloudData.labels | object | `{}` | Additional storage labels |

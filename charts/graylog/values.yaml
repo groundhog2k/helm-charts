@@ -273,6 +273,9 @@ storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
+  ## Internal volume name
+  volumeName: "graylog-volume"
+
   ## Alternative set requestedSize to define a size for a dynmaically created PVC
   requestedSize:
 
@@ -282,6 +285,12 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
 
 ## MongoDB configuration
 mongodb:
@@ -330,6 +339,12 @@ mongodb:
     ## Default access mode (ReadWriteOnce)
     accessModes:
       - ReadWriteOnce
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
 
 ## Network policies
 networkPolicy: {}

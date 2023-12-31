@@ -357,6 +357,12 @@ storage:
     ## Keep a created Persistent volume claim when uninstalling the helm chart
     keepPvc: false
 
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
   ## Nextcloud user data storage
   nextcloudData:
     ## Set persistentVolumenClaimName to reference an existing PVC
@@ -374,6 +380,12 @@ storage:
 
     ## Keep a created Persistent volume claim when uninstalling the helm chart
     keepPvc: false
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
 
 ## MariaDB configuration
 mariadb:
@@ -410,6 +422,12 @@ mariadb:
     ## the storage class name
     className:
 
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
 ## PostgreSQL configuration
 postgres:
   ## Enable PostgreSQL helm chart for deployment (default: false)
@@ -441,6 +459,12 @@ postgres:
     ## the storage class name
     className:
 
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
@@ -456,6 +480,12 @@ redis:
 
     ## the storage class name
     className:
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
 
 ## Network policies
 networkPolicy: {}

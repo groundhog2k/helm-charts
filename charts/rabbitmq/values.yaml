@@ -388,6 +388,9 @@ storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
+  ## Internal volume name
+  volumeName: "rabbitmq-volume"
+
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
@@ -397,6 +400,12 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
 
 ## Network policies
 networkPolicy: {}

@@ -213,29 +213,39 @@ spec:
         - name: scripts
           configMap:
             name: {{ include "graylog.fullname" . }}-scripts
-            defaultMode: 0555          
-  {{- if .Values.storage.persistentVolumeClaimName }}
-        - name: graylog-volume
+            defaultMode: 0555
+{{- with .Values.storage }}
+  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.storage.persistentVolumeClaimName }}
-  {{- else }}
-  {{- if not .Values.storage.requestedSize }}
-        - name: graylog-volume
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: graylog-volume
+        name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
-        {{- with .Values.storage.accessModes }}
+        {{- with .accessModes }}
         accessModes:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- if .Values.storage.className }}
-        storageClassName: {{ .Values.storage.className }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.storage.requestedSize }}
+            storage: {{ .requestedSize }}
   {{- end }}
-  {{- end }}
+{{- end }}

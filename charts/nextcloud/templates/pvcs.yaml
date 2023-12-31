@@ -6,9 +6,17 @@ metadata:
   name: {{ include "nextcloud.fullname" . }}
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
-  {{- if .Values.storage.nextcloud.keepPvc }}
+    {{- with .Values.storage.nextcloud.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.storage.nextcloud.keepPvc .Values.storage.nextcloud.annotations }}
   annotations:
+  {{- if .Values.storage.nextcloud.keepPvc }}
     "helm.sh/resource-policy": keep
+  {{- end }}
+  {{- with .Values.storage.nextcloud.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- end }}
 spec:
   {{- with .Values.storage.nextcloud }}
@@ -32,9 +40,17 @@ metadata:
   name: {{ include "nextcloud.fullname" . }}-data
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
-  {{- if .Values.storage.nextcloudData.keepPvc }}
+    {{- with .Values.storage.nextcloudData.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.storage.nextcloudData.keepPvc .Values.storage.nextcloudData.annotations }}
   annotations:
+  {{- if .Values.storage.nextcloudData.keepPvc }}
     "helm.sh/resource-policy": keep
+  {{- end }}
+  {{- with .Values.storage.nextcloudData.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- end }}
 spec:
   {{- with .Values.storage.nextcloudData }}

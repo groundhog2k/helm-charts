@@ -315,6 +315,14 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
         {{- with .accessModes }}
         accessModes:
