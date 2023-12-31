@@ -37,6 +37,9 @@ serviceAccount:
 ## Additional pod annotations
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod management policy
 podManagementPolicy: Parallel
 

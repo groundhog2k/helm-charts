@@ -74,6 +74,7 @@ helm uninstall my-release
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -106,6 +107,7 @@ helm uninstall my-release
 | service.peer.port | int | `2380` | Peer service port |
 | service.peer.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Service monitor parameters
 

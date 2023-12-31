@@ -22,11 +22,14 @@ spec:
         checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
         checksum/extendedconfigs: {{ include (print $.Template.BasePath "/extendedconfigs.yaml") . | sha256sum }}
         checksum/customconfigs: {{ include (print $.Template.BasePath "/customconfigs.yaml") . | sha256sum }}
-    {{- with .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "nextcloud.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

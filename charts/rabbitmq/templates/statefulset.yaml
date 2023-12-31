@@ -29,11 +29,14 @@ spec:
         checksum/rabbit-config: {{ include (print $.Template.BasePath "/rabbit-config.yaml") . | sha256sum }}
         checksum/plugins-config: {{ include (print $.Template.BasePath "/plugins-config.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
-    {{- with .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "rabbitmq.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "rabbitmq.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}

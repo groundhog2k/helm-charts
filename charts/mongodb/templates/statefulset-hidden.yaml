@@ -34,6 +34,9 @@ spec:
       labels:
         {{- include "mongodb.selectorLabels" . | nindent 8 }}
         service-type: hidden-secondary
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

@@ -27,6 +27,9 @@ serviceAccount:
 
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod security options (default: ghost as fsGroup)
 podSecurityContext:
   fsGroup: 1000

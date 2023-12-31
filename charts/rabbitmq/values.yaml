@@ -32,6 +32,9 @@ statefulsetAnnotations: {}
 ## Additional pod annotations
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod security options
 podSecurityContext:
   fsGroup: 999

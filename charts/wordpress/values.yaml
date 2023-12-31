@@ -32,6 +32,9 @@ serviceAccount:
 ## Additional pod annotations
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod security options (default: www-data as fsGroup and user running as non-root)
 podSecurityContext:
   fsGroup: 33
@@ -57,7 +60,6 @@ service:
   annotations: {}
   ## Labels to add to the service
   labels: {}
-
 
 ## Ingress configuration
 ingress:

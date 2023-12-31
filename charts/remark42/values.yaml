@@ -39,6 +39,9 @@ serviceAccount:
 ## Additional pod annotations
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod security options (Run as app)
 podSecurityContext:
   fsGroup: 1001
@@ -65,7 +68,6 @@ service:
   annotations: {}
   ## Labels to add to the service
   labels: {}
-
 
 ingress:
   enabled: false

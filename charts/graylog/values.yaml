@@ -31,6 +31,9 @@ serviceAccount:
 
 podAnnotations: {}
 
+## Additional pod labels
+podLabels: {}
+
 ## Pod management policy
 podManagementPolicy: OrderedReady
 

@@ -79,6 +79,7 @@ helm uninstall my-release
 | statefulsetLabels | object | `{}` | Additional StatefulSet labels |
 | statefulsetAnnotations | object | `{}` | Additional StatefulSet annotations |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
