@@ -113,7 +113,7 @@ helm uninstall my-release
 | ingress.enabled | bool | `false` | Enable ingress for Ghost service |
 | ingress.className | object | `{}` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
-| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Ghost UI |
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |

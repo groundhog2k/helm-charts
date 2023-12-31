@@ -132,7 +132,8 @@ Section to define all additional UDP/TCP inputs for Graylog
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[].host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.hosts[].host.paths[] | string | `nil` | Path routing for the ingress endpoint host |
 | ingress.tls | list | `[]` | Ingress TLS parameters |

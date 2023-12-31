@@ -177,9 +177,9 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Nextcloud service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
-| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.maxBodySize | string | `"512m"` | Maximum body size for post requests |
 
 ## Network policies
