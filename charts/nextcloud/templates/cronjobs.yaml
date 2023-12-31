@@ -13,6 +13,13 @@ metadata:
   name: {{ $fullname }}-{{ $job.name }}
   labels:
     {{- $labels | nindent 4 }}
+  {{- with $job.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $job.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
