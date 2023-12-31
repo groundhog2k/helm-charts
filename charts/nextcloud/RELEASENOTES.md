@@ -58,4 +58,5 @@
 | 0.16.1 | 28.0.1-apache | Upgraded to Nextcloud 28.0.1 |
 | 0.16.2 | 28.0.1-apache | Added optional ingressClassName and removed deprecated api support |
 | 0.16.3 | 28.0.1-apache | Refactored ingress configuration and added optional labels and pathType |
+| 0.16.4 | 28.0.1-apache | Added support for network policies and additional labels and annotations |
 | | | |
