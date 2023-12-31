@@ -6,6 +6,13 @@ metadata:
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
     service-type: hidden-secondary
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   selector:
     matchLabels:

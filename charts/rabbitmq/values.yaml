@@ -23,11 +23,11 @@ fullnameOverride: ""
 ## Number of replicas
 replicaCount: 1
 
-## Additional statefulset labels
-statefulsetLabels: {}
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
 
-## Additional statefulset annotations
-statefulsetAnnotations: {}
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
 
 ## Additional pod annotations
 podAnnotations: {}

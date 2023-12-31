@@ -4,10 +4,10 @@ metadata:
   name: {{ include "rabbitmq.fullname" . }}
   labels:
     {{- include "rabbitmq.labels" . | nindent 4 }}
-    {{- with .Values.statefulsetLabels }}
+    {{- with .Values.customLabels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-  {{- with .Values.statefulsetAnnotations }}
+  {{- with .Values.customAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}

@@ -4,6 +4,13 @@ metadata:
   name: {{ include "nextcloud.fullname" . }}
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.replicas }}
   {{- if .Values.revisionHistoryLimit }}

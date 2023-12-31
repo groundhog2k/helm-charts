@@ -12,6 +12,13 @@ metadata:
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
     service-type: primary-secondary
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if .Values.replicaSet.enabled }}
   replicas: {{ add1 .Values.replicaSet.secondaries }}
