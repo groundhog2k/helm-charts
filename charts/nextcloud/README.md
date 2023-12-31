@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.16.4](https://img.shields.io/badge/Version-0.16.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 28.0.1-apache](https://img.shields.io/badge/AppVersion-28.0.1-informational?style=flat-square)
+![Version: 0.16.5](https://img.shields.io/badge/Version-0.16.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 28.0.1-apache](https://img.shields.io/badge/AppVersion-28.0.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -158,6 +158,8 @@ helm uninstall my-release
 | cronJobs[].tolerations | list | `[]` | Tolerations for pod assignment |
 | cronJobs[].nodeSelector | object | `{}` | Deployment node selector |
 | cronJobs[].resources | object | `{}` | Resource limits and requests |
+| cronJobs[].annotations | object | `{}` | Additional cron job annotations |
+| cronJobs[].labels | object | `{}` | Additional cron job labels |
 
 ## Service paramters
 

@@ -39,6 +39,8 @@ defaultCronJobs:
     tolerations: []
     affinity: {}
     resources: {}
+    annotations: {}
+    labels: {}
 
 ## Additional cron jobs
 cronJobs: {}
@@ -49,6 +51,8 @@ cronJobs: {}
 #    tolerations: []
 #    affinity: {}
 #    resources: {}
+#    annotations: {}
+#    labels: {}
 
 ## Number of replicas
 replicas: 1
