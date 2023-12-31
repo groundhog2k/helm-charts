@@ -112,4 +112,5 @@
 | 0.7.14 | 3.12.11 | Renamed property for topology spread constraints |
 | 0.7.15 | 3.12.11 | Added optional ingressClassName and removed deprecated api support |
 | 0.7.16 | 3.12.11 | Refactored ingress configuration and added optional labels and pathType |
+| 0.7.17 | 3.12.11 | Added support for network policies and additional labels and annotations |
 | | | |

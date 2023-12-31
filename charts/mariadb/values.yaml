@@ -13,6 +13,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -23,11 +29,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Additional node selector
-nodeSelector: {}
-
 ## Additional pod annotations
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod management policy
 podManagementPolicy: OrderedReady
@@ -63,8 +69,10 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## Annotations to add to the service
   annotations: {}
+  ## Labels to add to the service
+  labels: {}
 
 # Resource limits and requests
 resources: {}
@@ -84,9 +92,17 @@ initResources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Additional node selector
+nodeSelector: {}
+
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -238,3 +254,9 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
   keepPvc: false
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}

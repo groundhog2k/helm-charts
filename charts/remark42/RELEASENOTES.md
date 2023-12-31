@@ -30,4 +30,5 @@
 | 0.6.1 | v1.12.1 | Upgraded to Remark42 v1.12.1 |
 | 0.6.2 | v1.12.1 | Added optional ingressClassName and removed deprecated api support |
 | 0.6.3 | v1.12.1 | Refactored ingress configuration and added optional labels and pathType |
+| 0.6.4 | v1.12.1 | Added support for network policies and additional labels and annotations |
 | | | |

@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.10.5](https://img.shields.io/badge/Version-0.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
+![Version: 0.10.6](https://img.shields.io/badge/Version-0.10.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.21.3](https://img.shields.io/badge/AppVersion-1.21.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -76,7 +76,10 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -86,6 +89,7 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerHttpPort | int | `8000` | Internal http container port |
 | containerSshPort | int | `8022` | Internal ssh container port |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -100,12 +104,14 @@ helm uninstall my-release
 | services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (only relevant for type LoadBalancer or NodePort) |
 | services.http.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | services.http.annotations | object | `{}` | Additional service annotations |
+| services.http.labels | object | `{}` | Additional service labels |
 | services.ssh.type | string | `"ClusterIP"` | Service type |
 | services.ssh.port | int | `22` | Gitea SSH service port |
 | services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (only relevant for type LoadBalancer or NodePort) |
 | services.ssh.clusterIP | int | `nil` | Gitea SSH ClusterIP (only relevant for type LoadBalancer or NodePort)  |
 | services.ssh.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | services.ssh.annotations | object | `{}` | Additional service annotations |
+| services.ssh.labels | object | `{}` | Additional service labels |
 
 ## Ingress parameters
 
@@ -113,13 +119,23 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
-| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Gitea UI |
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis session cache
 
@@ -190,3 +206,5 @@ It's recommended to set the following Gitea configuration parameters:
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |

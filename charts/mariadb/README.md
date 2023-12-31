@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.1.3](https://img.shields.io/badge/AppVersion-11.1.3-informational?style=flat-square)
+![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.1.3](https://img.shields.io/badge/AppVersion-11.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -70,7 +70,10 @@ helm uninstall my-release
 | resources | object | `{}` | Resource limits and requests |
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | nodeSelector | object | `{}` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -79,6 +82,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -93,6 +97,7 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Network policies
 
@@ -114,6 +119,8 @@ The policyTypes will be automatically set
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## MariaDB parameters
 

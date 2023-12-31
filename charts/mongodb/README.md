@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.4](https://img.shields.io/badge/AppVersion-7.0.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -69,7 +69,10 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -79,6 +82,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Pod affinity |
 | tolerations | list | `[]` | Pod tolerations |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
@@ -93,6 +97,17 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
@@ -104,6 +119,8 @@ helm uninstall my-release
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## MongoDB parameters
 
@@ -138,6 +155,7 @@ helm uninstall my-release
 | replicaSet.hiddenSecondaries.headlessServiceSuffix | string | `"hidden"` | Suffix of the headless service name for hidden secondary instances |
 | replicaSet.hiddenSecondaries.nodeSelector | object | `{}` | Deployment node selector |
 | replicaSet.hiddenSecondaries.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.hiddenSecondaries.topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | replicaSet.hiddenSecondaries.affinity | object | `{}` | Pod affinity |
 | replicaSet.hiddenSecondaries.volumeName | string | `"mongodb-hidden-volume"` | Internal volume name and prefix of created PVC |
 | replicaSet.arbiter.enabled | bool | `false` | Enables arbiter deployment |
@@ -145,9 +163,12 @@ helm uninstall my-release
 | replicaSet.arbiter.resources | object | `{}` | Resource limits and requests for the arbiter |
 | replicaSet.arbiter.nodeSelector | object | `{}` | Deployment node selector |
 | replicaSet.arbiter.tolerations | list | `[]` | Pod tolerations |
+| replicaSet.arbiter.topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | replicaSet.arbiter.affinity | object | `{}` | Pod affinity |
 | replicaSet.arbiter.storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | replicaSet.arbiter.storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | replicaSet.arbiter.storage.volumeName | string | `"mongodb-arbiter-volume"` | Internal volume name and prefix of a created PVC |
 | replicaSet.arbiter.storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | replicaSet.arbiter.storage.className | string | `nil` | Storage class name |
+| replicaSet.arbiter.storage.annotations | object | `{}` | Additional storage annotations |
+| replicaSet.arbiter.storage.labels | object | `{}` | Additional storage labels |

@@ -48,4 +48,5 @@
 | 0.7.6 | 7.2.3 | Added additional service labels - thx @m4r1u2 |
 | 0.7.7 | 7.2.3 | Added pod topology spread constraints - thx @tim-hanssen |
 | 0.7.8 | 7.2.3 | Renamed property for topology spread constraints |
+| 0.7.9 | 7.2.3 | Added support for network policies and additional labels and annotations |
 | | | |

@@ -10,6 +10,13 @@ metadata:
   name: {{ $fullname }}
   labels:
     {{- include "mariadb.labels" . | nindent 4 }}
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: 1
   {{- if .Values.revisionHistoryLimit }}
@@ -39,6 +46,9 @@ spec:
       {{- end }}
       labels:
         {{- include "mariadb.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -243,6 +253,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: tmp-volume
           emptyDir: {}
@@ -301,6 +315,14 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
         {{- with .accessModes }}
         accessModes:

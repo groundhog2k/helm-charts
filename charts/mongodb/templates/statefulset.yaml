@@ -12,6 +12,13 @@ metadata:
   labels:
     {{- include "mongodb.labels" . | nindent 4 }}
     service-type: primary-secondary
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if .Values.replicaSet.enabled }}
   replicas: {{ add1 .Values.replicaSet.secondaries }}
@@ -45,6 +52,9 @@ spec:
       labels:
         {{- include "mongodb.selectorLabels" . | nindent 8 }}
         service-type: primary-secondary
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -236,6 +246,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: tmp
           emptyDir: {}
@@ -303,6 +317,14 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
         {{- with .accessModes }}
         accessModes:
@@ -317,4 +339,3 @@ spec:
   {{- end }}
   {{- end }}
 {{- end }}
-  

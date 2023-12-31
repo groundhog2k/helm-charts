@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.9](https://img.shields.io/badge/AppVersion-v3.5.9-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.9](https://img.shields.io/badge/AppVersion-v3.5.9-informational?style=flat-square)
 
 ## Changelog
 
@@ -73,7 +73,10 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -84,6 +87,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Optional name of the service account |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"Parallel"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | replicas | int | `1` | Number of replicas (Due to the nature of etcd cluster initialization this value must be set before deploying the cluster) |
@@ -105,6 +109,7 @@ helm uninstall my-release
 | service.peer.port | int | `2380` | Peer service port |
 | service.peer.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Service monitor parameters
 
@@ -118,6 +123,16 @@ helm uninstall my-release
 | serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
 | serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
+
 ## Storage parameters
 
 | Key | Type | Default | Description |
@@ -127,6 +142,8 @@ helm uninstall my-release
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## Etcd settings
 

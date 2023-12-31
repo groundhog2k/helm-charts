@@ -13,6 +13,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
 ## Pod deployment strategy
 strategy:
   type: Recreate
@@ -29,6 +35,9 @@ serviceAccount:
 
 ## Additional pod annotations
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod security options (default: fsGroup)
 podSecurityContext:
@@ -54,8 +63,11 @@ services:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
     loadBalancerIP:
-    # Annotations to add to the http service
+    ## Annotations to add to the http service
     annotations: {}
+    ## Labels to add to the service
+    labels: {}
+
   ssh:
     type: ClusterIP
     port: 22
@@ -65,8 +77,10 @@ services:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer)
     loadBalancerIP:
-    # Annotations to add to the ssh service
+    ## Annotations to add to the ssh service
     annotations: {}
+    ## Labels to add to the service
+    labels: {}
 
 ## Ingress configuration
 ingress:
@@ -147,9 +161,14 @@ readinessProbe:
 ## Additional node selector
 nodeSelector: {}
 
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -299,6 +318,12 @@ storage:
   ## Keep a created Persistent volume claim when uninstalling the helm chart
   keepPvc: false
 
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
 ## MariaDB configuration
 mariadb:
   ## Enable MariaDB helm chart for deployment (default: false)
@@ -334,6 +359,12 @@ mariadb:
     ## the storage class name
     className:
 
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
 ## PostgreSQL configuration
 postgres:
   ## Enable PostgreSQL helm chart for deployment (default: false)
@@ -365,6 +396,12 @@ postgres:
     ## the storage class name
     className:
 
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
@@ -380,3 +417,15 @@ redis:
 
     ## the storage class name
     className:
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

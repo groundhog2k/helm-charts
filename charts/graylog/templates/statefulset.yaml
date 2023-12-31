@@ -4,6 +4,13 @@ metadata:
   name: {{ include "graylog.fullname" . }}
   labels:
     {{- include "graylog.labels" . | nindent 4 }}
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   selector:
     matchLabels:
@@ -21,11 +28,14 @@ spec:
       annotations:
         checksum/secureconfig: {{ include (print $.Template.BasePath "/secureconfig.yaml") . | sha256sum }}
         checksum/geopipsecrets: {{ include (print $.Template.BasePath "/geoipsecrets.yaml") . | sha256sum }}
-    {{- with .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "graylog.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -189,6 +199,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: tmp
           emptyDir: {}
@@ -199,29 +213,39 @@ spec:
         - name: scripts
           configMap:
             name: {{ include "graylog.fullname" . }}-scripts
-            defaultMode: 0555          
-  {{- if .Values.storage.persistentVolumeClaimName }}
-        - name: graylog-volume
+            defaultMode: 0555
+{{- with .Values.storage }}
+  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.storage.persistentVolumeClaimName }}
-  {{- else }}
-  {{- if not .Values.storage.requestedSize }}
-        - name: graylog-volume
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: graylog-volume
+        name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
-        {{- with .Values.storage.accessModes }}
+        {{- with .accessModes }}
         accessModes:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- if .Values.storage.className }}
-        storageClassName: {{ .Values.storage.className }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.storage.requestedSize }}
+            storage: {{ .requestedSize }}
   {{- end }}
-  {{- end }}
+{{- end }}

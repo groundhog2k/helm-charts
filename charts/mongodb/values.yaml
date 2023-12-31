@@ -13,6 +13,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
 ## Optional service account
 serviceAccount:
   # Specifies whether a service account should be created
@@ -24,6 +30,9 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod security options
 podSecurityContext:
@@ -60,8 +69,10 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## Annotations to add to the service
   annotations: {}
+  ## Labels to add to the service
+  labels: {}
 
 ## Resource limits and requests
 resources: {}
@@ -111,11 +122,14 @@ readinessProbe:
 ## Additional node selector
 nodeSelector: {}
 
-## Pod tolerations
+## Tolerations for pod assignment
 tolerations: []
 
-## Pod affinity
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -155,6 +169,8 @@ replicaSet:
     tolerations: []
     ## Pod affinity
     affinity: {}
+    ## Topology spread constraints for pods
+    topologySpreadConstraints: {}
     # Internal volume name and prefix of created PVC
     volumeName: "mongodb-hidden-volume"
   ## Creates an additional arbiter when enabled
@@ -177,6 +193,8 @@ replicaSet:
     tolerations: []
     ## Pod affinity
     affinity: {}
+    ## Topology spread constraints for pods
+    topologySpreadConstraints: {}
     # Storage of the arbiter
     storage:
       ## Set persistentVolumenClaimName to reference an existing PVC
@@ -190,6 +208,10 @@ replicaSet:
       ## Default access mode (ReadWriteOnce)
       accessModes:
         - ReadWriteOnce
+      ## Additional storage annotations
+      annotations: {}
+      ## Additional storage labels
+      labels: {}
 
   ## Internal configuration for extra initialization phase which is used during replicaset configuration
   extraInit:
@@ -281,3 +303,15 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
   keepPvc: false
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

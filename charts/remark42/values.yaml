@@ -22,6 +22,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
 ## Pod deployment strategy
 strategy:
   type: Recreate
@@ -38,6 +44,9 @@ serviceAccount:
 
 ## Additional pod annotations
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod security options (Run as app)
 podSecurityContext:
@@ -61,8 +70,10 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## Annotations to add to the service
   annotations: {}
+  ## Labels to add to the service
+  labels: {}
 
 ingress:
   enabled: false
@@ -100,9 +111,14 @@ resources: {}
 nodeSelector:
   kubernetes.io/arch: amd64
 
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -403,6 +419,12 @@ storage:
   ## Keep a created Persistent volume claim when uninstalling the helm chart
   keepPvc: false
 
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
 ## Redis configuration
 redis:
   ## Enable Redis helm chart for deployment (default: false)
@@ -418,6 +440,12 @@ redis:
 
     ## the storage class name
     className:
+
+    ## Additional storage annotations
+    annotations: {}
+
+    ## Additional storage labels
+    labels: {}
 
 extraResources: []
   # - |
@@ -436,3 +464,9 @@ extraResources: []
   #     - services:
   #       - name: {{ include "remark42.fullname" . }}
   #         port: {{ .Values.service.port }}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

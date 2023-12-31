@@ -4,10 +4,10 @@ metadata:
   name: {{ include "rabbitmq.fullname" . }}
   labels:
     {{- include "rabbitmq.labels" . | nindent 4 }}
-    {{- with .Values.statefulsetLabels }}
+    {{- with .Values.customLabels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-  {{- with .Values.statefulsetAnnotations }}
+  {{- with .Values.customAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -29,11 +29,14 @@ spec:
         checksum/rabbit-config: {{ include (print $.Template.BasePath "/rabbit-config.yaml") . | sha256sum }}
         checksum/plugins-config: {{ include (print $.Template.BasePath "/plugins-config.yaml") . | sha256sum }}
         checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
-    {{- with .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "rabbitmq.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "rabbitmq.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
@@ -301,28 +304,38 @@ spec:
             secretName: {{ $secret.name }}
             defaultMode: 0440
         {{- end }}
-  {{- if .Values.storage.persistentVolumeClaimName }}
-        - name: rabbitmq-volume
+{{- with .Values.storage }}
+  {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.storage.persistentVolumeClaimName }}
-  {{- else }}
-  {{- if not .Values.storage.requestedSize }}
-        - name: rabbitmq-volume
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
-        name: rabbitmq-volume
+        name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       spec:
-        {{- with .Values.storage.accessModes }}
+        {{- with .accessModes }}
         accessModes:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-        {{- if .Values.storage.className }}
-        storageClassName: {{ .Values.storage.className }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.storage.requestedSize }}
+            storage: {{ .requestedSize }}
   {{- end }}
-  {{- end }}
+{{- end }}

@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.7.5](https://img.shields.io/badge/Version-0.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 0.7.6](https://img.shields.io/badge/Version-0.7.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -75,7 +75,10 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -85,6 +88,7 @@ helm uninstall my-release
 | serviceAccount.name | string | `""` | Name of the service account |
 | affinity | object | `{}` | Pod affinity |
 | tolerations | list | `[]` | Pod tolerations |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
 | replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
@@ -103,6 +107,7 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Extra service parameters
 
@@ -119,6 +124,7 @@ Section to define all additional UDP/TCP inputs for Graylog
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
+| extraServices[].labels | object | `{}` | Additional service labels |
 
 ## Ingress parameters
 
@@ -126,10 +132,21 @@ Section to define all additional UDP/TCP inputs for Graylog
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[].host | string | `nil` | Hostname for the ingress endpoint |
 | ingress.hosts[].host.paths[] | string | `nil` | Path routing for the ingress endpoint host |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Database settings
 
@@ -166,8 +183,11 @@ Section to define all additional UDP/TCP inputs for Graylog
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.volumeName | string | `"graylog-volume"` | Internal volume name |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## Graylog parameters
 

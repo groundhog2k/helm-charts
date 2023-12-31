@@ -66,4 +66,5 @@
 | 0.10.3 | 1.21.3 | Updated to Gitea 1.21.3 |
 | 0.10.4 | 1.21.3 | Added optional ingressClassName and removed deprecated api support |
 | 0.10.5 | 1.21.3 | Refactored ingress configuration and added optional labels and pathType |
+| 0.10.6 | 1.21.3 | Added support for network policies and additional labels and annotations |
 | | | |

@@ -19,6 +19,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
 ## Number of etcd replicas in the cluster
 ## Due to the nature of etcd cluster initialization this value must be set before deploying the cluster
 ## Automatic scaling or manually scaling the etcd cluster after first deployment is not supported
@@ -36,6 +42,9 @@ serviceAccount:
 
 ## Additional pod annotations
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod management policy
 podManagementPolicy: Parallel
@@ -83,8 +92,10 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## Annotations to add to the service
   annotations: {}
+  ## Labels to add to the service
+  labels: {}
 
 ## Service monitor configuration for Prometheus metrics
 serviceMonitor:
@@ -114,9 +125,14 @@ resources: {}
 ## Additional node selector
 nodeSelector: {}
 
+## Tolerations for pod assignment
 tolerations: []
 
+## Affinity for pod assignment
 affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
@@ -216,3 +232,15 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

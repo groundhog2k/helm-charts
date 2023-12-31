@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.6.3](https://img.shields.io/badge/Version-0.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
+![Version: 0.6.4](https://img.shields.io/badge/Version-0.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.12.1](https://img.shields.io/badge/AppVersion-v1.12.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -74,7 +74,10 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector."kubernetes.io/arch" | string | `"amd64"` | Deployment node selector |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -83,6 +86,7 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerPort | int | `8080` | Internal http container port |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 
@@ -96,6 +100,7 @@ helm uninstall my-release
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
+| service.labels | object | `{}` | Additional service labels |
 
 ## Ingress parameters
 
@@ -103,8 +108,8 @@ helm uninstall my-release
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for Remark42 service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
-| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0].path | string | `"/"` | Path of the Ghost UI |
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
@@ -114,6 +119,16 @@ helm uninstall my-release
 
 | ingress.tls | object | `{}` | Ingress TLS parameters |
 | ingress.tls.secretName | string | `nil` | Ingress TLS secret name |
+
+## Network policies
+
+Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+The policyTypes will be automatically set
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.ingress | object | `{}` | Ingress network policies |
+| networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis cache
 
@@ -252,6 +267,8 @@ helm uninstall my-release
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## Extra resources
 

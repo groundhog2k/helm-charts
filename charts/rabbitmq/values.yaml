@@ -23,14 +23,17 @@ fullnameOverride: ""
 ## Number of replicas
 replicaCount: 1
 
-## Additional statefulset labels
-statefulsetLabels: {}
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
 
-## Additional statefulset annotations
-statefulsetAnnotations: {}
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
 
 ## Additional pod annotations
 podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
 
 ## Pod security options
 podSecurityContext:
@@ -385,6 +388,9 @@ storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
+  ## Internal volume name
+  volumeName: "rabbitmq-volume"
+
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
@@ -394,3 +400,15 @@ storage:
   ## Default access mode (ReadWriteOnce)
   accessModes:
     - ReadWriteOnce
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

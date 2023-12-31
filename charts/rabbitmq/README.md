@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.7.16](https://img.shields.io/badge/Version-0.7.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
+![Version: 0.7.17](https://img.shields.io/badge/Version-0.7.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.11](https://img.shields.io/badge/AppVersion-3.12.11-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -76,9 +76,10 @@ helm uninstall my-release
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
-| statefulsetLabels | object | `{}` | Additional StatefulSet labels |
-| statefulsetAnnotations | object | `{}` | Additional StatefulSet annotations |
+| customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
+| customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
 | podAnnotations | object | `{}` | Additional pod annotations |
+| podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
 | env | list | `[]` | Additional container environmment variables |
@@ -152,8 +153,11 @@ Section to define custom services
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.volumeName | string | `"rabbitmq-volume"` | Internal volume name |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
+| storage.annotations | object | `{}` | Additional storage annotations |
+| storage.labels | object | `{}` | Additional storage labels |
 
 ## Ingress parameters
 
@@ -161,8 +165,8 @@ Section to define custom services
 |-----|------|---------|-------------|
 | ingress.enabled | bool | `false` | Enable ingress for the Management UI service |
 | ingress.className | string | `nil` | Optional ingress class name |
-| ingress.annotations | string | `nil` | Additional annotations for ingress |
-| ingress.labels | string | `nil` | Additional ingress lables |
+| ingress.annotations | object | `{}` | Additional annotations for ingress |
+| ingress.labels | object | `{}` | Additional ingress lables |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
 | ingress.hosts[0].host.paths[0].path | string | `"/"` | Path for the RabbitMQ Management UI |
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
