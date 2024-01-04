@@ -63,4 +63,5 @@
 | 0.7.4 | 5.2.2 | Removed elasticsearch dependency and updated mongodb to 0.5.20 |
 | 0.7.5 | 5.2.2 | Refactored ingress configuration and added optional labels and pathType  |
 | 0.7.6 | 5.2.2 | Added support for network policies and additional labels and annotations |
+| 0.7.7 | 5.2.3 | Updated chart for Graylog 5.2.3 |
 | | | |
