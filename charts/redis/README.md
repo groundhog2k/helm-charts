@@ -196,6 +196,8 @@ The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| networkPolicy.annotations | object | `{}` | Additional network policy annotations |
+| networkPolicy.labels | object | `{}` | Additional network policy labels |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
