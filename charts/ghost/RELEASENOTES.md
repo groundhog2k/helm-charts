@@ -183,4 +183,5 @@
 | 0.116.4 | 5.75.2 | Refactored ingress configuration and added optional labels and pathType |
 | 0.116.5 | 5.75.2 | Added support for network policies and additional labels and annotations |
 | 0.116.3 | 5.75.3 | Upgraded to Ghost 5.75.3 |
+| 0.117.0 | 5.76.0 | Upgraded to Ghost 5.76.0 |
 | | | |
