@@ -9,4 +9,5 @@
 | 0.1.4 | v3.5.8 | Upgraded etcd to v3.5.8 |
 | 0.1.5 | v3.5.9 | Upgraded etcd to v3.5.9 |
 | 0.1.6 | v3.5.9 | Added support for network policies and additional labels and annotations |
+| 0.1.7 | v3.5.10 | Upgraded etcd to v3.5.10 |
 | | | |
