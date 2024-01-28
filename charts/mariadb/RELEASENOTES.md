@@ -83,4 +83,5 @@
 | 2.1.0 | 11.1.2 | Bumped to stable major chart version - Allows usage of existing secret reference and added network policy support |
 | 2.1.1 | 11.1.3 | Upgraded MariaDB to 11.1.3 |
 | 2.1.2 | 11.1.3 | Added support for network policies and additional labels and annotations |
+| 2.2.0 | 11.2.2 | Upgraded MariaDB to 11.2.2 |
 | | | |
