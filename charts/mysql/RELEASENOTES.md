@@ -20,4 +20,5 @@
 | 1.0.1 | 8.0.36 | Upgraded MySQL to 8.0.36 |
 | 1.1.0 | 8.2.0 | Bumped to stable major chart version - Allows usage of existing secret references and network policies |
 | 1.1.1 | 8.2.0 | Added support for network policies and additional labels and annotations |
+| 1.2.0 | 8.3.0 | Upgraded MySQL to 8.3.0 |
 | | | |
