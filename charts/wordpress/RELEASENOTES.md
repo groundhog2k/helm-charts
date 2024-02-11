@@ -41,4 +41,5 @@
 | 0.10.3 | 6.4.2-apache | Added optional ingressClassName and removed deprecated api support |
 | 0.10.4 | 6.4.2-apache | Refactored ingress configuration and added optional labels |
 | 0.10.5 | 6.4.2-apache | Added support for network policies and additional labels and annotations |
+| 0.10.6 | 6.4.3-apache | Upgraded to Wordpress 6.4.3 |
 | | | |
