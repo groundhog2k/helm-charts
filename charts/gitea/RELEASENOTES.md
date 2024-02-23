@@ -69,4 +69,5 @@
 | 0.10.6 | 1.21.3 | Added support for network policies and additional labels and annotations |
 | 0.10.7 | 1.21.4 | Updated to Gitea 1.21.4 |
 | 0.10.8 | 1.21.5 | Updated to Gitea 1.21.5 |
+| 0.10.9 | 1.21.6 | Updated to Gitea 1.21.6 |
 | | | |
