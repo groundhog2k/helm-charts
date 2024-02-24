@@ -115,4 +115,5 @@
 | 0.7.17 | 3.12.11 | Added support for network policies and additional labels and annotations |
 | 0.7.18 | 3.12.12 | Upgraded to RabbitMQ 3.12.12 |
 | 0.7.19 | 3.12.13 | Upgraded to RabbitMQ 3.12.13 |
+| 0.8.0 | 3.13.0 | Upgraded to RabbitMQ 3.13.0 |
 | | | |
