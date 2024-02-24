@@ -114,4 +114,5 @@
 | 0.7.16 | 3.12.11 | Refactored ingress configuration and added optional labels and pathType |
 | 0.7.17 | 3.12.11 | Added support for network policies and additional labels and annotations |
 | 0.7.18 | 3.12.12 | Upgraded to RabbitMQ 3.12.12 |
+| 0.7.19 | 3.12.13 | Upgraded to RabbitMQ 3.12.13 |
 | | | |
