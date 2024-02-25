@@ -14,6 +14,7 @@
 | 0.2.25 | 13.11 | Upgraded to Postgres 13.11 |
 | 0.2.26 | 13.12 | Upgraded to Postgres 13.12 |
 | 0.2.27 | 13.13 | Upgraded to Postgres 13.13 |
+| 0.2.28 | 13.14 | Upgraded to Postgres 13.14 |
 | 0.3.4 | 14.1 | Fixes bug with wrong mounted customConfig #811 |
 | 0.3.5 | 14.1 | Updated readme and release notes |
 | 0.3.6 | 14.1 | Implemented support for extra secrets and advanced configuration capabilites |
