@@ -13,7 +13,7 @@ keywords:
   - mariadb
   - mysql
 
-version: "2.1.3"
+version: "2.2.1"
 
-appVersion: "11.1.4"
+appVersion: "11.2.3"
 icon: https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png
