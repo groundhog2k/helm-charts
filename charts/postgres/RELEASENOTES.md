@@ -43,4 +43,5 @@
 | 0.5.0 | 16.0 | Upgraded to Postgres 16.0 |
 | 0.5.1 | 16.1 | Upgraded to Postgres 16.1 |
 | 0.5.2 | 16.1 | Added support for network policies and additional labels and annotations |
+| 0.5.3 | 16.2 | Upgraded to Postgres 16.2 |
 | | | |
