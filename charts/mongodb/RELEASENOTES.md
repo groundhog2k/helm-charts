@@ -83,6 +83,7 @@
 | 0.5.19 | 6.0.11 | Upgraded to MongoDB 6.0.11 |
 | 0.5.20 | 6.0.12 | Upgraded to MongoDB 6.0.12 |
 | 0.5.21 | 6.0.13 | Upgraded to MongoDB 6.0.13 |
+| 0.5.22 | 6.0.14 | Upgraded to MongoDB 6.0.14 |
 | 0.6.0 | 7.0.2 | Upgraded to MongoDB 7.0.2 |
 | 0.6.1 | 7.0.4 | Upgraded to MongoDB 7.0.4 |
 | 0.6.2 | 7.0.4 | Added support for network policies and additional labels and annotations |
