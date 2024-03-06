@@ -8,10 +8,10 @@ maintainers:
   - name: groundhog2k
 
 # This is the chart version.
-version: "0.16.6"
+version: "0.16.7"
 
 # This is the version number of the application being deployed.
-appVersion: "28.0.2-apache"
+appVersion: "28.0.3-apache"
 
 dependencies:
   - name: mariadb
@@ -19,10 +19,10 @@ dependencies:
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: mariadb.enabled
   - name: postgres
-    version: "0.4.6"
+    version: "0.4.8"
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: postgres.enabled
   - name: redis
-    version: "0.6.14"
+    version: "0.7.10"
     repository: "https://groundhog2k.github.io/helm-charts"
     condition: redis.enabled
