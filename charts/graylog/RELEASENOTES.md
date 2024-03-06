@@ -65,4 +65,5 @@
 | 0.7.6 | 5.2.2 | Added support for network policies and additional labels and annotations |
 | 0.7.7 | 5.2.3 | Updated chart for Graylog 5.2.3 |
 | 0.7.8 | 5.2.4 | Updated chart for Graylog 5.2.4 |
+| 0.7.9 | 5.2.5 | Updated chart for Graylog 5.2.5 and dependencies (mongodb 0.5.22) |
 | | | |
