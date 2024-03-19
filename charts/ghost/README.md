@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.121.3](https://img.shields.io/badge/Version-0.121.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.80.3](https://img.shields.io/badge/AppVersion-5.80.3-informational?style=flat-square)
+![Version: 0.121.4](https://img.shields.io/badge/Version-0.121.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.80.4](https://img.shields.io/badge/AppVersion-5.80.4-informational?style=flat-square)
 
 ## Changelog
 
