@@ -48,4 +48,5 @@
 | 1.1.0 | 13.14 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.0 | 14.11 | Final version with configuration secret, extra config and extra volume support |
 | 1.3.0 | 15.6 | Final version with configuration secret, extra config and extra volume support |
+| 1.4.0 | 16.2 | Final version with configuration secret, extra config and extra volume support |
 | | | |
