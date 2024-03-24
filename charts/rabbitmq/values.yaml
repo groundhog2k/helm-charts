@@ -273,14 +273,26 @@ plugins: []
 # Find more information about it at https://hub.docker.com/_/rabbitmq and https://www.rabbitmq.com/clustering.html#erlang-cookie
 # The erlang cookie is a MANDATORY value
 authentication:
+  ## Optional existing secret with user, password and erlang cookie
+  # existingSecret:
+
   ## Initial user name (alternative: set environment variable RABBITMQ_DEFAULT_USER)
   user:
+  ##  Use secretKey when existingSecret was specified otherwise value
+  #   secretKey:
+  #   value:
 
   ## Initial password (alternative: set environment variable RABBITMQ_DEFAULT_PASS)
   password:
+  ##  Use secretKey when existingSecret was specified otherwise value
+  #   secretKey:
+  #   value:
 
   ## Erlang cookie (MANDATORY) (alternative: set environment variable ERLANG_COOKIE)
   erlangCookie:
+  ##  Use secretKey when existingSecret was specified otherwise value
+  #   secretKey:
+  #   value:
 
 # RabbitMQ specific configuration options described at https://www.rabbitmq.com/configure.html#config-items
 options:
@@ -329,11 +341,22 @@ options:
       # key:
 
 ## A list of additional existing secrets that will be mounted into the container
-## The mounted files of the secrets can be used for custom or advanced configuration option (see: customConfig)
+## The mounted files of the secrets can be used for advanced configuration - f.e. TLS
 extraSecrets: []
     ## Name of the existing K8s secret
 #  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## A list of additional existing configMaps that will be mounted into the container
+extraConfigs: []
+    ## Name of the existing K8s configMap
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
 
 ## A list of existing secrets that will be mounted into the container as environment variables
@@ -406,6 +429,15 @@ storage:
 
   ## Additional storage labels
   labels: {}
+
+## Mount existing extra PVC
+extraStorage: {}
+    ## Internal volume name
+#  - name:
+    ## Container mount path
+#    mountPath:
+    ## Name of existing PVC
+#    pvcName:
 
 ## Network policies
 networkPolicy: {}

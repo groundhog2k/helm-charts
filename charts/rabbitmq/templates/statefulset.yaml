@@ -56,9 +56,21 @@ spec:
           image: "{{ .Values.initImage.registry }}/{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           env:
-            {{- if .Values.authentication.erlangCookie }}
+            {{- with .Values.authentication }}
+            {{- if .existingSecret }}
+            {{- if (.erlangCookie).secretKey }}
             - name: ERLANG_COOKIE
-              value: {{ .Values.authentication.erlangCookie }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret }}
+                  key: {{ .erlangCookie.secretKey }}
+            {{- end }}
+            {{- else }}
+            {{- if (.erlangCookie).value }}
+            - name: ERLANG_COOKIE
+              value: {{ .erlangCookie.value }}
+            {{- end }}
+            {{- end }}
             {{- end }}
           {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
@@ -210,6 +222,24 @@ spec:
                   - -ec
                   - /scripts/shutdown.sh
           env:
+            {{- with .Values.authentication }}
+            {{- if .existingSecret }}
+            {{- if (.user).secretKey }}
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret }}
+                  key: {{ .user.secretKey }}
+            {{- end }}
+            {{- if (.password).secretKey }}
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .existingSecret }}
+                  key: {{ .password.secretKey }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
             - name: RABBITMQ_USE_LONGNAME
               value: {{ .Values.clustering.useLongName | quote }}
             - name: NODE_NAME
@@ -251,6 +281,14 @@ spec:
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
+            {{- end }}
+            {{- range $config := .Values.extraConfigs }}
+            - name: {{ $config.name }}
+              mountPath: {{ $config.mountPath }}
+            {{- end }}
+            {{- range $storage := .Values.extraStorage }}
+            - name: {{ $storage.name }}
+              mountPath: {{ $storage.mountPath }}
             {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
@@ -302,7 +340,18 @@ spec:
         - name: {{ $secret.name }}
           secret:
             secretName: {{ $secret.name }}
-            defaultMode: 0440
+            defaultMode: {{ $secret.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $config := .Values.extraConfigs }}
+        - name: {{ $config.name }}
+          configMap:
+            name: {{ $config.name }}
+            defaultMode: {{ $config.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $storage := .Values.extraStorage }}
+        - name: {{ $storage.name }}
+          persistentVolumeClaim:
+            claimName: {{ $storage.pvcName }}
         {{- end }}
 {{- with .Values.storage }}
   {{- $createPvc := and (empty .persistentVolumeClaimName) .requestedSize }}

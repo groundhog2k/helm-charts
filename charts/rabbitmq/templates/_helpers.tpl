@@ -137,9 +137,9 @@ Main RabbitMQ options
 */}}
 {{- define "rabbitmq.options" -}}
 ## Initial login user
-{{- if and (.Values.authentication).user (.Values.authentication).password }}
-default_user = {{ .Values.authentication.user }}
-default_pass = {{ .Values.authentication.password }}
+{{- if and ((.Values.authentication).user).value ((.Values.authentication).password).value }}
+default_user = {{ .Values.authentication.user.value }}
+default_pass = {{ .Values.authentication.password.value }}
 {{- end }}
 loopback_users.guest = false
 ## RabbitMQ options
