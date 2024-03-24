@@ -45,4 +45,5 @@
 | 0.5.2 | 16.1 | Added support for network policies and additional labels and annotations |
 | 0.5.3 | 16.2 | Upgraded to Postgres 16.2 |
 | 1.0.0 | 12.8 | Final version with configuration secret, extra config and extra volume support |
+| 1.1.0 | 13.14 | Final version with configuration secret, extra config and extra volume support |
 | | | |
