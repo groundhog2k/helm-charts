@@ -6,7 +6,13 @@ type: application
 
 maintainers:
   - name: groundhog2k
+    url: https://github.com/groundhog2k/helm-charts
 
-version: "1.0.0"
+keywords:
+  - messaging
+  - rabbitmq
 
-appVersion: "3.12.13"
+version: "1.1.0"
+
+appVersion: "3.13.0"
+icon: https://www.rabbitmq.com/img/rabbitmq-logo-with-name.svg
