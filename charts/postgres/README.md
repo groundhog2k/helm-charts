@@ -125,6 +125,9 @@ The policyTypes will be automatically set
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
+| extraStorage[].name | string | `nil` | Internal name of the volume |
+| extraStorage[].pvcName | string | `nil` | Name of the existing PVC |
+| extraStorage[].mountPath | string | `nil` | Mount path where the PVC should be mounted into the container |
 
 ## PostgreSQL parameters
 
@@ -133,12 +136,17 @@ The policyTypes will be automatically set
 | useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | settings.authMethod | string | `nil` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
-| settings.superuser | string | `nil` | Superuser name |
-| settings.superuserPassword | string | `nil` | Password of superuser |
-| userDatabase | object | `{}` | Optional PostgreSQL user database |
-| userDatabase.name | string | `nil` | Name of the user database |
-| userDatabase.user | string | `nil` | User name with full access to user database|
-| userDatabase.password | string | `nil` | Password of created user |
+| settings.superuser.secretKey | string | `nil` | Key of existingSecret for the Superuser name |
+| settings.superuser.value | string | `nil` | Superuser name (if no existingSecret was specified) - defaults to "postgres" |
+| settings.superuserPassword.secretKey | string | `nil` | Key of existingSecret for the Superuser password |
+| settings.superuserPassword.value | string | `nil` | Password of Superuser (if no existingSecret was specified) |
+| userDatabase.existingSecret | string | `nil` | Optional existing secret with database name, user and password |
+| userDatabase.name.secretKey | string | `""` | Key of the existingSecret with database name |
+| userDatabase.name.value | string | `""` | Name of the user database (if no existingSecret was specified) |
+| userDatabase.user.secretKey | string | `""` | Key of the existingSecret with database user |
+| userDatabase.user.value | string | `""` | User name with full access to user database (if no existingSecret was specified) |
+| userDatabase.password.secretKey | string | `""` | Key of the existingSecret with password of created user |
+| userDatabase.password.value | string | `""` | Password of created user (if no existingSecret was specified) |
 | customConfig | string | `nil` | Optional custom configuration block that will be mounted as file in `/etc/postgresql/postgresql.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the postgres configuration in addition to `/etc/postgresql/postgresql.conf` |
@@ -146,4 +154,8 @@ The policyTypes will be automatically set
 | extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.sql`, `*.sh`) in `/docker-entrypoint-initdb.d` |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
