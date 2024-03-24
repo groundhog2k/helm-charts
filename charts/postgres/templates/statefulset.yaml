@@ -152,6 +152,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- range .Values.extraEnvSecrets }}
+          envFrom:
             - secretRef:
                 name: {{ . }}
           {{- end }}
