@@ -158,7 +158,7 @@ settings:
   superuser:
   #  secretKey:
   #  value:
-  
+
   ## The superuser password
   superuserPassword:
   #  secretKey:
