@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.3.2](https://img.shields.io/badge/AppVersion-11.3.2-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.6.17](https://img.shields.io/badge/AppVersion-10.6.17-informational?style=flat-square)
 
 ## Changelog
 
@@ -121,6 +121,10 @@ The policyTypes will be automatically set
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
+| extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |
+| extraStorage[].name | string | `nil` | Internal name of the volume |
+| extraStorage[].pvcName | string | `nil` | Name of the existing PVC |
+| extraStorage[].mountPath | string | `nil` | Mount path where the PVC should be mounted into the container |
 
 ## MariaDB parameters
 
@@ -148,4 +152,9 @@ The policyTypes will be automatically set
 | extraScripts | string | `nil` | An existing configMap with files that will be mounted into the container as script files (`*.sql`, `*.sh`) in `/docker-entrypoint-initdb.d` |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraConfigs | list | `[]` | A list of additional existing configMaps that will be mounted into the container |
+| extraConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |

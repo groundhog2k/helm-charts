@@ -11,9 +11,8 @@ maintainers:
 keywords:
   - database
   - mariadb
-  - mysql
 
-version: "2.3.0"
+version: "3.0.0"
 
-appVersion: "11.3.2"
+appVersion: "10.6.17"
 icon: https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png
