@@ -151,11 +151,18 @@ useDeployment: false
 
 ## Database configuration
 settings:
+  ## Optional existing secret for the Postgrest superuser
+  existingSecret:
+
   ## The default postgres superuser (default when nothing is set: "postgres")
   superuser:
+  #  secretKey:
+  #  value:
 
   ## The superuser password
   superuserPassword:
+  #  secretKey:
+  #  value:
 
   ## Postgres database authentication method
   ## For example: "md5"
@@ -167,14 +174,23 @@ settings:
 
 ## Optional user database which is created during first startup with user and password
 userDatabase: {}
+  ## Optional existing secret with database name, user and password
+  # existingSecret:
   ## Name of the user database
   # name:
-
+  ##  Use secretKey when existingSecret was specified otherwise value
+  #   secretKey:
+  #   value:
   ## Database user with full access rights
+  ##  Use secretKey when existingSecret was specified otherwise value
   # user:
-
+  #   secretKey:
+  #   value:
   ## Password of the database user
+  ##  Use secretKey when existingSecret was specified otherwise value
   # password:
+  #   secretKey:
+  #   value:
 
 ## Optional custom configuration block that will be mounted as file in /etc/postgresql/postgresql.conf
 ## For more flexible options see extraSecretConfigs: section
@@ -204,7 +220,18 @@ extraScripts:
 extraSecrets: []
     ## Name of the existing K8s secret
 #  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## A list of additional existing configMaps that will be mounted into the container
+extraConfigs: []
+    ## Name of the existing K8s configMap
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
 
 ## Storage parameters
@@ -233,6 +260,15 @@ storage:
 
   ## Additional storage labels
   labels: {}
+
+## Mount existing extra PVC
+extraStorage: {}
+    ## Internal volume name
+#  - name:
+    ## Container mount path
+#    mountPath:
+    ## Name of existing PVC
+#    pvcName:
 
 ## Network policies
 networkPolicy: {}

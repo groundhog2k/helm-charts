@@ -1,4 +1,6 @@
-{{- if include "postgres.createSecureConfig" . }}
+{{- $rootSet := and (not .Values.settings.existingSecret) ((.Values.settings.superuserPassword).value) }}
+{{- $userDatabaseSet := and (.Values.userDatabase) (not .Values.userDatabase.existingSecret) }}
+{{- if or ($rootSet) ($userDatabaseSet) }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -8,18 +10,22 @@ metadata:
 type: Opaque
 data:
 {{- with .Values.settings }}
-  {{- if .superuser }}
-  POSTGRES_USER: {{ .superuser | b64enc }}
+  {{- if (.superuser).value }}
+  POSTGRES_USER: {{ .superuser.value | b64enc }}
   {{- end }}
-  {{- if .superuserPassword }}
-  POSTGRES_PASSWORD: {{ .superuserPassword | b64enc }}
+  {{- if (.superuserPassword).value }}
+  POSTGRES_PASSWORD: {{ .superuserPassword.value | b64enc }}
   {{- end }}
 {{- end }}
 {{- with .Values.userDatabase }}
-  POSTGRES_DB: {{ required "Values: userDatabase.name is mandatory if userDatabase is specified." .name | b64enc }}
-  {{- if .user }}
-  USERDB_USER: {{ .user | b64enc }}
-  USERDB_PASSWORD: {{ required "Values: userDatabase.password is mandatory if userDatabase.user is specified." .password | b64enc }}
+  {{- if not .existingSecret }}
+  {{- $_ := required "Values: userDatabase.name is mandatory if userDatabase is specified without existing secret" .name }}
+  POSTGRES_DB: {{ required "Values: userDatabase.name.value is mandatory if userDatabase is specified without existingSecret." .name.value | b64enc }}
+  {{- if (.user).value}}
+  USERDB_USER: {{ .user.value | b64enc }}
+  {{- $_ := required "Values: userDatabase.password is mandatory if userDatabase is specified without existing secret" .password }}
+  USERDB_PASSWORD: {{ required "Values: userDatabase.password.value is mandatory if userDatabase.user is specified without existingSecret." .password.value | b64enc }}
+  {{- end }}
   {{- end }}
 {{- end }}
 {{- end }}

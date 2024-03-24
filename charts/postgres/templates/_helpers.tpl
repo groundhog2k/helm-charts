@@ -60,12 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{/*
-Generate secret with configuration
-*/}}
-{{- define "postgres.createSecureConfig" -}}
-  {{- if or (or (.Values.settings.superuserPassword) (.Values.settings.superuser)) (.Values.userDatabase) }}
-true
-  {{- end }}
-{{- end }}
