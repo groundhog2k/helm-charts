@@ -92,4 +92,5 @@
 | 2.2.0 | 11.2.2 | Upgraded MariaDB to 11.2.2 |
 | 2.2.1 | 11.2.3 | Upgraded MariaDB to 11.2.3 |
 | 2.3.0 | 11.3.2 | Upgraded MariaDB to 11.3.2 |
+| 3.0.0 | 10.6.17 (LTS) | Final version with configuration secret, extra config and extra volume support |
 | | | |
