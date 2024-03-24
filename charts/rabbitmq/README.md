@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.13.0](https://img.shields.io/badge/AppVersion-3.13.0-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.12.13](https://img.shields.io/badge/AppVersion-3.12.13-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -8,7 +8,7 @@ A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
-### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x
+### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x / 3.13.x
 
 ## TL;DR
 
@@ -158,6 +158,10 @@ Section to define custom services
 | storage.className | string | `nil` | Storage class name |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
+| extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |
+| extraStorage[].name | string | `nil` | Internal name of the volume |
+| extraStorage[].pvcName | string | `nil` | Name of the existing PVC |
+| extraStorage[].mountPath | string | `nil` | Mount path where the PVC should be mounted into the container |
 
 ## Ingress parameters
 
@@ -188,9 +192,13 @@ The policyTypes will be automatically set
 |-----|------|---------|-------------|
 | clusterDomain | string | `"cluster.local"` | Kubernetes cluster domain (DNS) suffix |
 | plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: [RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)) |
-| authentication.user | string | `nil` | Initial user name (guest) (Alternative: Set environment variable RABBITMQ_DEFAULT_USER) |
-| authentication.password | string | `nil` | Initial password (guest) (Alternative: set environment variable RABBITMQ_DEFAULT_PASS) |
-| authentication.erlangCookie | string | `nil` | Erlang cookie (MANDATORY) (Alternative: Set the environment variable ERLANG_COOKIE) |
+| authentication.existingSecret | string | `nil` | Optional existing secret for the authentication parameters |
+| authentication.user.secretKey | string | `nil` | Key of existingSecret for the initial user name |
+| authentication.user.value | string | `nil` | Initial user name (guest) (Alternative: Set environment variable RABBITMQ_DEFAULT_USER) (if no existingSecret was specified) |
+| authentication.password.secretKey | string | `nil` | Key of existingSecret for the initial user password |
+| authentication.password.value | string | `nil` | Initial password (guest) (Alternative: set environment variable RABBITMQ_DEFAULT_PASS) (if no existingSecret was specified) |
+| authentication.erlangCookie.secretKey | string | `nil` | Key of existingSecret for the erlang cookie |
+| authentication.erlangCookie.value | string | `nil` | Mandatory Erlang cookie (Alternative: Set the environment variable ERLANG_COOKIE) (if no existingSecret was specified) |
 | clustering.rebalance | bool | `false` | Enable rebalance queues with master when new replica is created |
 | clustering.forceBoot | bool | `false` | Force boot in case cluster peers are not available |
 | clustering.useLongName | bool | `true` | Use FQDN for RabbitMQ node names |
@@ -242,5 +250,10 @@ The policyTypes will be automatically set
 | extraSecretAdvancedConfigs | string | `nil` | An existing secret with files that will be added to the `advanced.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
-| extraSecrets[].name | string | `nil` | Name of the existing Kubernetes secret |
+| extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraConfigs | list | `[]` | A list of additional existing configMaps that will be mounted into the container |
+| extraConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
