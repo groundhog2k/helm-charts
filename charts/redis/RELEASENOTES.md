@@ -51,4 +51,5 @@
 | 0.7.8 | 7.2.3 | Renamed property for topology spread constraints |
 | 0.7.9 | 7.2.3 | Added support for network policies and additional labels and annotations |
 | 0.7.10 | 7.2.4 | Upgraded to Redis 7.2.4 |
+| 1.0.0 | 6.2.14 | Final version with configuration secret, extra config and extra volume support |
 | | | |
