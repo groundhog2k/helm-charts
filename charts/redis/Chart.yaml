@@ -13,7 +13,7 @@ keywords:
   - redis
 
 # This is the chart version
-version: "1.0.0"
+version: "0.7.10"
 
 # This is the version number of the application being deployed.
-appVersion: "6.2.14"
+appVersion: "7.2.4"
