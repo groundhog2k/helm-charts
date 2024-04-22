@@ -70,7 +70,7 @@ metrics:
       registry: "docker.io"
       repository: "oliver006/redis_exporter"
       pullPolicy: IfNotPresent
-      tag: "v1.55.0"
+      tag: "v1.59.0"
     ## Default security options to run Exporter as non-root, read only container without privilege escalation
     securityContext:
       allowPrivilegeEscalation: false
@@ -138,8 +138,19 @@ metrics:
     extraExporterSecrets: []
         ## Name of the existing K8s secret
     #  - name:
+        ## Mount default mode (0440 if parameter is omitted)
+    #    defaultMode: 0440
         ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
     #    mountPath:
+    ## A list of additional existing configMaps that will be mounted into the exporter container
+    extraExporterConfigs: []
+        ## Name of the existing K8s configMap
+    #  - name:
+        ## Mount default mode (0440 if parameter is omitted)
+    #    defaultMode: 0440
+        ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
+    #    mountPath:
+
   ## Exporter service configuration
   service:
     ## Enable metrics service

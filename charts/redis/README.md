@@ -147,7 +147,11 @@ helm uninstall my-release
 | metrics.exporter.extraExporterEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the exporter container as environment variables |
 | metrics.exporter.extraExporterSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the exporter container |
 | metrics.exporter.extraExporterSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| metrics.exporter.extraExporterSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | metrics.exporter.extraExporterSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| metrics.exporter.extraExporterConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| metrics.exporter.extraExporterConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| metrics.exporter.extraExporterConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
 | metrics.service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
 | metrics.service.servicePort | int | `9121` | Redis metrics exporter service port |
 | metrics.service.containerPort | int | `9121` | Redis metrics exporter container port |
@@ -188,6 +192,10 @@ helm uninstall my-release
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
+| extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |
+| extraStorage[].name | string | `nil` | Internal name of the volume |
+| extraStorage[].pvcName | string | `nil` | Name of the existing PVC |
+| extraStorage[].mountPath | string | `nil` | Mount path where the PVC should be mounted into the container |
 
 ## Network policies
 
@@ -210,13 +218,21 @@ The policyTypes will be automatically set
 | extraSecretRedisConfigs | string | `nil` | An existing secret with files that will be added to the `redis.conf` |
 | extraRedisSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the redis container |
 | extraRedisSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraRedisSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraRedisSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraRedisConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraRedisConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraRedisConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
 | extraSentinelEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the sentinel container as environment variables |
 | sentinelConfig | string | `nil` | Additional sentinel.conf (only when haMode is enabled) |
 | extraSecretSentinelConfigs | string | `nil` | An existing secret with files that will be added to the `sentinel.conf` |
 | extraSentinelSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the sentinel container |
 | extraSentinelSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSentinelSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraSentinelSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraSentinelConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraSentinelConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraSentinelConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
 | useDeploymentWhenNonHA | bool | `true` | Use Deployment instead of StatefulSet for Non-HA deployments |
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
 | haMode.useDnsNames | bool | `false` | Use DNS names instead of Pod IPs to build the cluster |
