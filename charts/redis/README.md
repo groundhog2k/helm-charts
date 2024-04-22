@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.2.14](https://img.shields.io/badge/AppVersion-6.2.14-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.15](https://img.shields.io/badge/AppVersion-7.0.15-informational?style=flat-square)
 
 ## Changelog
 
