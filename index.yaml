@@ -22148,6 +22148,23 @@ entries:
     version: 0.1.0
   redis:
   - apiVersion: v2
+    appVersion: 7.0.15
+    created: "2024-04-22T19:04:30.82704726Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: ea0904f0b042ce82cf581b6f2d8dca80096be2d1aee2e87bcc2234f66eb7c8cd
+    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
+    keywords:
+    - cache
+    - redis
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-1.1.0/redis-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: 7.2.4
     created: "2024-01-10T08:34:30.53288838Z"
     description: A Helm chart for Redis on Kubernetes
@@ -23805,6 +23822,23 @@ entries:
     version: 0.1.0
   wordpress:
   - apiVersion: v2
+    appVersion: 6.5.0-apache
+    created: "2024-04-22T19:04:30.933185987Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.14
+    description: A Helm chart for Wordpress on Kubernetes
+    digest: 56c4739f4f444841d325c3a674dad9c0dc75dbeae15032fc5f02638695107adf
+    maintainers:
+    - name: groundhog2k
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.11.0/wordpress-0.11.0.tgz
+    version: 0.11.0
+  - apiVersion: v2
     appVersion: 6.4.3-apache
     created: "2024-02-11T10:37:44.858364755Z"
     dependencies:
@@ -25079,4 +25113,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-09T17:45:59.778906603Z"
+generated: "2024-04-22T19:04:30.935179376Z"
