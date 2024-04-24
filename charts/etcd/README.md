@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 0.1.11](https://img.shields.io/badge/Version-0.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.13](https://img.shields.io/badge/AppVersion-v3.5.13-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.13](https://img.shields.io/badge/AppVersion-v3.5.13-informational?style=flat-square)
 
 ## Changelog
 
@@ -144,6 +144,10 @@ The policyTypes will be automatically set
 | storage.className | string | `nil` | Storage class name |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
+| extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |
+| extraStorage[].name | string | `nil` | Internal name of the volume |
+| extraStorage[].pvcName | string | `nil` | Name of the existing PVC |
+| extraStorage[].mountPath | string | `nil` | Mount path where the PVC should be mounted into the container |
 
 ## Etcd settings
 
@@ -154,11 +158,16 @@ The policyTypes will be automatically set
 | settings.https.autoTls | bool | `false` | Automatic TLS mode of etcd (TLS certs. created automaically) |
 | settings.shutdownDelay | int | `3` | Delay after termination request to give etcd process time for graceful shutdown |
   
-## Etcd secrets configuration
+## Etcd secrets and configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
+| extraSecrets[].defaultMode | int | `0440` | Mount default access mode |
 | extraSecrets[].mountPath | string | `nil` | Mount path where the secret should be mounted into the container (f.e. /mysecretfolder) |
+| extraConfigs | list | `[]` | A list of additional existing configMaps that will be mounted into the container |
+| extraConfigs[].name | string | `nil` | Name of the existing K8s configMap |
+| extraConfigs[].defaultMode | int | `0440` | Mount default access mode |
+| extraConfigs[].mountPath | string | `nil` | Mount path where the configMap should be mounted into the container (f.e. /myconfigfolder) |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |

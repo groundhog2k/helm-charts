@@ -188,12 +188,23 @@ args: []
 ## A list of existing secrets that will be mounted into the container as environment variables
 extraEnvSecrets: []
 
-## A list of additional existing secrets that will be mounted into the etcd container
-## The mounted files of the secrets can be used for custom configuration options (see https.enabled)
+## A list of additional existing secrets that will be mounted into the container
+## The mounted files of the secrets can be used for advanced configuration (see settings.https.enabled)
 extraSecrets: []
     ## Name of the existing K8s secret
 #  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
     ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## A list of additional existing configMaps that will be mounted into the container
+extraConfigs: []
+    ## Name of the existing K8s configMap
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
 #    mountPath:
 
 ## Default Kubernetes cluster domain
@@ -238,6 +249,15 @@ storage:
 
   ## Additional storage labels
   labels: {}
+
+## Mount existing extra PVC
+extraStorage: {}
+    ## Internal volume name
+#  - name:
+    ## Container mount path
+#    mountPath:
+    ## Name of existing PVC
+#    pvcName:
 
 ## Network policies
 networkPolicy: {}
