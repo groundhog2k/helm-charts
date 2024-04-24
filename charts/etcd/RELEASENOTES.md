@@ -13,4 +13,5 @@
 | 0.1.8 | v3.5.11 | Upgraded etcd to v3.5.11 |
 | 0.1.9 | v3.5.12 | Upgraded etcd to v3.5.12 |
 | 0.1.10 | v3.5.13 | Upgraded etcd to v3.5.13 |
+| 0.1.11 | v3.5.13 | Fixed build pipeline issue |
 | | | |
