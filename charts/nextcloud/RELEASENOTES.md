@@ -63,4 +63,5 @@
 | 0.16.6 | 28.0.2-apache | Upgraded to Nextcloud 28.0.2 |
 | 0.16.7 | 28.0.3-apache | Upgraded to Nextcloud 28.0.3 and dependencies (postgres 0.4.8 / redis 0.7.10) |
 | 0.16.8 | 28.0.4-apache | Upgraded to Nextcloud 28.0.4 |
+| 0.17.0 | 29.0.0-apache | Upgraded to Nextcloud 29.0.0 |
 | | | |
