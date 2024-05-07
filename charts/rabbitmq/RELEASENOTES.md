@@ -117,6 +117,7 @@
 | 0.7.19 | 3.12.13 | Upgraded to RabbitMQ 3.12.13 |
 | 0.8.0 | 3.13.0 | Upgraded to RabbitMQ 3.13.0 |
 | 1.0.0 | 3.12.13 | Final version with configuration secret, extra config and extra volume support |
+| 1.0.1 | 3.12.14 | Upgraded to RabbitMQ 3.12.14 |
 | 1.1.0 | 3.13.0 | Final version with configuration secret, extra config and extra volume support |
 | 1.1.1 | 3.13.1 | Upgraded to RabbitMQ 3.13.1 |
 | 1.1.2 | 3.13.2 | Upgraded to RabbitMQ 3.13.2 |
