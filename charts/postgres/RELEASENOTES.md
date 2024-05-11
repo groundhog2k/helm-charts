@@ -59,4 +59,5 @@
 | 1.4.0 | 16.2 | Final version with configuration secret, extra config and extra volume support |
 | 1.4.1 | 16.2 | Fixed missing envFrom |
 | 1.4.2 | 16.2 | Updated README |
+| 1.4.3 | 16.3 | Upgraded to Postgres 16.3 |
 | | | |
