@@ -43,4 +43,5 @@
 | 0.10.5 | 6.4.2-apache | Added support for network policies and additional labels and annotations |
 | 0.10.6 | 6.4.3-apache | Upgraded to Wordpress 6.4.3 |
 | 0.11.0 | 6.5.0-apache | Upgraded to Wordpress 6.5.0 |
+| 0.11.1 | 6.5.3-apache | Upgraded to Wordpress 6.5.3 |
 | | | |
