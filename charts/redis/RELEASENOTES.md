@@ -55,4 +55,5 @@
 | 1.0.1 | 6.2.14 | Fixed build pipeline issue |
 | 1.1.0 | 7.0.15 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.0 | 7.2.4 | Final version with configuration secret, extra config and extra volume support |
+| 1.2.1 | 7.2.5 | Upgraded to Redis 7.2.4 |
 | | | |
