@@ -23,4 +23,5 @@
 | 1.2.0 | 8.3.0 | Upgraded MySQL to 8.3.0 |
 | 2.0.0 | 8.0.36 (LTS) | Final version with configuration secret, extra config and extra volume support |
 | 2.0.1 | 8.0.36 (LTS) | Updated README |
+| 2.0.2 | 8.0.37 (LTS) | Updated README |
 | | | |
