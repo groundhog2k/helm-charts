@@ -75,4 +75,5 @@
 | 0.10.12 | 1.21.9 | Updated to Gitea 1.21.9 |
 | 0.10.13 | 1.21.10 | Updated to Gitea 1.21.10 |
 | 0.10.14 | 1.21.11 | Updated to Gitea 1.21.11 |
+| 0.11.0 | 1.22.0 | Updated to Gitea 1.22.0 |
 | | | |
