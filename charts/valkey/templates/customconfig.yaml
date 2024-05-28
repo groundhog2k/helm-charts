@@ -1,0 +1,17 @@
+{{- if or (.Values.valkeyConfig) (.Values.sentinelConfig) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "valkey.fullname" . }}
+  labels:
+    {{- include "valkey.labels" . | nindent 4 }}
+data:
+  {{- if .Values.valkeyConfig }}
+  valkey.conf: |
+    {{- .Values.valkeyConfig | nindent 4 }}
+  {{- end }}
+  {{- if .Values.sentinelConfig }}
+  sentinel.conf: |
+    {{- .Values.sentinelConfig | nindent 4 }}
+  {{- end}}
+{{- end }}

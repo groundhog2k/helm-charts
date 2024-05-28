@@ -1,0 +1,21 @@
+apiVersion: v2
+name: valkey
+description: A Helm chart for Valkey on Kubernetes
+
+type: application
+
+maintainers:
+  - name: groundhog2k
+    url: https://github.com/groundhog2k/helm-charts
+
+keywords:
+  - cache
+  - valkey
+
+icon: https://valkey.io/assets/img/Valkey-logo.svg
+
+# This is the chart version
+version: "1.0.0"
+
+# This is the version number of the application being deployed.
+appVersion: "7.2.5"
