@@ -7,7 +7,7 @@ metadata:
 data:
   init.sh: |
     #!/bin/bash
-    REDIS_CONFIG=/data/conf/valkey.conf
+    VALKEY_CONFIG=/data/conf/valkey.conf
     SENTINEL_CONFIG=/data/conf/sentinel.conf
     if [ -f "/data/init.log" ]; then
       echo "Detected restart of this instance ($HOSTNAME)"
@@ -27,24 +27,24 @@ data:
     configure_valkey_base() {
       log "Creating valkey base configuration"
       mkdir -p /data/conf
-      rm -f $REDIS_CONFIG
+      rm -f $VALKEY_CONFIG
 
       log "Setting valkey server defaults"
-      echo "port 6379" >>$REDIS_CONFIG
-      echo "protected-mode no" >>$REDIS_CONFIG
-      echo "bind 0.0.0.0" >>$REDIS_CONFIG
-      echo "dir /data" >>$REDIS_CONFIG
+      echo "port 6379" >>$VALKEY_CONFIG
+      echo "protected-mode no" >>$VALKEY_CONFIG
+      echo "bind 0.0.0.0" >>$VALKEY_CONFIG
+      echo "dir /data" >>$VALKEY_CONFIG
       log "Finished creating base configuration"
     }
 
     configure_valkey_ext() {
       if [ -f /usr/local/etc/valkey/valkey.conf ]; then
           log "Adding optional valkey configuration"
-          cat /usr/local/etc/valkey/valkey.conf >>$REDIS_CONFIG
+          cat /usr/local/etc/valkey/valkey.conf >>$VALKEY_CONFIG
       fi
       if [ -d /extravalkeyconfigs ]; then
         log "Adding extra valkey configs to valkey configuration"
-        cat /extravalkeyconfigs/* >>$REDIS_CONFIG
+        cat /extravalkeyconfigs/* >>$VALKEY_CONFIG
       fi
     }
 
@@ -161,7 +161,7 @@ data:
           else
             rm -f /data/failover_restart
             log "Setting this instance ($HOSTNAME) as replicaof $MASTER"
-            echo "replicaof $MASTER 6379" >>$REDIS_CONFIG
+            echo "replicaof $MASTER 6379" >>$VALKEY_CONFIG
           fi
         fi
       fi
