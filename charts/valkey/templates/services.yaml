@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "valkey.fullname" . }}
+  labels:
+    {{- include "valkey.labels" . | nindent 4 }}
+    {{- with .Values.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+{{- if .Values.haMode.enabled }}
+    - port: {{ .Values.service.sentinelPort }}
+      targetPort: sentinel
+      protocol: TCP
+      name: sentinel
+  type: ClusterIP
+{{- else }}
+    - port: {{ .Values.service.serverPort }}
+      targetPort: valkey
+      protocol: TCP
+      name: valkey
+      {{- if and ( or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") ) (.Values.service.nodePort) }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
+  type: {{ .Values.service.type }}
+{{- end }}
+  {{- if .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{- end }}
+  selector:
+    {{- include "valkey.selectorLabels" . | nindent 4 }}
+{{- if and .Values.metrics.enabled .Values.metrics.service.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "valkey.fullname" . }}-metrics
+  labels:
+    {{- include "valkey.labels" . | nindent 4 }}
+    valkey/metrics-service: {{ include "valkey.fullname" . }}-metrics
+    {{- with .Values.metrics.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.metrics.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+    - port: {{ .Values.metrics.service.servicePort }}
+      targetPort: exporter
+      protocol: TCP
+      name: exporter
+      {{- if and ( or (eq .Values.metrics.service.type "LoadBalancer") (eq .Values.metrics.service.type "NodePort") ) (.Values.metrics.service.nodePort) }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+  type: {{ .Values.metrics.service.type }}
+  {{- if and (eq .Values.metrics.service.type "LoadBalancer") (.Values.metrics.service.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.metrics.service.loadBalancerIP }}
+  {{- end }}  
+  {{- if .Values.metrics.service.clusterIP }}
+  clusterIP: {{ .Values.metrics.service.clusterIP }}
+  {{- end }}
+  selector:
+    {{- include "valkey.selectorLabels" . | nindent 4 }}
+{{- end }}

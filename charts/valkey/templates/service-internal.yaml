@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "valkey.fullname" . }}-headless
+  labels:
+    {{- include "valkey.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+  {{- if .Values.haMode.enabled }}
+    - port: {{ .Values.service.sentinelPort }}
+      targetPort: sentinel
+      protocol: TCP
+      name: sentinel
+  {{- end }}
+    - port: {{ .Values.service.serverPort }}
+      targetPort: valkey
+      protocol: TCP
+      name: valkey
+  selector:
+    {{- include "valkey.selectorLabels" . | nindent 4 }}

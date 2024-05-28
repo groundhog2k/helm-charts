@@ -1,0 +1,444 @@
+## Default values for Valkey deployment
+
+## Valkey docker image
+image:
+  registry: "docker.io"
+  repository: "valkey/valkey"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Pull secrets and name override options
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Additional labels for Deployment or StatefulSet
+customLabels: {}
+
+## Additional annotations for Deployment or StatefulSet
+customAnnotations: {}
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Additional pod annotations
+podAnnotations: {}
+
+## Additional pod labels
+podLabels: {}
+
+## Pod management policy
+podManagementPolicy: OrderedReady
+
+## Pod update strategy
+updateStrategyType: RollingUpdate
+
+## Pod security options
+podSecurityContext:
+  fsGroup: 999
+  supplementalGroups:
+    - 999
+
+## Default security options to run Valkey as non-root, read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 999
+  runAsGroup: 999
+  capabilities:
+    drop:
+      - ALL
+
+## Prometheus metrics and service monitor configuration
+metrics:
+  ## Enable metrics export
+  enabled: false
+  ## Metrics exporter configuration
+  exporter:
+    ## Valkey exporter image
+    image:
+      registry: "docker.io"
+      repository: "oliver006/redis_exporter"
+      pullPolicy: IfNotPresent
+      tag: "v1.59.0"
+    ## Default security options to run Exporter as non-root, read only container without privilege escalation
+    securityContext:
+      allowPrivilegeEscalation: false
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 999
+      runAsGroup: 999
+      capabilities:
+        drop:
+          - ALL
+    ## Resource limits and requests
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+    ## Custom startup probe (overwrites default startup probe)
+    customStartupProbe: {}
+
+    ## Default startup probe
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom liveness probe (overwrites default liveness probe)
+    customLivenessProbe: {}
+
+    ## Default liveness probe
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom readiness probe (overwrites default readiness probe)
+    customReadinessProbe: {}
+
+    ## Default readiness probe
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Arguments for the container entrypoint process (exporter only)
+    args: []
+    ## Additional environment variables (exporter only)
+    env: []
+    ## A list of existing secrets that will be mounted into the exporter container as environment variables (see: https://github.com/oliver006/redis_exporter#command-line-flags)
+    extraExporterEnvSecrets: []
+    ## A list of additional existing secrets that will be mounted into the exporter container
+    ## The mounted files of the secrets can be used for custom configuration options (see: https://github.com/oliver006/redis_exporter#command-line-flags)
+    extraExporterSecrets: []
+        ## Name of the existing K8s secret
+    #  - name:
+        ## Mount default mode (0440 if parameter is omitted)
+    #    defaultMode: 0440
+        ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+    #    mountPath:
+    ## A list of additional existing configMaps that will be mounted into the exporter container
+    extraExporterConfigs: []
+        ## Name of the existing K8s configMap
+    #  - name:
+        ## Mount default mode (0440 if parameter is omitted)
+    #    defaultMode: 0440
+        ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
+    #    mountPath:
+
+  ## Exporter service configuration
+  service:
+    ## Enable metrics service
+    enabled: true
+    ## Type of service (not available when haMode is enabled)
+    type: ClusterIP
+    ## Valkey exporter service port
+    servicePort: 9121
+    ## Valkey exporter container port
+    containerPort: 9121
+    ## The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled)
+    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
+    loadBalancerIP:
+    # Annotations to add to the service
+    annotations: {}
+    # Labels to add to the service
+    labels: {}
+
+  ## Prometheus service monitor configuration
+  serviceMonitor:
+    ## Enable service monitor
+    enabled: true
+    ## Additional labels for the service monitor object
+    additionalLabels: {}
+    ## Annotations for the service monitor object
+    annotations: {}
+    ## The scrape interval for prometheus
+    # interval:
+    ## The scrape timeout value
+    # scrapeTimeout:
+    ## Extra parameters rendered to the service monitor endpoint
+    extraEndpointParameters: {}
+    ## Extra parameters rendered to the service monitor
+    extraParameters: {}
+    ## Path to metrics
+    path: "/metrics"
+    ## Scheme to use for metrics endpoint
+    scheme: http
+
+## Default valkey service port (default Valkey server port 6379, defaul Valkey sentinel port 26379)
+service:
+  ## Type of service (not available when haMode is enabled)
+  type: ClusterIP
+  ## Valkey server port
+  serverPort: 6379
+  ## Valkey sentinel mode (only when haMode is enabled)
+  sentinelPort: 26379
+  ## The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
+  loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
+  # Labels to add to the service
+  labels: {}
+
+## Resources of the default init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Resource limits and requests (for Valkey)
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Resource limits and requests (for Valkey Sentinel - only when haMode is enabled)
+sentinelResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Additional node selector
+nodeSelector: {}
+
+## Tolerations for pod assignment
+tolerations: []
+
+## Affinity for pod assignment
+affinity: {}
+
+## Topology spread constraints for pods
+topologySpreadConstraints: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit:
+
+## Pod disruption budget
+podDisruptionBudget: {}
+  ## Minimum number of pods that must be available after eviction
+  # minAvailable:
+  ## Maximum number of pods that can be unavailable after eviction
+  # maxUnavailable:
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup probe
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Additional environment variables (Valkey server and Sentinel)
+env: []
+
+## Extra init containers
+extraInitContainers: []
+
+## Extra containers for usage as sidecars
+extraContainers: []
+
+## Default Kubernetes cluster domain
+clusterDomain: cluster.local
+
+## Arguments for the container entrypoint process (Valkey server)
+args: []
+
+## A list of existing secrets that will be mounted into the valkey container as environment variables
+extraValkeyEnvSecrets: []
+
+## Additional valkey.conf
+valkeyConfig: |
+
+## An existing secret with files that will be added to the valkey.conf
+extraSecretValkeyConfigs:
+
+## A list of additional existing secrets that will be mounted into the valkey container
+## The mounted files of the secrets can be used for custom configuration options (see: valkeyConfig, extraSecretValkeyConfigs)
+extraValkeySecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## A list of additional existing configMaps that will be mounted into the container
+extraValkeyConfigs: []
+    ## Name of the existing K8s configMap
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## Arguments for the container entrypoint process (Sentinel)
+sentinelArgs: []
+
+## A list of existing secrets that will be mounted into the sentinel container as environment variables
+extraSentinelEnvSecrets: []
+
+## Additional sentinel.conf (only when haMode is enabled)
+sentinelConfig: |
+
+## An existing secret with files that will be added to the sentinel.conf
+extraSecretSentinelConfigs:
+
+## A list of additional existing secrets that will be mounted into the sentinel container
+## The mounted files of the secrets can be used for custom configuration options (see: sentinelConfig, extraSecretSentinelConfigs)
+extraSentinelSecrets: []
+    ## Name of the existing K8s secret
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the secret should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## A list of additional existing configMaps that will be mounted into the container
+extraSentinelConfigs: []
+    ## Name of the existing K8s configMap
+#  - name:
+    ## Mount default mode (0440 if parameter is omitted)
+#    defaultMode: 0440
+    ## Mount path where the configMap should be mounted into the container (f.e. /mysecretfolder)
+#    mountPath:
+
+## Use Kubernetes Deployment instead of StatefulSet when in Non-HA mode
+useDeploymentWhenNonHA: true
+
+## High availability mode (with master-slave replication and sentinel)
+haMode:
+  ## Enable high availibility deployment mode
+  enabled: false
+  ## Use DNS names instead of Pod IPs to build the cluster
+  useDnsNames: false
+  ## Mandatory valkey HA-master group name (default "valkeyha")
+  masterGroupName: "valkeyha"
+  ## Number of replicas (minimum should be 3)
+  replicas: 3
+  ## Quorum of sentinels that need to agree that a master node is not available
+  quorum: 2
+  ## Number of milliseconds after the master should be declared as unavailable
+  downAfterMilliseconds: 30000
+  ## Timeout for a failover
+  failoverTimeout: 180000
+  ## Number of parallel reconfigurations
+  parallelSyncs: 1
+  ## Timeout in seconds to detect if Valkey master is alive
+  masterAliveTestTimeout: 2
+  ## Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds)
+  failoverWait: 35
+  ## Wait time in seconds before restart will be forced after a DNS failure during initialization
+  dnsFailureWait: 15
+  ## Keep old init logs in /data/init.log after a successful initialization (use only for debugging)
+  keepOldLogs: false
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Internal volume name and prefix of a created PVC
+  volumeName: "valkey-data"
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  requestedSize:
+
+  ## the storage class name
+  className:
+
+  ## Default access mode (ReadWriteOnce)
+  accessModes:
+    - ReadWriteOnce
+
+  ## Keep a created Persistent volume claim when uninstalling the helm chart (only for non-HA mode with option useDeploymentWhenNonHA: true)
+  keepPvc: false
+
+  ## Additional storage annotations
+  annotations: {}
+
+  ## Additional storage labels
+  labels: {}
+
+## Mount existing extra PVC
+extraStorage: {}
+    ## Internal volume name
+#  - name:
+    ## Container mount path
+#    mountPath:
+    ## Name of existing PVC
+#    pvcName:
+
+## Network policies
+networkPolicy: {}
+  ## Ingress and Egress policies
+  # ingress: {}
+  # egress: {}

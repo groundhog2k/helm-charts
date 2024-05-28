@@ -1,0 +1,513 @@
+{{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
+{{- $deployWithNonHA := and (not .Values.haMode.enabled) (.Values.useDeploymentWhenNonHA) }}
+{{- $fullname := include "valkey.fullname" . }}
+apiVersion: apps/v1
+{{- if $deployWithNonHA }}
+kind: Deployment
+{{- else }}
+kind: StatefulSet
+{{- end }}
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "valkey.labels" . | nindent 4 }}
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.haMode.enabled }}
+  replicas: {{ .Values.haMode.replicas }}
+  {{- else }}
+  replicas: 1
+  {{- end }}
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
+  {{- if or (.Values.haMode.enabled) (not .Values.useDeploymentWhenNonHA) }}
+  serviceName: {{ $fullname }}-headless
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy:
+    type: {{ .Values.updateStrategyType }}
+  {{- else }}
+  strategy:
+    type: Recreate
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "valkey.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "valkey.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "valkey.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /data
+              name: {{ .Values.storage.volumeName }}
+            - name: scripts
+              mountPath: /scripts
+          {{- if .Values.valkeyConfig }}
+            - mountPath: /usr/local/etc/valkey/valkey.conf
+              subPath: valkey.conf
+              name: config
+          {{- end }}
+          {{- if .Values.sentinelConfig }}
+            - mountPath: /usr/local/etc/valkey/sentinel.conf
+              subPath: sentinel.conf
+              name: config
+          {{- end }}
+          {{- if .Values.extraSecretValkeyConfigs }}
+            - mountPath: /extravalkeyconfigs
+              name: extravalkeyconfigs-volume
+          {{- end }}
+          {{- if .Values.extraSecretSentinelConfigs }}
+            - mountPath: /extrasentinelconfigs
+              name: extrasentinelconfigs-volume
+          {{- end }}
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command: [ "/scripts/init.sh" ]
+      {{- with .Values.extraInitContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-server
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: valkey
+              containerPort: 6379
+              protocol: TCP
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - valkey-cli ping
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.livenessProbe.enabled }}              
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - valkey-cli ping
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - valkey-cli ping
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - valkey-server
+          args:
+            - /data/conf/valkey.conf
+            {{- range .Values.args }}
+            - {{ . }}
+            {{- end }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .Values.extraValkeyEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          volumeMounts:
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: /data
+            {{- range $secret := .Values.extraValkeySecrets }}
+            - name: {{ $secret.name }}-valkey
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+            {{- range $config := .Values.extraValkeyConfigs }}
+            - name: {{ $config.name }}-valkey
+              mountPath: {{ $config.mountPath }}
+            {{- end }}
+            {{- range $storage := .Values.extraStorage }}
+            - name: {{ $storage.name }}
+              mountPath: {{ $storage.mountPath }}
+            {{- end }}
+        {{- if .Values.haMode.enabled }}
+        - name: {{ .Chart.Name }}-sentinel
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: sentinel
+              containerPort: 26379
+              protocol: TCP
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.livenessProbe.enabled }}              
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - valkey-cli -p 26379 ping
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - valkey-cli -p 26379 ping
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.sentinelResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - valkey-sentinel
+          args:
+            - /data/conf/sentinel.conf
+            {{- range .Values.sentinelArgs }}
+            - {{ . }}
+            {{- end }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .Values.extraSentinelEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          volumeMounts:
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: /data
+            {{- range $secret := .Values.extraSentinelSecrets }}
+            - name: {{ $secret.name }}-sentinel
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+            {{- range $config := .Values.extraSentinelConfigs }}
+            - name: {{ $config.name }}-sentinel
+              mountPath: {{ $config.mountPath }}
+            {{- end }}
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        {{- with .Values.metrics }}
+        - name: {{ $.Chart.Name }}-exporter
+          {{- with .exporter.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .exporter.image.registry }}/{{ .exporter.image.repository }}:{{ .exporter.image.tag }}"
+          imagePullPolicy: {{ .exporter.image.pullPolicy }}
+          ports:
+            - name: exporter
+              containerPort: {{ .service.containerPort }}
+              protocol: TCP
+          {{- with .exporter.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .exporter.args }}
+          args:
+            {{- range . }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- with .exporter.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .exporter.extraExporterEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- if .exporter.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .exporter.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .exporter.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.livenessProbe.enabled }}              
+          livenessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .exporter.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}                
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            {{- range $secret := .exporter.extraExporterSecrets }}
+            - name: {{ $secret.name }}-exporter
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+            {{- range $config := .exporter.extraExporterConfigs }}
+            - name: {{ $config.name }}-exporter
+              mountPath: {{ $config.mountPath }}
+            {{- end }}
+        {{- end }}
+        {{- end }}
+      {{- with .Values.extraContainers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }} 
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ $fullname }}-scripts
+            defaultMode: 0555
+        {{- if or (.Values.valkeyConfig) (.Values.sentinelConfig) }}
+        - name: config
+          configMap:
+            name: {{ $fullname }}
+        {{- end }}
+        {{- range $secret := .Values.extraValkeySecrets }}
+        - name: {{ $secret.name }}-valkey
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: {{ $secret.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $config := .Values.extraValkeyConfigs }}
+        - name: {{ $config.name }}-valkey
+          configMap:
+            name: {{ $config.name }}
+            defaultMode: {{ $config.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $secret := .Values.extraSentinelSecrets }}
+        - name: {{ $secret.name }}-sentinel
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: {{ $secret.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $config := .Values.extraSentinelConfigs }}
+        - name: {{ $config.name }}-sentinel
+          configMap:
+            name: {{ $config.name }}
+            defaultMode: {{ $config.defaultMode | default 0440 }}
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        {{- range $secret := .Values.metrics.exporter.extraExporterSecrets }}
+        - name: {{ $secret.name }}-exporter
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: {{ $secret.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $config := .Values.metrics.exporter.extraExporterConfigs }}
+        - name: {{ $config.name }}-exporter
+          configMap:
+            name: {{ $config.name }}
+            defaultMode: {{ $config.defaultMode | default 0440 }}
+        {{- end }}
+        {{- end }}
+        {{- if .Values.extraSecretValkeyConfigs }}
+        - name: extravalkeyconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretValkeyConfigs }}
+        {{- end }}
+        {{- if .Values.extraSecretSentinelConfigs }}
+        - name: extrasentinelconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretSentinelConfigs }}
+        {{- end }}
+        {{- range $storage := .Values.extraStorage }}
+        - name: {{ $storage.name }}
+          persistentVolumeClaim:
+            claimName: {{ $storage.pvcName }}
+        {{- end }}
+{{- with .Values.storage }}
+  {{- if not $createPvc }}
+        - name: {{ .volumeName }}
+        {{- if .persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaimName }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+  {{- else }}
+  {{- if $deployWithNonHA }}
+        - name: {{ .volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ $fullname }}
+  {{- else }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .volumeName }}
+      {{- with .labels }}
+        labels:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
+      spec:
+        {{- with .accessModes }}
+        accessModes:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- if .className }}
+        storageClassName: {{ .className }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .requestedSize }}
+  {{- end }}
+  {{- end }}
+{{- end }}
