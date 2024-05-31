@@ -1,6 +1,6 @@
 # Ghost
 
-![Version: 0.123.3](https://img.shields.io/badge/Version-0.123.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.82.12](https://img.shields.io/badge/AppVersion-5.82.12-informational?style=flat-square)
+![Version: 0.123.4](https://img.shields.io/badge/Version-0.123.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.82.12](https://img.shields.io/badge/AppVersion-5.82.12-informational?style=flat-square)
 
 ## Changelog
 
@@ -92,7 +92,7 @@ helm uninstall my-release
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 
 ## Service paramters
 
