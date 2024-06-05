@@ -121,4 +121,5 @@
 | 1.1.0 | 3.13.0 | Final version with configuration secret, extra config and extra volume support |
 | 1.1.1 | 3.13.1 | Upgraded to RabbitMQ 3.13.1 |
 | 1.1.2 | 3.13.2 | Upgraded to RabbitMQ 3.13.2 |
+| 1.1.3 | 3.13.3 | Upgraded to RabbitMQ 3.13.3 |
 | | | |
