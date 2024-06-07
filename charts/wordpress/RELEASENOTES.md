@@ -44,4 +44,5 @@
 | 0.10.6 | 6.4.3-apache | Upgraded to Wordpress 6.4.3 |
 | 0.11.0 | 6.5.0-apache | Upgraded to Wordpress 6.5.0 |
 | 0.11.1 | 6.5.3-apache | Upgraded to Wordpress 6.5.3 |
+| 0.11.2 | 6.5.4-apache | Upgraded to Wordpress 6.5.4 |
 | | | |
