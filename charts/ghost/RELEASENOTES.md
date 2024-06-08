@@ -208,4 +208,5 @@
 | 0.123.4 | 5.82.12 | Fixed readme |
 | 0.124.0 | 5.83.0 | Upgraded to Ghost 5.83.0 |
 | 0.125.0 | 5.84.1 | Upgraded to Ghost 5.84.1 |
+| 0.125.1 | 5.84.2 | Upgraded to Ghost 5.84.2 |
 | | | |
