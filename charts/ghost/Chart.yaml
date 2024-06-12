@@ -7,9 +7,9 @@ type: application
 maintainers:
   - name: groundhog2k
 
-version: "0.125.1"
+version: "0.126.0"
 
-appVersion: "5.84.2"
+appVersion: "5.85.0"
 
 dependencies:
   - name: mariadb
