@@ -124,4 +124,5 @@
 | 1.1.3 | 3.13.3 | Upgraded to RabbitMQ 3.13.3 |
 | 1.1.4 | 3.13.4 | Upgraded to RabbitMQ 3.13.4 |
 | 1.1.5 | 3.13.5 | Upgraded to RabbitMQ 3.13.5 |
+| 1.1.6 | 3.13.6 | Upgraded to RabbitMQ 3.13.6 |
 | | | |
