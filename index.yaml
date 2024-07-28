@@ -24970,6 +24970,23 @@ entries:
     version: 1.0.0
   wordpress:
   - apiVersion: v2
+    appVersion: 6.6.1-apache
+    created: "2024-07-28T08:41:06.95730186Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.14
+    description: A Helm chart for Wordpress on Kubernetes
+    digest: b51dd8d6c73bb1eb77dd60fbcd351893a5ca6aaa9a8741b8225deabe087dc61d
+    maintainers:
+    - name: groundhog2k
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.12.0/wordpress-0.12.0.tgz
+    version: 0.12.0
+  - apiVersion: v2
     appVersion: 6.5.4-apache
     created: "2024-06-07T15:39:13.486340909Z"
     dependencies:
@@ -26295,4 +26312,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-28T08:39:22.559095571Z"
+generated: "2024-07-28T08:41:06.959281491Z"
