@@ -15,4 +15,5 @@
 | 0.1.10 | v3.5.13 | Upgraded etcd to v3.5.13 |
 | 0.1.11 | v3.5.13 | Fixed build pipeline issue |
 | 1.0.0 | v3.5.13 | Final version with configuration secret, extra config and extra volume support |
+| 1.0.1 | v3.5.15 | Upgraded etcd to v3.5.15 |
 | | | |
