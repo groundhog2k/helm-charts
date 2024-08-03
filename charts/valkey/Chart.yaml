@@ -12,10 +12,10 @@ keywords:
   - cache
   - valkey
 
-icon: https://valkey.io/assets/img/Valkey-logo.svg
+icon: https://valkey.io/img/Valkey-logo.svg
 
 # This is the chart version
-version: "1.0.1"
+version: "1.0.2"
 
 # This is the version number of the application being deployed.
 appVersion: "7.2.6"
