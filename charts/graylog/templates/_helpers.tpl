@@ -116,7 +116,7 @@ Graylog settings via environment variables
 {{- end }}
 {{- if .Values.settings.smtp.enabled }}
 - name: GRAYLOG_TRANSPORT_EMAIL_ENABLED
-  value: {{- if .Values.settings.smtp.enabled | quote }}
+  value: {{ .Values.settings.smtp.enabled | quote }}
 {{- if .Values.settings.smtp.host }}
 - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
   value: {{ .Values.settings.smtp.host | quote }}
