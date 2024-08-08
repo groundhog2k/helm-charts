@@ -115,6 +115,8 @@ Graylog settings via environment variables
   value: {{ .Values.settings.journal.maxSize | quote }}
 {{- end }}
 {{- if .Values.settings.smtp.enabled }}
+- name: GRAYLOG_TRANSPORT_EMAIL_ENABLED
+  value: {{- if .Values.settings.smtp.enabled | quote }}
 {{- if .Values.settings.smtp.host }}
 - name: GRAYLOG_TRANSPORT_EMAIL_HOSTNAME
   value: {{ .Values.settings.smtp.host | quote }}
