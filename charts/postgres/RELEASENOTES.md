@@ -64,4 +64,5 @@
 | 1.4.1 | 16.2 | Fixed missing envFrom |
 | 1.4.2 | 16.2 | Updated README |
 | 1.4.3 | 16.3 | Upgraded to Postgres 16.3 |
+| 1.4.4 | 16.4 | Upgraded to Postgres 16.4 |
 | | | |
