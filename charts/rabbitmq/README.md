@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 1.1.7](https://img.shields.io/badge/Version-1.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.13.7](https://img.shields.io/badge/AppVersion-3.13.7-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.0.1](https://img.shields.io/badge/AppVersion-3.13.7-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -8,7 +8,8 @@ A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
-### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x / 3.13.x
+### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x / 3.13.x / 4.x
+### ⚠️ Disable mirroring for classic queues before upgrading to RabbitMQ 4.x
 
 ## TL;DR
 
