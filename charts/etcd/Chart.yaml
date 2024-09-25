@@ -14,6 +14,6 @@ keywords:
 
 icon: https://etcd.io/etcd-horizontal-white.png
 
-version: "1.0.1"
+version: "1.0.2"
 
-appVersion: "v3.5.15"
+appVersion: "v3.5.16"
