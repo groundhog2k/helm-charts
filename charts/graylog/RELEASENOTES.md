@@ -75,4 +75,5 @@
 | 0.8.4 | 6.0.4 | Fixed missing variable to enable SMTP - thx @MMGeri |
 | 0.8.5 | 6.0.5 | Updated chart for Graylog 6.0.5 |
 | 0.8.6 | 6.0.6 | Updated chart for Graylog 6.0.6 |
+| 0.8.7 | 6.0.7 | Updated chart for Graylog 6.0.7 |
 | | | |
