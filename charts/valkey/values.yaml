@@ -70,7 +70,7 @@ metrics:
       registry: "docker.io"
       repository: "oliver006/redis_exporter"
       pullPolicy: IfNotPresent
-      tag: "v1.59.0"
+      tag: "v1.62.0"
     ## Default security options to run Exporter as non-root, read only container without privilege escalation
     securityContext:
       allowPrivilegeEscalation: false
