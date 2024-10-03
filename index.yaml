@@ -25621,6 +25621,23 @@ entries:
     version: 0.1.0
   valkey:
   - apiVersion: v2
+    appVersion: 8.0.1
+    created: "2024-10-03T07:16:44.264915224Z"
+    description: A Helm chart for Valkey on Kubernetes
+    digest: 750bdc72b1dd08a83f0730c9021a2ec390b421601420bde3cc8dc8482f0c1e27
+    icon: https://valkey.io/img/Valkey-logo.svg
+    keywords:
+    - cache
+    - valkey
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: valkey
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/valkey-2.0.0/valkey-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
     appVersion: 7.2.7
     created: "2024-10-03T06:40:24.224921958Z"
     description: A Helm chart for Valkey on Kubernetes
@@ -27049,4 +27066,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-03T06:40:24.226685467Z"
+generated: "2024-10-03T07:16:44.266772073Z"
