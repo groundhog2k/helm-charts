@@ -76,4 +76,5 @@
 | 0.8.5 | 6.0.5 | Updated chart for Graylog 6.0.5 |
 | 0.8.6 | 6.0.6 | Updated chart for Graylog 6.0.6 |
 | 0.8.7 | 6.0.7 | Updated chart for Graylog 6.0.7 |
+| 0.8.8 | 6.0.7 | Updated char dependencies (mongodb 0.6.8) |
 | | | |
