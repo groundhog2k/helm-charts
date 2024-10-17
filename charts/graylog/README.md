@@ -25,6 +25,11 @@ This chart uses the original [Graylog image from Docker Hub](https://hub.docker.
 - Helm 3.x
 - PV provisioner support in the underlying infrastructure
 
+## Hint
+
+OpenSearch/Elasticsearch can be installed by using the respective helm charts and setting the hostname in `settings.elastic.hosts`
+MongoDB can be referenced by installed using the subchart with `mongodb.enabled` or by pointing to another MongoDB installation. (see Database settings)
+
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
