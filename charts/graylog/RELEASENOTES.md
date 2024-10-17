@@ -78,4 +78,5 @@
 | 0.8.7 | 6.0.7 | Updated chart for Graylog 6.0.7 |
 | 0.8.8 | 6.0.7 | Updated char dependencies (mongodb 0.6.8) |
 | 0.8.9 | 6.0.7 | Adapted README description |
+| 0.8.10 | 6.0.7 | Fixed image version |
 | | | |
