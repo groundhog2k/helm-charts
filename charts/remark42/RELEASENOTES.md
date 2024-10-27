@@ -33,4 +33,5 @@
 | 0.6.4 | v1.12.1 | Added support for network policies and additional labels and annotations |
 | 0.7.0 | v1.13.0 | Upgraded to Remark42 v1.13.0 |
 | 0.7.1 | v1.13.1 | Upgraded to Remark42 v1.13.1 |
+| 0.8.0 | v1.14.0 | Upgraded to Remark42 v1.14.0 and chart dependency redis 1.3.2 |
 | | | |

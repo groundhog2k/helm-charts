@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.13.1](https://img.shields.io/badge/AppVersion-v1.13.1-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.14.0](https://img.shields.io/badge/AppVersion-v1.14.0-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -45,7 +45,7 @@ helm uninstall my-release
 
 | Repository | Name | Version |
 |------------|------|---------|
-| @groundhog2k | redis | 0.6.14 |
+| @groundhog2k | redis | 1.3.2 |
 
 ## Common parameters
 
