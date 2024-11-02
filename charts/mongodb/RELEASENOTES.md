@@ -97,4 +97,5 @@
 | 0.6.6 | 7.0.11 | Upgraded to MongoDB 7.0.11 |
 | 0.6.7 | 7.0.12 | Upgraded to MongoDB 7.0.12 |
 | 0.6.8 | 7.0.14 | Upgraded to MongoDB 7.0.14 |
+| 0.6.9 | 7.0.15 | Upgraded to MongoDB 7.0.15 |
 | | | |
