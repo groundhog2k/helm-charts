@@ -81,4 +81,5 @@
 | 0.8.10 | 6.0.7 | Fixed image version |
 | 0.9.0 | 6.1.0 | Updated chart for Graylog 6.1.0 |
 | 0.9.1 | 6.1.1 | Updated chart for Graylog 6.1.1 |
+| 0.9.2 | 6.1.2 | Updated chart for Graylog 6.1.2 |
 | | | |
