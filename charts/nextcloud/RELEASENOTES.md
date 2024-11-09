@@ -76,4 +76,5 @@
 | 0.17.8 | 29.0.8-apache | Upgraded to Nextcloud 29.0.8 |
 | 0.18.0 | 30.0.0-apache | Upgraded to Nextcloud 30.0.0 |
 | 0.18.1 | 30.0.1-apache | Upgraded to Nextcloud 30.0.1 |
+| 0.18.2 | 30.0.2-apache | Upgraded to Nextcloud 30.0.2 |
 | | | |
