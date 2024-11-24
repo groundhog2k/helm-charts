@@ -99,5 +99,7 @@
 | 3.1.0 | 10.11.7 (LTS) | Final version with configuration secret, extra config and extra volume support |
 | 3.1.1 | 10.11.8 (LTS) | Upgraded MariaDB to 10.11.8 |
 | 3.1.2 | 10.11.9 (LTS) | Upgraded MariaDB to 10.11.9 |
+| 3.1.3 | 10.11.10 (LTS) | Upgraded MariaDB to 10.11.10 |
 | 3.2.0 | 11.4.3 (LTS) | Upgraded MariaDB to 11.4.3 |
+| 3.2.1 | 11.4.4 (LTS) | Upgraded MariaDB to 11.4.4 |
 | | | |
