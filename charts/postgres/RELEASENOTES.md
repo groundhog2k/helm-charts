@@ -72,4 +72,5 @@
 | 1.4.4 | 16.4 | Upgraded to Postgres 16.4 |
 | 1.4.5 | 16.6 | Upgraded to Postgres 16.6 |
 | 1.5.0 | 17.0 | Added Postgres 17.0 |
+| 1.5.1 | 17.2 | Added Postgres 17.2 |
 | | | |
