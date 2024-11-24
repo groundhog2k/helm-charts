@@ -70,5 +70,6 @@
 | 1.4.2 | 16.2 | Updated README |
 | 1.4.3 | 16.3 | Upgraded to Postgres 16.3 |
 | 1.4.4 | 16.4 | Upgraded to Postgres 16.4 |
+| 1.4.5 | 16.6 | Upgraded to Postgres 16.6 |
 | 1.5.0 | 17.0 | Added Postgres 17.0 |
 | | | |
