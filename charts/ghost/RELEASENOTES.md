@@ -248,4 +248,5 @@
 | 0.141.4 | 5.101.6 | Upgraded to Ghost 5.101.6 |
 | 0.142.0 | 5.103.0 | Upgraded to Ghost 5.103.0 |
 | 0.143.0 | 5.104.1 | Upgraded to Ghost 5.104.1 |
+| 0.143.1 | 5.104.2 | Upgraded to Ghost 5.104.2 |
 | | | |
