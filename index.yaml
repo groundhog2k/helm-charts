@@ -25056,6 +25056,23 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/redis-1.1.0/redis-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v2
+    appVersion: 6.2.17
+    created: "2025-01-06T18:27:01.979832879Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: e6781761576ab67d06cd458fcaec8395850608d4642d437d0d568b302fce9d56
+    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
+    keywords:
+    - cache
+    - redis
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-1.0.3/redis-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     appVersion: 6.2.16
     created: "2024-10-08T12:11:20.106142003Z"
     description: A Helm chart for Redis on Kubernetes
@@ -28277,4 +28294,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-06T18:25:46.215727246Z"
+generated: "2025-01-06T18:27:01.982795379Z"
