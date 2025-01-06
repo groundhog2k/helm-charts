@@ -134,7 +134,7 @@ helm uninstall my-release
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
-| metrics.exporter.image.tag | string | `"v1.55.0"` | Image tag |
+| metrics.exporter.image.tag | string | `"v1.67.0"` | Image tag |
 | metrics.exporter.resources | object | `{}` | Resource limits and requests |
 | metrics.exporter.livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | metrics.exporter.startupProbe | object | `see values.yaml` | Startup probe configuration |
