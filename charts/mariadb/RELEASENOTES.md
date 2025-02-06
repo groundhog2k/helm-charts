@@ -105,4 +105,5 @@
 | 4.0.0 | 10.5.28 (LTS) | Upgraded MariaDB to 10.5.28 |
 | 4.1.0 | 10.6.21 (LTS) | Upgraded MariaDB to 10.6.21 |
 | 4.2.0 | 10.11.11 (LTS) | Upgraded MariaDB to 10.11.11 |
+| 4.3.0 | 11.4.5 (LTS) | Upgraded MariaDB to 11.4.5 |
 | | | |
