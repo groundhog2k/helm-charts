@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.5.28](https://img.shields.io/badge/AppVersion-10.5.28-informational?style=flat-square)
+![Version: 4.1.0](https://img.shields.io/badge/Version-4.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.6.21](https://img.shields.io/badge/AppVersion-10.6.21-informational?style=flat-square)
 
 ## Changelog
 
