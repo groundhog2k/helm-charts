@@ -100,5 +100,6 @@
 | 0.6.8 | 7.0.14 | Upgraded to MongoDB 7.0.14 |
 | 0.6.9 | 7.0.15 | Upgraded to MongoDB 7.0.15 |
 | 0.6.10 | 7.0.15 | Fixed permissions for keyfile - thx @thuanpham582002 |
+| 0.6.11 | 7.0.16 | Upgraded to MongoDB 7.0.16 |
 | 0.7.0 | 8.0.3 | Upgraded to MongoDB 8.0.3 |
 | | | |
