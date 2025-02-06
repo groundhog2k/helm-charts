@@ -14526,6 +14526,23 @@ entries:
     version: 0.1.0
   mariadb:
   - apiVersion: v2
+    appVersion: 10.5.28
+    created: "2025-02-06T11:28:30.325280928Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: 5712ace601b671e8558685926f70e60e85da691749aa62c9b1a69d4f5dbecc79
+    icon: https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png
+    keywords:
+    - database
+    - mariadb
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-4.0.0/mariadb-4.0.0.tgz
+    version: 4.0.0
+  - apiVersion: v2
     appVersion: 11.4.4
     created: "2024-11-24T14:40:05.650734721Z"
     description: A Helm chart for MariaDB on Kubernetes
@@ -28562,4 +28579,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-06T07:58:01.481461141Z"
+generated: "2025-02-06T11:28:30.327283458Z"
