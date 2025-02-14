@@ -156,4 +156,10 @@ Graylog settings via environment variables
   value: {{ .Values.initGeoIPDatabase.proxy | quote }}
 {{- end }}
 {{- end }}
+{{- if .Values.metrics.enabled }}
+- name: GRAYLOG_PROMETHEUS_EXPORTER_ENABLED
+  value: {{ .Values.metrics.enabled | quote }}
+- name: GRAYLOG_PROMETHEUS_EXPORTER_BIND_ADDRESS
+  value: "0.0.0.0:{{ .Values.metrics.service.servicePort }}"
+{{- end }}
 {{- end }}

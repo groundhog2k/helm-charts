@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.9.6](https://img.shields.io/badge/Version-0.9.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.1.6](https://img.shields.io/badge/AppVersion-6.1.6-informational?style=flat-square)
+![Version: 0.9.7](https://img.shields.io/badge/Version-0.9.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.1.6](https://img.shields.io/badge/AppVersion-6.1.6-informational?style=flat-square)
 
 ## Changelog
 
@@ -223,3 +223,23 @@ The policyTypes will be automatically set
 | settings.smtp.subjectPrefix | string | `"[graylog]"` | Mail subject prefix |
 
 Further Graylog parameter can be set via environment variables (see Deployment parameter: `env:`)
+
+## Metrics support parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| metrics.enabled | bool | `false` | Enable metrics support  |
+| metrics.service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
+| metrics.service.servicePort | int | `9833` | Redis metrics exporter service port |
+| metrics.service.containerPort | int | `9833` | Redis metrics exporter container port |
+| metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
+| metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| metrics.service.annotations | object | `{}` | Additional service annotations |
+| metrics.service.lables | object | `{}` | Additional service labels |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
+| metrics.serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
+| metrics.serviceMonitor.interval | Duration | `nil` | Scrape interval for prometheus |
+| metrics.serviceMonitor.scrapeTimeout | Duration | `nil` | Scrape timeout value |
+| metrics.serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
+| metrics.serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
