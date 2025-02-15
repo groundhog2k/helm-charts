@@ -88,6 +88,11 @@ spec:
             - name: http
               containerPort: 9000
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: exporter
+              containerPort: {{ .Values.metrics.service.containerPort }}
+              protocol: TCP
+            {{- end }}
             {{- range $service := .Values.extraServices }}
             - name: {{ $service.name }}
               containerPort: {{ $service.containerPort}}

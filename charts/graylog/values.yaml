@@ -62,6 +62,53 @@ securityContext:
   runAsGroup: 1100
   runAsUser: 1100
 
+## Prometheus metrics and service monitor configuration
+metrics:
+  ## Enable metrics export
+  enabled: false
+
+  ## Exporter service configuration
+  service:
+    ## Enable metrics service
+    enabled: true
+    ## Type of service (not available when haMode is enabled)
+    type: ClusterIP
+    ## Valkey exporter service port
+    servicePort: 9833
+    ## Valkey exporter container port
+    containerPort: 9833
+    ## The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled)
+    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
+    loadBalancerIP:
+    # Annotations to add to the service
+    annotations: {}
+    # Labels to add to the service
+    labels: {}
+
+  ## Prometheus service monitor configuration
+  serviceMonitor:
+    ## Enable service monitor
+    enabled: true
+    ## Additional labels for the service monitor object
+    additionalLabels: {}
+    ## Annotations for the service monitor object
+    annotations: {}
+    ## The scrape interval for prometheus
+    # interval:
+    ## The scrape timeout value
+    # scrapeTimeout:
+    ## Extra parameters rendered to the service monitor endpoint
+    extraEndpointParameters: {}
+    ## Extra parameters rendered to the service monitor
+    extraParameters: {}
+    ## Path to metrics
+    path: "/api/metrics/prometheus"
+    ## Scheme to use for metrics endpoint
+    scheme: http
+
 ## Default Graylog service port (default web service port)
 service:
   type: ClusterIP

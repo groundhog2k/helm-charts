@@ -1,0 +1,36 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "graylog.fullname" . }}
+  labels:
+    {{- include "graylog.labels" . | nindent 4 }}
+    {{- with .Values.metrics.serviceMonitor.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.metrics.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - port: "exporter"
+      path: {{ .Values.metrics.serviceMonitor.path }}
+      scheme: {{ .Values.metrics.serviceMonitor.scheme }}
+      {{- if .Values.metrics.serviceMonitor.interval }}
+      interval: {{ .Values.metrics.serviceMonitor.interval }}
+      {{- end }}
+      {{- if .Values.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+      {{- with .Values.metrics.serviceMonitor.extraEndpointParameters }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  {{- with .Values.metrics.serviceMonitor.extraParameters }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "graylog.selectorLabels" . | nindent 6 }}
+      graylog/metrics-service: {{ include "graylog.fullname" . }}-metrics
+{{- end }}

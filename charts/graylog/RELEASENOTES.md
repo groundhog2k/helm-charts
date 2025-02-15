@@ -86,4 +86,6 @@
 | 0.9.4 | 6.1.4 | Updated chart for Graylog 6.1.4 |
 | 0.9.5 | 6.1.5 | Updated chart for Graylog 6.1.5 |
 | 0.9.6 | 6.1.6 | Updated chart for Graylog 6.1.6 |
+| 0.9.7 | 6.1.6 | Added support for prometheus metrics and service-monitor |
 | | | |
+
