@@ -131,4 +131,5 @@
 | 2.0.2 | 4.0.4 | Upgraded to RabbitMQ 4.0.4 |
 | 2.0.3 | 4.0.5 | Upgraded to RabbitMQ 4.0.5 |
 | 2.0.4 | 4.0.6 | Upgraded to RabbitMQ 4.0.6 |
+| 2.0.5 | 4.0.7 | Upgraded to RabbitMQ 4.0.7 |
 | | | |
