@@ -18686,6 +18686,31 @@ entries:
     version: 0.1.0
   nextcloud:
   - apiVersion: v2
+    appVersion: 31.0.2-apache
+    created: "2025-03-20T06:58:38.560331389Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.14
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.4.8
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.7.10
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: dd388268d85d6ebbcb64f71ea7259e7ceb70ce330f0014e8c3f2143f4f857ef0
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.19.2/nextcloud-0.19.2.tgz
+    version: 0.19.2
+  - apiVersion: v2
     appVersion: 31.0.1-apache
     created: "2025-03-15T08:59:44.862847975Z"
     dependencies:
@@ -29315,4 +29340,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-20T06:57:22.783646161Z"
+generated: "2025-03-20T06:58:38.563520667Z"
