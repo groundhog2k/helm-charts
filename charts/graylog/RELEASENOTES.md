@@ -89,4 +89,5 @@
 | 0.9.7 | 6.1.6 | Added support for prometheus metrics and service-monitor - thx @alexmorbo |
 | 0.9.8 | 6.1.7 | Updated chart for Graylog 6.1.7 |
 | 0.9.9 | 6.1.8 | Updated chart for Graylog 6.1.8 |
+| 0.9.10 | 6.1.9 | Updated chart for Graylog 6.1.9 |
 | | | |
