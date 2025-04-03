@@ -90,4 +90,5 @@
 | 0.9.8 | 6.1.7 | Updated chart for Graylog 6.1.7 |
 | 0.9.9 | 6.1.8 | Updated chart for Graylog 6.1.8 |
 | 0.9.10 | 6.1.9 | Updated chart for Graylog 6.1.9 |
+| 0.9.11 | 6.1.10 | Updated chart for Graylog 6.1.10 |
 | | | |
