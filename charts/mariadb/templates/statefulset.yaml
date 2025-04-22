@@ -323,7 +323,10 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .persistentVolumeClaimName }}
         {{- else }}
-          emptyDir: {}
+          emptyDir:
+            {{- if .sizeLimit }}
+            sizeLimit: {{ .sizeLimit }}
+            {{- end }}
         {{- end }}
   {{- else }}
   {{- if $usedeployment }}
