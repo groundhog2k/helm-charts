@@ -266,6 +266,9 @@ storage:
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
   keepPvc: false
 
+  ## Set the sizeLimit of the emptyDir (only for option useDeployment: true)
+  sizeLimit:
+
   ## Additional storage annotations
   annotations: {}
 
