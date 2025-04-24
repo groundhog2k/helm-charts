@@ -12,7 +12,7 @@ keywords:
   - database
   - mysql
 
-version: "2.0.6"
+version: "3.0.3"
 
-appVersion: "8.0.42"
+appVersion: "8.4.5"
 icon: https://www.mysql.com/common/logos/powered-by-mysql-88x31.png

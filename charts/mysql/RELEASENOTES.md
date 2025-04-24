@@ -31,4 +31,5 @@
 | 3.0.0 | 8.4.2 (LTS) | Upgraded MySQL to 8.4.2 |
 | 3.0.1 | 8.4.3 (LTS) | Upgraded MySQL to 8.4.3 |
 | 3.0.2 | 8.4.4 (LTS) | Upgraded MySQL to 8.4.4 |
+| 3.0.3 | 8.4.5 (LTS) | Upgraded MySQL to 8.4.5 |
 | | | |
