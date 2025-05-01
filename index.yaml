@@ -1125,6 +1125,23 @@ entries:
     version: 0.0.1
   etcd:
   - apiVersion: v2
+    appVersion: v3.5.21
+    created: "2025-05-01T08:48:53.258309352Z"
+    description: A Helm chart for etcd on Kubernetes
+    digest: 5ac21c0802c1eafe0771cd892d5f15a985a6490360c56edee66183589bbad8cd
+    icon: https://etcd.io/etcd-horizontal-white.png
+    keywords:
+    - database
+    - etcd
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: etcd
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/etcd-1.0.7/etcd-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
     appVersion: v3.5.20
     created: "2025-05-01T08:47:57.104342913Z"
     description: A Helm chart for etcd on Kubernetes
@@ -29885,4 +29902,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-01T08:47:57.106395129Z"
+generated: "2025-05-01T08:48:53.261972779Z"
