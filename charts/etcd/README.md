@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.18](https://img.shields.io/badge/AppVersion-v3.5.18-informational?style=flat-square)
+![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.19](https://img.shields.io/badge/AppVersion-v3.5.19-informational?style=flat-square)
 
 ## Changelog
 
