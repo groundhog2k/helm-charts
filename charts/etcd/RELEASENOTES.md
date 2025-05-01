@@ -20,4 +20,5 @@
 | 1.0.3 | v3.5.17 | Upgraded etcd to v3.5.17 |
 | 1.0.4 | v3.5.18 | Upgraded etcd to v3.5.18 |
 | 1.0.6 | v3.5.20 | Upgraded etcd to v3.5.20 |
+| 1.0.7 | v3.5.21 | Upgraded etcd to v3.5.21 |
 | | | |
