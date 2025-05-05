@@ -256,6 +256,9 @@ storage:
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
+  ## Optional max size of an emptyDir if no PVC is used
+  emptyDirSizeLimit:
+
   ## the storage class name
   className:
 

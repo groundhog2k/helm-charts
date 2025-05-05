@@ -324,8 +324,8 @@ spec:
             claimName: {{ .persistentVolumeClaimName }}
         {{- else }}
           emptyDir:
-            {{- if .sizeLimit }}
-            sizeLimit: {{ .sizeLimit }}
+            {{- if .emptyDirSizeLimit }}
+            sizeLimit: {{ .emptyDirSizeLimit }}
             {{- end }}
         {{- end }}
   {{- else }}
