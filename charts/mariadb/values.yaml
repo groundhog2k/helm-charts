@@ -256,6 +256,9 @@ storage:
   ## Alternative set requestedSize to define a size for a dynamically created PVC
   requestedSize:
 
+  ## Optional max size of an emptyDir if no PVC is used
+  emptyDirSizeLimit:
+
   ## the storage class name
   className:
 
@@ -265,6 +268,9 @@ storage:
 
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
   keepPvc: false
+
+  ## Set the sizeLimit of the emptyDir (only for option useDeployment: true)
+  sizeLimit:
 
   ## Additional storage annotations
   annotations: {}
