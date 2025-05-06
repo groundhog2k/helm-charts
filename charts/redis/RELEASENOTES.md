@@ -67,4 +67,5 @@
 | 1.3.2 | 7.4.1 | Upgraded to Redis 7.4.1 |
 | 1.3.3 | 7.4.2 | Upgraded to Redis 7.4.2 |
 | 1.3.4 | 7.4.3 | Upgraded to Redis 7.4.3 |
+| 2.0.0 | 8.0.0 | Upgraded to Redis 8.0.0 |
 | | | |
