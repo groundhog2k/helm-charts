@@ -93,4 +93,5 @@
 | 0.9.11 | 6.1.10 | Updated chart for Graylog 6.1.10 |
 | 0.10.0 | 6.2.1 | Updated chart for Graylog 6.2.1 |
 | 0.10.1 | 6.2.2 | Updated chart for Graylog 6.2.2 |
+| 0.10.2 | 6.2.2 | Fixed pipeline |
 | | | |
