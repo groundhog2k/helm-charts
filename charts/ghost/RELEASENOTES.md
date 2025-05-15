@@ -276,4 +276,5 @@
 | 0.158.0 | 5.119.0 | Upgraded to Ghost 5.119.0 |
 | 0.158.1 | 5.119.1 | Upgraded to Ghost 5.119.1 |
 | 0.158.2 | 5.119.2 | Upgraded to Ghost 5.119.2 |
+| 0.158.3 | 5.119.3 | Upgraded to Ghost 5.119.3 |
 | | | |
