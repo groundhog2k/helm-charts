@@ -93,4 +93,5 @@
 | 0.12.8 | 1.23.8 | Updated to Gitea 1.23.8 |
 | 0.13.0 | 1.24.0 | Updated to Gitea 1.24.0 |
 | 0.13.1 | 1.24.1 | Updated to Gitea 1.24.1 |
+| 0.13.2 | 1.24.2 | Updated to Gitea 1.24.2 |
 | | | |
