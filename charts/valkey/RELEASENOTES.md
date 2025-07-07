@@ -9,4 +9,5 @@
 | 1.0.4 | 7.2.9 | Updated to Valkey 7.2.9 |
 | 2.0.0 | 8.0.1 | Updated to Valkey 8.0.1 |
 | 2.0.1 | 8.0.3 | Updated to Valkey 8.0.3 |
+| 2.1.0 | 8.1.2 | Updated to Valkey 8.1.2 |
 | | | |
