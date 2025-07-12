@@ -88,4 +88,5 @@
 | 1.5.2 | 17.3 | Upgraded to Postgres 17.3 |
 | 1.5.3 | 17.4 | Upgraded to Postgres 17.4 |
 | 1.5.4 | 17.5 | Upgraded to Postgres 17.5 |
+| 1.5.5 | 17.5 | Fixed permissions for user database - thx @zaro |
 | | | |
