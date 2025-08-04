@@ -96,4 +96,5 @@
 | 0.13.2 | 1.24.2 | Updated to Gitea 1.24.2 |
 | 0.13.3 | 1.24.3 | Updated to Gitea 1.24.3 |
 | 0.13.4 | 1.24.3 | Switched to default logging options |
+| 0.13.5 | 1.24.4 | Updated to Gitea 1.24.4 |
 | | | |
