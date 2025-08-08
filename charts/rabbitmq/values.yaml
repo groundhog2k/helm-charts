@@ -82,6 +82,18 @@ service:
     port: 15692
     ## The node port (only relevant for type LoadBalancer or NodePort)
     nodePort:
+  extraPorts: []
+    ## Name of the extra port
+    # - name: stomp
+    ## Service port type
+    #   protocol: TCP
+    ## The container target port
+    #   containerPort: 12345
+    ## The service port
+    #   port: 12345
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    #   nodePort:
+
   ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
