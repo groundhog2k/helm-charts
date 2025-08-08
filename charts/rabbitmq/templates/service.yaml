@@ -43,6 +43,15 @@ spec:
       nodePort: {{ .Values.service.prometheus.nodePort }}
       {{- end }}
     {{- end }}
+    {{- range .Values.service.extraPorts }}
+    - port: {{ .port }}
+      targetPort: {{ .containerPort }}
+      name: {{ .name }}
+      protocol: {{ .protocol | default "TCP" }}
+      {{- if and ( or (eq $.Values.service.type "LoadBalancer") (eq $.Values.service.type "NodePort") ) (.nodePort) }}
+      nodePort: {{ .nodePort }} 
+      {{- end }}
+    {{- end }}
   {{- if and (eq .Values.service.type "LoadBalancer") (.Values.service.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}

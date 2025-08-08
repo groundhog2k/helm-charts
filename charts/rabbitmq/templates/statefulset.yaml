@@ -137,6 +137,11 @@ spec:
               containerPort: 4369
             - name: dist
               containerPort: 25672
+            {{- range .Values.service.extraPorts }}
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+              protocol: {{ .protocol | default "TCP" }}
+            {{- end }}
             {{- range $service := .Values.extraServices }}
             - name: {{ $service.name }}
               containerPort: {{ $service.containerPort}}
