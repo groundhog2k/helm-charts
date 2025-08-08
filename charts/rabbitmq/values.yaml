@@ -86,7 +86,7 @@ service:
     ## Name of the extra port
     # - name: stomp
     ## Service port type
-    #   protocol: TCP     
+    #   protocol: TCP
     ## The container target port
     #   containerPort: 12345
     ## The service port
