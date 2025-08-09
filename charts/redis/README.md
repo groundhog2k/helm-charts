@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
+![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -110,7 +110,7 @@ helm uninstall my-release
 | podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
-| env | list | `[]` | Additional container environmment variables (Redis server and Sentinel) |
+| env | list | `[]` | Additional container environmment variables (Redis server, Sentinel and Init container) |
 | args | list | `[]` | Additional container command arguments (Redis server) |
 | sentinelArgs | list | `[]` | Arguments for the container entrypoint process (Sentinel) |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
@@ -213,6 +213,7 @@ The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| extraInitEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the default init container as environment variables |
 | extraRedisEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the redis container as environment variables |
 | redisConfig | string | `nil` | Additional redis.conf |
 | extraSecretRedisConfigs | string | `nil` | An existing secret with files that will be added to the `redis.conf` |
