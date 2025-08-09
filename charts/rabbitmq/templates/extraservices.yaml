@@ -28,6 +28,9 @@ spec:
   {{- if and (eq $service.type "LoadBalancer") ($service.loadBalancerIP) }}
   loadBalancerIP: {{ $service.loadBalancerIP }}
   {{- end }}
+  {{- if and (eq $service.type "LoadBalancer") ($service.loadBalancerSourceRanges) }}
+  loadBalancerSourceRanges: {{- toYaml $service.loadBalancerSourceRanges | nindent 4 }}
+  {{- end }}
   {{- if $service.clusterIP }}
   clusterIP: {{ $service.clusterIP }}
   {{- end }}

@@ -167,9 +167,11 @@ metrics:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
     loadBalancerIP:
-    # Annotations to add to the service
+    ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer)
+    loadBalancerSourceRanges: []
+    ## Annotations to add to the service
     annotations: {}
-    # Labels to add to the service
+    ## Labels to add to the service
     labels: {}
 
   ## Prometheus service monitor configuration
@@ -207,9 +209,11 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer)
+  loadBalancerSourceRanges: []
+  ## Annotations to add to the service
   annotations: {}
-  # Labels to add to the service
+  ## Labels to add to the service
   labels: {}
 
 ## Resources of the default init container

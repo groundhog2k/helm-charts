@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.21](https://img.shields.io/badge/AppVersion-v3.5.21-informational?style=flat-square)
+![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.5.21](https://img.shields.io/badge/AppVersion-v3.5.21-informational?style=flat-square)
 
 ## Changelog
 
@@ -104,6 +104,7 @@ helm uninstall my-release
 | service.type | string | `"ClusterIP"` | Service type |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.client.port | int | `2379` | Client service port |
 | service.client.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.peer.port | int | `2380` | Peer service port |

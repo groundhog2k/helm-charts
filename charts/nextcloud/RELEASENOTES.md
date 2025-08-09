@@ -89,4 +89,5 @@
 | 0.19.4 | 31.0.5-apache | Upgraded to Nextcloud 31.0.5 |
 | 0.19.5 | 31.0.6-apache | Upgraded to Nextcloud 31.0.6 |
 | 0.19.6 | 31.0.7-apache | Upgraded to Nextcloud 31.0.7 |
+| 0.19.7 | 31.0.7-apache | Added support for loadBalancerSourceRanges |
 | | | |

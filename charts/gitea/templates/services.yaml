@@ -23,7 +23,10 @@ spec:
       {{- end }}
   {{- if and (eq .Values.services.http.type "LoadBalancer") (.Values.services.http.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.services.http.loadBalancerIP }}
-  {{- end }}      
+  {{- end }}   
+  {{- if and (eq .Values.services.http.type "LoadBalancer") (.Values.services.http.loadBalancerSourceRanges) }}
+  loadBalancerSourceRanges: {{- toYaml .Values.services.http.loadBalancerSourceRanges | nindent 4 }}
+  {{- end }}   
   {{- if (.Values.services.http.clusterIP) }}
   clusterIP: {{ .Values.services.http.clusterIP }}
   {{- end }}
@@ -55,6 +58,9 @@ spec:
       {{- end }}
   {{- if and (eq .Values.services.ssh.type "LoadBalancer") (.Values.services.ssh.loadBalancerIP) }}
   loadBalancerIP: {{ .Values.services.ssh.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.services.ssh.type "LoadBalancer") (.Values.services.ssh.loadBalancerSourceRanges) }}
+  loadBalancerSourceRanges: {{- toYaml .Values.services.ssh.loadBalancerSourceRanges | nindent 4 }}
   {{- end }}
   {{- if (.Values.services.ssh.clusterIP) }}
   clusterIP: {{ .Values.services.ssh.clusterIP }}

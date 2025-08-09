@@ -59,6 +59,8 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer)
   loadBalancerIP:
+  ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer)
+  loadBalancerSourceRanges: []
   ## Annotations to add to the service
   annotations: {}
   ## Labels to add to the service
