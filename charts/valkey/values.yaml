@@ -297,11 +297,14 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
-## Additional environment variables (Valkey server and Sentinel)
+## Additional environment variables (Valkey server, Sentinel and Init container)
 env: []
 
 ## Extra init containers
 extraInitContainers: []
+
+## A list of existing secrets that will be mounted into the init container as environment variables
+extraInitEnvSecrets: []
 
 ## Extra containers for usage as sidecars
 extraContainers: []
