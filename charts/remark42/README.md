@@ -99,6 +99,7 @@ helm uninstall my-release
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
 

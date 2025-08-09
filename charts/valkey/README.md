@@ -158,6 +158,7 @@ helm uninstall my-release
 | metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
 | metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| metrics.service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | metrics.service.annotations | object | `{}` | Additional service annotations |
 | metrics.service.lables | object | `{}` | Additional service labels |
 | metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
@@ -177,6 +178,7 @@ helm uninstall my-release
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.lables | object | `{}` | Additional service labels |
 

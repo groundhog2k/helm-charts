@@ -104,6 +104,7 @@ helm uninstall my-release
 | service.type | string | `"ClusterIP"` | Service type |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.client.port | int | `2379` | Client service port |
 | service.client.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.peer.port | int | `2380` | Peer service port |

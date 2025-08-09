@@ -34,4 +34,5 @@
 | 3.0.2 | 8.4.4 (LTS) | Upgraded MySQL to 8.4.4 |
 | 3.0.3 | 8.4.5 (LTS) | Upgraded MySQL to 8.4.5 |
 | 3.0.4 | 8.4.6 (LTS) | Upgraded MySQL to 8.4.6 |
+| 3.0.5 | 8.4.6 (LTS) | Added support for loadBalancerSourceRanges |
 | | | |

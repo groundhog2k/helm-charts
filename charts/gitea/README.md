@@ -103,6 +103,7 @@ helm uninstall my-release
 | services.http.nodePort | int | `nil` | Gitea HTTP NodePort (only relevant for type LoadBalancer or NodePort) |
 | services.http.clusterIP | int | `nil` | Gitea HTTP ClusterIP (only relevant for type LoadBalancer or NodePort) |
 | services.http.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| services.http.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | services.http.annotations | object | `{}` | Additional service annotations |
 | services.http.labels | object | `{}` | Additional service labels |
 | services.ssh.type | string | `"ClusterIP"` | Service type |
@@ -110,6 +111,7 @@ helm uninstall my-release
 | services.ssh.nodePort | int | `nil` | Gitea SSH NodePort (only relevant for type LoadBalancer or NodePort) |
 | services.ssh.clusterIP | int | `nil` | Gitea SSH ClusterIP (only relevant for type LoadBalancer or NodePort)  |
 | services.ssh.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| services.ssh.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | services.ssh.annotations | object | `{}` | Additional service annotations |
 | services.ssh.labels | object | `{}` | Additional service labels |
 
