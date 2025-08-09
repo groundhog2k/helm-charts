@@ -9,13 +9,20 @@ data:
     #!/bin/bash
     VALKEY_CONFIG=/data/conf/valkey.conf
     SENTINEL_CONFIG=/data/conf/sentinel.conf
-    if [ -f "/data/init.log" ]; then
-      echo "Detected restart of this instance ($HOSTNAME)"
-      echo "## This was the previous log:"
-      cat /data/init.log
-      echo "## End of previous log"
-    fi
 
+    # Clean up old init logs or print them
+    cleanup_log() {
+  {{- if not .Values.haMode.keepOldLogs }}
+      rm -f /data/init.log
+  {{- end }}
+      if [ -f "/data/init.log" ]; then
+        echo "Detected restart of this instance ($HOSTNAME)"
+        echo "## This was the previous log:"
+        cat /data/init.log
+        echo "## End of previous log"
+      fi
+    }
+  
     # Log a message during initialization phase
     # $1 - the log message
     log() {
@@ -25,10 +32,6 @@ data:
 
     # Creating valkey base configuration
     configure_valkey_base() {
-      log "Creating valkey base configuration"
-      mkdir -p /data/conf
-      rm -f $VALKEY_CONFIG
-
       log "Setting valkey server defaults"
       echo "port 6379" >>$VALKEY_CONFIG
       echo "protected-mode no" >>$VALKEY_CONFIG
@@ -38,6 +41,7 @@ data:
     }
 
     configure_valkey_ext() {
+      log "Setting extended valkey configuration"
       if [ -f /usr/local/etc/valkey/valkey.conf ]; then
           log "Adding optional valkey configuration"
           cat /usr/local/etc/valkey/valkey.conf >>$VALKEY_CONFIG
@@ -49,7 +53,7 @@ data:
     }
 
     test_master_alive() {
-      TEST="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h $MASTER -p 6379 ping)"
+      TEST="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h $MASTER -p 6379 $VALKEYUSER $VALKEYPWD ping)"
       if [ -z "$TEST" ]; then
         log "Master is not alive"
         return 1
@@ -75,9 +79,6 @@ data:
 
     configure_sentinel() {
       log "Configuring sentinel server..."
-      rm -f $SENTINEL_CONFIG
-
-      log "Setting sentinel defaults"
       if [ -z "$MASTER" ]; then
         {{- if .Values.haMode.useDnsNames }}
         MASTER=${HOSTNAME}.{{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
@@ -99,6 +100,7 @@ data:
     }
 
     configure_sentinel_ext() {
+      log "Setting extended sentinel configuration"
       if [ -f /usr/local/etc/valkey/sentinel.conf ]; then
           log "Adding optional sentinel configuration settings"
           cat /usr/local/etc/valkey/sentinel.conf >>$SENTINEL_CONFIG
@@ -111,6 +113,24 @@ data:
     }
 
     configure_valkey_cluster() {
+      log "Determining authentication parameters"
+      VALKEYUSER=$(cat $VALKEY_CONFIG | grep masteruser | awk '{ print $2 }')
+      if [ ! -z "$VALKEYUSER" ]; then
+        VALKEYUSER="--user $VALKEYUSER"
+      fi
+      VALKEYPWD=$(cat $VALKEY_CONFIG | grep masterauth | awk '{ print $2 }')
+      if [ ! -z "$VALKEYPWD" ]; then
+        VALKEYPWD="--pass $VALKEYPWD"
+      fi
+      SENTINELUSER=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-user" | awk '{ print $3 }')
+      if [ ! -z "$SENTINELUSER" ]; then
+        SENTINELUSER="--user $SENTINELUSER"
+      fi
+      SENTINELPWD=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-pass" | awk '{ print $3 }')
+      if [ ! -z "$SENTINELPWD" ]; then
+        SENTINELPWD="--pass $SENTINELPWD"
+      fi
+
       log "Try to resolve cluster service.."
       SERVICE="$(getent hosts {{ template "valkey.fullname" . }})"
       if [ -z "$SERVICE" ]; then
@@ -122,7 +142,7 @@ data:
         log "Service resolved: ${SERVICE}"
       fi
       log "Try to detect cluster master.."
-      MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} sentinel get-master-addr-by-name {{ include "valkey.masterGroupName" . }} | head -n 1)"
+      MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel get-master-addr-by-name {{ include "valkey.masterGroupName" . }} | head -n 1)"
       if [ -z "$MASTER" ]; then
         log "No master found - This instance ($HOSTNAME) will be master now"
       else
@@ -133,7 +153,7 @@ data:
           if [ -f "/data/failover_restart" ]; then
             rm /data/failover_restart
             log "Forcing failover now"
-            valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} sentinel failover {{ include "valkey.masterGroupName" . }}
+            valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
           else
             log "Waiting for failover before restart"
             sleep {{ .Values.haMode.failoverWait }}
@@ -150,7 +170,7 @@ data:
             if [ -f "/data/failover_restart" ]; then
               rm /data/failover_restart
               log "Master is still dead! - forcing failover and retry pod initialization"
-              valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} sentinel failover {{ include "valkey.masterGroupName" . }}
+              valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
             else
               log "Dead master at address $MASTER detected! - waiting for failover"
               sleep {{ .Values.haMode.failoverWait }}
@@ -168,15 +188,16 @@ data:
     }
 
     log "Creating configuration..."
+    mkdir -p /data/conf
+    cleanup_log
+    rm -f $VALKEY_CONFIG
     configure_valkey_base
+    configure_valkey_ext
   {{- if .Values.haMode.enabled }}
     log "Valkey HA-mode is enabled"
+    rm -f $SENTINEL_CONFIG
+    configure_sentinel_ext
     configure_valkey_cluster
     configure_sentinel
-    configure_sentinel_ext
   {{- end }}
-    configure_valkey_ext
     log "Done."
-  {{- if not .Values.haMode.keepOldLogs }}
-    rm -f /data/init.log
-  {{- end }}
