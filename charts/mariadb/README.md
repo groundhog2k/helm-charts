@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 4.4.0](https://img.shields.io/badge/Version-4.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.8.2](https://img.shields.io/badge/AppVersion-11.8.2-informational?style=flat-square)
+![Version: 4.4.1](https://img.shields.io/badge/Version-4.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 11.8.2](https://img.shields.io/badge/AppVersion-11.8.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -96,6 +96,7 @@ helm uninstall my-release
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
 
