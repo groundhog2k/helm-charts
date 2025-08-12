@@ -2,6 +2,7 @@
 
 ![Version: 2.1.6](https://img.shields.io/badge/Version-2.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.3](https://img.shields.io/badge/AppVersion-4.1.3-informational?style=flat-square)
 
+
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
 ## Changelog
@@ -108,6 +109,7 @@ helm uninstall my-release
 | service.type | string | `"ClusterIP"` | Service type |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.amqp.port | int | `5672` | AMQP service port |
 | service.amqp.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.amqps.port | int | `5671` | Secure AMQP service port |
@@ -138,6 +140,7 @@ Section to define custom services
 | extraServices[].nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| extraServices[].loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
 | extraServices[].labels | object | `{}` | Additional service labels |
 

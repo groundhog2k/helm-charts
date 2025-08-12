@@ -50,4 +50,5 @@
 | 0.13.0 | 6.7.1-apache | Upgraded to Wordpress 6.7.1 |
 | 0.13.1 | 6.7.2-apache | Upgraded to Wordpress 6.7.2 |
 | 0.14.0 | 6.8.0-apache | Upgraded to Wordpress 6.8.0 |
+| 0.14.1 | 6.8.0-apache | Added support for loadBalancerSourceRanges |
 | | | |

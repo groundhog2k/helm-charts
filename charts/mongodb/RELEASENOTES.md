@@ -103,4 +103,5 @@
 | 0.6.11 | 7.0.16 | Upgraded to MongoDB 7.0.16 |
 | 0.7.0 | 8.0.3 | Upgraded to MongoDB 8.0.3 |
 | 0.7.1 | 8.0.4 | Upgraded to MongoDB 8.0.4 |
+| 0.7.2 | 8.0.4 | Added support for loadBalancerSourceRanges |
 | | | |
