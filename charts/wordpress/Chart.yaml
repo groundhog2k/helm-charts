@@ -8,10 +8,10 @@ maintainers:
 type: application
 
 # This is the chart version.
-version: "0.14.1"
+version: "0.14.2"
 
 # This is the version number of the application being deployed.
-appVersion: "6.8.0-apache"
+appVersion: "6.8.2-apache"
 
 dependencies:
   - name: mariadb
