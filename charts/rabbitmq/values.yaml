@@ -389,7 +389,7 @@ managementPlugin:
 ## K8s peer discovery plugin options
 k8sPeerDiscoveryPlugin:
   ## Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration
-  enabled: false
+  enabled: true
   ## K8s peer discovery plugin address type (default: hostname)
   addressType: hostname
 
