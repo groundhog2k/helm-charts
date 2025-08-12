@@ -142,4 +142,5 @@
 | 2.1.5 | 4.1.3 | Added support for loadBalancerSourceRanges |
 | 2.1.6 | 4.1.3 | Added option for extra ports in default service - thx @DiamondJoseph, Fixed mounted volume name - thx @chenningg |
 | 2.1.7 | 4.1.3 | Fixed broken Chart.yaml |
+| 2.1.8 | 4.1.3 | Fixed documentation for k8sPeerDiscoveryPlugin switch |
 | | | |
