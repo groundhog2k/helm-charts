@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.1.7](https://img.shields.io/badge/Version-2.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.3](https://img.shields.io/badge/AppVersion-4.1.3-informational?style=flat-square)
+![Version: 2.1.8](https://img.shields.io/badge/Version-2.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.3](https://img.shields.io/badge/AppVersion-4.1.3-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -246,7 +246,7 @@ The policyTypes will be automatically set
 | managementPlugin.tcp.port | int | `15672` | Management UI port |
 | prometheusPlugin.enabled | bool | `true` | Enable prometheus monitoring plugin with default configuration |
 | prometheusPlugin.tcp.port | int | `15692` | Prometheus plugin TCP port |
-| k8sPeerDiscoveryPlugin.enabled | bool | `true` | Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration |
+| k8sPeerDiscoveryPlugin.enabled | bool | `false` | Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration |
 | k8sPeerDiscoveryPlugin.addressType | string | `"hostname"` | K8s peer discovery plugin address type (hostname or ip) |
 
 ## RabbitMQ custom configuration parameters
