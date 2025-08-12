@@ -167,9 +167,11 @@ metrics:
     clusterIP:
     ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
     loadBalancerIP:
-    # Annotations to add to the service
+    ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer)
+    loadBalancerSourceRanges: []
+    ## Annotations to add to the service
     annotations: {}
-    # Labels to add to the service
+    ## Labels to add to the service
     labels: {}
 
   ## Prometheus service monitor configuration
@@ -207,9 +209,11 @@ service:
   clusterIP:
   ## The loadbalancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled)
   loadBalancerIP:
-  # Annotations to add to the service
+  ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer)
+  loadBalancerSourceRanges: []
+  ## Annotations to add to the service
   annotations: {}
-  # Labels to add to the service
+  ## Labels to add to the service
   labels: {}
 
 ## Resources of the default init container
@@ -297,11 +301,14 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
-## Additional environment variables (Redis server and Sentinel)
+## Additional environment variables (Redis server, Sentinel and Init container)
 env: []
 
 ## Extra init containers
 extraInitContainers: []
+
+## A list of existing secrets that will be mounted into the init container as environment variables
+extraInitEnvSecrets: []
 
 ## Extra containers for usage as sidecars
 extraContainers: []

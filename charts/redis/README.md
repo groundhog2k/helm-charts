@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
+![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -110,7 +110,7 @@ helm uninstall my-release
 | podLabels | object | `{}` | Additional pod labels |
 | podSecurityContext | object | `see values.yaml` | Pod security context |
 | securityContext | object | `see values.yaml` | Container security context |
-| env | list | `[]` | Additional container environmment variables (Redis server and Sentinel) |
+| env | list | `[]` | Additional container environmment variables (Redis server, Sentinel and Init container) |
 | args | list | `[]` | Additional container command arguments (Redis server) |
 | sentinelArgs | list | `[]` | Arguments for the container entrypoint process (Sentinel) |
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
@@ -158,6 +158,7 @@ helm uninstall my-release
 | metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
 | metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| metrics.service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | metrics.service.annotations | object | `{}` | Additional service annotations |
 | metrics.service.lables | object | `{}` | Additional service labels |
 | metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
@@ -177,6 +178,7 @@ helm uninstall my-release
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort - not available when haMode is enabled) |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer - not available when haMode is enabled) |
+| service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.lables | object | `{}` | Additional service labels |
 
@@ -213,6 +215,7 @@ The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| extraInitEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the default init container as environment variables |
 | extraRedisEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the redis container as environment variables |
 | redisConfig | string | `nil` | Additional redis.conf |
 | extraSecretRedisConfigs | string | `nil` | An existing secret with files that will be added to the `redis.conf` |

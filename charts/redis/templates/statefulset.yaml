@@ -70,6 +70,15 @@ spec:
           {{- end }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          envFrom:
+          {{- range .Values.extraInitEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
           volumeMounts:
             - mountPath: /data
               name: {{ .Values.storage.volumeName }}
