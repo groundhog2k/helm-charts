@@ -11,4 +11,5 @@
 | 2.0.1 | 8.0.3 | Updated to Valkey 8.0.3 |
 | 2.1.0 | 8.1.2 | Updated to Valkey 8.1.2 |
 | 2.1.1 | 8.1.2 | Added support for loadBalancerSourceRanges |
+| 2.1.2 | 8.1.2 | Added authentication for valkey-cli during init phase - thx @Loki-Afro |
 | | | |
