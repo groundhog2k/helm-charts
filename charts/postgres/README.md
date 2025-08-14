@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 1.5.6](https://img.shields.io/badge/Version-1.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 17.5](https://img.shields.io/badge/AppVersion-17.5-informational?style=flat-square)
+![Version: 1.5.7](https://img.shields.io/badge/Version-1.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 17.5](https://img.shields.io/badge/AppVersion-17.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -71,6 +71,7 @@ helm uninstall my-release
 | customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
+| initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
