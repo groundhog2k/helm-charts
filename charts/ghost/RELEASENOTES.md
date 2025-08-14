@@ -296,4 +296,5 @@
 | 0.167.3 | 5.130.3 | Upgraded to Ghost 5.130.3 |
 | 0.167.4 | 5.130.3 | Added support for loadBalancerSourceRanges |
 | 0.168.0 | 6.0.0 | Upgraded to Ghost 6.0.0 |
+| 0.168.1 | 6.0.3 | Upgraded to Ghost 6.0.3 |
 | | | |
