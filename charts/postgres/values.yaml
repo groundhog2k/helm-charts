@@ -142,6 +142,15 @@ extraInitContainers: []
 ## Extra containers for usage as sidecars
 extraContainers: []
 
+## Resources of the default init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 ## Additional environment variables
 env: []
 
