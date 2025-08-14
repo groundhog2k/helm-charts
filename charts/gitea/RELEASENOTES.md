@@ -98,4 +98,5 @@
 | 0.13.4 | 1.24.3 | Switched to default logging options |
 | 0.13.5 | 1.24.4 | Updated to Gitea 1.24.4 |
 | 0.13.6 | 1.24.4 | Added support for loadBalancerSourceRanges |
+| 0.13.7 | 1.24.5 | Updated to Gitea 1.24.5 |
 | | | |
