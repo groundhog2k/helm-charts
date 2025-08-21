@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.0](https://img.shields.io/badge/AppVersion-8.2.0-informational?style=flat-square)
+![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.2.1](https://img.shields.io/badge/AppVersion-8.2.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -134,7 +134,7 @@ helm uninstall my-release
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
-| metrics.exporter.image.tag | string | `"v1.74.0"` | Image tag |
+| metrics.exporter.image.tag | string | `"v1.75.0"` | Image tag |
 | metrics.exporter.resources | object | `{}` | Resource limits and requests |
 | metrics.exporter.livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | metrics.exporter.startupProbe | object | `see values.yaml` | Startup probe configuration |
