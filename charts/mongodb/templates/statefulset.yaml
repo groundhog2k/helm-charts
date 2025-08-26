@@ -107,6 +107,10 @@ spec:
               name: keyfile-secret
             {{- end }}
           command: [ "/scripts/init.sh" ]
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.extraInitContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}

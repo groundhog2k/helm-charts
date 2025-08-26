@@ -85,6 +85,15 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Resources limits and request used fro mongodb-init init container
+initResources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 ## Custom startup probe (overwrites default startup probe)
 customStartupProbe: {}
 
