@@ -134,7 +134,7 @@ extraServices: []
 serviceMonitor:
   ## Enable service monitor
   enabled: false
-  ## set the metrics path to be scraped
+  ## Metrics path to be scraped ("/metrics" or "/metrics/per-object")
   path: "/metrics"
   ## Additional labels for the service monitor object
   additionalLabels: {}

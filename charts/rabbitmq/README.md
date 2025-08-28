@@ -146,15 +146,16 @@ Section to define custom services
 
 ## Service monitor parameters
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| serviceMonitor.enabled | bool | `false` | Enable service monitor |
-| serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
-| serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
-| serviceMonitor.interval | Duration | `nil` | Scrape interval for prometheus |
-| serviceMonitor.scrapeTimeout | Duration | `nil` | Scrape timeout value |
-| serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
-| serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
+| Key                                    | Type     | Default      | Description                                                                                                                                                             |
+|----------------------------------------|----------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| serviceMonitor.enabled                 | bool     | `false`      | Enable service monitor                                                                                                                                                  |
+| serviceMonitor.path                    | string   | `"/metrics"` | Metrics path to be scraped                                                                                                                                              |
+| serviceMonitor.additionalLabels        | object   | `{}`         | Additional labels for the service monitor object                                                                                                                        |
+| serviceMonitor.annotations             | object   | `{}`         | Annotations for the service monitor object                                                                                                                              |
+| serviceMonitor.interval                | Duration | `nil`        | Scrape interval for prometheus                                                                                                                                          |
+| serviceMonitor.scrapeTimeout           | Duration | `nil`        | Scrape timeout value                                                                                                                                                    |
+| serviceMonitor.extraEndpointParameters | object   | `nil`        | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint)         |
+| serviceMonitor.extraParameters         | object   | `nil`        | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
 ## Storage parameters
 
