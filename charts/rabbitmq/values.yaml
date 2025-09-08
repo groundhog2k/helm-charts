@@ -142,6 +142,27 @@ serviceMonitor:
   # interval:
   ## The scrape timeout value
   # scrapeTimeout:
+  ## Scrape metrics from the `/metrics/detailed` endpoint
+  ## ref: https://www.rabbitmq.com/docs/prometheus#detailed-endpoint
+  ##
+  detailed:
+    ## Enable detailed metrics endpoint (`GET /metrics/detailed`) to be scraped by the ServiceMonitor
+    ##
+    enabled: false
+    ## List of metric families to get
+    ## e.g.
+    ## family: ["queue_coarse_metrics", "queue_consumer_count"]
+    ##
+    family: []
+    ## Specify the interval at which metrics should be scraped
+    ##
+    interval: 30s
+    ## Specify the timeout after which the scrape is ended
+    ## e.g:
+    ## scrapeTimeout: 30s
+    ##
+    scrapeTimeout: ""
+
   ## Extra parameters rendered to the service monitor endpoint
   extraEndpointParameters: {}
   ## Extra parameters rendered to the service monitor

@@ -25,6 +25,23 @@ spec:
       {{- with .Values.serviceMonitor.extraEndpointParameters }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
+    {{- if .Values.serviceMonitor.detailed.enabled }}
+    - port: "prometheus"
+      path: "/metrics/detailed"
+      params:
+        {{- if .Values.serviceMonitor.detailed.family }}
+        family:
+          {{- range .Values.serviceMonitor.detailed.family }}
+          - {{ . | quote }}
+          {{- end }}
+        {{- end }}
+      {{- if .Values.serviceMonitor.detailed.interval }}
+      interval: {{ .Values.serviceMonitor.detailed.interval }}
+      {{- end }}
+      {{- if .Values.serviceMonitor.detailed.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.serviceMonitor.detailed.scrapeTimeout }}
+      {{- end }}
+    {{- end }}
   {{- with .Values.serviceMonitor.extraParameters }}
   {{- toYaml . | nindent 2 }}
   {{- end }}
