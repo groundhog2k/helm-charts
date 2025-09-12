@@ -144,5 +144,5 @@
 | 2.1.7 | 4.1.3 | Fixed broken Chart.yaml |
 | 2.1.8 | 4.1.3 | Fixed documentation for k8sPeerDiscoveryPlugin switch |
 | 2.1.9 | 4.1.4 | Upgraded to RabbitMQ 4.1.4 |
-| 2.1.10| 4.1.4 | Added support to configure detailed metrics endpoint
+| 2.1.10| 4.1.4 | Added support to configure detailed metrics endpoint - thx @hexdimko |
 | | | |
