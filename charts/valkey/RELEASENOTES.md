@@ -15,4 +15,5 @@
 | 2.1.1 | 8.1.2 | Added support for loadBalancerSourceRanges |
 | 2.1.2 | 8.1.2 | Added authentication for valkey-cli during init phase - thx @Loki-Afro |
 | 2.1.3 | 8.1.3 | Updated to Valkey 8.1.3, redis_exporter 1.75.0 |
+| 2.1.4 | 8.1.3 | Updated to Valkey 8.1.3, redis_exporter 1.77.0 |
 | | | |
