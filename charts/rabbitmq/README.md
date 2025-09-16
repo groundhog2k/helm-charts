@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.1.10](https://img.shields.io/badge/Version-2.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
+![Version: 2.1.11](https://img.shields.io/badge/Version-2.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -65,7 +65,7 @@ helm uninstall my-release
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init image pull policy |
 | initImage.registry | string | `"docker.io"` | Image registry |
 | initImage.repository | string | `"busybox"` | Init image name |
-| initImage.tag | string | `"latest"` | Init image tag |
+| initImage.tag | string | `"stable"` | Init image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | extraInitContainers | list | `[]` | Extra init containers |
 | extaContainers | list | `[]` | Extra containers for usage as sidecars |

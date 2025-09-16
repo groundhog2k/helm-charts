@@ -12,7 +12,7 @@ initImage:
   registry: "docker.io"
   repository: "busybox"
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "stable"
 
 ## Pull secrets and name override options
 imagePullSecrets: []
