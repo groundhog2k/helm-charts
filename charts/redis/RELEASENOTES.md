@@ -82,4 +82,5 @@
 | 2.1.1 | 8.2.0 | Added support for loadBalancerSourceRanges |
 | 2.1.2 | 8.2.0 | Added authentication for redis-cli during init phase - thx @Loki-Afro |
 | 2.1.3 | 8.2.1 | Upgraded to Redis 8.2.1 |
+| 2.1.4 | 8.2.1 | Upgraded to Redis 8.2.1, redis_exporter 1.77.0 |
 | | | |
