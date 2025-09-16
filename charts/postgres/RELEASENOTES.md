@@ -57,6 +57,7 @@
 | 1.1.5 | 13.19 | Upgraded to Postgres 13.19 |
 | 1.1.6 | 13.20 | Upgraded to Postgres 13.20 |
 | 1.1.7 | 13.21 | Upgraded to Postgres 13.21 |
+| 1.1.8 | 13.22 | Upgraded to Postgres 13.22 |
 | 1.2.0 | 14.11 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.1 | 14.11 | Fixed missing envFrom |
 | 1.2.2 | 14.12 | Upgraded to Postgres 14.12 |
