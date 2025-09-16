@@ -99,4 +99,5 @@
 | 0.11.0 | 6.3.1 | Updated chart for Graylog 6.3.1 |
 | 0.11.1 | 6.3.2 | Updated chart for Graylog 6.3.2 |
 | 0.11.2 | 6.3.2 | Added support for loadBalancerSourceRanges |
+| 0.11.3 | 6.3.3 | Updated chart for Graylog 6.3.3 |
 | | | |
