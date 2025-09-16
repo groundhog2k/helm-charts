@@ -116,4 +116,5 @@
 | 4.3.3 | 11.4.8 (LTS) | Upgraded MariaDB to 11.4.8 |
 | 4.4.0 | 11.8.2 (LTS) | Upgraded MariaDB to 11.8.2 |
 | 4.4.1 | 11.8.2 (LTS) | Added support for loadBalancerSourceRanges |
+| 4.4.2 | 11.8.3 (LTS) | Upgraded MariaDB to 11.8.3 |
 | | | |
