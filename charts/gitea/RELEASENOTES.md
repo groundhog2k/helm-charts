@@ -99,4 +99,5 @@
 | 0.13.5 | 1.24.4 | Updated to Gitea 1.24.4 |
 | 0.13.6 | 1.24.4 | Added support for loadBalancerSourceRanges |
 | 0.13.7 | 1.24.5 | Updated to Gitea 1.24.5 |
+| 0.13.8 | 1.24.6 | Updated to Gitea 1.24.6 |
 | | | |
