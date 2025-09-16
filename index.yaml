@@ -1126,6 +1126,23 @@ entries:
   etcd:
   - apiVersion: v2
     appVersion: v3.6.4
+    created: "2025-09-16T08:30:41.752717496Z"
+    description: A Helm chart for etcd on Kubernetes
+    digest: 96d1cfa6e17c49219eccd22f1b1dd2c27b50ffb9c369caf34b891082632f82b2
+    icon: https://etcd.io/etcd-horizontal-white.png
+    keywords:
+    - database
+    - etcd
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: etcd
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/etcd-1.1.1/etcd-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: v3.6.4
     created: "2025-08-12T09:26:32.191894136Z"
     description: A Helm chart for etcd on Kubernetes
     digest: 24b0168c0ea70321dda34f7dd2bb8088cb33464d13621d58af8abc5e655854db
@@ -20306,6 +20323,31 @@ entries:
   nextcloud:
   - apiVersion: v2
     appVersion: 31.0.9-apache
+    created: "2025-09-16T08:30:41.923331683Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.3.14
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.4.8
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.7.10
+    description: A Helm chart for Nextcloud on Kubernetes
+    digest: 787bc94b179de32f0fa01d5f83d94633ca4d9b3b9042d8afe231a7ee5b73a8cc
+    maintainers:
+    - name: groundhog2k
+    name: nextcloud
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/nextcloud-0.19.10/nextcloud-0.19.10.tgz
+    version: 0.19.10
+  - apiVersion: v2
+    appVersion: 31.0.9-apache
     created: "2025-09-16T07:20:04.02155783Z"
     dependencies:
     - condition: mariadb.enabled
@@ -25795,6 +25837,25 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
     version: 0.1.0
   rabbitmq:
+  - apiVersion: v2
+    appVersion: 4.1.4
+    created: "2025-09-16T08:30:42.084864529Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 1556b95394b2290e9a9b7fc6819dc7a66c06f3e6dca8e69534e06635f2dd75a3
+    icon: https://www.rabbitmq.com/img/rabbitmq-logo-with-name.svg
+    keywords:
+    - messaging
+    - rabbitmq
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: rabbitmq
+    sources:
+    - https://github.com/groundhog2k/helm-charts/tree/master/charts/rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-2.1.11/rabbitmq-2.1.11.tgz
+    version: 2.1.11
   - apiVersion: v2
     appVersion: 4.1.4
     created: "2025-09-12T11:12:24.945261553Z"
@@ -32217,4 +32278,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-16T08:08:49.147943211Z"
+generated: "2025-09-16T08:30:42.087740316Z"
