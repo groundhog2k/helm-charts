@@ -92,4 +92,5 @@
 | 0.19.7 | 31.0.7-apache | Added support for loadBalancerSourceRanges |
 | 0.19.8 | 31.0.8-apache | Upgraded to Nextcloud 31.0.8 |
 | 0.19.9 | 31.0.9-apache | Upgraded to Nextcloud 31.0.9 |
+| 0.19.10 | 31.0.9-apache | Changed to busybox:stable containter image |
 | | | |

@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.19.9](https://img.shields.io/badge/Version-0.19.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 31.0.9-apache](https://img.shields.io/badge/AppVersion-31.0.9-informational?style=flat-square)
+![Version: 0.19.10](https://img.shields.io/badge/Version-0.19.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 31.0.9-apache](https://img.shields.io/badge/AppVersion-31.0.9-informational?style=flat-square)
 
 ## Changelog
 
@@ -130,7 +130,7 @@ helm uninstall my-release
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
 | initImage.registry | string | `"docker.io"` | Image registry |
 | initImage.repository | string | `"busybox"` | Default init container image |
-| initImage.tag | string | `"latest"` | Init container image tag |
+| initImage.tag | string | `"stable"` | Init container image tag |
 | postUpgradeHook.enabled | bool | `true` | Enable post upgrade hook |
 | postUpgradeHook.delay | int | `30` | Delay in seconds before post-upgrade steps are initiated |
 | postUpgradeSteps | list | `see values.yaml` | Script with post upgrade steps |
