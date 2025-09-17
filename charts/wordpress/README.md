@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.14.2](https://img.shields.io/badge/Version-0.14.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.8.2-apache](https://img.shields.io/badge/AppVersion-6.8.2--apache-informational?style=flat-square)
+![Version: 0.14.3](https://img.shields.io/badge/Version-0.14.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.8.2-apache](https://img.shields.io/badge/AppVersion-6.8.2--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -91,11 +91,18 @@ helm uninstall my-release
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerPort | int | `8000` | Internal http container port |
-| replicaCount | int | `1` | Number of replicas |
+| replicaCount | int | `1` | Number of replicas (ignored when autoscaling is enabled) |
 | revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
+| autoscaling.enabled | bool | `false` | Enable horizontal pod autoscaler |
+| autoscaling.minReplicas | int | `1` | Minimum number of replicas |
+| autoscaling.maxReplicas | int | `10` | Maximum number of replicas |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilization percentage |
+| autoscaling.targetMemoryUtilizationPercentage | int | `nil` | Target memory utilization percentage |
+| autoscaling.annotations | object | `{}` | Additional HPA annotations |
+| autoscaling.behavior | object | `{}` | HPA behavior configuration |
 
 ## Service paramters
 

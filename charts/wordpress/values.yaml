@@ -1,6 +1,6 @@
 ## Default values for Wordpress deployment
 
-## Number of wordpress replicas
+## Number of wordpress replicas (ignored when autoscaling is enabled)
 replicaCount: 1
 
 ## Netxcloud docker image
@@ -109,6 +109,35 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+## Horizontal Pod Autoscaler
+autoscaling:
+  ## Enable horizontal pod autoscaler
+  enabled: false
+  ## Minimum number of replicas
+  minReplicas: 1
+  ## Maximum number of replicas
+  maxReplicas: 10
+  ## Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 80
+  ## Target memory utilization percentage (optional)
+  # targetMemoryUtilizationPercentage: 80
+  ## HPA annotations
+  annotations: {}
+  ## HPA behavior configuration (optional)
+  # behavior:
+  #   scaleDown:
+  #     stabilizationWindowSeconds: 300
+  #     policies:
+  #     - type: Percent
+  #       value: 10
+  #       periodSeconds: 60
+  #   scaleUp:
+  #     stabilizationWindowSeconds: 0
+  #     policies:
+  #     - type: Percent
+  #       value: 100
+  #       periodSeconds: 15
 
 ## Custom startup probe (overwrites default startup probe)
 customStartupProbe: {}
