@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.6.4](https://img.shields.io/badge/AppVersion-v3.6.4-informational?style=flat-square)
+![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.6.4](https://img.shields.io/badge/AppVersion-v3.6.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -85,6 +85,7 @@ helm uninstall my-release
 | serviceAccount.annotations | object | `{}` | Additional service account annotations |
 | serviceAccount.create | bool | `true` | Enable service account creation |
 | serviceAccount.name | string | `""` | Optional name of the service account |
+| serviceAccount.automountServiceAccountToken | bool | `true` | Specifies whether a service account token should be automatically mounted |
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
@@ -158,7 +159,7 @@ The policyTypes will be automatically set
 | settings.https.enabled | bool | `false` | Enable HTTPS |
 | settings.https.autoTls | bool | `false` | Automatic TLS mode of etcd (TLS certs. created automaically) |
 | settings.shutdownDelay | int | `3` | Delay after termination request to give etcd process time for graceful shutdown |
-  
+
 ## Etcd secrets and configuration
 
 | Key | Type | Default | Description |
