@@ -24,5 +24,5 @@
 | 1.0.8 | v3.5.21 | Added support for loadBalancerSourceRanges |
 | 1.1.0 | v3.6.4 | Upgraded etcd to v3.6.4 |
 | 1.1.1 | v3.6.4 | Changed to busybox:stable containter image |
-| 1.2.0 | v3.6.4 | Added ability to set automountServiceAccountToken |
+| 1.1.2 | v3.6.4 | Added ability to set automountServiceAccountToken - thx @krizzpiBiGdirekt |
 | | | |
