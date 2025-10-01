@@ -79,7 +79,7 @@ service:
     nodePort:
   ## Prometheus service port
   prometheus:
-    port: 15692
+    port: 9419
     ## The node port (only relevant for type LoadBalancer or NodePort)
     nodePort:
   extraPorts: []
@@ -154,6 +154,18 @@ serviceMonitor:
     ## family: ["queue_coarse_metrics", "queue_consumer_count"]
     ##
     family: []
+    ## Specify the interval at which metrics should be scraped
+    ##
+    interval: 30s
+    ## Specify the timeout after which the scrape is ended
+    ## e.g:
+    ## scrapeTimeout: 30s
+    ##
+    scrapeTimeout: ""
+  perObject:
+    ## Enable per-object metrics endpoint (`GET /metrics/per-object`) to be scraped by the ServiceMonitor
+    ##
+    enabled: false
     ## Specify the interval at which metrics should be scraped
     ##
     interval: 30s
@@ -419,8 +431,8 @@ prometheusPlugin:
   ## Enable prometheus monitoring plugin with default configuration
   enabled: false
   tcp:
-    ## Prometheus plugin TCP port (default: 15692)
-    port: 15692
+    ## Prometheus plugin TCP port (default: 9419)
+    port: 9419
 
 ## Custom configuration entries for rabbitmq.conf (see https://www.rabbitmq.com/configure.html#config-file)
 customConfig: |
