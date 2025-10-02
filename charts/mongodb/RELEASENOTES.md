@@ -106,4 +106,5 @@
 | 0.7.1 | 8.0.4 | Upgraded to MongoDB 8.0.4 |
 | 0.7.2 | 8.0.4 | Added support for loadBalancerSourceRanges |
 | 0.7.3 | 8.0.13 | Added optional resources section for the initContainer -thx @mirozoe |
+| 0.7.4 | 8.0.14 | Upgraded to MongoDB 8.0.14 |
 | | | |
