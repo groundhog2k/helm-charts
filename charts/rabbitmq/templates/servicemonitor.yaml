@@ -42,6 +42,19 @@ spec:
       scrapeTimeout: {{ .Values.serviceMonitor.detailed.scrapeTimeout }}
       {{- end }}
     {{- end }}
+    {{- if .Values.serviceMonitor.perObject.enabled }}
+    - port: "prometheus"
+      path: "/metrics/per-object"
+      {{- if .Values.serviceMonitor.perObject.interval }}
+      interval: {{ .Values.serviceMonitor.perObject.interval }}
+      {{- end }}
+      {{- if .Values.serviceMonitor.perObject.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.serviceMonitor.perObject.scrapeTimeout }}
+      {{- end }}
+    {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
   {{- with .Values.serviceMonitor.extraParameters }}
   {{- toYaml . | nindent 2 }}
   {{- end }}

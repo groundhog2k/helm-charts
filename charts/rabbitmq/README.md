@@ -116,7 +116,7 @@ helm uninstall my-release
 | service.amqps.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.mgmt.port | int | `15672` | Management UI service port |
 | service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
-| service.prometheus.port | int | `15692` | Prometheus service port |
+| service.prometheus.port | int | `9419` | Prometheus service port |
 | service.prometheus.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
@@ -157,6 +157,9 @@ Section to define custom services
 | serviceMonitor.detailed.family | list | `[]` | List of metric families to collect |
 | serviceMonitor.detailed.interval | Duration | `30s` | Scrape interval for detailed metrics |
 | serviceMonitor.detailed.scrapeTimeout | Duration | `nil` | Scrape timeout value for detailed metrics |
+| serviceMonitor.perObject.enabled | bool | `false` | Enables collecting from [per-object metrics endpoint](https://www.rabbitmq.com/docs/prometheus#per-object-endpoint) of RabbitMQ |
+| serviceMonitor.perObject.interval | Duration | `30s` | Scrape interval for detailed metrics |
+| serviceMonitor.perObject.scrapeTimeout | Duration | `nil` | Scrape timeout value for detailed metrics |
 | serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
 | serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
@@ -248,8 +251,8 @@ The policyTypes will be automatically set
 |-----|------|---------|-------------|
 | managementPlugin.enabled | bool | `true` | Enable management UI plugin with default configuration |
 | managementPlugin.tcp.port | int | `15672` | Management UI port |
-| prometheusPlugin.enabled | bool | `true` | Enable prometheus monitoring plugin with default configuration |
-| prometheusPlugin.tcp.port | int | `15692` | Prometheus plugin TCP port |
+| prometheusPlugin.enabled | bool | `false` | Enable prometheus monitoring plugin with default configuration |
+| prometheusPlugin.tcp.port | int | `9419` | Prometheus plugin TCP port |
 | k8sPeerDiscoveryPlugin.enabled | bool | `false` | Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration |
 | k8sPeerDiscoveryPlugin.addressType | string | `"hostname"` | K8s peer discovery plugin address type (hostname or ip) |
 
