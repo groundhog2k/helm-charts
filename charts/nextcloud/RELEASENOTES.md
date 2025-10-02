@@ -93,4 +93,5 @@
 | 0.19.8 | 31.0.8-apache | Upgraded to Nextcloud 31.0.8 |
 | 0.19.9 | 31.0.9-apache | Upgraded to Nextcloud 31.0.9 |
 | 0.19.10 | 31.0.9-apache | Changed to busybox:stable containter image |
+| 0.20.0 | 32.0.0-apache | Upgraded to Nextcloud 32.0.0 |
 | | | |
