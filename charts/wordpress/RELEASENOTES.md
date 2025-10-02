@@ -53,4 +53,5 @@
 | 0.14.1 | 6.8.0-apache | Added support for loadBalancerSourceRanges |
 | 0.14.2 | 6.8.2-apache | Upgraded to Wordpress 6.8.2 |
 | 0.14.3 | 6.8.2-apache | Added autoscaling capability - thx @millaguie |
+| 0.14.4 | 6.8.3-apache | Upgraded to Wordpress 6.8.3 |
 | | | |
