@@ -69,6 +69,7 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
 | initResources | object | `{}` | Resource limits and requests for the default init container |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

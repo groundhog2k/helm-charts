@@ -85,6 +85,9 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Pod priority class name
+priorityClassName: ""
+
 ## Additional node selector
 nodeSelector: {}
 

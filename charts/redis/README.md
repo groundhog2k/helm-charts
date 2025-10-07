@@ -103,6 +103,7 @@ helm uninstall my-release
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Redis Sentinel - only when haMode is enabled) |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
