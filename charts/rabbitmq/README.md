@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.1.11](https://img.shields.io/badge/Version-2.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
+![Version: 2.1.12](https://img.shields.io/badge/Version-2.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -116,7 +116,7 @@ helm uninstall my-release
 | service.amqps.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
 | service.mgmt.port | int | `15672` | Management UI service port |
 | service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
-| service.prometheus.port | int | `9419` | Prometheus service port |
+| service.prometheus.port | int | `15692` | Prometheus service port |
 | service.prometheus.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
@@ -252,7 +252,7 @@ The policyTypes will be automatically set
 | managementPlugin.enabled | bool | `true` | Enable management UI plugin with default configuration |
 | managementPlugin.tcp.port | int | `15672` | Management UI port |
 | prometheusPlugin.enabled | bool | `false` | Enable prometheus monitoring plugin with default configuration |
-| prometheusPlugin.tcp.port | int | `9419` | Prometheus plugin TCP port |
+| prometheusPlugin.tcp.port | int | `15692` | Prometheus plugin TCP port |
 | k8sPeerDiscoveryPlugin.enabled | bool | `false` | Enable K8s peer discovery plugin for a RabbitMQ HA-cluster with default configuration |
 | k8sPeerDiscoveryPlugin.addressType | string | `"hostname"` | K8s peer discovery plugin address type (hostname or ip) |
 
