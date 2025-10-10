@@ -96,4 +96,5 @@
 | 1.5.6 | 17.5 | Added support for loadBalancerSourceRanges |
 | 1.5.7 | 17.5 | Added optional resources section for the initContainer |
 | 1.5.8 | 17.6 | Upgraded to Postgres 17.6 |
+| 1.5.9 | 17.6 | Added priorityClassName - thx @JimCronqvist |
 | | | |

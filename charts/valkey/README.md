@@ -1,6 +1,6 @@
 # Valkey
 
-![Version: 2.1.5](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.1.4](https://img.shields.io/badge/AppVersion-8.1.4-informational?style=flat-square)
+![Version: 2.1.6](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.1.4](https://img.shields.io/badge/AppVersion-8.1.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -103,6 +103,7 @@ helm uninstall my-release
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Valkey Sentinel - only when haMode is enabled) |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

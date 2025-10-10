@@ -17,4 +17,5 @@
 | 2.1.3 | 8.1.3 | Updated to Valkey 8.1.3, redis_exporter 1.75.0 |
 | 2.1.4 | 8.1.3 | Updated to Valkey 8.1.3, redis_exporter 1.77.0 |
 | 2.1.5 | 8.1.4 | Updated to Valkey 8.1.4 |
+| 2.1.6 | 8.1.4 | Added priorityClassName - thx @JimCronqvist |
 | | | |

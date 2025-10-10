@@ -35,4 +35,5 @@
 | 0.7.1 | v1.13.1 | Upgraded to Remark42 v1.13.1 |
 | 0.8.0 | v1.14.0 | Upgraded to Remark42 v1.14.0 and chart dependency redis 1.3.2 |
 | 0.8.1 | v1.14.0 | Added support for loadBalancerSourceRanges |
+| 0.8.2 | v1.14.0 | Added priorityClassName - thx @JimCronqvist |
 | | | |

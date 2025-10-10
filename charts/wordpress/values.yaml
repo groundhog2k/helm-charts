@@ -181,6 +181,9 @@ extraInitContainers: []
 ## Extra containers for usage as sidecars
 extraContainers:
 
+## Pod priority class name
+priorityClassName: ""
+
 ## Additional node selector
 nodeSelector: {}
 

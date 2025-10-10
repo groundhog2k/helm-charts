@@ -109,6 +109,9 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+## Pod priority class name
+priorityClassName: ""
+
 ## Default node type for the image
 nodeSelector:
   kubernetes.io/arch: amd64

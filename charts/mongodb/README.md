@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.14](https://img.shields.io/badge/AppVersion-8.0.14-informational?style=flat-square)
+![Version: 0.7.5](https://img.shields.io/badge/Version-0.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.14](https://img.shields.io/badge/AppVersion-8.0.14-informational?style=flat-square)
 
 ## Changelog
 
@@ -69,6 +69,7 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

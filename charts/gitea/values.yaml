@@ -162,6 +162,9 @@ readinessProbe:
   successThreshold: 1
   periodSeconds: 10
 
+## Pod priority class name
+priorityClassName: ""
+
 ## Additional node selector
 nodeSelector: {}
 

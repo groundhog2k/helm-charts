@@ -101,4 +101,5 @@
 | 0.11.2 | 6.3.2 | Added support for loadBalancerSourceRanges |
 | 0.11.3 | 6.3.3 | Updated chart for Graylog 6.3.3 |
 | 0.11.4 | 6.3.4 | Updated chart for Graylog 6.3.4 |
+| 0.11.5 | 6.3.4 | Added priorityClassName - thx @JimCronqvist |
 | | | |
