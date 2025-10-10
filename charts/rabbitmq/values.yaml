@@ -162,6 +162,18 @@ serviceMonitor:
     ## scrapeTimeout: 30s
     ##
     scrapeTimeout: ""
+  perObject:
+    ## Enable per-object metrics endpoint (`GET /metrics/per-object`) to be scraped by the ServiceMonitor
+    ##
+    enabled: false
+    ## Specify the interval at which metrics should be scraped
+    ##
+    interval: 30s
+    ## Specify the timeout after which the scrape is ended
+    ## e.g:
+    ## scrapeTimeout: 30s
+    ##
+    scrapeTimeout: ""
 
   ## Extra parameters rendered to the service monitor endpoint
   extraEndpointParameters: {}
