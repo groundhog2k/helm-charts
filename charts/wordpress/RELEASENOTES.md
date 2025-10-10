@@ -54,4 +54,5 @@
 | 0.14.2 | 6.8.2-apache | Upgraded to Wordpress 6.8.2 |
 | 0.14.3 | 6.8.2-apache | Added autoscaling capability - thx @millaguie |
 | 0.14.4 | 6.8.3-apache | Upgraded to Wordpress 6.8.3 |
+| 0.14.5 | 6.8.3-apache | Added priorityClassName - thx @JimCronqvist |
 | | | |

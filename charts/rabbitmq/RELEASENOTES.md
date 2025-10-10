@@ -147,4 +147,5 @@
 | 2.1.10 | 4.1.4 | Added support to configure detailed metrics endpoint - thx @hexdimko |
 | 2.1.11 | 4.1.4 | Changed to busybox:stable containter image |
 | 2.1.12 | 4.1.4 | Added support to configure per-object metrics endpoint - thx @pavars |
+| 2.1.13 | 4.1.4 | Added priorityClassName - thx @JimCronqvist |
 | | | |

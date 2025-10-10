@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.1.12](https://img.shields.io/badge/Version-2.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
+![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -77,6 +77,7 @@ helm uninstall my-release
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | initResources | object | `{}` | Resource limits and requests for the default init container |
 | resources | object | `{}` | Resource limits and requests |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

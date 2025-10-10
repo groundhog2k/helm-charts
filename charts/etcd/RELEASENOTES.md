@@ -25,4 +25,5 @@
 | 1.1.0 | v3.6.4 | Upgraded etcd to v3.6.4 |
 | 1.1.1 | v3.6.4 | Changed to busybox:stable containter image |
 | 1.1.2 | v3.6.4 | Added ability to set automountServiceAccountToken - thx @krizzpiBiGdirekt |
+| 1.1.3 | v3.6.4 | Added priorityClassName - thx @JimCronqvist |
 | | | |

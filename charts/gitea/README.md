@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.13.8](https://img.shields.io/badge/Version-0.13.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24.6](https://img.shields.io/badge/AppVersion-1.24.6-informational?style=flat-square)
+![Version: 0.13.9](https://img.shields.io/badge/Version-0.13.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24.6](https://img.shields.io/badge/AppVersion-1.24.6-informational?style=flat-square)
 
 ## Changelog
 
@@ -75,6 +75,7 @@ helm uninstall my-release
 | customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.14.4](https://img.shields.io/badge/Version-0.14.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.8.3-apache](https://img.shields.io/badge/AppVersion-6.8.3--apache-informational?style=flat-square)
+![Version: 0.14.5](https://img.shields.io/badge/Version-0.14.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6.8.3-apache](https://img.shields.io/badge/AppVersion-6.8.3--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -75,6 +75,7 @@ helm uninstall my-release
 | customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe configuration) |
 | customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe configuration) |
 | resources | object | `{}` | Resource limits and requests |
+| priorityClassName | string | `""` | Deployment priority class name |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
