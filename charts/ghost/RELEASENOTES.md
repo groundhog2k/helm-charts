@@ -307,4 +307,5 @@
 | 0.170.0 | 6.2.0 | Upgraded to Ghost 6.2.0 |
 | 0.171.0 | 6.3.0 | Upgraded to Ghost 6.3.0 |
 | 0.171.1 | 6.3.0 | Added priorityClassName - thx @JimCronqvist |
+| 0.171.2 | 6.3.1 | Upgraded to Ghost 6.3.1 |
 | | | |
