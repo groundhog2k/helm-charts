@@ -186,6 +186,15 @@ settings:
   ## For example: "--auth-local=md5"
   initDbArgs:
 
+  ## Default data directory mountpoint
+  dataDir: "/var/lib/postgresql/data"
+
+  ## Name of the postgres directory inside data directory
+  ## This is necessary because of the default behavior of the docker-entrypoint.sh in the container image
+  ## The default entrypoint always tries to create a directory and set permissions on it. Thats is the reason why data directory mountpoint and directory inside must two different configuration options
+  ## PGDATA will be dataDir+pgDir => "/var/lib/postgresql/data/pg" while volume mount point will be dataDir => "/var/lib/postgresql/data"
+  pgDir: "pg"
+
 ## Optional user database which is created during first startup with user and password
 userDatabase: {}
   ## Optional existing secret with database name, user and password

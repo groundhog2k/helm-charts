@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 1.5.9](https://img.shields.io/badge/Version-1.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 17.6](https://img.shields.io/badge/AppVersion-17.6-informational?style=flat-square)
+![Version: 1.5.10](https://img.shields.io/badge/Version-1.5.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 17.6](https://img.shields.io/badge/AppVersion-17.6-informational?style=flat-square)
 
 ## Changelog
 
@@ -140,6 +140,8 @@ The policyTypes will be automatically set
 | useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | settings.authMethod | string | `nil` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |
+| settings.dataDir | string | `"/var/lib/postgresql/data"` | Default data directory mountpoint |
+| settings.pgDir | string | `"pg"` | Name of the postgres directory inside data directory |
 | settings.superuser.secretKey | string | `nil` | Key of existingSecret for the Superuser name |
 | settings.superuser.value | string | `nil` | Superuser name (if no existingSecret was specified) - defaults to "postgres" |
 | settings.superuserPassword.secretKey | string | `nil` | Key of existingSecret for the Superuser password |
