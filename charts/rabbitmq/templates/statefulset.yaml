@@ -215,14 +215,12 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           lifecycle:
-          {{- if gt (.Values.replicaCount | int) 1 }}
             postStart:
               exec:
                 command:
                   - /bin/bash
                   - -ec
                   - /scripts/startup.sh
-          {{- end }}
             preStop:
               exec:
                 command:
@@ -286,6 +284,10 @@ spec:
               mountPath: /etc/rabbitmq
             - name: scripts
               mountPath: /scripts
+            {{- if .Values.postStartScriptConfig }}
+            - name: extrascript-volume
+              mountPath: /extrascripts
+            {{- end }}
             {{- range $secret := .Values.extraSecrets }}
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
@@ -327,6 +329,12 @@ spec:
         - name: rabbitconfig
           configMap:
             name: {{ include "rabbitmq.fullname" . }}-config
+        {{- if .Values.postStartScriptConfig }}
+        - name: extrascript-volume
+          configMap:
+            name: {{ .Values.postStartScriptConfig }}
+            defaultMode: 0555
+        {{- end }}
         {{- if .Values.extraSecretConfigs }}
         - name: extraconfigs-volume
           secret:

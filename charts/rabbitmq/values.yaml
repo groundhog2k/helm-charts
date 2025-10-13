@@ -458,6 +458,9 @@ clustering:
   ## Use FQDN for RabbitMQ node names
   useLongName: true
 
+## A name of a K8s configMap containing a script file named `poststart.sh` that will be executed in background at the end of the postStart phase
+postStartScriptConfig:
+
 ## Storage parameters
 storage:
   ## Set persistentVolumenClaimName to reference an existing PVC
