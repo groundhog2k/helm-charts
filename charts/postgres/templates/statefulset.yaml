@@ -146,7 +146,7 @@ spec:
                   key: {{ default "USERDB_PASSWORD" .password.secretKey }}
             {{- end }}
             - name: PGDATA
-              value: "/var/lib/postgresql/data/pg"
+              value: {{ printf "%s/%s" .Values.settings.dataDir .Values.settings.pgDir | quote }}
             {{- if .Values.settings.authMethod }}
             - name: POSTGRES_HOST_AUTH_METHOD
               value: {{ .Values.settings.authMethod | quote }}
@@ -238,7 +238,7 @@ spec:
               name: run
             - mountPath: /tmp
               name: tmp
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: {{ .Values.settings.dataDir }}
               name: {{ .Values.storage.volumeName }}
             - mountPath: /docker-entrypoint-initdb.d
               name: scripts
