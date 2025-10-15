@@ -46,6 +46,14 @@ data:
     echo "PostStart: Rebalancing all queues.." >/proc/1/fd/1
     rabbitmq-queues rebalance "all" >/proc/1/fd/1
     {{- end }}
+    {{- if .Values.postStartScriptConfig }}
+    echo "PostStart: Executing extra script /extrascripts/poststart.sh" >/proc/1/fd/1
+    if [ -f /extrascripts/poststart.sh ]; then
+        /extrascripts/poststart.sh &
+    else
+        echo "PostStart: /extrascripts/poststart.sh not found!" >/proc/1/fd/1
+    fi
+    {{- end }}
   shutdown.sh: |
     {{- if and (.Values.terminationGracePeriodSeconds) (gt (int .Values.terminationGracePeriodSeconds) 10) }}
     if rabbitmqctl cluster_status; then

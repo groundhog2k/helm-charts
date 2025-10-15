@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
+![Version: 2.1.14](https://img.shields.io/badge/Version-2.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.1.4](https://img.shields.io/badge/AppVersion-4.1.4-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -219,6 +219,7 @@ The policyTypes will be automatically set
 | clustering.rebalance | bool | `false` | Enable rebalance queues with master when new replica is created |
 | clustering.forceBoot | bool | `false` | Force boot in case cluster peers are not available |
 | clustering.useLongName | bool | `true` | Use FQDN for RabbitMQ node names |
+| postStartScriptConfig | string | `nil` | A name of a K8s configMap containing a script file named `poststart.sh` that will be executed in background at the end of the postStart phase |
 
 ## RabbitMQ memory parameters
 
