@@ -95,4 +95,5 @@
 | 0.19.10 | 31.0.9-apache | Changed to busybox:stable containter image |
 | 0.20.0 | 32.0.0-apache | Upgraded to Nextcloud 32.0.0 |
 | 0.20.1 | 32.0.0-apache | Added priorityClassName - thx @JimCronqvist |
+| 0.20.2 | 32.0.1-apache | Upgraded to Nextcloud 32.0.1 |
 | | | |
