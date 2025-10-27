@@ -148,4 +148,5 @@
 | 2.1.11 | 4.1.4 | Changed to busybox:stable containter image |
 | 2.1.12 | 4.1.4 | Added support to configure per-object metrics endpoint - thx @pavars |
 | 2.1.13 | 4.1.4 | Added priorityClassName - thx @JimCronqvist |
+| 2.1.14 | 4.1.4 | Added optional postStart script support - use at your own risk! - thx @DiamondJoseph |
 | | | |
