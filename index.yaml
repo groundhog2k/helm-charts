@@ -26346,6 +26346,25 @@ entries:
     version: 0.1.0
   rabbitmq:
   - apiVersion: v2
+    appVersion: 4.1.5
+    created: "2025-10-29T11:26:42.209692469Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 3f5f9fe19a2baeca7f1943a47e380550cd6d247d0da6f83d6ca70942566bed97
+    icon: https://www.rabbitmq.com/img/rabbitmq-logo-with-name.svg
+    keywords:
+    - messaging
+    - rabbitmq
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: rabbitmq
+    sources:
+    - https://github.com/groundhog2k/helm-charts/tree/master/charts/rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-2.1.14/rabbitmq-2.1.14.tgz
+    version: 2.1.14
+  - apiVersion: v2
     appVersion: 4.1.4
     created: "2025-10-10T18:51:14.836619798Z"
     description: A Helm chart for a RabbitMQ cluster on Kubernetes
@@ -33011,4 +33030,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-26T10:16:45.673089167Z"
+generated: "2025-10-29T11:26:42.213671439Z"
