@@ -15,7 +15,7 @@ keywords:
   - messaging
   - rabbitmq
 
-version: "2.1.13"
+version: "2.1.14"
 
-appVersion: "4.1.4"
+appVersion: "4.1.5"
 icon: https://www.rabbitmq.com/img/rabbitmq-logo-with-name.svg
