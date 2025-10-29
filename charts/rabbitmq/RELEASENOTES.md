@@ -149,4 +149,5 @@
 | 2.1.12 | 4.1.4 | Added support to configure per-object metrics endpoint - thx @pavars |
 | 2.1.13 | 4.1.4 | Added priorityClassName - thx @JimCronqvist |
 | 2.1.14 | 4.1.5 | Upgraded to RabbitMQ 4.1.5 |
+| 2.2.0 | 4.2.0 | Upgraded to RabbitMQ 4.2.0 |
 | | | |
