@@ -102,4 +102,5 @@
 | 0.13.8 | 1.24.6 | Updated to Gitea 1.24.6 |
 | 0.13.9 | 1.24.6 | Added priorityClassName - thx @JimCronqvist |
 | 0.13.10 | 1.24.7 | Updated to Gitea 1.24.7 |
+| 0.14.0 | 1.25.0 | Updated to Gitea 1.25.0 |
 | | | |
