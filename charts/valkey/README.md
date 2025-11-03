@@ -6,6 +6,10 @@
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
+## ⚠️ Important
+
+This chart will only work for the Debian container image of Valkey. Using the Alpine container image will fail.
+
 A Helm chart for Valkey on Kubernetes
 
 ## TL;DR
@@ -135,7 +139,7 @@ helm uninstall my-release
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
-| metrics.exporter.image.tag | string | `"v1.77.0"` | Image tag |
+| metrics.exporter.image.tag | string | `"v1.80.0"` | Image tag |
 | metrics.exporter.resources | object | `{}` | Resource limits and requests |
 | metrics.exporter.livenessProbe | object | `see values.yaml` | Liveness probe configuration |
 | metrics.exporter.startupProbe | object | `see values.yaml` | Startup probe configuration |
