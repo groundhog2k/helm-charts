@@ -6,6 +6,10 @@
 
 see [RELEASENOTES.md](RELEASENOTES.md)
 
+## ⚠️ Important
+
+This chart will only work for the Debian container image of Redis. Using the Alpine container image will fail.
+
 A Helm chart for Redis on Kubernetes
 
 ## TL;DR

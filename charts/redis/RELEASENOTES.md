@@ -57,6 +57,7 @@
 | 1.0.3 | 6.2.17 | Upgraded to Redis 6.2.17 |
 | 1.0.4 | 6.2.18 | Upgraded to Redis 6.2.18 |
 | 1.0.5 | 6.2.19 | Upgraded to Redis 6.2.19 |
+| 1.0.6 | 6.2.21 | Upgraded to Redis 6.2.21 |
 | 1.1.0 | 7.0.15 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.0 | 7.2.4 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.1 | 7.2.5 | Upgraded to Redis 7.2.4 |
