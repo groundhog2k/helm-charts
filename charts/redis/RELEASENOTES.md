@@ -92,4 +92,5 @@
 | 2.1.4 | 8.2.1 | Upgraded to Redis 8.2.1, redis_exporter 1.77.0 |
 | 2.1.5 | 8.2.2 | Upgraded to Redis 8.2.2 |
 | 2.1.6 | 8.2.2 | Added priorityClassName - thx @JimCronqvist |
+| 2.1.7 | 8.2.3 | Upgraded to Redis 8.2.3 |
 | | | |
