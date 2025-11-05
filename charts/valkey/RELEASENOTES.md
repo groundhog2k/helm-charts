@@ -21,4 +21,5 @@
 | 2.1.5 | 8.1.4 | Updated to Valkey 8.1.4 |
 | 2.1.6 | 8.1.4 | Added priorityClassName - thx @JimCronqvist |
 | 2.2.0 | 9.0.0 | Updated to Valkey 9.0.0 |
+| 2.2.1 | 9.0.0 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | | | |
