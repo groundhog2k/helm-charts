@@ -6,7 +6,7 @@ metadata:
     {{- include "valkey.labels" . | nindent 4 }}
 data:
   init.sh: |
-    #!/bin/bash
+    #!/bin/sh
     VALKEY_CONFIG=/data/conf/valkey.conf
     SENTINEL_CONFIG=/data/conf/sentinel.conf
 
@@ -63,9 +63,9 @@ data:
     }
 
     test_valid_dns() {
-      KNOWN_HOSTS=($(getent hosts {{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }} | awk '{ print $1 }'))
+      KNOWN_HOSTS="$(getent hosts {{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }} | awk '{ print $1 }')"
       log "## Known hosts for headless service {{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}:"
-      for AHOSTIP in "${KNOWN_HOSTS[@]}"; do
+      for AHOSTIP in $KNOWN_HOSTS; do
         AHOSTNAME=$(getent hosts $AHOSTIP | awk '{print $2}')
         log "${AHOSTIP} ${AHOSTNAME}"
       done
@@ -115,19 +115,19 @@ data:
     configure_valkey_cluster() {
       log "Determining authentication parameters"
       VALKEYUSER=$(cat $VALKEY_CONFIG | grep masteruser | awk '{ print $2 }')
-      if [ ! -z "$VALKEYUSER" ]; then
+      if [ -n "$VALKEYUSER" ]; then
         VALKEYUSER="--user $VALKEYUSER"
       fi
       VALKEYPWD=$(cat $VALKEY_CONFIG | grep masterauth | awk '{ print $2 }')
-      if [ ! -z "$VALKEYPWD" ]; then
+      if [ -n "$VALKEYPWD" ]; then
         VALKEYPWD="--pass $VALKEYPWD"
       fi
       SENTINELUSER=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-user" | awk '{ print $3 }')
-      if [ ! -z "$SENTINELUSER" ]; then
+      if [ -n "$SENTINELUSER" ]; then
         SENTINELUSER="--user $SENTINELUSER"
       fi
       SENTINELPWD=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-pass" | awk '{ print $3 }')
-      if [ ! -z "$SENTINELPWD" ]; then
+      if [ -n "$SENTINELPWD" ]; then
         SENTINELPWD="--pass $SENTINELPWD"
       fi
 
@@ -165,8 +165,7 @@ data:
           MASTER=$MASTERENTRY
           log "$MASTER has valid DNS entry"
           log "Checking if master is alive"
-          test_master_alive
-          if [ "$?" -eq "1" ]; then
+          if ! test_master_alive; then
             if [ -f "/data/failover_restart" ]; then
               rm /data/failover_restart
               log "Master is still dead! - forcing failover and retry pod initialization"
