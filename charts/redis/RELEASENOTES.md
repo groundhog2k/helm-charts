@@ -93,4 +93,5 @@
 | 2.1.5 | 8.2.2 | Upgraded to Redis 8.2.2 |
 | 2.1.6 | 8.2.2 | Added priorityClassName - thx @JimCronqvist |
 | 2.1.7 | 8.2.3 | Upgraded to Redis 8.2.3 |
+| 2.1.8 | 8.2.3 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | | | |
