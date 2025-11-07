@@ -13838,6 +13838,23 @@ entries:
     version: 0.1.0
   graylog:
   - apiVersion: v2
+    appVersion: 6.3.6
+    created: "2025-11-07T17:24:10.237187472Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.8
+    description: A Helm chart for Graylog on Kubernetes
+    digest: c56f2367e5694191874fa7da8d7cca828e94d35b8849fa0fc7d12a84b93ea127
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.11.7/graylog-0.11.7.tgz
+    version: 0.11.7
+  - apiVersion: v2
     appVersion: 6.3.5
     created: "2025-10-20T17:30:10.496193667Z"
     dependencies:
@@ -33311,4 +33328,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-06T17:47:00.225162739Z"
+generated: "2025-11-07T17:24:10.240194553Z"
