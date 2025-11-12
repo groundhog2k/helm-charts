@@ -104,4 +104,5 @@
 | 0.11.5 | 6.3.4 | Added priorityClassName - thx @JimCronqvist |
 | 0.11.6 | 6.3.5 | Updated chart for Graylog 6.3.5 |
 | 0.11.7 | 6.3.6 | Updated chart for Graylog 6.3.6 |
+| 0.12.0 | 7.0.0 | Updated chart for Graylog 7.0.0 |
 | | | |
