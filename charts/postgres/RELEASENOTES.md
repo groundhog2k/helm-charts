@@ -102,4 +102,5 @@
 | 1.5.9 | 17.6 | Added priorityClassName - thx @JimCronqvist |
 | 1.5.10 | 17.6 | Made PGDATA (postgres data directory) configurable |
 | 1.5.11 | 17.6 | Fixed script for user database creation - thx @maeln0r |
+| 1.5.12 | 17.7 | Upgraded to Postgres 17.7 |
 | | | |
