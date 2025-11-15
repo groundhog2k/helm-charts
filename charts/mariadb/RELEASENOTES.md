@@ -111,6 +111,7 @@
 | 4.2.0 | 10.11.11 (LTS) | Upgraded MariaDB to 10.11.11 |
 | 4.2.1 | 10.11.13 (LTS) | Upgraded MariaDB to 10.11.13 |
 | 4.2.2 | 10.11.14 (LTS) | Upgraded MariaDB to 10.11.14 |
+| 4.2.3 | 10.11.15 (LTS) | Upgraded MariaDB to 10.11.15 |
 | 4.3.0 | 11.4.5 (LTS) | Upgraded MariaDB to 11.4.5 |
 | 4.3.1 | 11.4.5 (LTS) | Implemented option for emptyDirSizeLimit (thx @tim-hanssen) |
 | 4.3.2 | 11.4.7 (LTS) | Upgraded MariaDB to 11.4.7 |
