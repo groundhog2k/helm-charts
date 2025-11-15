@@ -29,6 +29,7 @@
 | 2.0.5 | 8.0.41 (LTS) | Upgraded MySQL to 8.0.41 |
 | 2.0.6 | 8.0.42 (LTS) | Upgraded MySQL to 8.0.42 |
 | 2.0.7 | 8.0.43 (LTS) | Upgraded MySQL to 8.0.43 |
+| 2.0.8 | 8.0.44 (LTS) | Upgraded MySQL to 8.0.44 |
 | 3.0.0 | 8.4.2 (LTS) | Upgraded MySQL to 8.4.2 |
 | 3.0.1 | 8.4.3 (LTS) | Upgraded MySQL to 8.4.3 |
 | 3.0.2 | 8.4.4 (LTS) | Upgraded MySQL to 8.4.4 |
