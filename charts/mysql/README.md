@@ -1,6 +1,6 @@
 # MySQL
 
-![Version: 3.0.6](https://img.shields.io/badge/Version-3.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.4.6](https://img.shields.io/badge/AppVersion-8.4.6-informational?style=flat-square)
+![Version: 3.0.7](https://img.shields.io/badge/Version-3.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.4.7](https://img.shields.io/badge/AppVersion-8.4.7-informational?style=flat-square)
 
 ## Changelog
 
