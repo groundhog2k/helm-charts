@@ -314,4 +314,5 @@
 | 0.174.0 | 6.6.0 | Upgraded to Ghost 6.6.0 |
 | 0.174.1 | 6.6.1 | Upgraded to Ghost 6.6.1 |
 | 0.175.0 | 6.7.0 | Upgraded to Ghost 6.7.0 |
+| 0.176.0 | 6.8.0 | Upgraded to Ghost 6.8.0 |
 | | | |
