@@ -108,4 +108,5 @@
 | 0.7.3 | 8.0.13 | Added optional resources section for the initContainer -thx @mirozoe |
 | 0.7.4 | 8.0.14 | Upgraded to MongoDB 8.0.14 |
 | 0.7.5 | 8.0.14 | Added priorityClassName - thx @JimCronqvist |
+| 0.7.6 | 8.0.16 | Upgraded to MongoDB 8.0.16 |
 | | | |
