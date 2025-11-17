@@ -29312,6 +29312,23 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: 8.2.3
+    created: "2025-11-17T15:44:18.208148799Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: d0b88aeb4653116e0c1795f11093672f6dd930758e98048475799c5bc355d54f
+    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
+    keywords:
+    - cache
+    - redis
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-2.1.9/redis-2.1.9.tgz
+    version: 2.1.9
+  - apiVersion: v2
+    appVersion: 8.2.3
     created: "2025-11-06T07:26:18.147525144Z"
     description: A Helm chart for Redis on Kubernetes
     digest: 41e50d7db57d6937a3102fa7c79a6aa2408d7850d70145e5529c1f2b4b8c8b45
@@ -31785,6 +31802,23 @@ entries:
   valkey:
   - apiVersion: v2
     appVersion: 9.0.0
+    created: "2025-11-17T15:44:18.367372573Z"
+    description: A Helm chart for Valkey on Kubernetes
+    digest: 22f06e4c872779b71d28dc835051ebcda123be4979c0717577f8f2b64e6e944f
+    icon: https://valkey.io/img/Valkey-logo.svg
+    keywords:
+    - cache
+    - valkey
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: valkey
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/valkey-2.2.2/valkey-2.2.2.tgz
+    version: 2.2.2
+  - apiVersion: v2
+    appVersion: 9.0.0
     created: "2025-11-05T20:25:30.402455748Z"
     description: A Helm chart for Valkey on Kubernetes
     digest: efef4780558b329bdf5d4746bd1fcd45b0fa9611052827e68006f9e0c4fb52a0
@@ -33620,4 +33654,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-15T17:57:03.821162631Z"
+generated: "2025-11-17T15:44:18.370045963Z"
