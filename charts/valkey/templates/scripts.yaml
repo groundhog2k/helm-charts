@@ -37,6 +37,12 @@ data:
       echo "protected-mode no" >>$VALKEY_CONFIG
       echo "bind 0.0.0.0" >>$VALKEY_CONFIG
       echo "dir /data" >>$VALKEY_CONFIG
+      {{- if .Values.haMode.useDnsNames }}
+      echo "replica-announce-ip ${HOSTNAME}.{{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}" >>$VALKEY_CONFIG
+      {{ else }}
+      THISIP="$(getent hosts $HOSTNAME | awk '{ print $1 }')"
+      echo "replica-announce-ip ${THISIP}" >>$VALKEY_CONFIG
+      {{- end }}
       log "Finished creating base configuration"
     }
 
@@ -94,6 +100,7 @@ data:
       {{- if .Values.haMode.useDnsNames }}
       echo "SENTINEL resolve-hostnames yes" >>$SENTINEL_CONFIG
       echo "SENTINEL announce-hostnames yes" >>$SENTINEL_CONFIG
+      echo "SENTINEL announce-ip ${HOSTNAME}.{{ include "valkey.fullname" . }}-headless.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}" >>$SENTINEL_CONFIG
       {{- end }}
       echo "sentinel down-after-milliseconds {{ include "valkey.masterGroupName" . }} {{ .Values.haMode.downAfterMilliseconds }}" >>$SENTINEL_CONFIG
       echo "sentinel failover-timeout {{ include "valkey.masterGroupName" . }} {{ .Values.haMode.failoverTimeout }}" >>$SENTINEL_CONFIG
@@ -114,23 +121,26 @@ data:
 
     configure_valkey_cluster() {
       log "Determining authentication parameters"
-      VALKEYUSER=$(cat $VALKEY_CONFIG | grep masteruser | awk '{ print $2 }')
-      if [ -n "$VALKEYUSER" ]; then
-        VALKEYUSER="--user $VALKEYUSER"
+      if [ -f $VALKEY_CONFIG ]; then
+        VALKEYUSER=$(cat $VALKEY_CONFIG | grep masteruser | awk '{ print $2 }')
+        if [ -n "$VALKEYUSER" ]; then
+          VALKEYUSER="--user $VALKEYUSER"
+        fi
+        VALKEYPWD=$(cat $VALKEY_CONFIG | grep masterauth | awk '{ print $2 }')
+        if [ -n "$VALKEYPWD" ]; then
+          VALKEYPWD="--pass $VALKEYPWD"
+        fi
       fi
-      VALKEYPWD=$(cat $VALKEY_CONFIG | grep masterauth | awk '{ print $2 }')
-      if [ -n "$VALKEYPWD" ]; then
-        VALKEYPWD="--pass $VALKEYPWD"
+      if [ -f $SENTINEL_CONFIG ]; then
+        SENTINELUSER=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-user" | awk '{ print $3 }')
+        if [ -n "$SENTINELUSER" ]; then
+          SENTINELUSER="--user $SENTINELUSER"
+        fi
+        SENTINELPWD=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-pass" | awk '{ print $3 }')
+        if [ -n "$SENTINELPWD" ]; then
+          SENTINELPWD="--pass $SENTINELPWD"
+        fi
       fi
-      SENTINELUSER=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-user" | awk '{ print $3 }')
-      if [ -n "$SENTINELUSER" ]; then
-        SENTINELUSER="--user $SENTINELUSER"
-      fi
-      SENTINELPWD=$(cat $SENTINEL_CONFIG | grep "sentinel sentinel-pass" | awk '{ print $3 }')
-      if [ -n "$SENTINELPWD" ]; then
-        SENTINELPWD="--pass $SENTINELPWD"
-      fi
-
       log "Try to resolve cluster service.."
       SERVICE="$(getent hosts {{ template "valkey.fullname" . }})"
       if [ -z "$SERVICE" ]; then
