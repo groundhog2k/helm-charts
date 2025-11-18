@@ -1,6 +1,6 @@
 # RabbitMQ
 
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.1](https://img.shields.io/badge/AppVersion-4.2.1-informational?style=flat-square)
+![Version: 2.2.2](https://img.shields.io/badge/Version-2.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.2.1](https://img.shields.io/badge/AppVersion-4.2.1-informational?style=flat-square)
 
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
@@ -152,8 +152,11 @@ Section to define custom services
 | serviceMonitor.enabled | bool | `false` | Enable service monitor |
 | serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
 | serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
-| serviceMonitor.interval | Duration | `nil` | Scrape interval for prometheus |
-| serviceMonitor.scrapeTimeout | Duration | `nil` | Scrape timeout value |
+| serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the service monitor object |
+| serviceMonitor.default.enabled | bool | `true` | Enable default metrics endpoint '/metrics' |
+| serviceMonitor.default.interval | Duration | `30s` | Scrape interval for prometheus |
+| serviceMonitor.default.scrapeTimeout | Duration | `nil` | Scrape timeout value |
+| serviceMonitor.default.extraEndpointParameters | object | `{}` | Extra parameters rendered to the service monitor endpoint |
 | serviceMonitor.detailed.enabled | bool | `false` | Enables collecting from [detailed metrics endpoint](https://www.rabbitmq.com/docs/prometheus#detailed-endpoint) of RabbitMQ |
 | serviceMonitor.detailed.family | list | `[]` | List of metric families to collect |
 | serviceMonitor.detailed.interval | Duration | `30s` | Scrape interval for detailed metrics |
@@ -161,8 +164,6 @@ Section to define custom services
 | serviceMonitor.perObject.enabled | bool | `false` | Enables collecting from [per-object metrics endpoint](https://www.rabbitmq.com/docs/prometheus#per-object-endpoint) of RabbitMQ |
 | serviceMonitor.perObject.interval | Duration | `30s` | Scrape interval for detailed metrics |
 | serviceMonitor.perObject.scrapeTimeout | Duration | `nil` | Scrape timeout value for detailed metrics |
-| serviceMonitor.extraEndpointParameters | object | `nil` | Extra parameters rendered to the [service monitor endpoint](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint) |
-| serviceMonitor.extraParameters | object | `nil` | Extra parameters rendered to the [service monitor object](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec) |
 
 ## Storage parameters
 

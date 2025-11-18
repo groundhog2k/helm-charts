@@ -14,17 +14,19 @@ metadata:
   {{- end }}
 spec:
   endpoints:
+    {{- if .Values.serviceMonitor.default.enabled }}
     - port: "prometheus"
       path: "/metrics"
-      {{- if .Values.serviceMonitor.interval }}
-      interval: {{ .Values.serviceMonitor.interval }}
+      {{- if .Values.serviceMonitor.default.interval }}
+      interval: {{ .Values.serviceMonitor.default.interval }}
       {{- end }}
-      {{- if .Values.serviceMonitor.scrapeTimeout }}
-      scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
+      {{- if .Values.serviceMonitor.default.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.serviceMonitor.default.scrapeTimeout }}
       {{- end }}
-      {{- with .Values.serviceMonitor.extraEndpointParameters }}
+      {{- with .Values.serviceMonitor.default.extraEndpointParameters }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
+    {{- end }}
     {{- if .Values.serviceMonitor.detailed.enabled }}
     - port: "prometheus"
       path: "/metrics/detailed"
