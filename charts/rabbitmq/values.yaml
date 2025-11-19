@@ -138,13 +138,22 @@ serviceMonitor:
   additionalLabels: {}
   ## Annotations for the service monitor object
   annotations: {}
-  ## The scrape interval for prometheus
-  # interval:
-  ## The scrape timeout value
-  # scrapeTimeout:
+  ## Extra parameters rendered to the service monitor
+  extraParameters: {}
+  ## Scrape metrics from the `/metrics` endpoint
+  ## ref: https://www.rabbitmq.com/docs/prometheus.html#prometheus-endpoint
+  default:
+    ## Enable default metrics endpoint (`GET /metrics`) to be scraped by the ServiceMonitor
+    ##
+    enabled: true
+    ## The scrape interval for prometheus
+    interval: 30s
+    ## The scrape timeout value
+    scrapeTimeout: ""
+    ## Extra parameters rendered to the service monitor endpoint
+    extraEndpointParameters: {}
   ## Scrape metrics from the `/metrics/detailed` endpoint
   ## ref: https://www.rabbitmq.com/docs/prometheus#detailed-endpoint
-  ##
   detailed:
     ## Enable detailed metrics endpoint (`GET /metrics/detailed`) to be scraped by the ServiceMonitor
     ##
@@ -162,6 +171,8 @@ serviceMonitor:
     ## scrapeTimeout: 30s
     ##
     scrapeTimeout: ""
+  ## Scrape metrics from the `/metrics/per-object` endpoint
+  ## ref: https://www.rabbitmq.com/docs/prometheus#detailed-endpoint
   perObject:
     ## Enable per-object metrics endpoint (`GET /metrics/per-object`) to be scraped by the ServiceMonitor
     ##
@@ -174,11 +185,6 @@ serviceMonitor:
     ## scrapeTimeout: 30s
     ##
     scrapeTimeout: ""
-
-  ## Extra parameters rendered to the service monitor endpoint
-  extraEndpointParameters: {}
-  ## Extra parameters rendered to the service monitor
-  extraParameters: {}
 
 ## Ingress configuration
 ingress:
