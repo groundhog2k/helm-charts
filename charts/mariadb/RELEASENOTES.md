@@ -122,4 +122,5 @@
 | 4.4.2 | 11.8.3 (LTS) | Upgraded MariaDB to 11.8.3 |
 | 4.4.3 | 11.8.3 (LTS) | Added priorityClassName - thx @JimCronqvist |
 | 4.4.4 | 11.8.4 (LTS) | Upgraded MariaDB to 11.8.4 |
+| 4.4.5 | 11.8.5 (LTS) | Upgraded MariaDB to 11.8.5 |
 | | | |
