@@ -1,6 +1,6 @@
 # Valkey
 
-![Version: 2.2.2](https://img.shields.io/badge/Version-2.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.0.0](https://img.shields.io/badge/AppVersion-9.0.0-informational?style=flat-square)
+![Version: 2.2.3](https://img.shields.io/badge/Version-2.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.0.0](https://img.shields.io/badge/AppVersion-9.0.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -193,6 +193,8 @@ helm uninstall my-release
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for `useDeploymentWhenNonHA`) |
+| storage.persistentVolumeClaimRetentionPolicy.whenDeleted | string | `nil` | Persistent volume claim retention policy when StatefulSet is deleted - Valid values: `Retain` or `Delete` (only applies when using StatefulSet) |
+| storage.persistentVolumeClaimRetentionPolicy.whenScaled | string | `nil` | Persistent volume claim retention policy when StatefulSet is scaled down - Valid values: `Retain` or `Delete` (only applies when using StatefulSet) |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
 | extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |

@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 1.6.0](https://img.shields.io/badge/Version-1.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 18.1](https://img.shields.io/badge/AppVersion-18.1-informational?style=flat-square)
+![Version: 1.6.1](https://img.shields.io/badge/Version-1.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 18.1](https://img.shields.io/badge/AppVersion-18.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -126,6 +126,8 @@ The policyTypes will be automatically set
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
 | storage.keepPvc | bool | `false` | Keep a created Persistent volume claim when uninstalling the helm chart (only for option `useDeployment: true`) |
+| storage.persistentVolumeClaimRetentionPolicy.whenDeleted | string | `nil` | Persistent volume claim retention policy when StatefulSet is deleted - Valid values: `Retain` or `Delete` (only applies when `useDeployment: false`) |
+| storage.persistentVolumeClaimRetentionPolicy.whenScaled | string | `nil` | Persistent volume claim retention policy when StatefulSet is scaled down - Valid values: `Retain` or `Delete` (only applies when `useDeployment: false`) |
 | storage.annotations | object | `{}` | Additional storage annotations |
 | storage.labels | object | `{}` | Additional storage labels |
 | extraStorage | list | `[]` | A list of additional existing PVC that will be mounted into the container |
