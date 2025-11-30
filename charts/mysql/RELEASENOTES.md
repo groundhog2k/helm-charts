@@ -38,4 +38,5 @@
 | 3.0.5 | 8.4.6 (LTS) | Added support for loadBalancerSourceRanges |
 | 3.0.6 | 8.4.6 (LTS) | Added priorityClassName - thx @JimCronqvist |
 | 3.0.7 | 8.4.7 (LTS) | Upgraded MySQL to 8.4.7 |
+| 3.0.8 | 8.4.7 (LTS) | Added support for persistentVolumeClaimRetentionPolicy |
 | | | |
