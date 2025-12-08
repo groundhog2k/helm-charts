@@ -274,6 +274,13 @@ storage:
   ## Keep a created Persistent volume claim when uninstalling the helm chart (only for option useDeployment: true)
   keepPvc: false
 
+  ## Persistent volume claim retention policy for the StatefulSet (only applies when using StatefulSet)
+  persistentVolumeClaimRetentionPolicy:
+    ## Policy for PVCs when the StatefulSet is deleted (Retain or Delete)
+    whenDeleted:
+    ## Policy for PVCs when the StatefulSet is scaled down (Retain or Delete)
+    whenScaled:
+
   ## Set the sizeLimit of the emptyDir (only for option useDeployment: true)
   sizeLimit:
 
