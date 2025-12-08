@@ -32,6 +32,15 @@ spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy:
     type: {{ .Values.updateStrategyType }}
+  {{- if or .Values.storage.persistentVolumeClaimRetentionPolicy.whenDeleted .Values.storage.persistentVolumeClaimRetentionPolicy.whenScaled }}
+  persistentVolumeClaimRetentionPolicy:
+    {{- with .Values.storage.persistentVolumeClaimRetentionPolicy.whenDeleted }}
+    whenDeleted: {{ . }}
+    {{- end }}
+    {{- with .Values.storage.persistentVolumeClaimRetentionPolicy.whenScaled }}
+    whenScaled: {{ . }}
+    {{- end }}
+  {{- end }}
   {{- else }}
   strategy:
     type: Recreate
