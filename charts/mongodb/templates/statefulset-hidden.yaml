@@ -15,6 +15,7 @@ metadata:
   {{- end }}
 spec:
   {{- if .Values.storage.persistentVolumeClaimRetentionPolicy }}
+  persistentVolumeClaimRetentionPolicy:
     {{- toYaml .Values.storage.persistentVolumeClaimRetentionPolicy | nindent 4 }}
   {{- end }}
   selector:

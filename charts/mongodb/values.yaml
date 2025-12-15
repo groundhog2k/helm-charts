@@ -302,6 +302,10 @@ extraSecrets: []
 # otherwise a dynamic persistent volume will be created with PVC name of this chart and the configured requestedSize and accessModes
 # If both parameters are missing a volatile emtpyDir volume will be used as storage
 storage:
+  ## Set persistentVolumeClaimRetentionPolicy to explicitly control how PVCs are managed
+  ## when a stateful set is scaled or deleted. (new feature in k8s 1.32)
+  persistentVolumeClaimRetentionPolicy:
+
   ## Set persistentVolumenClaimName to reference an existing PVC
   persistentVolumeClaimName:
 
