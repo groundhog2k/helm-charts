@@ -20,6 +20,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if and (not $deployWithNonHA) (.Values.storage.persistentVolumeClaimRetentionPolicy) }}
+    {{- toYaml .Values.storage.persistentVolumeClaimRetentionPolicy | nindent 4 }}
+  {{- end }}
   {{- if .Values.replicaSet.enabled }}
   replicas: {{ add1 .Values.replicaSet.secondaries }}
   {{- end }}
@@ -133,7 +136,7 @@ spec:
             - --config
             - /etc/mongo/custom.conf
             {{- if .Values.replicaSet.enabled }}
-            - --replSet 
+            - --replSet
             - {{ .Values.replicaSet.name | quote }}
             - --keyFile
             - "/replicaset/keyfile"
@@ -158,7 +161,7 @@ spec:
             timeoutSeconds: {{ .timeoutSeconds }}
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
-            periodSeconds: {{ .periodSeconds }}                
+            periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
           {{- end }}

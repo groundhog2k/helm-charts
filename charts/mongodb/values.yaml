@@ -213,6 +213,9 @@ replicaSet:
     storage:
       ## Set persistentVolumenClaimName to reference an existing PVC
       persistentVolumeClaimName:
+      ## Set persistentVolumeClaimRetentionPolicy to explicitly control how PVCs are managed
+      ## when a stateful set is scaled or deleted. (new feature in k8s 1.32)
+      persistentVolumeClaimRetentionPolicy:
       ## Internal volume name and prefix of a created PVC
       volumeName: "mongodb-arbiter-volume"
       ## Alternative set requestedSize to define a size for a dynamically created PVC
