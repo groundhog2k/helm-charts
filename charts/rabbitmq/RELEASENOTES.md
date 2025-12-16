@@ -154,4 +154,5 @@
 | 2.2.0 | 4.2.0 | Upgraded to RabbitMQ 4.2.0 |
 | 2.2.1 | 4.2.1 | Upgraded to RabbitMQ 4.2.1 |
 | 2.2.2 | 4.2.1 | Added support to disable default metrics endpoint - thx @choerl-sys11 |
+| 2.2.3 | 4.2.2 | Upgraded to RabbitMQ 4.2.2 |
 | | | |
