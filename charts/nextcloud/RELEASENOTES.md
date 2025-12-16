@@ -97,4 +97,5 @@
 | 0.20.1 | 32.0.0-apache | Added priorityClassName - thx @JimCronqvist |
 | 0.20.2 | 32.0.1-apache | Upgraded to Nextcloud 32.0.1 |
 | 0.20.3 | 32.0.2-apache | Upgraded to Nextcloud 32.0.2 |
+| 0.20.4 | 32.0.3-apache | Upgraded to Nextcloud 32.0.3 |
 | | | |
