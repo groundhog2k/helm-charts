@@ -109,4 +109,5 @@
 | 0.7.4 | 8.0.14 | Upgraded to MongoDB 8.0.14 |
 | 0.7.5 | 8.0.14 | Added priorityClassName - thx @JimCronqvist |
 | 0.7.6 | 8.0.16 | Upgraded to MongoDB 8.0.16 |
+| 0.7.7 | 8.0.16 | Added support for persistentVolumeClaimRetentionPolicy |
 | | | |

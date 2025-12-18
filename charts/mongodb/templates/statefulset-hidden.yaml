@@ -14,6 +14,10 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.storage.persistentVolumeClaimRetentionPolicy }}
+  persistentVolumeClaimRetentionPolicy:
+    {{- toYaml .Values.storage.persistentVolumeClaimRetentionPolicy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
@@ -26,8 +30,8 @@ spec:
   {{- if .Values.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- end }}
-  updateStrategy: 
-    type: {{ .Values.updateStrategyType }}  
+  updateStrategy:
+    type: {{ .Values.updateStrategyType }}
   template:
     metadata:
       annotations:
@@ -120,7 +124,7 @@ spec:
             - --config
             - /etc/mongo/custom.conf
             {{- if .Values.replicaSet.enabled }}
-            - --replSet 
+            - --replSet
             - {{ .Values.replicaSet.name | quote }}
             - --keyFile
             - "/replicaset/keyfile"
@@ -145,7 +149,7 @@ spec:
             timeoutSeconds: {{ .timeoutSeconds }}
             failureThreshold: {{ .failureThreshold }}
             successThreshold: {{ .successThreshold }}
-            periodSeconds: {{ .periodSeconds }}                
+            periodSeconds: {{ .periodSeconds }}
           {{- end }}
           {{- end }}
           {{- end }}
