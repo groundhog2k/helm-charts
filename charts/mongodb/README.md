@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.7.6](https://img.shields.io/badge/Version-0.7.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.16](https://img.shields.io/badge/AppVersion-8.0.16-informational?style=flat-square)
+![Version: 0.7.7](https://img.shields.io/badge/Version-0.7.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.16](https://img.shields.io/badge/AppVersion-8.0.16-informational?style=flat-square)
 
 ## Changelog
 
@@ -118,6 +118,7 @@ The policyTypes will be automatically set
 |-----|------|---------|-------------|
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| storage.persistentVolumeClaimRetentionPolicy | object | `nil` | Persistent volume claim retention policy (only applies when `useDeployment: false`) |
 | storage.volumeName | string | `"mongodb-volume"` | Internal volume name and prefix of a created PVC |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | storage.className | string | `nil` | Storage class name |
@@ -170,6 +171,7 @@ The policyTypes will be automatically set
 | replicaSet.arbiter.affinity | object | `{}` | Pod affinity |
 | replicaSet.arbiter.storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | replicaSet.arbiter.storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
+| replicaSet.arbiter.storage.persistentVolumeClaimRetentionPolicy | object | `nil` | Persistent volume claim retention policy |
 | replicaSet.arbiter.storage.volumeName | string | `"mongodb-arbiter-volume"` | Internal volume name and prefix of a created PVC |
 | replicaSet.arbiter.storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
 | replicaSet.arbiter.storage.className | string | `nil` | Storage class name |
