@@ -105,4 +105,5 @@
 | 0.14.0 | 1.25.0 | Updated to Gitea 1.25.0 |
 | 0.14.1 | 1.25.1 | Updated to Gitea 1.25.1 |
 | 0.14.2 | 1.25.2 | Updated to Gitea 1.25.2 |
+| 0.14.3 | 1.25.3 | Updated to Gitea 1.25.3 |
 | | | |
