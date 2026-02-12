@@ -20,6 +20,7 @@
 | 2.1.4 | 8.1.3 | Updated to Valkey 8.1.3, redis_exporter 1.77.0 |
 | 2.1.5 | 8.1.4 | Updated to Valkey 8.1.4 |
 | 2.1.6 | 8.1.4 | Added priorityClassName - thx @JimCronqvist |
+| 2.1.7 | 8.1.5 | Updated to Valkey 8.1.5 |
 | 2.2.0 | 9.0.0 | Updated to Valkey 9.0.0 |
 | 2.2.1 | 9.0.0 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | 2.2.2 | 9.0.0 | Fixed DNS name resolution problem during failover - thx @pschiffe |
