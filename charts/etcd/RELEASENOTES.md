@@ -27,4 +27,5 @@
 | 1.1.2 | v3.6.4 | Added ability to set automountServiceAccountToken - thx @krizzpiBiGdirekt |
 | 1.1.3 | v3.6.4 | Added priorityClassName - thx @JimCronqvist |
 | 1.1.4 | v3.6.6 | Upgraded etcd to v3.6.6 |
+| 1.1.5 | v3.6.7 | Upgraded etcd to v3.6.7 |
 | | | |
