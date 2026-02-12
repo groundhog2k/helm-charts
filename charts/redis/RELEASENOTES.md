@@ -98,4 +98,5 @@
 | 2.2.0 | 8.4.0 | Upgraded to Redis 8.4.0 |
 | 2.2.1 | 8.4.0 | Added support for persistentVolumeClaimRetentionPolicy |
 | 2.2.2 | 8.4.1 | Upgraded to Redis 8.4.1 |
+| 2.3.0 | 8.6.0 | Upgraded to Redis 8.6.0 |
 | | | |
