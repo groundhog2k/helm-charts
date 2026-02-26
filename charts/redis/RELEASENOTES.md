@@ -79,6 +79,7 @@
 | 1.3.7 | 7.4.5 | Upgraded to Redis 7.4.5, redis_exporter 1.77.0 |
 | 1.3.8 | 7.4.6 | Upgraded to Redis 7.4.6 |
 | 1.3.9 | 7.4.7 | Upgraded to Redis 7.4.7 |
+| 1.3.10 | 7.4.8 | Upgraded to Redis 7.4.8 |
 | 2.0.0 | 8.0.0 | Upgraded to Redis 8.0.0 |
 | 2.0.1 | 8.0.1 | Upgraded to Redis 8.0.1 |
 | 2.0.2 | 8.0.2 | Upgraded to Redis 8.0.2 |
