@@ -15,7 +15,7 @@ keywords:
 icon: https://valkey.io/img/Valkey-logo.svg
 
 # This is the chart version
-version: "1.0.7"
+version: "2.0.4"
 
 # This is the version number of the application being deployed.
-appVersion: "7.2.12"
+appVersion: "8.0.7"
