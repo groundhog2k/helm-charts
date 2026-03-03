@@ -330,4 +330,5 @@
 | 0.185.0 | 6.19.1 | Upgraded to Ghost 6.19.1 |
 | 0.185.1 | 6.19.2 | Upgraded to Ghost 6.19.2 |
 | 0.185.2 | 6.19.3 | Upgraded to Ghost 6.19.3 |
+| 0.185.3 | 6.19.4 | Upgraded to Ghost 6.19.4 |
 | | | |
