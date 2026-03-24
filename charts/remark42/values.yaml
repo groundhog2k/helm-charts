@@ -252,11 +252,14 @@ settings:
     ## SMTP host
     host:
 
-    ## SMTP port (default: 465)
-    port: 465
+    ## SMTP port (default: 25, should be 465 for tls and 587 for starttls)
+    port: 25
 
     ## Enable SMTP TLS
-    tls: true
+    tls: false
+
+    ## Enable SMTP StartTLS
+    starttls: false
 
     ## SMTP user name
     name:
