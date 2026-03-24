@@ -258,6 +258,9 @@ settings:
     ## Enable SMTP TLS
     tls: true
 
+    ## Enable SMTP StartTLS
+    starttls: true
+
     ## SMTP user name
     name:
 

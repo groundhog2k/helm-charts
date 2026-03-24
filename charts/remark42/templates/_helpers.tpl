@@ -94,6 +94,8 @@ Commento settings via environment variables
   value: {{ .port | quote }}
 - name: SMTP_TLS
   value: {{ .tls | quote }}
+- name: SMTP_STARTTLS
+  value: {{ .starttls | quote }}
 - name: SMTP_TIMEOUT
   value: {{ .timeout | quote }}
   {{- end }}
