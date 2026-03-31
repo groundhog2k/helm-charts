@@ -28,4 +28,5 @@
 | 1.1.3 | v3.6.4 | Added priorityClassName - thx @JimCronqvist |
 | 1.1.4 | v3.6.6 | Upgraded etcd to v3.6.6 |
 | 1.1.5 | v3.6.7 | Upgraded etcd to v3.6.7 |
+| 1.1.6 | v3.6.9 | Upgraded etcd to v3.6.9 |
 | | | |
