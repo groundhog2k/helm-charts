@@ -107,4 +107,5 @@
 | 0.12.0 | 7.0.0 | Updated chart for Graylog 7.0.0 |
 | 0.12.1 | 7.0.1 | Updated chart for Graylog 7.0.1 |
 | 0.12.2 | 7.0.4 | Updated chart for Graylog 7.0.4 |
+| 0.12.3 | 7.0.5 | Updated chart for Graylog 7.0.5 |
 | | | |
