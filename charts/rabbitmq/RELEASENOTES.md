@@ -160,4 +160,5 @@
 | 2.2.5 | 4.2.4 | Upgraded to RabbitMQ 4.2.4 |
 | 2.2.6 | 4.2.5 | Upgraded to RabbitMQ 4.2.5 |
 | 2.2.7 | 4.2.6 | Upgraded to RabbitMQ 4.2.6 |
+| 2.3.0 | 4.3.0 | Upgraded to RabbitMQ 4.3.0 |
 | | | |
