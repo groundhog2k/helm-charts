@@ -10410,6 +10410,31 @@ entries:
     version: 0.1.0
   gitea:
   - apiVersion: v2
+    appVersion: 1.26.1
+    created: "2026-04-27T12:26:20.912763398Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.28
+    - condition: postgres.enabled
+      name: postgres
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.2.26
+    - condition: redis.enabled
+      name: redis
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.14
+    description: A Helm chart for Gitea on Kubernetes
+    digest: 2b4e35260e02c4ae906235d087966572d96b2215274815e68c17fef498a903b7
+    maintainers:
+    - name: groundhog2k
+    name: gitea
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/gitea-0.15.1/gitea-0.15.1.tgz
+    version: 0.15.1
+  - apiVersion: v2
     appVersion: 1.26.0
     created: "2026-04-20T08:52:24.633466279Z"
     dependencies:
@@ -35552,4 +35577,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-23T10:55:53.533879132Z"
+generated: "2026-04-27T12:26:20.915530871Z"
