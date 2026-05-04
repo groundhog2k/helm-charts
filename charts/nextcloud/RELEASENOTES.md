@@ -104,4 +104,5 @@
 | 0.21.0 | 33.0.0-apache | Upgraded to Nextcloud 33.0.0 |
 | 0.21.1 | 33.0.1-apache | Upgraded to Nextcloud 33.0.1 |
 | 0.21.2 | 33.0.2-apache | Upgraded to Nextcloud 33.0.2 |
+| 0.21.3 | 33.0.3-apache | Upgraded to Nextcloud 33.0.3 |
 | | | |
