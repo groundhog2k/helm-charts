@@ -102,6 +102,7 @@
 | 2.1.8 | 8.2.3 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | 2.1.9 | 8.2.3 | Fixed DNS name resolution problem during failover - thx @pschiffe |
 | 2.1.10 | 8.2.5 | Upgraded to Redis 8.2.5 |
+| 2.1.11 | 8.2.6 | Upgraded to Redis 8.2.6 |
 | 2.2.0 | 8.4.0 | Upgraded to Redis 8.4.0 |
 | 2.2.1 | 8.4.0 | Added support for persistentVolumeClaimRetentionPolicy |
 | 2.2.2 | 8.4.1 | Upgraded to Redis 8.4.1 |
