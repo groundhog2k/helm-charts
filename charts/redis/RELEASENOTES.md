@@ -58,6 +58,7 @@
 | 1.0.4 | 6.2.18 | Upgraded to Redis 6.2.18 |
 | 1.0.5 | 6.2.19 | Upgraded to Redis 6.2.19 |
 | 1.0.6 | 6.2.21 | Upgraded to Redis 6.2.21 |
+| 1.0.7 | 6.2.22 | Upgraded to Redis 6.2.22 |
 | 1.1.0 | 7.0.15 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.0 | 7.2.4 | Final version with configuration secret, extra config and extra volume support |
 | 1.2.1 | 7.2.5 | Upgraded to Redis 7.2.4 |
@@ -69,6 +70,7 @@
 | 1.2.7 | 7.2.11 | Upgraded to Redis 7.2.11 |
 | 1.2.8 | 7.2.12 | Upgraded to Redis 7.2.12 |
 | 1.2.9 | 7.2.13 | Upgraded to Redis 7.2.13 |
+| 1.2.10 | 7.2.14 | Upgraded to Redis 7.2.14 |
 | 1.3.0 | 7.4.0 | Upgraded to Redis 7.4.0 |
 | 1.3.1 | 7.4.0 | Updated metrics exporter to v1.62.0 |
 | 1.3.2 | 7.4.1 | Upgraded to Redis 7.4.1 |
@@ -80,6 +82,7 @@
 | 1.3.8 | 7.4.6 | Upgraded to Redis 7.4.6 |
 | 1.3.9 | 7.4.7 | Upgraded to Redis 7.4.7 |
 | 1.3.10 | 7.4.8 | Upgraded to Redis 7.4.8 |
+| 1.3.11 | 7.4.9 | Upgraded to Redis 7.4.9 |
 | 2.0.0 | 8.0.0 | Upgraded to Redis 8.0.0 |
 | 2.0.1 | 8.0.1 | Upgraded to Redis 8.0.1 |
 | 2.0.2 | 8.0.2 | Upgraded to Redis 8.0.2 |
@@ -99,10 +102,12 @@
 | 2.1.8 | 8.2.3 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | 2.1.9 | 8.2.3 | Fixed DNS name resolution problem during failover - thx @pschiffe |
 | 2.1.10 | 8.2.5 | Upgraded to Redis 8.2.5 |
+| 2.1.11 | 8.2.6 | Upgraded to Redis 8.2.6 |
 | 2.2.0 | 8.4.0 | Upgraded to Redis 8.4.0 |
 | 2.2.1 | 8.4.0 | Added support for persistentVolumeClaimRetentionPolicy |
 | 2.2.2 | 8.4.1 | Upgraded to Redis 8.4.1 |
 | 2.2.3 | 8.4.2 | Upgraded to Redis 8.4.2 |
+| 2.2.4 | 8.4.3 | Upgraded to Redis 8.4.3 |
 | 2.3.0 | 8.6.0 | Upgraded to Redis 8.6.0 |
 | 2.3.1 | 8.6.1 | Upgraded to Redis 8.6.1 |
 | 2.3.2 | 8.6.2 | Upgraded to Redis 8.6.2 |
