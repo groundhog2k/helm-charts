@@ -38,3 +38,4 @@
 | 0.8.2         | v1.14.0     | Added priorityClassName - thx @JimCronqvist                              |
 | 0.9.0         | v1.15.0     | Upgraded to Remark42 v1.15.0 and chart dependency redis 2.2.1            |
 | 0.10.0        | v1.15.0     | Added support for SMTP STARTTLS, changed SMTP default settings           |
+| 0.11.0        | v1.16.0     | Upgraded to Remark42 v1.16.0 and chart dependency redis 2.3.3            |
