@@ -95,7 +95,8 @@ spec:
                 - endpoint 
                 - health
                 {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
-                - --insecure-skip-tls-verify=true --insecure-transport=false
+                - --insecure-skip-tls-verify=true
+                - --insecure-transport=false
                 {{- end }}
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -118,7 +119,8 @@ spec:
                 - endpoint 
                 - health
                 {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
-                - --insecure-skip-tls-verify=true --insecure-transport=false
+                - --insecure-skip-tls-verify=true
+                - --insecure-transport=false
                 {{- end }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -141,7 +143,8 @@ spec:
                 - endpoint 
                 - health
                 {{- if (or .Values.settings.https.enabled .Values.settings.https.autoTls) }}
-                - --insecure-skip-tls-verify=true --insecure-transport=false
+                - --insecure-skip-tls-verify=true
+                - --insecure-transport=false
                 {{- end }}
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
