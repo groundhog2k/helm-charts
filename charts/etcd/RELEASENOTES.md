@@ -30,4 +30,5 @@
 | 1.1.5 | v3.6.7 | Upgraded etcd to v3.6.7 |
 | 1.1.6 | v3.6.9 | Upgraded etcd to v3.6.9 |
 | 1.1.7 | v3.6.9 | Fixed insecure parameters - thx @oleksiialeksieiev |
+| 1.1.8 | v3.6.11 | Upgraded etcd to v3.6.11 |
 | | | |
