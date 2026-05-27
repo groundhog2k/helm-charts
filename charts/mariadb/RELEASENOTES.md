@@ -131,4 +131,5 @@
 | 4.4.5 | 11.8.5 (LTS) | Upgraded MariaDB to 11.8.5 |
 | 4.4.6 | 11.8.5 (LTS) | Added support for persistentVolumeClaimRetentionPolicy |
 | 4.4.7 | 11.8.6 (LTS) | Upgraded MariaDB to 11.8.6 |
+| 4.4.8 | 11.8.7 (LTS) | Upgraded MariaDB to 11.8.7 |
 | | | |
