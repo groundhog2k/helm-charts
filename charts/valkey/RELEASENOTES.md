@@ -33,4 +33,5 @@
 | 2.2.3 | 9.0.0 | Added support for persistentVolumeClaimRetentionPolicy |
 | 2.2.4 | 9.0.2 | Updated to Valkey 9.0.2 |
 | 2.2.5 | 9.0.3 | Updated to Valkey 9.0.3 |
+| 2.2.6 | 9.0.4 | Updated to Valkey 9.0.4, redis_exporter 1.84.0 |
 | | | |
