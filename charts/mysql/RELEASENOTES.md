@@ -42,4 +42,5 @@
 | 3.0.8 | 8.4.7 (LTS) | Added support for persistentVolumeClaimRetentionPolicy |
 | 3.0.9 | 8.4.8 (LTS) | Upgraded MySQL to 8.4.8 |
 | 3.0.10 | 8.4.9 (LTS) | Upgraded MySQL to 8.4.9 |
+| 3.1.0 | 8.7.0 (LTS) | Upgraded MySQL to 9.7.0 |
 | | | |
