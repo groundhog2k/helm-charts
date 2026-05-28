@@ -110,6 +110,7 @@
 | 1.5.11 | 17.6 | Fixed script for user database creation - thx @maeln0r |
 | 1.5.12 | 17.7 | Upgraded to Postgres 17.7 |
 | 1.5.13 | 17.9 | Upgraded to Postgres 17.9 |
+| 1.5.14 | 17.10 | Upgraded to Postgres 17.10 |
 | 1.6.0 | 18.1 | Upgraded to Postgres 18.1 |
 | 1.6.1 | 18.1 | Added support for persistentVolumeClaimRetentionPolicy |
 | 1.6.2 | 18.3 | Upgraded to Postgres 18.3 |
