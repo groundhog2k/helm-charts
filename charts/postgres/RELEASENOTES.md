@@ -115,4 +115,5 @@
 | 1.6.1 | 18.1 | Added support for persistentVolumeClaimRetentionPolicy |
 | 1.6.2 | 18.3 | Upgraded to Postgres 18.3 |
 | 1.6.3 | 18.3 | Fixed database creation when using hyphens in names - thx @Foxite |
+| 1.6.4 | 18.4 | Upgraded to Postgres 18.4 |
 | | | |

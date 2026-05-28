@@ -12,7 +12,7 @@ keywords:
   - database
   - postgres
 
-version: "1.5.14"
+version: "1.6.4"
 
-appVersion: "17.10"
+appVersion: "18.4"
 icon: https://www.postgresql.org/media/img/about/press/elephant64.png
