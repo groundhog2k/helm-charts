@@ -129,14 +129,10 @@ Graylog settings via environment variables
 - name: GRAYLOG_TRANSPORT_EMAIL_USE_AUTH
   value: {{ .Values.settings.smtp.useAuth | quote }}
 {{- end }}
-{{- if .Values.settings.smtp.useTls }}
 - name: GRAYLOG_TRANSPORT_EMAIL_USE_TLS
   value: {{ .Values.settings.smtp.useTls | quote }}
-{{- end }}
-{{- if .Values.settings.smtp.useSsl }}
 - name: GRAYLOG_TRANSPORT_EMAIL_USE_SSL
   value: {{ .Values.settings.smtp.useSsl | quote }}
-{{- end }}
 {{- if .Values.settings.smtp.subjectPrefix }}
 - name: GRAYLOG_TRANSPORT_EMAIL_SUBJECT_PREFIX
   value: {{ .Values.settings.smtp.subjectPrefix | quote }}
