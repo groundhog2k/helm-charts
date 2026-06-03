@@ -39,12 +39,19 @@ data:
     rabbitmqctl force_boot
     {{- end }}
     {{- if .Values.clustering.rebalance }}
-    until rabbitmqctl cluster_status >/dev/null; do
-      echo "PostStart: Waiting for cluster readiness..." >/proc/1/fd/1
-      sleep 5
-    done
-    echo "PostStart: Rebalancing all queues.." >/proc/1/fd/1
-    rabbitmq-queues rebalance "all" >/proc/1/fd/1
+    until rabbitmqctl cluster_status >/dev/null; do                                             
+      echo "PostStart: Waiting for cluster readiness..." >/proc/1/fd/1                          
+      sleep 5                                                                                   
+    done                                                                                        
+    echo "PostStart: Rebalancing all queues.." >/proc/1/fd/1                                    
+    until rabbitmq-diagnostics check_if_new_quorum_queue_replicas_have_finished_initial_sync; do
+      echo "PostStart: Waiting for replica sync..." >/proc/1/fd/1                               
+      sleep 5                                                                                   
+    done                                                                                        
+    until rabbitmq-queues rebalance "all" >/proc/1/fd/1 2>&1; do                                
+      echo "PostStart: Rebalance not ready, retrying in 10s..." >/proc/1/fd/1                   
+      sleep 10                                                                                  
+    done                                                                                        
     {{- end }}
   shutdown.sh: |
     {{- if and (.Values.terminationGracePeriodSeconds) (gt (int .Values.terminationGracePeriodSeconds) 10) }}
