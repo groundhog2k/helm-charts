@@ -111,4 +111,5 @@
 | 0.12.4 | 7.0.6 | Updated chart for Graylog 7.0.6 |
 | 0.13.0 | 7.1.2 | Updated chart for Graylog 7.1.2 |
 | 0.13.1 | 7.1.2 | Fixed useTls vs. useSSl default setting - thx @MMGeri |
+| 0.13.2 | 7.1.3 | Updated chart for Graylog 7.1.3 |
 | | | |
