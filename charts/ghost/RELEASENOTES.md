@@ -352,4 +352,5 @@
 | 0.202.0 | 6.41.1 | Upgraded to Ghost 6.41.1 |
 | 0.203.0 | 6.42.0 | Upgraded to Ghost 6.42.0 |
 | 0.204.0 | 6.43.1 | Upgraded to Ghost 6.43.1 |
+| 0.205.0 | 6.44.0 | Upgraded to Ghost 6.44.0 |
 | | | |
