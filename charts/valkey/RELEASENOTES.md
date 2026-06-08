@@ -27,6 +27,7 @@
 | 2.1.7 | 8.1.5 | Updated to Valkey 8.1.5 |
 | 2.1.8 | 8.1.6 | Updated to Valkey 8.1.6 |
 | 2.1.9 | 8.1.7 | Updated to Valkey 8.1.7, redis_exporter 1.84.0 |
+| 2.1.10 | 8.1.8 | Updated to Valkey 8.1.8 |
 | 2.2.0 | 9.0.0 | Updated to Valkey 9.0.0 |
 | 2.2.1 | 9.0.0 | Implemented support for Alpine container image version - thx @martins-ricardo |
 | 2.2.2 | 9.0.0 | Fixed DNS name resolution problem during failover - thx @pschiffe |
