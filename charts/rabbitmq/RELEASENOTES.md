@@ -161,6 +161,7 @@
 | 2.2.6 | 4.2.5 | Upgraded to RabbitMQ 4.2.5 |
 | 2.2.7 | 4.2.6 | Upgraded to RabbitMQ 4.2.6 |
 | 2.2.8 | 4.2.7 | Upgraded to RabbitMQ 4.2.7 |
+| 2.2.9 | 4.2.8 | Upgraded to RabbitMQ 4.2.8 |
 | 2.3.0 | 4.3.0 | Upgraded to RabbitMQ 4.3.0 |
 | 2.3.1 | 4.3.1 | Upgraded to RabbitMQ 4.3.1 |
 | 2.3.2 | 4.3.1 | Updated rebalance logic - thx @Tehacz |
