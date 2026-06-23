@@ -355,4 +355,5 @@
 | 0.205.0 | 6.44.0 | Upgraded to Ghost 6.44.0 |
 | 0.205.1 | 6.44.1 | Upgraded to Ghost 6.44.1 |
 | 0.206.0 | 6.45.0 | Upgraded to Ghost 6.45.0 |
+| 0.207.0 | 6.46.0 | Upgraded to Ghost 6.46.0 |
 | | | |
