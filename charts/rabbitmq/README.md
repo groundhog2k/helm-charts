@@ -1,7 +1,6 @@
 # RabbitMQ
 
-![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.2](https://img.shields.io/badge/AppVersion-4.3.2-informational?style=flat-square)
-
+![Version: 2.3.4](https://img.shields.io/badge/Version-2.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 4.3.2](https://img.shields.io/badge/AppVersion-4.3.2-informational?style=flat-square)
 
 A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 
@@ -10,6 +9,7 @@ A Helm chart for a RabbitMQ HA-cluster on Kubernetes
 see [RELEASENOTES.md](RELEASENOTES.md)
 
 ### ⚠️ Please make sure all feature flags are enabled before upgrading to RabbitMQ 3.12.x / 3.13.x / 4.x
+
 ### ⚠️ Disable mirroring for classic queues before upgrading to RabbitMQ 4.x
 
 ## TL;DR
@@ -50,14 +50,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"rabbitmq"` | Image name |
@@ -98,7 +98,7 @@ helm uninstall my-release
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | replicaCount | int | `1` | Number of replicas |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -106,15 +106,15 @@ helm uninstall my-release
 ## Service parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.amqp.port | int | `5672` | AMQP service port |
-| service.amqp.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
+| service.amqp.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.amqps.port | int | `5671` | Secure AMQP service port |
-| service.amqps.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
+| service.amqps.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.mgmt.port | int | `15672` | Management UI service port |
 | service.mgmt.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.prometheus.port | int | `15692` | Prometheus service port |
@@ -132,7 +132,7 @@ helm uninstall my-release
 Section to define custom services
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraServices[].name | string | `nil` | Unique name of the input service |
 | extraServices[].type | string | `nil` | Service type (ClusterIP / NodePort / LoadBalancer) |
 | extraServices[].protocol | string | `nil` | Protocol type (TCP / UDP) |
@@ -148,7 +148,7 @@ Section to define custom services
 ## Service monitor parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | serviceMonitor.enabled | bool | `false` | Enable service monitor |
 | serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
 | serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
@@ -168,7 +168,7 @@ Section to define custom services
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"rabbitmq-volume"` | Internal volume name |
@@ -184,7 +184,7 @@ Section to define custom services
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | ingress.enabled | bool | `false` | Enable ingress for the Management UI service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
@@ -194,20 +194,41 @@ Section to define custom services
 | ingress.hosts[0].host.paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type (ImplementationSpecific, Prefix, Exact) |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 
+## HTTPRoute parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Management UI service |
+| httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
+| httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required) |
+| httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
+| httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Management UI service |
+
+## ListenerSet parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
+| listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
+| listenerSet.labels | object | `{}` | Additional ListenerSet labels |
+| listenerSet.parentRef | object | `{}` | Gateway parent reference (required) |
+| listenerSet.listeners | list | `[]` | Listeners to attach to the parent Gateway |
+
 ## Network policies
 
 Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## RabbitMQ base parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | clusterDomain | string | `"cluster.local"` | Kubernetes cluster domain (DNS) suffix |
 | plugins | list | `[]` | List of additional RabbitMQ plugins that should be activated (see: [RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)) |
 | authentication.existingSecret | string | `nil` | Optional existing secret for the authentication parameters |
@@ -224,7 +245,7 @@ The policyTypes will be automatically set
 ## RabbitMQ memory parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | options.memoryHighWatermark.enabled | bool | `false` | Enables high memory watermark configuration |
 | options.memoryHighWatermark.type | string | `"relative"` | Type of watermark value (relative or absolute) |
 | options.memoryHighWatermark.value | float | `0.4` | Watermark value (default: 40%) |
@@ -235,7 +256,7 @@ The policyTypes will be automatically set
 ## RabbitMQ communication and SSL parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | options.tcp.port | int | `5672` | AMQP tcp port |
 | options.ssl.enabled | bool | `false` | Enable secure AMQP (amqps) (see `values.yaml` for more details) |
 | options.ssl.port | int | `5671` | AMQPS tcp port |
@@ -250,7 +271,7 @@ The policyTypes will be automatically set
 ## RabbitMQ plugin base parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | managementPlugin.enabled | bool | `true` | Enable management UI plugin with default configuration |
 | managementPlugin.tcp.port | int | `15672` | Management UI port |
 | prometheusPlugin.enabled | bool | `false` | Enable prometheus monitoring plugin with default configuration |
@@ -261,7 +282,7 @@ The policyTypes will be automatically set
 ## RabbitMQ custom configuration parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | customConfig | string | `nil` | Custom inline configuration entries for rabbitmq.conf (see [RabbitMQ config](https://www.rabbitmq.com/configure.html#config-file)) |
 | extraSecretConfigs | string | `nil` | An existing secret with files that will be added to the `rabbitmq.conf` |
 | customAdvancedConfig | string | `nil` | Custom inline advanced configuration entries for advanced.config (see [RabbitMQ advanced config](https://www.rabbitmq.com/configure.html#advanced-config-file)) |
