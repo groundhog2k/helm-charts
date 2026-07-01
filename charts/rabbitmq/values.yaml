@@ -37,6 +37,7 @@ podLabels: {}
 
 ## Pod security options
 podSecurityContext:
+  fsGroupChangePolicy: "OnRootMismatch"
   fsGroup: 999
   supplementalGroups:
     - 999
@@ -224,7 +225,7 @@ httpRoute:
   ## Additional HTTPRoute labels
   labels: {}
 
-  ## Gateway parent references
+  ## Gateway parent references (required when httpRoute.enabled is true and listenerSet.enabled is false)
   parentRefs: []
     # - name: gateway
     #   namespace: default
@@ -253,7 +254,7 @@ listenerSet:
   ## Additional ListenerSet labels
   labels: {}
 
-  ## Gateway parent reference
+  ## Gateway parent reference (required when listenerSet.enabled is true)
   parentRef: {}
     # name: gateway
     # namespace: default

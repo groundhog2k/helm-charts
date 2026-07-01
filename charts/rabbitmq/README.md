@@ -201,7 +201,7 @@ Section to define custom services
 | httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Management UI service |
 | httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
 | httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
-| httpRoute.parentRefs | list | `[]` | Gateway parent references (required) |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
 | httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
 | httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Management UI service |
 

@@ -17,9 +17,17 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- $_ := required "httpRoute.parentRefs is required when httpRoute.enabled is true" .parentRefs }}
   parentRefs:
+  {{- if and $.Values.listenerSet.enabled (empty .parentRefs) }}
+    - name: {{ include "rabbitmq.fullname" $ }}
+      group: gateway.networking.k8s.io
+      kind: ListenerSet
+  {{- else }}
+    {{- if empty .parentRefs }}
+      {{- fail "httpRoute.parentRefs is required when httpRoute.enabled is true and listenerSet.enabled is false" }}
+    {{- end }}
     {{- toYaml .parentRefs | nindent 4 }}
+  {{- end }}
   {{- with .hostnames }}
   hostnames:
     {{- range . }}
