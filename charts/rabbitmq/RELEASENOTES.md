@@ -166,4 +166,5 @@
 | 2.3.1 | 4.3.1 | Upgraded to RabbitMQ 4.3.1 |
 | 2.3.2 | 4.3.1 | Updated rebalance logic - thx @Tehacz |
 | 2.3.3 | 4.3.2 | Upgraded to RabbitMQ 4.3.2 |
+| 2.3.4 | 4.3.2 | Added Gateway API HTTPRoute und ListenerSet support |
 | | | |
