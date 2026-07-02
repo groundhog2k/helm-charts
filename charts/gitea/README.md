@@ -1,6 +1,6 @@
 # Gitea
 
-![Version: 0.15.4](https://img.shields.io/badge/Version-0.15.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.26.4](https://img.shields.io/badge/AppVersion-1.26.4-informational?style=flat-square)
+![Version: 0.15.5](https://img.shields.io/badge/Version-0.15.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.26.4](https://img.shields.io/badge/AppVersion-1.26.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -46,7 +46,7 @@ helm uninstall my-release
 ## Requirements
 
 | Repository | Name | Version |
-|------------|------|---------|
+| --- | --- | --- |
 | @groundhog2k | mariadb | 0.2.28 |
 | @groundhog2k | postgres | 0.2.26 |
 | @groundhog2k | redis | 0.6.14 |
@@ -54,14 +54,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"gitea/gitea"` | Image name |
@@ -98,7 +98,7 @@ helm uninstall my-release
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | services.http.type | string | `"ClusterIP"` | Service type |
 | services.http.port | int | `80` | Gitea HTTP service port |
 | services.http.nodePort | int | `nil` | Gitea HTTP NodePort (only relevant for type LoadBalancer or NodePort) |
@@ -119,7 +119,7 @@ helm uninstall my-release
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | ingress.enabled | bool | `false` | Enable ingress for Gitea service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
@@ -136,7 +136,6 @@ helm uninstall my-release
 | --- | --- | --- | --- |
 | httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Management UI service |
 | httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
-| httpRoute.maxBodySize | string | `"64m"` | Maximum body size for post requests |
 | httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
 | httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
 | httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
@@ -158,14 +157,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis session cache
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | externalCache.enabled | bool | `false` | Enable external Redis cache |
 | externalCache.host | string | `nil` | External Redis host and port (host:port) |
 | redis.enabled | bool | `false` | Enable Redis cache deployment (will disable external cache settings) |
@@ -176,7 +175,7 @@ The policyTypes will be automatically set
 ## Database settings
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | fallbackToSqlite | bool | `true` | Falls back to internal SQLite when no database is configured |
 | externalDatabase.enabled | bool | `false` | Enable usage of external database |
 | externalDatabase.type | string | `nil` | External database type ("mysql", "postgres" are supported) |
@@ -205,7 +204,7 @@ The policyTypes will be automatically set
 ## Gitea parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | settings.postInstallDelay | int | `60` | Delay after installation before adminstrative user gets created (Database must be ready and connected) |
 | settings.defaultAdmin.name | string | `root` | Gitea administrator user |
 | settings.defaultAdmin.password | string | `admin` | Gitea admin user password (Must be changed during first login) |
@@ -215,7 +214,7 @@ The policyTypes will be automatically set
 It's recommended to set the following Gitea configuration parameters:
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | gitea.config.server.LFS_JWT_SECRET | string | `nil` |  LFS authentication secret, must be unique string |
 | gitea.config.security.SECRET_KEY | string | `nil` | Global secret key |
 | gitea.config.security.INTERNAL_TOKEN | string | `nil` | Secret used to validate communication within Gitea binary |
@@ -224,7 +223,7 @@ It's recommended to set the following Gitea configuration parameters:
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- |
 | storage | object | `{}` | Gitea data storage |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |

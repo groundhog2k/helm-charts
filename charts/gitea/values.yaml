@@ -124,9 +124,6 @@ httpRoute:
   ## Additional HTTPRoute annotations
   annotations: {}
 
-  ## Maximal body size (default: 64m - increase if uploads to gitea failing)
-  maxBodySize: 64m
-
   ## Additional HTTPRoute labels
   labels: {}
 
