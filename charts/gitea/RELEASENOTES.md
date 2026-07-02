@@ -112,4 +112,5 @@
 | 0.15.1 | 1.26.1 | Updated to Gitea 1.26.1 |
 | 0.15.2 | 1.26.2 | Updated to Gitea 1.26.2 |
 | 0.15.3 | 1.26.4 | Updated to Gitea 1.26.4 |
+| 0.15.4 | 1.26.4 | Added Gateway API HTTPRoute und ListenerSet support |
 | | | |
