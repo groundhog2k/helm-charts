@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.21.5](https://img.shields.io/badge/Version-0.21.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 33.0.5-apache](https://img.shields.io/badge/AppVersion-33.0.5-informational?style=flat-square)
+![Version: 0.21.6](https://img.shields.io/badge/Version-0.21.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 33.0.5-apache](https://img.shields.io/badge/AppVersion-33.0.5-informational?style=flat-square)
 
 ## Changelog
 
@@ -183,8 +183,29 @@ helm uninstall my-release
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
 | ingress.hosts[0].host | string | `""` | Hostname for the ingress endpoint |
-| ingress.labels | object | `{}` | Additional ingress lables |
+| ingress.labels | object | `{}` | Additional ingress labels |
 | ingress.maxBodySize | string | `"512m"` | Maximum body size for post requests |
+
+## HTTPRoute parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Nextcloud service |
+| httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
+| httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
+| httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
+| httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Nextcloud service |
+
+## ListenerSet parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
+| listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
+| listenerSet.labels | object | `{}` | Additional ListenerSet labels |
+| listenerSet.parentRef | object | `{}` | Gateway parent reference (required) |
+| listenerSet.listeners | list | `[]` | Listeners to attach to the parent Gateway |
 
 ## Network policies
 
