@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.13.2](https://img.shields.io/badge/Version-0.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.1.3](https://img.shields.io/badge/AppVersion-7.1.3-informational?style=flat-square)
+![Version: 0.13.3](https://img.shields.io/badge/Version-0.13.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.1.3](https://img.shields.io/badge/AppVersion-7.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -55,14 +55,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"graylog/graylog"` | Image name |
@@ -98,15 +98,15 @@ helm uninstall my-release
 | podManagementPolicy | string | `OrderedReady` | Pod management policy |
 | updateStrategyType | string | `RollingUpdate` | Update strategy |
 | replicaCount | int | `1` | Number of replicas (Not supported - Don't change in this chart version) |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
 
-## Service paramters
+## Service parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.http | int | `80` | Graylog http service port |
 | service.nodePort | int | `nil` | The http node port (only relevant for type LoadBalancer or NodePort) |
@@ -121,7 +121,7 @@ helm uninstall my-release
 Section to define all additional UDP/TCP inputs for Graylog
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraServices[].name | string | `nil` | Unique name of the input service |
 | extraServices[].type | string | `nil` | Service type (ClusterIP / NodePort / LoadBalancer) |
 | extraServices[].protocol | string | `nil` | Protocol type (TCP / UDP) |
@@ -130,21 +130,42 @@ Section to define all additional UDP/TCP inputs for Graylog
 | extraServices[].nodePort | int | `nil` | The http node port (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | extraServices[].loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
-| extraServices[].loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
+| extraServices[].loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevant for type LoadBalancer) |
 | extraServices[].annotations | object | `{}` | Additional service annotations |
 | extraServices[].labels | object | `{}` | Additional service labels |
 
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| ingress.enabled | bool | `false` | Enable ingress for Gitea service |
+| --- | --- | --- | --- |
+| ingress.enabled | bool | `false` | Enable ingress for Graylog service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
-| ingress.labels | object | `{}` | Additional ingress lables |
+| ingress.labels | object | `{}` | Additional ingress labels |
 | ingress.hosts[].host | string | `nil` | Hostname for the ingress endpoint |
-| ingress.hosts[].host.paths[] | string | `nil` | Path routing for the ingress endpoint host |
+| ingress.hosts[].paths[] | list | `nil` | Path routing for the ingress endpoint host |
 | ingress.tls | list | `[]` | Ingress TLS parameters |
+
+## HTTPRoute parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Graylog service |
+| httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
+| httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
+| httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
+| httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Graylog service |
+
+## ListenerSet parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
+| listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
+| listenerSet.labels | object | `{}` | Additional ListenerSet labels |
+| listenerSet.parentRef | object | `{}` | Gateway parent reference (required) |
+| listenerSet.listeners | list | `[]` | Listeners to attach to the parent Gateway |
 
 ## Network policies
 
@@ -152,43 +173,43 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Database settings
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | externalDatabase.host | string | `nil` | External MongoDB database host |
 | externalDatabase.name | string | `"graylog"` | External database name |
 | externalDatabase.user | string | `nil` | External database user name |
 | externalDatabase.password | string | `nil` | External database user password |
 | mongodb.enabled | bool | `false` | Enable MongoDB deployment (will disable external database settings) |
-| mongodb.settings.rootUsername | string | `admin` | The root username |
-| mongodb.settings.rootPassword | string | `{}` | The root users password |
+| mongodb.settings.rootUsername | string | `"admin"` | The root username |
+| mongodb.settings.rootPassword | string | `""` | The root user password |
 | mongodb.userDatabase | object | `{}` | Optional MongoDB user database |
 | mongodb.userDatabase.name | string | `nil` | Name of the user database |
-| mongodb.userDatabase.user | string | `nil` | User name with full access to user database|
+| mongodb.userDatabase.user | string | `nil` | User name with full access to user database |
 | mongodb.userDatabase.password | string | `nil` | Password of created user |
 | mongodb.storage | object | `see values.yaml` | MongoDB storage settings |
 
 ## MaxMind GeoIP2 database
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | initGeoIPDatabase.enabled | bool | `false` | Enable GeoIP database download |
 | initGeoIPDatabase.accountId | string | `""` | MaxMind UserId / AccountId |
 | initGeoIPDatabase.licenseKey | string | `""` | MaxMind license key |
 | initGeoIPDatabase.editionId | string | `"GeoLite2-City"` | Default database edition id - see [MaxMind page](https://www.maxmind.com/en/accounts/473747/geoip/downloads) |
-| initGeoIPDatabase.host | string | `""` | The MaxMind download host (not necessary to change that - default updates.maxmind.com)|
+| initGeoIPDatabase.host | string | `""` | The MaxMind download host (not necessary to change that - default updates.maxmind.com) |
 | initGeoIPDatabase.proxy | string | `""` | A valid proxy if internet access is running through a proxy |
 | initGeoIPDatabase.proxyUserPassword | string | `""` | Proxy username and password in format "username:password" |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"graylog-volume"` | Internal volume name |
@@ -200,7 +221,7 @@ The policyTypes will be automatically set
 ## Graylog parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.http.externalUri | string | `http://127.0.0.1:9000/` | External URI for Graylog |
 | settings.http.publishUri | string | `nil` | Graylog publish URI |
 | settings.clusterName | string | `singlenode-cluster` | Cluster name |
@@ -230,7 +251,7 @@ Further Graylog parameter can be set via environment variables (see Deployment p
 ## Metrics support parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | metrics.enabled | bool | `false` | Enable metrics support  |
 | metrics.service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
 | metrics.service.servicePort | int | `9833` | Redis metrics exporter service port |
