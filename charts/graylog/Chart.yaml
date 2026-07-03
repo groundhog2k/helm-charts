@@ -9,7 +9,7 @@ maintainers:
 
 version: "0.13.3"
 
-appVersion: "7.1.3"
+appVersion: "7.1.4"
 
 dependencies:
   - name: mongodb

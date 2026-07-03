@@ -2,7 +2,7 @@
 
 | Chart version | App version | Change description |
 | :------------ | :---------- | :----------------- |
-| 0.3.8 | 4.2.5-jre11 | Fixed ingress API detection<br>Implemented startupProbe support |
+| 0.3.8 | 4.2.5-jre11 | Fixed ingress API detection and Implemented startupProbe support |
 | 0.3.9 | 4.2.5-jre11 | Fixed startupProbe |
 | 0.3.10 | 4.2.5-jre11 | Updated chart dependencies |
 | 0.3.11 | 4.2.6-jre11 | Updated chart for Graylog 4.2.6 |
@@ -61,7 +61,7 @@
 | 0.7.2 | 5.2.2 | Updated chart for Graylog 5.2.2 |
 | 0.7.3 | 5.2.2 | Added optional ingressClassName and removed deprecated api support |
 | 0.7.4 | 5.2.2 | Removed elasticsearch dependency and updated mongodb to 0.5.20 |
-| 0.7.5 | 5.2.2 | Refactored ingress configuration and added optional labels and pathType  |
+| 0.7.5 | 5.2.2 | Refactored ingress configuration and added optional labels and pathType |
 | 0.7.6 | 5.2.2 | Added support for network policies and additional labels and annotations |
 | 0.7.7 | 5.2.3 | Updated chart for Graylog 5.2.3 |
 | 0.7.8 | 5.2.4 | Updated chart for Graylog 5.2.4 |
@@ -113,4 +113,5 @@
 | 0.13.1 | 7.1.2 | Fixed useTls vs. useSSl default setting - thx @MMGeri |
 | 0.13.2 | 7.1.3 | Updated chart for Graylog 7.1.3 |
 | 0.13.3 | 7.1.3 | Added support for Gateway API HTTPRoute and ListenerSet |
+| 0.13.4 | 7.1.3 | Fixed documentation |
 | | | |

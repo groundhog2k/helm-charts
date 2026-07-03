@@ -1,6 +1,6 @@
 # Graylog
 
-![Version: 0.13.3](https://img.shields.io/badge/Version-0.13.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.1.3](https://img.shields.io/badge/AppVersion-7.1.3-informational?style=flat-square)
+![Version: 0.13.4](https://img.shields.io/badge/Version-0.13.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.1.3](https://img.shields.io/badge/AppVersion-7.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -49,7 +49,7 @@ helm uninstall my-release
 ## Requirements
 
 | Repository | Name | Version |
-|------------|------|---------|
+| --- | --- | --- |
 | @groundhog2k | mongodb | 0.6.8 |
 
 ## Common parameters
@@ -252,7 +252,7 @@ Further Graylog parameter can be set via environment variables (see Deployment p
 
 | Key | Type | Default | Description |
 | --- | --- | --- | --- |
-| metrics.enabled | bool | `false` | Enable metrics support  |
+| metrics.enabled | bool | `false` | Enable metrics support |
 | metrics.service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
 | metrics.service.servicePort | int | `9833` | Redis metrics exporter service port |
 | metrics.service.containerPort | int | `9833` | Redis metrics exporter container port |
