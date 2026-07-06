@@ -347,7 +347,9 @@ spec:
             claimName: {{ $fullname }}
   {{- else }}
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: {{ .volumeName }}
       {{- with .labels }}
         labels:
