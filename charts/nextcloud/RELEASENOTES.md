@@ -106,6 +106,7 @@
 | 0.21.2 | 33.0.2-apache | Upgraded to Nextcloud 33.0.2 |
 | 0.21.3 | 33.0.3-apache | Upgraded to Nextcloud 33.0.3 |
 | 0.21.4 | 33.0.4-apache | Upgraded to Nextcloud 33.0.4 |
-| 0.21.5 | 33.0.5-apache | Updated chart for Nextcloud 33.0.5 |
-| 0.21.6 | 33.0.5-apache | Added support for Gateway API HTTPRoute and ListenerSet |
+| 0.21.5 | 33.0.5-apache | Upgraded to Nextcloud 33.0.5 |
+| 0.21.6 | 33.0.6-apache | Upgraded to Nextcloud 33.0.6 |
+| 0.21.7 | 33.0.6-apache | Added support for Gateway API HTTPRoute and ListenerSet |
 | | | |
