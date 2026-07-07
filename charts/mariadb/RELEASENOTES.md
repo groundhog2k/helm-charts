@@ -136,5 +136,5 @@
 | 4.4.7 | 11.8.6 (LTS) | Upgraded MariaDB to 11.8.6 |
 | 4.4.8 | 11.8.7 (LTS) | Upgraded MariaDB to 11.8.7 |
 | 4.4.9 | 11.8.8 (LTS) | Upgraded MariaDB to 11.8.8 |
-| 4.5.0 | 12.3.2 (LTS) | Upgraded MariaDB to 12.3.2 |
+| 4.5.1 | 12.3.2 (LTS) | Fixed PVC definition - thx @trandbert37 |
 | | | |
