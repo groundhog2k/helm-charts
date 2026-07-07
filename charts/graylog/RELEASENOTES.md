@@ -114,4 +114,5 @@
 | 0.13.2 | 7.1.3 | Updated chart for Graylog 7.1.3 |
 | 0.13.3 | 7.1.3 | Added support for Gateway API HTTPRoute and ListenerSet |
 | 0.13.4 | 7.1.3 | Fixed documentation |
+| 0.13.5 | 7.1.4 | Updated chart for Graylog 7.1.4, fixed PVC definition - thx @trandbert37 |
 | | | |

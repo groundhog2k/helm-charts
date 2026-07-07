@@ -234,7 +234,9 @@ spec:
         {{- end }}
   {{- else }}
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: {{ .volumeName }}
       {{- with .labels }}
         labels:

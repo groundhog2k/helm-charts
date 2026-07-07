@@ -167,4 +167,5 @@
 | 2.3.2 | 4.3.1 | Updated rebalance logic - thx @Tehacz |
 | 2.3.3 | 4.3.2 | Upgraded to RabbitMQ 4.3.2 |
 | 2.3.4 | 4.3.2 | Added Gateway API HTTPRoute und ListenerSet support |
+| 2.3.5 | 4.3.2 | Fixed PVC definition - thx @trandbert37 |
 | | | |
