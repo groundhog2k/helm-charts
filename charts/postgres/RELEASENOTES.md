@@ -117,4 +117,5 @@
 | 1.6.3 | 18.3 | Fixed database creation when using hyphens in names - thx @Foxite |
 | 1.6.4 | 18.4 | Upgraded to Postgres 18.4 |
 | 1.6.5 | 18.4 | Fixed PVC definition - thx @trandbert37 |
+| 1.6.6 | 18.4 | Fixed health probes - thx @Thesam1798 |
 | | | |
