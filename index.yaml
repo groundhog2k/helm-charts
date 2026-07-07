@@ -1125,6 +1125,23 @@ entries:
     version: 0.0.1
   etcd:
   - apiVersion: v2
+    appVersion: v3.6.13
+    created: "2026-07-07T08:09:16.476758644Z"
+    description: A Helm chart for etcd on Kubernetes
+    digest: c5cf86618345890eba803c00b145284e826401e9bd818a33be90d7eaf9c06409
+    icon: https://etcd.io/etcd-horizontal-white.png
+    keywords:
+    - database
+    - etcd
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: etcd
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/etcd-1.1.9/etcd-1.1.9.tgz
+    version: 1.1.9
+  - apiVersion: v2
     appVersion: v3.6.11
     created: "2026-05-27T10:09:48.31424474Z"
     description: A Helm chart for etcd on Kubernetes
@@ -15181,6 +15198,23 @@ entries:
     version: 0.1.0
   graylog:
   - apiVersion: v2
+    appVersion: 7.1.4
+    created: "2026-07-07T08:09:16.683061892Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://groundhog2k.github.io/helm-charts
+      version: 0.6.8
+    description: A Helm chart for Graylog on Kubernetes
+    digest: 66c062f61559b8c38080b01d00e4fb5d9facffa7369b7f145a4ffc13f412f5d9
+    maintainers:
+    - name: groundhog2k
+    name: graylog
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/graylog-0.13.5/graylog-0.13.5.tgz
+    version: 0.13.5
+  - apiVersion: v2
     appVersion: 7.1.3
     created: "2026-07-03T09:41:20.457777313Z"
     dependencies:
@@ -18180,6 +18214,23 @@ entries:
     version: "4.44"
   - apiVersion: v2
     appVersion: 12.3.2
+    created: "2026-07-07T08:09:16.932887632Z"
+    description: A Helm chart for MariaDB on Kubernetes
+    digest: 42d44c5b6d854b312c4a9cead0f4bdfb4c2782f0d75aa4a7c6f462d47557b4cb
+    icon: https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png
+    keywords:
+    - database
+    - mariadb
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: mariadb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mariadb-4.5.1/mariadb-4.5.1.tgz
+    version: 4.5.1
+  - apiVersion: v2
+    appVersion: 12.3.2
     created: "2026-06-03T09:50:38.623228154Z"
     description: A Helm chart for MariaDB on Kubernetes
     digest: 02505265ca68ed54773c8690f4f64035846de13bc3ed8f5b96cdc0fdb06721a3
@@ -20609,6 +20660,18 @@ entries:
     version: 2.11.4
   mongodb:
   - apiVersion: v2
+    appVersion: 8.0.26
+    created: "2026-07-07T08:09:17.148330907Z"
+    description: A Helm chart to deploy MongoDB
+    digest: a4f4f1e910982f7170218aa5f62a5890b7550d27561dc799810558728c1c1ccf
+    maintainers:
+    - name: groundhog2k
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.7.9/mongodb-0.7.9.tgz
+    version: 0.7.9
+  - apiVersion: v2
     appVersion: 8.0.19
     created: "2026-02-12T08:58:22.486807713Z"
     description: A Helm chart to deploy MongoDB
@@ -22193,6 +22256,23 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/mongodb-0.1.0/mongodb-0.1.0.tgz
     version: 0.1.0
   mysql:
+  - apiVersion: v2
+    appVersion: 9.7.1
+    created: "2026-07-07T08:09:17.371854039Z"
+    description: A Helm chart for MySQL on Kubernetes
+    digest: 247b717473e6f481914fb76f1bc30630b725589024134bd022683aae2d9bada0
+    icon: https://www.mysql.com/common/logos/powered-by-mysql-88x31.png
+    keywords:
+    - database
+    - mysql
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: mysql
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/mysql-3.1.1/mysql-3.1.1.tgz
+    version: 3.1.1
   - apiVersion: v2
     appVersion: 9.7.0
     created: "2026-05-27T09:17:14.787319028Z"
@@ -27078,6 +27158,23 @@ entries:
   postgres:
   - apiVersion: v2
     appVersion: "18.4"
+    created: "2026-07-07T08:09:17.573313796Z"
+    description: A Helm chart for PostgreSQL on Kubernetes
+    digest: d44b2aad109ad3e0a60b9a60089dae0a5600ecc2ba43c655214bb24658673e55
+    icon: https://www.postgresql.org/media/img/about/press/elephant64.png
+    keywords:
+    - database
+    - postgres
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/postgres-1.6.5/postgres-1.6.5.tgz
+    version: 1.6.5
+  - apiVersion: v2
+    appVersion: "18.4"
     created: "2026-05-28T10:22:46.18635772Z"
     description: A Helm chart for PostgreSQL on Kubernetes
     digest: 0403591e1768cffa4d01500bf029cddc0cda6cb944ff1f241981c1670a97e60b
@@ -29051,6 +29148,25 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/postgres-0.1.0/postgres-0.1.0.tgz
     version: 0.1.0
   rabbitmq:
+  - apiVersion: v2
+    appVersion: 4.3.2
+    created: "2026-07-07T08:09:17.783669471Z"
+    description: A Helm chart for a RabbitMQ cluster on Kubernetes
+    digest: 099f90c17a197ad81ab27ec3f1c3881e796727eb247b18b1cbe9d2723e69e466
+    icon: https://www.rabbitmq.com/img/rabbitmq-logo-with-name.svg
+    keywords:
+    - messaging
+    - rabbitmq
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: rabbitmq
+    sources:
+    - https://github.com/groundhog2k/helm-charts/tree/master/charts/rabbitmq
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-2.3.5/rabbitmq-2.3.5.tgz
+    version: 2.3.5
   - apiVersion: v2
     appVersion: 4.3.2
     created: "2026-07-01T12:49:43.34484847Z"
@@ -31938,6 +32054,23 @@ entries:
     - https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-0.1.0/rabbitmq-0.1.0.tgz
     version: 0.1.0
   redis:
+  - apiVersion: v2
+    appVersion: 8.8.0
+    created: "2026-07-07T08:09:18.004828286Z"
+    description: A Helm chart for Redis on Kubernetes
+    digest: 9953b721bc88cbed2558c5babbc4e93efa54f1fbc08fd027bae2b58d01053d44
+    icon: https://redis.io/wp-content/uploads/2024/04/Logotype.svg
+    keywords:
+    - cache
+    - redis
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: redis
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/redis-2.4.1/redis-2.4.1.tgz
+    version: 2.4.1
   - apiVersion: v2
     appVersion: 8.8.0
     created: "2026-05-27T08:49:20.919885771Z"
@@ -34855,6 +34988,23 @@ entries:
   valkey:
   - apiVersion: v2
     appVersion: 9.1.0
+    created: "2026-07-07T08:09:18.255358098Z"
+    description: A Helm chart for Valkey on Kubernetes
+    digest: e768851e8437db0372ce46aaa63e3244373c06d987a67b690915e6b78f360c20
+    icon: https://valkey.io/img/Valkey-logo.svg
+    keywords:
+    - cache
+    - valkey
+    maintainers:
+    - name: groundhog2k
+      url: https://github.com/groundhog2k/helm-charts
+    name: valkey
+    type: application
+    urls:
+    - https://github.com/groundhog2k/helm-charts/releases/download/valkey-2.3.1/valkey-2.3.1.tgz
+    version: 2.3.1
+  - apiVersion: v2
+    appVersion: 9.1.0
     created: "2026-05-27T09:59:50.171377563Z"
     description: A Helm chart for Valkey on Kubernetes
     digest: 3ec14fafd7f5c9a91c54a8566bd696a8f80b4fc187097bc5dd8dac5d295f35d2
@@ -36979,4 +37129,4 @@ entries:
     urls:
     - https://github.com/groundhog2k/helm-charts/releases/download/wordpress-0.1.0/wordpress-0.1.0.tgz
     version: 0.1.0
-generated: "2026-07-06T14:02:19.388526428Z"
+generated: "2026-07-07T08:09:18.26100448Z"
