@@ -1,6 +1,6 @@
 # Remark42
 
-![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.16.1](https://img.shields.io/badge/AppVersion-v1.16.1-informational?style=flat-square)
+![Version: 0.11.2](https://img.shields.io/badge/Version-0.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.16.1](https://img.shields.io/badge/AppVersion-v1.16.1-informational?style=flat-square)
 
 A Helm chart for Remark42 on Kubernetes
 
@@ -44,20 +44,20 @@ helm uninstall my-release
 ## Requirements
 
 | Repository | Name | Version |
-|------------|------|---------|
+| --- | --- | --- |
 | @groundhog2k | redis | 2.3.3 |
 
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"umputun/remark42"` | Image name |
@@ -89,12 +89,12 @@ helm uninstall my-release
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerPort | int | `8080` | Internal http container port |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.port | int | `80` | Remark42 HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -107,7 +107,7 @@ helm uninstall my-release
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | ingress.enabled | bool | `false` | Enable ingress for Remark42 service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
@@ -122,20 +122,41 @@ helm uninstall my-release
 | ingress.tls | object | `{}` | Ingress TLS parameters |
 | ingress.tls.secretName | string | `nil` | Ingress TLS secret name |
 
+## HTTPRoute parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Remark42 service |
+| httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
+| httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
+| httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
+| httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Remark42 service |
+
+## ListenerSet parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
+| listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
+| listenerSet.labels | object | `{}` | Additional ListenerSet labels |
+| listenerSet.parentRef | object | `{}` | Gateway parent reference (required) |
+| listenerSet.listeners | list | `[]` | Listeners to attach to the parent Gateway |
+
 ## Network policies
 
 Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis cache
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | externalCache.enabled | bool | `false` | Enable external Redis cache |
 | externalCache.host | string | `nil` | External Redis host |
 | externalCache.port | int | `6379` | External Redis port |
@@ -145,7 +166,7 @@ The policyTypes will be automatically set
 ## Remark42 parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.url | string | `nil` | URL to this Remark42 site |
 | settings.site | string | `"remark"` | Site Id |
 | settings.secretKey | string | `nil` | Secret key |
@@ -172,7 +193,7 @@ The policyTypes will be automatically set
 | settings.updateLimit | string | `0.5` | Updates/sec limit |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.smtp.enabled | bool | `false` | Enable SMTP |
 | settings.smtp.from | string | `nil` | SMTP from address |
 | settings.smtp.host | string | `nil` | SMTP host |
@@ -183,24 +204,24 @@ The policyTypes will be automatically set
 | settings.smtp.timeout | string | `10s` | SMTP timeout |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.admin.sharedId | string | `nil` | Admin Ids |
 | settings.admin.sharedEmail | string | `"admin@${REMARK_URL}"` | Admin Email addresses |
 | settings.admin.password | string | `nil` | Password for admin (Basic auth) |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.cache.maxItems | int | `1000` | Maximum number of cached items |
 | settings.cache.maxValue | int | `65536` | Maximum size of cached value |
 | settings.cache.maxSize | int | `"50000000"` | Maximum size of all caches values |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.avatar.type | string | `"fs"` | Avatar storage type (fs, bolt, uri) |
-| settings.avatar.resizeLimit | int | `0`| Maximum image size for resizing avatars (0 = disabled) |
+| settings.avatar.resizeLimit | int | `0` | Maximum image size for resizing avatars (0 = disabled) |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.image.type | string | `"fs"` | Image storage type (fs, bolt, uri) |
 | settings.image.maxSize | int | `"5000000"` | Maximum image size |
 | settings.image.partitions | int | `10` | Number of image partitions |
@@ -208,7 +229,7 @@ The policyTypes will be automatically set
 | settings.image.resize.height | int | `900` | Height of resized image |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.auth.ttl.jwt | string | `"5m"` | JWT TTL |
 | settings.auth.ttl.cookie | string | `"200h"` | Cookie TTL |
 | settings.auth.sentJwtHeader | bool | `false` | Send JWT as header instead of cookie |
@@ -221,7 +242,7 @@ The policyTypes will be automatically set
 | settings.auth.email.template | string | `nil` | Custom email message template file |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.notify.type.user | string | `"none"` | User notification type (none, telegram, slack, email) |
 | settings.notify.type.admin | string | `"none"` | Admin notification type (none, telegram, slack, email, webhook) |
 | settings.notify.queue | int | `100` | Size of notification queue |
@@ -239,7 +260,7 @@ The policyTypes will be automatically set
 | settings.notify.webhook.timeout | string | `5s` | Webhook request timeout |
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.oauth.github.enabled | bool | `false` | Enable Github OAuth |
 | settings.oauth.github.key | string | `nil` | Github OAuth key |
 | settings.oauth.github.secret | string | `nil` | Github OAuth secret |
@@ -262,7 +283,7 @@ The policyTypes will be automatically set
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage | object | `{}` | Remark42 data storage |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
@@ -275,5 +296,5 @@ The policyTypes will be automatically set
 ## Extra resources
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraResources | list | `nil` | List of extra resource deployments |
