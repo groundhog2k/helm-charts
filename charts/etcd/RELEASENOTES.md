@@ -31,4 +31,5 @@
 | 1.1.6 | v3.6.9 | Upgraded etcd to v3.6.9 |
 | 1.1.7 | v3.6.9 | Fixed insecure parameters - thx @oleksiialeksieiev |
 | 1.1.8 | v3.6.11 | Upgraded etcd to v3.6.11 |
+| 1.1.9 | v3.6.13 | Upgraded etcd to v3.6.13, fixed PVC definition - thx @trandbert37 |
 | | | |
