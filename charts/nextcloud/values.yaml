@@ -152,13 +152,23 @@ httpRoute:
     # - nextcloud.example.local
 
   ## Rules for routing traffic to the Nextcloud service
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      filters: []
-      timeouts: {}
+  # rules:
+    # - matches:
+    #     - path:
+    #         type: PathPrefix
+    #         value: /
+    #   filters: []
+    #   timeouts: {}
+    # - matches:
+    #     - path:
+    #         type: RegularExpression
+    #         value: /.well-known/ca(l|rd)dav(/|.*)
+    #   filters:
+    #     - urlRewrite:
+    #         path:
+    #           type: ReplaceFullPath
+    #           replaceFullPath: /remote.php/dav/
+    #   timeouts: {}
 
 ## ListenerSet configuration for Gateway API
 listenerSet:

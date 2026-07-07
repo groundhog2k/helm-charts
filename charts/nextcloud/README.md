@@ -35,7 +35,7 @@ To install the chart with the release name `my-release`:
 helm install my-release groundhog2k/nextcloud
 ```
 
-## Upgrading the Chart[](#upgrade)
+## Upgrading the Chart
 
 To upgrade the chart or Nextcloud version with the release name `my-release`:
 
@@ -81,7 +81,7 @@ helm uninstall my-release
 ## Requirements
 
 | Repository | Name | Version |
-|------------|------|---------|
+| --- | --- | --- |
 | @groundhog2k | mariadb | 0.3.14 |
 | @groundhog2k | postgres | 0.4.8 |
 | @groundhog2k | redis | 0.7.10 |
@@ -89,14 +89,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"nextcloud"` | Image name |
@@ -138,7 +138,7 @@ helm uninstall my-release
 | customConfigsHook.enabled | bool | `true` | Enable custom configuration copy hook |
 | customConfigsHook.waitBeforeRetry | int | 10 | Delay before retrying to copy *.config.php files |
 | customConfigsHook.retries | int | 10 | Max. number of retries before job fails |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -146,7 +146,7 @@ helm uninstall my-release
 ## Cron jobs
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | defaultCronJobs | list | '[1]' | Internal planned default cron job |
 | defaultCronJobs[1].name | string | `"cronphp"` | Name of the default cron job |
 | defaultCronJobs[1].schedule | string | `"*/5 * * * *"` | Schedule for the default cron job (5 minutes) |
@@ -165,7 +165,7 @@ helm uninstall my-release
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.port | int | `80` | Commento HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -178,7 +178,7 @@ helm uninstall my-release
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | ingress.enabled | bool | `false` | Enable ingress for Nextcloud service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
@@ -189,7 +189,7 @@ helm uninstall my-release
 ## HTTPRoute parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Nextcloud service |
 | httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
 | httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
@@ -200,7 +200,7 @@ helm uninstall my-release
 ## ListenerSet parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
 | listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
 | listenerSet.labels | object | `{}` | Additional ListenerSet labels |
@@ -213,14 +213,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Redis session cache
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | externalCache.enabled | bool | `false` | Enable external Redis cache |
 | externalCache.host | string | `nil` | External Redis host |
 | externalCache.password | string | `nil` | External Redis password |
@@ -231,14 +231,14 @@ The policyTypes will be automatically set
 ## Database settings
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | externalDatabase.host | string | `nil` | External database host |
 | externalDatabase.name | string | `"nextcloud"` | External database name |
 | externalDatabase.user | string | `nil` | External database user name |
 | externalDatabase.password | string | `nil` | External database user password |
 | externalDatabase.type | string | `"sqlite"` | External database type (mariadb/mysql or postgres - default: sqlite) |
 | mariadb.enabled | bool | `false` | Enable MariaDB deployment (will disable external database settings) |
-| mariadb.settings.arguments[0] | string | `"--character-set-server=utf8mb4"` | Enable MariaDB UTF8MB4 character set|
+| mariadb.settings.arguments[0] | string | `"--character-set-server=utf8mb4"` | Enable MariaDB UTF8MB4 character set |
 | mariadb.settings.arguments[1] | string | `"--collation-server=utf8mb4_unicode_ci"` | Enable UTF8MB4 unicode |
 | mariadb.settings.rootPassword | string | `nil` | MariaDB root user password |
 | mariadb.storage | string | `nil` | MariaDB storage settings |
@@ -255,7 +255,7 @@ The policyTypes will be automatically set
 ## Nextcloud parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | apacheDefaultSiteConfig | string | `nil` | Overwrite default apache 000-default.conf |
 | apachePortsConfig | string | `nil` | Overwrite default apache ports.conf |
 | customPhpConfig | string | `nil` | Additional PHP custom.ini |
@@ -281,7 +281,7 @@ The policyTypes will be automatically set
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.nextcloud | object | `{}` | Nextcloud internal storage |
 | storage.nextcloud.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.nextcloud.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
