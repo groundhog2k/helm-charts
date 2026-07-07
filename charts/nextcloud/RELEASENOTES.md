@@ -2,7 +2,7 @@
 
 | Chart version | App version | Change description |
 | :------------ | :---------- | :----------------- |
-| 0.10.2 | 23.0.0-apache | Fixed ingress API detection<br>Implemented startupProbe support |
+| 0.10.2 | 23.0.0-apache | Fixed ingress API detection, Implemented startupProbe support |
 | 0.10.3 | 23.0.0-apache | Updated chart dependencies |
 | 0.10.4 | 23.0.1-apache | Upgraded to Nextcloud 23.0.1 |
 | 0.10.5 | 23.0.1-apache | Updated chart dependencies (mariadb 0.2.18 / postgres 0.2.17) |
@@ -108,4 +108,5 @@
 | 0.21.4 | 33.0.4-apache | Upgraded to Nextcloud 33.0.4 |
 | 0.21.5 | 33.0.5-apache | Upgraded to Nextcloud 33.0.5 |
 | 0.21.6 | 33.0.6-apache | Upgraded to Nextcloud 33.0.6 |
+| 0.21.7 | 33.0.6-apache | Added support for Gateway API HTTPRoute and ListenerSet |
 | | | |
