@@ -361,4 +361,5 @@
 | 0.209.1 | 6.49.0 | Added Gateway API HTTPRoute und ListenerSet support |
 | 0.210.0 | 6.50.0 | Upgraded to Ghost 6.50.0 |
 | 0.211.0 | 6.51.0 | Upgraded to Ghost 6.51.0 |
+| 0.212.0 | 6.52.0 | Upgraded to Ghost 6.52.0 |
 | | | |
