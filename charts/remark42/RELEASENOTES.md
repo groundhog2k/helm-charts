@@ -41,3 +41,4 @@
 | 0.11.0 | v1.16.0 | Upgraded to Remark42 v1.16.0 and chart dependency redis 2.3.3 |
 | 0.11.1 | v1.16.1 | Upgraded to Remark42 v1.16.1 |
 | 0.11.2 | v1.16.1 | Added Gateway API HTTPRoute and ListenerSet support |
+| 0.11.3 | v1.16.4 | Upgraded to Remark42 v1.16.4 |
