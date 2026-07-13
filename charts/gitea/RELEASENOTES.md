@@ -114,4 +114,5 @@
 | 0.15.3 | 1.26.4 | Updated to Gitea 1.26.4 |
 | 0.15.4 | 1.26.4 | Added Gateway API HTTPRoute und ListenerSet support |
 | 0.15.5 | 1.26.4 | Fixed markdown in documentation |
+| 0.16.0 | 1.27.0 | Updated to Gitea 1.27.0 |
 | | | |
