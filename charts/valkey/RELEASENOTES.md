@@ -37,4 +37,5 @@
 | 2.2.6 | 9.0.4 | Updated to Valkey 9.0.4, redis_exporter 1.84.0 |
 | 2.3.0 | 9.1.0 | Updated to Valkey 9.1.0, redis_exporter 1.84.0 |
 | 2.3.1 | 9.1.0 | Fixed PVC definition - thx @trandbert37 |
+| 2.3.2 | 9.1.0 | Fixed README.md markdown formatting |
 | | | |

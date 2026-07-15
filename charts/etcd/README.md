@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 1.1.10](https://img.shields.io/badge/Version-1.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.7.0](https://img.shields.io/badge/AppVersion-v3.7.0-informational?style=flat-square)
+![Version: 1.1.11](https://img.shields.io/badge/Version-1.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.7.0](https://img.shields.io/badge/AppVersion-v3.7.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -46,14 +46,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"quay.io/coreos"` | Image registry |
 | image.repository | string | `"etcd"` | Image name |
@@ -93,7 +93,7 @@ helm uninstall my-release
 | podManagementPolicy | string | `"Parallel"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
 | replicas | int | `1` | Number of replicas (Due to the nature of etcd cluster initialization this value must be set before deploying the cluster) |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -102,22 +102,22 @@ helm uninstall my-release
 ## Service parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
 | service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
 | service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.client.port | int | `2379` | Client service port |
-| service.client.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
+| service.client.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.peer.port | int | `2380` | Peer service port |
-| service.peer.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort)|
+| service.peer.nodePort | int | `nil` | Service node port (only relevant for type LoadBalancer or NodePort) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
 
 ## Service monitor parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | serviceMonitor.enabled | bool | `false` | Enable service monitor |
 | serviceMonitor.additionalLabels | object | `{}` | Additional labels for the service monitor object |
 | serviceMonitor.annotations | object | `{}` | Annotations for the service monitor object |
@@ -132,14 +132,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.volumeName | string | `"etcd-data"` | Internal volume name and prefix of a created PVC |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
@@ -155,7 +155,7 @@ The policyTypes will be automatically set
 ## Etcd settings
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | settings.clusterToken | bool | `"etcd-cluster-0"` | Unique cluser token |
 | settings.https.enabled | bool | `false` | Enable HTTPS |
 | settings.https.autoTls | bool | `false` | Automatic TLS mode of etcd (TLS certs. created automaically) |
@@ -164,7 +164,7 @@ The policyTypes will be automatically set
 ## Etcd secrets and configuration
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraSecrets | list | `[]` | A list of additional existing secrets that will be mounted into the container |
 | extraSecrets[].name | string | `nil` | Name of the existing K8s secret |
 | extraSecrets[].defaultMode | int | `0440` | Mount default access mode |

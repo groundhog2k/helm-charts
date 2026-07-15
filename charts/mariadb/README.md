@@ -1,6 +1,6 @@
 # MariaDB
 
-![Version: 4.5.2](https://img.shields.io/badge/Version-4.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 12.3.2](https://img.shields.io/badge/AppVersion-12.3.2-informational?style=flat-square)
+![Version: 4.5.3](https://img.shields.io/badge/Version-4.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 12.3.2](https://img.shields.io/badge/AppVersion-12.3.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -46,14 +46,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"mariadb"` | Image name |
@@ -86,12 +86,12 @@ helm uninstall my-release
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `3306` | MariaDB service port |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -107,14 +107,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"db-volume"` | Internal volume name and prefix of a created PVC |
@@ -134,7 +134,7 @@ The policyTypes will be automatically set
 ## MariaDB parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | userDatabase | object | `{}` | Optional MariaDB user database |
 | userDatabase.existingSecret | string | `nil` | Optional existing secret with database name, user and password |

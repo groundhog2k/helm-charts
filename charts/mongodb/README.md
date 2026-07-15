@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.7.10](https://img.shields.io/badge/Version-0.7.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.3.4](https://img.shields.io/badge/AppVersion-8.3.4-informational?style=flat-square)
+![Version: 0.7.11](https://img.shields.io/badge/Version-0.7.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.3.4](https://img.shields.io/badge/AppVersion-8.3.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -46,14 +46,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"mongo"` | Image name |
@@ -92,7 +92,7 @@ helm uninstall my-release
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `27017` | MongoDB service port |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -108,14 +108,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.persistentVolumeClaimRetentionPolicy | object | `nil` | Persistent volume claim retention policy (only applies when `useDeployment: false`) |
@@ -129,7 +129,7 @@ The policyTypes will be automatically set
 ## MongoDB parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraInit.retries | int | `10` | Number of retries to detect whether mongod is fully up and running in background |
 | extraInit.delay | int | `3` | Seconds to wait between retries |
 | extraInit.initDelay | int | `5` | Seconds to wait after mongod is running to give it time for internal initialization |
@@ -138,7 +138,7 @@ The policyTypes will be automatically set
 | settings.rootPassword | string | `{}` | The root users password |
 | userDatabase | object | `{}` | Optional MongoDB user database |
 | userDatabase.name | string | `nil` | Name of the user database |
-| userDatabase.user | string | `nil` | User name with full access to user database|
+| userDatabase.user | string | `nil` | User name with full access to user database |
 | userDatabase.password | string | `nil` | Password of created user |
 | customConfig | string | `nil` | Custom MongoDB configuration block that will be mounted as file in `/etc/mongo/custom.conf` |
 | extraEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the container as environment variables |

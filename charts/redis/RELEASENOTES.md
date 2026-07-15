@@ -117,4 +117,5 @@
 | 2.3.4 | 8.6.4 | Upgraded to Redis 8.6.4 |
 | 2.4.0 | 8.8.0 | Upgraded to Redis 8.8.0, redis_exporter 1.84.0 |
 | 2.4.1 | 8.8.0 | Fixed PVC definition - thx @trandbert37 |
+| 2.4.2 | 8.8.0 | Fixed README.md markdown formatting |
 | | | |
