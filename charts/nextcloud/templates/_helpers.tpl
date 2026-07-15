@@ -64,6 +64,18 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
+Resolve the appVersion with variant suffix (-apache or -fpm).
+Used as fallback when image.tag is not set.
+*/}}
+{{- define "nextcloud.appVersion" -}}
+{{- if .Values.nginx.enabled -}}
+{{- printf "%s-fpm" .Chart.AppVersion -}}
+{{- else -}}
+{{- printf "%s-apache" .Chart.AppVersion -}}
+{{- end -}}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "nextcloud.chart" -}}
@@ -122,8 +134,10 @@ Nextcloud specific environment variables
   value: {{ $internal | quote }} 
   {{- end }}
 {{- if .disableRewriteIP }}
+{{- if not $.Values.nginx.enabled }}
 - name: APACHE_DISABLE_REWRITE_IP
   value: {{ .disableRewriteIP | quote }}
+{{- end }}
 {{- end }}
 {{- if .trustedProxies }}
 - name: TRUSTED_PROXIES
