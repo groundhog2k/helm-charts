@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "nextcloud.labels" . | nindent 4 }}
 data:
+  {{- if not .Values.nginx.enabled }}
   000-default.conf: |
     {{- if .Values.apacheDefaultSiteConfig }}
     {{ .Values.apacheDefaultSiteConfig | nindent 4 }}
@@ -23,6 +24,49 @@ data:
     {{- else }}
     Listen {{ .Values.containerPort }}
     {{- end }}
+  {{- end }}
+  {{- if .Values.nginx.enabled }}
+  nginx.conf: |
+    {{- if .Values.nginxConfig }}
+    {{ .Values.nginxConfig | nindent 4 }}
+    {{- else }}
+    upstream php-handler {
+        server 127.0.0.1:{{ .Values.containerPort }};
+    }
+    server {
+        listen {{ .Values.nginx.containerPort }};
+        server_name _;
+
+        root /var/www/html;
+        index index.php index.html;
+
+        client_max_body_size {{ .Values.settings.maxFileUploadSize | default "512M" }};
+
+        # Disable access log for health checks
+        location = /status.php {
+            access_log off;
+            fastcgi_pass php-handler;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+        }
+
+        location / {
+            try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+            fastcgi_pass php-handler;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+            fastcgi_read_timeout 300;
+        }
+
+        location ~ /\. {
+            deny all;
+        }
+    }
+    {{- end }}
+  {{- end }}
   redis-session.ini: |
     {{- if .Values.redis.enabled }}
     session.save_handler = redis

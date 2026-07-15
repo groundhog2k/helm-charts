@@ -73,7 +73,7 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default (include "nextcloud.appVersion" .) }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - /bin/sh
@@ -82,6 +82,7 @@ spec:
           volumeMounts:
             - mountPath: /confd
               name: confd
+            {{- if not .Values.nginx.enabled }}
             - mountPath: /apache2
               name: apache2
             - mountPath: /usr/local/etc/php/conf.d/custom.ini
@@ -96,6 +97,14 @@ spec:
             - mountPath: /etc/apache2/000-default.conf
               subPath: 000-default.conf
               name: extendedconfigs
+            {{- else }}
+            - mountPath: /usr/local/etc/php/conf.d/custom.ini
+              subPath: custom.ini
+              name: extendedconfigs
+            - mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+              subPath: redis-session.ini
+              name: extendedconfigs
+            {{- end }}
             - mountPath: /scripts
               name: scripts              
       containers:
@@ -104,7 +113,7 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default (include "nextcloud.appVersion" .) }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
@@ -117,21 +126,32 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
-            - name: http
-              containerPort: {{ .Values.containerPort  }}
+            {{- if .Values.nginx.enabled }}
+            - name: fpm
+              containerPort: {{ .Values.containerPort }}
               protocol: TCP
+            {{- else }}
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+            {{- end }}
           {{- if .Values.customLivenessProbe }}
           livenessProbe:
             {{- toYaml .Values.customLivenessProbe | nindent 12 }}
           {{- else }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
+            {{- if .Values.nginx.enabled }}
+            tcpSocket:
+              port: fpm
+            {{- else }}
             httpGet:
               path: /status.php
               port: http
               httpHeaders:
                 - name: Host
                   value: localhost:{{ .Values.containerPort  }}
+            {{- end }}
           {{- with .Values.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -147,12 +167,17 @@ spec:
           {{- else }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
+            {{- if .Values.nginx.enabled }}
+            tcpSocket:
+              port: fpm
+            {{- else }}
             httpGet:
               path: /status.php
               port: http
               httpHeaders:
                 - name: Host
                   value: localhost:{{ .Values.containerPort  }}
+            {{- end }}
           {{- with .Values.startupProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -168,12 +193,17 @@ spec:
           {{- else }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
+            {{- if .Values.nginx.enabled }}
+            tcpSocket:
+              port: fpm
+            {{- else }}
             httpGet:
               path: /status.php
               port: http
               httpHeaders:
                 - name: Host
                   value: localhost:{{ .Values.containerPort  }}
+            {{- end }}
           {{- with .Values.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
@@ -202,10 +232,101 @@ spec:
               name: tmp
             - mountPath: /var/run
               name: run
+            {{- if not .Values.nginx.enabled }}
             - mountPath: /etc/apache2
               name: apache2
+            {{- end }}
             - mountPath: /usr/local/etc/php/conf.d
               name: confd
+        {{- if .Values.nginx.enabled }}
+        - name: nginx
+          {{- with .Values.nginx.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
+          imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.nginx.containerPort }}
+              protocol: TCP
+          {{- if .Values.nginx.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.nginx.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.nginx.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.nginx.containerPort }}
+          {{- with .Values.nginx.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.nginx.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.nginx.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.nginx.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.nginx.containerPort }}
+          {{- with .Values.nginx.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.nginx.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.nginx.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.nginx.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:{{ .Values.nginx.containerPort }}
+          {{- with .Values.nginx.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.nginx.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: nextcloud-vol
+            - mountPath: /etc/nginx/conf.d
+              name: nginx-conf
+            - mountPath: /tmp
+              name: nginx-tmp
+            - mountPath: /var/run
+              name: nginx-run
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -229,8 +350,22 @@ spec:
           emptyDir: {}
         - name: confd
           emptyDir: {}
+        {{- if not .Values.nginx.enabled }}
         - name: apache2
           emptyDir: {}
+        {{- end }}
+        {{- if .Values.nginx.enabled }}
+        - name: nginx-tmp
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
+        - name: nginx-conf
+          configMap:
+            name: {{ include "nextcloud.fullname" . }}-extendedconfigs
+            items:
+              - key: nginx.conf
+                path: default.conf
+        {{- end }}
         - name: extendedconfigs
           configMap:
             name: {{ include "nextcloud.fullname" . }}-extendedconfigs

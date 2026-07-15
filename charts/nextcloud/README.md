@@ -1,6 +1,6 @@
 # Nextcloud
 
-![Version: 0.21.8](https://img.shields.io/badge/Version-0.21.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 34.0.1-apache](https://img.shields.io/badge/AppVersion-34.0.1-informational?style=flat-square)
+![Version: 0.22.0](https://img.shields.io/badge/Version-0.22.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 34.0.1](https://img.shields.io/badge/AppVersion-34.0.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -126,7 +126,7 @@ helm uninstall my-release
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
-| containerPort | int | `8000` | Internal http container port |
+| containerPort | int | `8000` | Internal container port — use `8000` for Apache mode (default) or `9000` for FPM mode (`nginx.enabled=true`) |
 | replicaCount | int | `1` | Number of replicas |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
 | initImage.registry | string | `"docker.io"` | Image registry |
@@ -142,6 +142,29 @@ helm uninstall my-release
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
+
+## Nginx sidecar parameters
+
+When `nginx.enabled` is set to `true`, the chart switches from the Apache-based image to the PHP-FPM image (`nextcloud:*-fpm`) and adds an nginx container as a sidecar. The nginx sidecar acts as the HTTP reverse proxy and passes PHP requests to the FPM process via TCP (`127.0.0.1:<containerPort>`).
+
+Set `image.tag` explicitly to an FPM image tag (e.g. `34.0.1-fpm`) and `containerPort` to `9000` when enabling this mode.
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| nginx.enabled | bool | `false` | Enable nginx sidecar (switches to FPM+nginx mode) |
+| nginx.image.pullPolicy | string | `"IfNotPresent"` | Nginx image pull policy |
+| nginx.image.registry | string | `"docker.io"` | Nginx image registry |
+| nginx.image.repository | string | `"nginx"` | Nginx image name |
+| nginx.image.tag | string | `"stable"` | Nginx image tag |
+| nginx.containerPort | int | `8080` | HTTP port the nginx sidecar listens on |
+| nginx.resources | object | `{}` | Resource limits and requests for the nginx sidecar |
+| nginx.securityContext | object | `see values.yaml` | Security context for the nginx sidecar container |
+| nginx.livenessProbe | object | `see values.yaml` | Liveness probe configuration for the nginx sidecar |
+| nginx.startupProbe | object | `see values.yaml` | Startup probe configuration for the nginx sidecar |
+| nginx.readinessProbe | object | `see values.yaml` | Readiness probe configuration for the nginx sidecar |
+| nginx.customLivenessProbe | object | `{}` | Custom liveness probe (overwrites default liveness probe for nginx sidecar) |
+| nginx.customStartupProbe | object | `{}` | Custom startup probe (overwrites default startup probe for nginx sidecar) |
+| nginx.customReadinessProbe | object | `{}` | Custom readiness probe (overwrites default readiness probe for nginx sidecar) |
 
 ## Cron jobs
 
@@ -256,8 +279,9 @@ The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
 | --- | --- | --- | --- |
-| apacheDefaultSiteConfig | string | `nil` | Overwrite default apache 000-default.conf |
-| apachePortsConfig | string | `nil` | Overwrite default apache ports.conf |
+| apacheDefaultSiteConfig | string | `nil` | Overwrite default apache 000-default.conf (only used in Apache mode) |
+| apachePortsConfig | string | `nil` | Overwrite default apache ports.conf (only used in Apache mode) |
+| nginxConfig | string | `nil` | Overwrite default nginx server configuration (only used in FPM mode, i.e. `nginx.enabled=true`) |
 | customPhpConfig | string | `nil` | Additional PHP custom.ini |
 | customConfigs | object | `nil` | Custom nextcloud *.config.php files that will be copied when customConfigHook is enabled (see example in `values.yaml`) |
 | settings.admin.name | string | `nil` | Nextcloud administrator user |

@@ -20,7 +20,9 @@ data:
     #!/bin/sh
     cp -R /usr/local/etc/php/conf.d/* /confd
     chmod 660 /confd/*
+    {{- if not .Values.nginx.enabled }}
     cp -R /etc/apache2/* /apache2
+    {{- end }}
   addcustomconfigs.sh: |
     #!/bin/sh
     c=0
