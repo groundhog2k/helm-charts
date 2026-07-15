@@ -138,8 +138,7 @@
       "fileMatch": ["^charts/wordpress/Chart\\.yaml$"],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "wordpress",
-      "datasourceTemplate": "docker",
-      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+-apache$/"
+      "datasourceTemplate": "docker"
     }
   ]
 }
