@@ -12,7 +12,7 @@ keywords:
   - database
   - mariadb
 
-version: "4.2.7"
+version: "4.5.2"
 
-appVersion: "10.11.18"
+appVersion: "12.3.2"
 icon: https://mariadb.com/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png
