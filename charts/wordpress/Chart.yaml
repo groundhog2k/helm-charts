@@ -8,10 +8,16 @@ maintainers:
 type: application
 
 # This is the chart version.
-version: "0.16.0"
+version: "0.16.1"
 
 # This is the version number of the application being deployed.
-appVersion: "7.0.0-apache"
+appVersion: "7.0.1-apache"
+
+keywords:
+  - wordpress
+  - cms
+
+icon: https://s.w.org/style/images/about/WordPress-logotype-wmark.png
 
 dependencies:
   - name: mariadb

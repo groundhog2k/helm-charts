@@ -101,6 +101,65 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+## HTTPRoute configuration for Gateway API
+httpRoute:
+  enabled: false
+
+  ## Additional HTTPRoute annotations
+  annotations: {}
+
+  ## Additional HTTPRoute labels
+  labels: {}
+
+  ## Gateway parent references (required when httpRoute.enabled is true and listenerSet.enabled is false)
+  parentRefs: []
+    # - name: gateway
+    #   namespace: default
+    #   sectionName: https
+
+  ## Hostnames for the HTTPRoute
+  hostnames: []
+    # - wordpress.example.local
+
+  ## Rules for routing traffic to the Management UI service
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters: []
+      timeouts: {}
+
+## ListenerSet configuration for Gateway API
+listenerSet:
+  enabled: false
+
+  ## Additional ListenerSet annotations
+  annotations: {}
+
+  ## Additional ListenerSet labels
+  labels: {}
+
+  ## Gateway parent reference (required when listenerSet.enabled is true)
+  parentRef: {}
+    # name: gateway
+    # namespace: default
+
+  ## Listeners to attach to the parent Gateway
+  listeners: []
+    # - name: https
+    #   port: 443
+    #   protocol: HTTPS
+    #   hostname: wordpress.example.local
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: Same
+    #   tls:
+    #     mode: Terminate
+    #     certificateRefs:
+    #       - kind: Secret
+    #         name: wordpress-https-cert
+
 ## Resource limits and requests
 resources: {}
   # limits:
