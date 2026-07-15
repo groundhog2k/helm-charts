@@ -20,8 +20,12 @@
   },
   "packageRules": [
     {
-      "matchDepNames": ["ghost", "gitea/gitea", "graylog/graylog", "mongo", "rabbitmq", "redis", "valkey/valkey"],
+      "matchDepNames": ["ghost", "gitea/gitea", "graylog/graylog", "rabbitmq", "redis", "valkey/valkey"],
       "allowedVersions": "/^\\d+\\.\\d+\\.\\d+$/"
+    },
+    {
+      "matchDepNames": ["mongo"],
+      "allowedVersions": "/^(7\\.0\\.\\d+|8\\.0\\.\\d+|8\\.3\\.\\d+)$/"
     },
     {
       "matchDepNames": ["mysql"],
