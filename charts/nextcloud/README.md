@@ -126,7 +126,7 @@ helm uninstall my-release
 | affinity | object | `{}` | Affinity for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
-| containerPort | int | `8000` | Internal container port — use `8000` for Apache mode (default) or `9000` for FPM mode (`nginx.enabled=true`) |
+| containerPort | int | `8000` | Internal container port — use `8000` for Apache mode (default) or `9000` for FPM mode (`nginx.enabled: true`) |
 | replicaCount | int | `1` | Number of replicas |
 | initImage.pullPolicy | string | `"IfNotPresent"` | Init container image pull policy |
 | initImage.registry | string | `"docker.io"` | Image registry |

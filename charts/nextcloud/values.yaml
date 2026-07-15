@@ -272,7 +272,7 @@ podDisruptionBudget: {}
 
 ## Internal container port
 ## Apache mode (default): 8000
-## FPM mode (nginx.enabled=true): set to 9000 (PHP-FPM default)
+## FPM mode (nginx.enabled: true): set to 9000 (PHP-FPM default)
 containerPort: 8000
 
 ## Nginx sidecar configuration

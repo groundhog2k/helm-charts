@@ -326,6 +326,8 @@ spec:
               name: nginx-tmp
             - mountPath: /var/run
               name: nginx-run
+            - mountPath: /var/cache/nginx
+              name: nginx-cache
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -358,6 +360,8 @@ spec:
         - name: nginx-tmp
           emptyDir: {}
         - name: nginx-run
+          emptyDir: {}
+        - name: nginx-cache
           emptyDir: {}
         - name: nginx-conf
           configMap:
