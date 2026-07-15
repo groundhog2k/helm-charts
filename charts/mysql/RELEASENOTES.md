@@ -45,4 +45,5 @@
 | 3.0.11 | 8.4.10 (LTS) | Upgraded MySQL to 8.4.10 |
 | 3.1.0 | 9.7.0 (LTS) | Upgraded MySQL to 9.7.0 |
 | 3.1.1 | 9.7.1 (LTS) | Upgraded MySQL to 9.7.1, fixed PVC definition - thx @trandbert37 |
+| 3.0.12 | 9.7.1 | Upgraded mysql to 9.7.1 |
 | | | |
