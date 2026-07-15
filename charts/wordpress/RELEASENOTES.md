@@ -58,4 +58,5 @@
 | 0.15.0 | 6.9.1-apache | Upgraded to Wordpress 6.9.1 |
 | 0.15.1 | 6.9.4-apache | Upgraded to Wordpress 6.9.4 |
 | 0.16.0 | 7.0.0-apache | Upgraded to Wordpress 7.0.0 |
+| 0.16.1 | 7.0.1-apache | Upgraded to Wordpress 7.0.1, Added support for Gateway API HTTPRoute and ListenerSet |
 | | | |

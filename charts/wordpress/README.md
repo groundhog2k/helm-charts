@@ -1,6 +1,6 @@
 # Wordpress
 
-![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.0-apache](https://img.shields.io/badge/AppVersion-7.0.0--apache-informational?style=flat-square)
+![Version: 0.16.1](https://img.shields.io/badge/Version-0.16.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.1-apache](https://img.shields.io/badge/AppVersion-7.0.1--apache-informational?style=flat-square)
 
 ## Changelog
 
@@ -46,20 +46,20 @@ helm uninstall my-release
 ## Requirements
 
 | Repository | Name | Version |
-|------------|------|---------|
+| --- | --- | --- |
 | @groundhog2k | mariadb | 0.3.14 |
 
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"wordpress"` | Image name |
@@ -93,7 +93,7 @@ helm uninstall my-release
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | containerPort | int | `8000` | Internal http container port |
 | replicaCount | int | `1` | Number of replicas (ignored when autoscaling is enabled) |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -108,7 +108,7 @@ helm uninstall my-release
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.port | int | `80` | Wordpress HTTP service port |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -121,7 +121,7 @@ helm uninstall my-release
 ## Ingress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | ingress.enabled | bool | `false` | Enable ingress for Wordpress service |
 | ingress.className | string | `nil` | Optional ingress class name |
 | ingress.annotations | object | `{}` | Additional annotations for ingress |
@@ -132,20 +132,41 @@ helm uninstall my-release
 | ingress.tls | list | `[]` | Ingress TLS parameters |
 | ingress.maxBodySize | string | `"64m"` | Maximum body size for post requests |
 
+## HTTPRoute parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| httpRoute.enabled | bool | `false` | Enable HTTPRoute for the Management UI service |
+| httpRoute.annotations | object | `{}` | Additional HTTPRoute annotations |
+| httpRoute.labels | object | `{}` | Additional HTTPRoute labels |
+| httpRoute.parentRefs | list | `[]` | Gateway parent references (required when httpRoute is enabled and listenerSet is disabled) |
+| httpRoute.hostnames | list | `[]` | Hostnames for the HTTPRoute |
+| httpRoute.rules | list | `see values.yaml` | HTTPRoute rules for the Management UI service |
+
+## ListenerSet parameters
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| listenerSet.enabled | bool | `false` | Enable ListenerSet for Gateway API |
+| listenerSet.annotations | object | `{}` | Additional ListenerSet annotations |
+| listenerSet.labels | object | `{}` | Additional ListenerSet labels |
+| listenerSet.parentRef | object | `{}` | Gateway parent reference (required) |
+| listenerSet.listeners | list | `[]` | Listeners to attach to the parent Gateway |
+
 ## Network policies
 
 Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Database settings
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | externalDatabase.host | string | `nil` | External database host |
 | externalDatabase.name | string | `"wordpress"` | External database name |
 | externalDatabase.user | string | `nil` | External database user name |
@@ -160,7 +181,7 @@ The policyTypes will be automatically set
 ## Wordpress parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | apacheDefaultSiteConfig | string | `""` | Overwrite default apache 000-default.conf |
 | apachePortsConfig | string | `""` | Overwrite default apache ports.conf |
 | customPhpConfig | string | `""` | Additional PHP custom.ini |
@@ -175,7 +196,7 @@ The policyTypes will be automatically set
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.requestedSize | string | `nil` | Size for new PVC, when no existing PVC is used |
