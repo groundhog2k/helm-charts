@@ -20,8 +20,16 @@
   },
   "packageRules": [
     {
-      "matchDepNames": ["ghost", "gitea/gitea", "graylog/graylog", "mariadb", "mongo", "mysql", "rabbitmq", "redis", "valkey/valkey"],
+      "matchDepNames": ["ghost", "gitea/gitea", "graylog/graylog", "mongo", "rabbitmq", "redis", "valkey/valkey"],
       "allowedVersions": "/^\\d+\\.\\d+\\.\\d+$/"
+    },
+    {
+      "matchDepNames": ["mysql"],
+      "allowedVersions": "/^(8\\.4\\.\\d+|9\\.7\\.\\d+)$/"
+    },
+    {
+      "matchDepNames": ["mariadb"],
+      "allowedVersions": "/^(10\\.11\\.\\d+|11\\.4\\.\\d+|11\\.8\\.\\d+|12\\.3\\.\\d+)$/"
     },
     {
       "matchDepNames": ["quay.io/coreos/etcd", "umputun/remark42"],
