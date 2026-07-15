@@ -112,4 +112,5 @@
 | 0.7.7 | 8.0.16 | Added support for persistentVolumeClaimRetentionPolicy |
 | 0.7.8 | 8.0.19 | Upgraded to MongoDB 8.0.19 |
 | 0.7.9 | 8.0.26 | Upgraded to MongoDB 8.0.26, fixed PVC definition - thx @trandbert37 |
+| 0.7.10 | 8.3.4 | Upgraded mongodb to 8.3.4 |
 | | | |
