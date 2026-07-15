@@ -43,63 +43,81 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^charts/etcd/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/etcd/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "quay.io/coreos/etcd",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/ghost/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/ghost/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "ghost",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/gitea/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/gitea/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "gitea/gitea",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/graylog/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/graylog/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "graylog/graylog",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/mariadb/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/mariadb/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "mariadb",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/mongodb/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/mongodb/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "mongo",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/mysql/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/mysql/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "mysql",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/nextcloud/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/nextcloud/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "nextcloud",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/postgres/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/postgres/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "postgres",
       "datasourceTemplate": "docker",
@@ -107,35 +125,45 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/rabbitmq/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/rabbitmq/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "rabbitmq",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/redis/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/redis/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "redis",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/remark42/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/remark42/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "umputun/remark42",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/valkey/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/valkey/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "valkey/valkey",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^charts/wordpress/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^charts/wordpress/Chart\\.yaml$/"
+      ],
       "matchStrings": ["appVersion: \"?(?<currentValue>[^\"\\n]+)\"?"],
       "depNameTemplate": "wordpress",
       "datasourceTemplate": "docker"
