@@ -1,6 +1,6 @@
 # Valkey
 
-![Version: 2.3.1](https://img.shields.io/badge/Version-2.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.0](https://img.shields.io/badge/AppVersion-9.1.0-informational?style=flat-square)
+![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.0](https://img.shields.io/badge/AppVersion-9.1.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -79,14 +79,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"valkey/valkey"` | Image name |
@@ -122,7 +122,7 @@ helm uninstall my-release
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -130,8 +130,8 @@ helm uninstall my-release
 ## Metrics support parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| metrics.enabled | bool | `false` | Enable metrics support  |
+| --- | --- | --- | --- |
+| metrics.enabled | bool | `false` | Enable metrics support |
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
@@ -172,7 +172,7 @@ helm uninstall my-release
 ## Service parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
 | service.serverPort | int | `6379` | Valkey server service port |
 | service.sentinelPort | int | `26379` | Valkey sentinel service port |
@@ -186,7 +186,7 @@ helm uninstall my-release
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"valkey-data"` | Internal volume name and prefix of a created PVC |
@@ -208,7 +208,7 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.annotations | object | `{}` | Additional network policy annotations |
 | networkPolicy.labels | object | `{}` | Additional network policy labels |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
@@ -217,7 +217,7 @@ The policyTypes will be automatically set
 ## Valkey parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraInitEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the default init container as environment variables |
 | extraValkeyEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the valkey container as environment variables |
 | valkeyConfig | string | `nil` | Additional valkey.conf |

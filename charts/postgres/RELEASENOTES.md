@@ -2,7 +2,7 @@
 
 | Chart version | App version | Change description |
 | :------------ | :---------- | :----------------- |
-| 0.2.16 | 13.5 | Fixes bug with wrong mounted customConfig #811 |
+| 0.2.16 | 13.5 | Fixes bug with wrong mounted customConfig |
 | 0.2.17 | 13.5 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.2.18 | 13.5 | Implemented support for extra containers |
 | 0.2.19 | 13.6 | Upgraded to Postgres 13.6 |
@@ -15,7 +15,7 @@
 | 0.2.26 | 13.12 | Upgraded to Postgres 13.12 |
 | 0.2.27 | 13.13 | Upgraded to Postgres 13.13 |
 | 0.2.28 | 13.14 | Upgraded to Postgres 13.14 |
-| 0.3.4 | 14.1 | Fixes bug with wrong mounted customConfig #811 |
+| 0.3.4 | 14.1 | Fixes bug with wrong mounted customConfig |
 | 0.3.5 | 14.1 | Updated readme and release notes |
 | 0.3.6 | 14.1 | Implemented support for extra secrets and advanced configuration capabilites |
 | 0.3.7 | 14.1 | Implemented support for extra containers |
@@ -118,4 +118,5 @@
 | 1.6.4 | 18.4 | Upgraded to Postgres 18.4 |
 | 1.6.5 | 18.4 | Fixed PVC definition - thx @trandbert37 |
 | 1.6.6 | 18.4 | Fixed health probes - thx @Thesam1798 |
+| 1.6.7 | 18.4 | Fixed README.md markdown formatting |
 | | | |

@@ -33,4 +33,5 @@
 | 1.1.8 | v3.6.11 | Upgraded etcd to v3.6.11 |
 | 1.1.9 | v3.6.13 | Upgraded etcd to v3.6.13, fixed PVC definition - thx @trandbert37 |
 | 1.1.10 | v3.7.0 | Upgraded etcd to v3.7.0 |
+| 1.1.11 | v3.7.0 | Fixed README.md markdown formatting |
 | | | |

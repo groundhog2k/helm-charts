@@ -46,4 +46,5 @@
 | 3.1.0 | 9.7.0 (LTS) | Upgraded MySQL to 9.7.0 |
 | 3.1.1 | 9.7.1 (LTS) | Upgraded MySQL to 9.7.1, fixed PVC definition - thx @trandbert37 |
 | 3.1.2 | 9.7.1 | Upgraded mysql to 9.7.1 (renovate) |
+| 3.1.3 | 9.7.1 | Fixed README.md markdown formatting |
 | | | |

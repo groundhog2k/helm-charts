@@ -1,6 +1,6 @@
 # PostgreSQL
 
-![Version: 1.6.6](https://img.shields.io/badge/Version-1.6.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 18.4](https://img.shields.io/badge/AppVersion-18.4-informational?style=flat-square)
+![Version: 1.6.7](https://img.shields.io/badge/Version-1.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 18.4](https://img.shields.io/badge/AppVersion-18.4-informational?style=flat-square)
 
 ## Changelog
 
@@ -50,14 +50,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"postgres"` | Image name |
@@ -91,12 +91,12 @@ helm uninstall my-release
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 
 ## Service paramters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type |
 | service.port | int | `5432` | PostreSQL service port |
 | service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
@@ -112,14 +112,14 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
 | networkPolicy.egress | object | `{}` | Egress network policies |
 
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"postgres-data"` | Internal volume name and prefix of a created PVC |
@@ -138,7 +138,7 @@ The policyTypes will be automatically set
 ## PostgreSQL parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | useDeployment | bool | `false` | Use Kubernetes Deployment instead of StatefulSet |
 | settings.authMethod | string | `nil` | Postgres database authentication method |
 | settings.initDbArgs | string | `nil` | Optional init database arguments |

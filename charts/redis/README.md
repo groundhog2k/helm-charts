@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.4.1](https://img.shields.io/badge/Version-2.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.8.0](https://img.shields.io/badge/AppVersion-8.8.0-informational?style=flat-square)
+![Version: 2.4.2](https://img.shields.io/badge/Version-2.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.8.0](https://img.shields.io/badge/AppVersion-8.8.0-informational?style=flat-square)
 
 ## Changelog
 
@@ -79,14 +79,14 @@ helm uninstall my-release
 ## Common parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | fullnameOverride | string | `""` | Fully override the deployment name |
 | nameOverride | string | `""` | Partially override the deployment name |
 
 ## Deployment parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"redis"` | Image name |
@@ -122,7 +122,7 @@ helm uninstall my-release
 | topologySpreadConstraints | object | `{}` | Topology spread constraints for pods |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | updateStrategyType | string | `"RollingUpdate"` | Pod update strategy |
-| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history
+| revisionHistoryLimit | int | `nil` | Maximum number of revisions maintained in revision history |
 | podDisruptionBudget | object | `{}` | Pod disruption budget |
 | podDisruptionBudget.minAvailable | int | `nil` | Minimum number of pods that must be available after eviction |
 | podDisruptionBudget.maxUnavailable | int | `nil` | Maximum number of pods that can be unavailable after eviction |
@@ -130,8 +130,8 @@ helm uninstall my-release
 ## Metrics support parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| metrics.enabled | bool | `false` | Enable metrics support  |
+| --- | --- | --- | --- |
+| metrics.enabled | bool | `false` | Enable metrics support |
 | metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | metrics.exporter.image.registry | string | `"docker.io"` | Image registry |
 | metrics.exporter.image.repository | string | `"oliver006/redis_exporter"` | Image name |
@@ -172,7 +172,7 @@ helm uninstall my-release
 ## Service parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | service.type | string | `"ClusterIP"` | Service type (not available when haMode is enabled) |
 | service.serverPort | int | `6379` | Redis server service port |
 | service.sentinelPort | int | `26379` | Redis sentinel service port |
@@ -186,7 +186,7 @@ helm uninstall my-release
 ## Storage parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | storage.accessModes[0] | string | `"ReadWriteOnce"` | Storage access mode |
 | storage.persistentVolumeClaimName | string | `nil` | PVC name when existing storage volume should be used |
 | storage.volumeName | string | `"redis-data"` | Internal volume name and prefix of a created PVC |
@@ -208,7 +208,7 @@ Allows to define optional network policies for [ingress and egress](https://kube
 The policyTypes will be automatically set
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | networkPolicy.annotations | object | `{}` | Additional network policy annotations |
 | networkPolicy.labels | object | `{}` | Additional network policy labels |
 | networkPolicy.ingress | object | `{}` | Ingress network policies |
@@ -217,7 +217,7 @@ The policyTypes will be automatically set
 ## Redis parameters
 
 | Key | Type | Default | Description |
-|-----|------|---------|-------------|
+| --- | --- | --- | --- |
 | extraInitEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the default init container as environment variables |
 | extraRedisEnvSecrets | list | `[]` | A list of existing secrets that will be mounted into the redis container as environment variables |
 | redisConfig | string | `nil` | Additional redis.conf |
@@ -247,7 +247,7 @@ The policyTypes will be automatically set
 | haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
 | haMode.downAfterMilliseconds | int | `30000` | Number of milliseconds after the master should be declared as unavailable |
 | haMode.failoverTimeout | int | `180000` | Timeout for a failover in milliseoncds |
-| haMode.parallelSyncs | int | `1` | Number of parallel reconfigurations
+| haMode.parallelSyncs | int | `1` | Number of parallel reconfigurations |
 | haMode.masterAliveTestTimeout | int | `2` | Timeout in seconds to detect if Redis master is alive |
 | haMode.failoverWait | int | `35` | Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds) |
 | haMode.dnsFailureWait | int | `15` | Wait time in seconds before restart will be forced after a DNS failure during initialization |
