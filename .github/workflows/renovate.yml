@@ -22,4 +22,4 @@ jobs:
         env:
           RENOVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RENOVATE_REPOSITORIES: ${{ github.repository }}
-          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: '["bash scripts/post_upgrade\\.sh .+"]'
+          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: '["bash \.github/scripts/post_upgrade\.sh .+"]'
