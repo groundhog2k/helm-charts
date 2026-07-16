@@ -111,4 +111,5 @@
 | 0.21.7 | 33.0.6-apache | Added support for Gateway API HTTPRoute and ListenerSet |
 | 0.21.8 | 34.0.1-apache | Upgraded nextcloud to 34.0.1 |
 | 0.22.0 | 34.0.1-apache | Implemented nginx support |
+| 0.22.1 | 34.0.1-apache | Fixed nginx configuration for remote.php access |
 | | | |
