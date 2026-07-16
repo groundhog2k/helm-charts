@@ -42,12 +42,21 @@ data:
 
         client_max_body_size {{ .Values.settings.maxFileUploadSize | default "512M" }};
 
+        # Load default MIME types and extend with .mjs (ES modules)
+        include /etc/nginx/mime.types;
+        types {
+            application/javascript mjs;
+        }
+
         # .well-known redirects required by Nextcloud
         location = /.well-known/carddav {
             return 301 $scheme://$host/remote.php/dav;
         }
         location = /.well-known/caldav {
             return 301 $scheme://$host/remote.php/dav;
+        }
+        location = /.well-known/webfinger {
+            return 301 $scheme://$host/index.php/.well-known/webfinger;
         }
 
         # Disable access log for health checks
