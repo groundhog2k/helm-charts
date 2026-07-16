@@ -42,6 +42,14 @@ data:
 
         client_max_body_size {{ .Values.settings.maxFileUploadSize | default "512M" }};
 
+        # .well-known redirects required by Nextcloud
+        location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+        }
+        location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+        }
+
         # Disable access log for health checks
         location = /status.php {
             access_log off;
@@ -54,9 +62,12 @@ data:
             try_files $uri $uri/ /index.php$is_args$args;
         }
 
-        location ~ \.php$ {
+        # PHP-FPM with PATH_INFO support (required for /remote.php/dav and similar paths)
+        location ~ \.php(?:$|/) {
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
             fastcgi_pass php-handler;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
             include fastcgi_params;
             fastcgi_read_timeout 300;
         }
