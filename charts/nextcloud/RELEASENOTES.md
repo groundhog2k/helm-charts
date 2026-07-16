@@ -113,4 +113,5 @@
 | 0.22.0 | 34.0.1-apache | Implemented nginx support |
 | 0.22.1 | 34.0.1-apache | Fixed nginx configuration for remote.php access |
 | 0.22.2 | 34.0.1-apache | Fixed webfinger access and .mjs MIME-type |
+| 0.22.3 | 34.0.1-apache | Set more nginx options similar to apache configuration |
 | | | |
