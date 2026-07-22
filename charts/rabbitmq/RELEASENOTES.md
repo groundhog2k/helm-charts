@@ -168,4 +168,5 @@
 | 2.3.3 | 4.3.2 | Upgraded to RabbitMQ 4.3.2 |
 | 2.3.4 | 4.3.2 | Added Gateway API HTTPRoute und ListenerSet support |
 | 2.3.5 | 4.3.2 | Fixed PVC definition - thx @trandbert37 |
+| 2.3.6 | 4.3.3 | Upgraded rabbitmq to 4.3.3 |
 | | | |
