@@ -114,4 +114,5 @@
 | 0.7.9 | 8.0.26 | Upgraded to MongoDB 8.0.26, fixed PVC definition - thx @trandbert37 |
 | 0.7.10 | 8.3.4 | Upgraded mongodb to 8.3.4 |
 | 0.7.11 | 8.3.4 | Fixed README.md markdown formatting |
+| 0.8.0 | 8.3.4 | Implemented Prometheus metrics and ServiceMonitor support via a mongodb_exporter sidecar |
 | | | |

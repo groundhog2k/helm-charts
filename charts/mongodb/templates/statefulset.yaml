@@ -242,6 +242,108 @@ spec:
             - name: {{ $secret.name }}
               mountPath: {{ $secret.mountPath }}
             {{- end }}
+        {{- if .Values.metrics.enabled }}
+        {{- with .Values.metrics }}
+        - name: {{ $.Chart.Name }}-exporter
+          {{- with .exporter.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .exporter.image.registry }}/{{ .exporter.image.repository }}:{{ .exporter.image.tag }}"
+          imagePullPolicy: {{ .exporter.image.pullPolicy }}
+          ports:
+            - name: exporter
+              containerPort: {{ .service.containerPort }}
+              protocol: TCP
+          {{- with .exporter.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .exporter.args }}
+          args:
+            {{- range . }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          env:
+            {{- if .exporter.uri }}
+            - name: MONGODB_URI
+              value: {{ .exporter.uri | quote }}
+            {{- else if include "mongodb.createSecureConfig" $ }}
+            - name: MONGODB_URI
+              value: "mongodb://$(MONGO_INITDB_ROOT_USERNAME):$(MONGO_INITDB_ROOT_PASSWORD)@localhost:{{ $.Values.service.port }}/admin?authSource=admin"
+            {{- else }}
+            - name: MONGODB_URI
+              value: "mongodb://localhost:{{ $.Values.service.port }}"
+            {{- end }}
+            {{- with .exporter.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- if include "mongodb.createSecureConfig" $ }}
+            - secretRef:
+                name: {{ $fullname }}
+            {{- end }}
+            {{- range .exporter.extraExporterEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
+          {{- if .exporter.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .exporter.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .exporter.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .exporter.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .exporter.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .exporter.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          {{- with .exporter.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
       {{- with .Values.extraContainers }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
