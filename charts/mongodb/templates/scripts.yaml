@@ -421,7 +421,7 @@ data:
     # Copy extra initialization scripts for ReplicaSet cluster
     cp /scripts/extra-*.sh /extrainitscripts
     echo "Copy custom configuration"
-    touch /configs/custom.conf
+    echo >/configs/custom.conf
     if [ -d /customconfig ]; then
       echo "Create custom mongodb config"
       cat /customconfig/* >>/configs/custom.conf
