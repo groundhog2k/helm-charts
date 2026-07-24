@@ -34,4 +34,5 @@ spec:
   {{- end }}
   selector:
     {{- include "mongodb.selectorLabels" . | nindent 4 }}
+    service-type: primary-secondary
 {{- end }}
