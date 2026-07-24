@@ -115,4 +115,5 @@
 | 0.7.10 | 8.3.4 | Upgraded mongodb to 8.3.4 |
 | 0.7.11 | 8.3.4 | Fixed README.md markdown formatting |
 | 0.7.12 | 8.3.4 | Fixed mongodb backoff restart when using customConfig |
+| 0.7.13 | 8.3.7 | Upgraded mongodb to 8.3.7 |
 | | | |
