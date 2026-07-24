@@ -1,0 +1,38 @@
+{{- if and .Values.metrics.enabled .Values.metrics.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mongodb.fullname" . }}-metrics
+  labels:
+    {{- include "mongodb.labels" . | nindent 4 }}
+    mongodb/metrics-service: {{ include "mongodb.fullname" . }}-metrics
+    {{- with .Values.metrics.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.metrics.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.metrics.service.type }}
+  ports:
+    - port: {{ .Values.metrics.service.servicePort }}
+      targetPort: exporter
+      protocol: TCP
+      name: exporter
+      {{- if and ( or (eq .Values.metrics.service.type "LoadBalancer") (eq .Values.metrics.service.type "NodePort") ) (.Values.metrics.service.nodePort) }}
+      nodePort: {{ .Values.metrics.service.nodePort }}
+      {{- end }}
+  {{- if and (eq .Values.metrics.service.type "LoadBalancer") (.Values.metrics.service.loadBalancerIP) }}
+  loadBalancerIP: {{ .Values.metrics.service.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.metrics.service.type "LoadBalancer") (.Values.metrics.service.loadBalancerSourceRanges) }}
+  loadBalancerSourceRanges: {{- toYaml .Values.metrics.service.loadBalancerSourceRanges | nindent 4 }}
+  {{- end }}
+  {{- if .Values.metrics.service.clusterIP }}
+  clusterIP: {{ .Values.metrics.service.clusterIP }}
+  {{- end }}
+  selector:
+    {{- include "mongodb.selectorLabels" . | nindent 4 }}
+    service-type: primary-secondary
+{{- end }}

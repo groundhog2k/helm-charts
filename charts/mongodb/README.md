@@ -102,6 +102,49 @@ helm uninstall my-release
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
 
+## Metrics
+
+Deploys a [mongodb_exporter](https://github.com/percona/mongodb_exporter) sidecar that exposes Prometheus metrics, together with an optional metrics `Service` and a Prometheus Operator `ServiceMonitor`. When `metrics.exporter.uri` is empty the connection string is built automatically from the chart's root credentials (or without authentication when none are set).
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| metrics.enabled | bool | `false` | Enable metrics export via a mongodb_exporter sidecar |
+| metrics.exporter.image.registry | string | `"docker.io"` | Exporter image registry |
+| metrics.exporter.image.repository | string | `"percona/mongodb_exporter"` | Exporter image repository |
+| metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Exporter image pull policy |
+| metrics.exporter.image.tag | string | `"0.51.0"` | Exporter image tag |
+| metrics.exporter.uri | string | `""` | MongoDB connection URI for the exporter (auto-built from root credentials when empty) |
+| metrics.exporter.securityContext | object | (non-root) | Security context for the exporter container |
+| metrics.exporter.resources | object | `{}` | Resource limits and requests for the exporter container |
+| metrics.exporter.customStartupProbe | object | `{}` | Custom startup probe (overwrites the default startup probe) |
+| metrics.exporter.startupProbe | object | (enabled) | Default startup probe |
+| metrics.exporter.customLivenessProbe | object | `{}` | Custom liveness probe (overwrites the default liveness probe) |
+| metrics.exporter.livenessProbe | object | (enabled) | Default liveness probe |
+| metrics.exporter.customReadinessProbe | object | `{}` | Custom readiness probe (overwrites the default readiness probe) |
+| metrics.exporter.readinessProbe | object | (enabled) | Default readiness probe |
+| metrics.exporter.args | list | `[]` | Arguments for the exporter entrypoint process |
+| metrics.exporter.env | list | `[]` | Additional environment variables (exporter only) |
+| metrics.exporter.extraExporterEnvSecrets | list | `[]` | Existing secrets mounted into the exporter as environment variables |
+| metrics.service.enabled | bool | `true` | Enable the metrics service |
+| metrics.service.type | string | `"ClusterIP"` | Metrics service type |
+| metrics.service.servicePort | int | `9216` | Metrics service port |
+| metrics.service.containerPort | int | `9216` | Exporter container port |
+| metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| metrics.service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevant for type LoadBalancer) |
+| metrics.service.annotations | object | `{}` | Additional metrics service annotations |
+| metrics.service.labels | object | `{}` | Additional metrics service labels |
+| metrics.serviceMonitor.enabled | bool | `true` | Enable the Prometheus Operator ServiceMonitor |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the ServiceMonitor object |
+| metrics.serviceMonitor.annotations | object | `{}` | Annotations for the ServiceMonitor object |
+| metrics.serviceMonitor.interval | string | `nil` | The scrape interval for prometheus |
+| metrics.serviceMonitor.scrapeTimeout | string | `nil` | The scrape timeout value |
+| metrics.serviceMonitor.extraEndpointParameters | object | `{}` | Extra parameters rendered to the ServiceMonitor endpoint |
+| metrics.serviceMonitor.extraParameters | object | `{}` | Extra parameters rendered to the ServiceMonitor |
+| metrics.serviceMonitor.path | string | `"/metrics"` | Path to metrics |
+| metrics.serviceMonitor.scheme | string | `"http"` | Scheme to use for metrics endpoint |
+
 ## Network policies
 
 Allows to define optional network policies for [ingress and egress](https://kubernetes.io/docs/concepts/services-networking/network-policies/)

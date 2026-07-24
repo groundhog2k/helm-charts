@@ -148,6 +148,134 @@ topologySpreadConstraints: {}
 ## Maximum number of revisions maintained in revision history
 revisionHistoryLimit:
 
+## Prometheus metrics and service monitor configuration
+metrics:
+  ## Enable metrics export via a mongodb_exporter sidecar
+  enabled: false
+  ## Metrics exporter configuration
+  exporter:
+    ## MongoDB exporter image
+    image:
+      registry: "docker.io"
+      repository: "percona/mongodb_exporter"
+      pullPolicy: IfNotPresent
+      tag: "0.51.0"
+    ## MongoDB connection URI for the exporter.
+    ## When left empty the URI is built automatically: it authenticates with the
+    ## chart's root credentials when settings.rootUsername / settings.rootPassword
+    ## (or an existingSecret providing MONGO_INITDB_ROOT_USERNAME / _PASSWORD) are
+    ## set, and connects without authentication otherwise.
+    ## Set this to point the exporter at a custom monitoring user or add options.
+    uri: ""
+    ## Default security options to run the exporter as a non-root, read only container.
+    ## runAsUser/runAsGroup are pinned to nobody (65534) so the exporter starts as
+    ## non-root regardless of the image's default user.
+    securityContext:
+      allowPrivilegeEscalation: false
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
+      capabilities:
+        drop:
+          - ALL
+    ## Resource limits and requests
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+    ## Custom startup probe (overwrites default startup probe)
+    customStartupProbe: {}
+
+    ## Default startup probe
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom liveness probe (overwrites default liveness probe)
+    customLivenessProbe: {}
+
+    ## Default liveness probe
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Custom readiness probe (overwrites default readiness probe)
+    customReadinessProbe: {}
+
+    ## Default readiness probe
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+
+    ## Arguments for the exporter entrypoint process (see: https://github.com/percona/mongodb_exporter)
+    args: []
+    ## Additional environment variables (exporter only)
+    env: []
+    ## A list of existing secrets that will be mounted into the exporter container as environment variables
+    extraExporterEnvSecrets: []
+
+  ## Exporter service configuration
+  service:
+    ## Enable metrics service
+    enabled: true
+    ## Type of service
+    type: ClusterIP
+    ## MongoDB exporter service port
+    servicePort: 9216
+    ## MongoDB exporter container port
+    containerPort: 9216
+    ## The node port (only relevant for type LoadBalancer or NodePort)
+    nodePort:
+    ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+    clusterIP:
+    ## The loadbalancer ip address (only relevant for type LoadBalancer)
+    loadBalancerIP:
+    ## The list of IP CIDR ranges that are allowed to access the load balancer (only relevant for type LoadBalancer)
+    loadBalancerSourceRanges: []
+    ## Annotations to add to the service
+    annotations: {}
+    ## Labels to add to the service
+    labels: {}
+
+  ## Prometheus service monitor configuration
+  serviceMonitor:
+    ## Enable service monitor
+    enabled: true
+    ## Additional labels for the service monitor object
+    additionalLabels: {}
+    ## Annotations for the service monitor object
+    annotations: {}
+    ## The scrape interval for prometheus
+    # interval:
+    ## The scrape timeout value
+    # scrapeTimeout:
+    ## Extra parameters rendered to the service monitor endpoint
+    extraEndpointParameters: {}
+    ## Extra parameters rendered to the service monitor
+    extraParameters: {}
+    ## Path to metrics
+    path: "/metrics"
+    ## Scheme to use for metrics endpoint
+    scheme: http
+
 ## Extra init containers
 extraInitContainers: []
 
