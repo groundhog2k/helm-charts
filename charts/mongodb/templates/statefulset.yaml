@@ -271,10 +271,10 @@ spec:
               value: {{ .exporter.uri | quote }}
             {{- else if include "mongodb.createSecureConfig" $ }}
             - name: MONGODB_URI
-              value: "mongodb://$(MONGO_INITDB_ROOT_USERNAME):$(MONGO_INITDB_ROOT_PASSWORD)@localhost:{{ $.Values.service.port }}/admin?authSource=admin"
+              value: "mongodb://$(MONGO_INITDB_ROOT_USERNAME):$(MONGO_INITDB_ROOT_PASSWORD)@localhost:{{ $.Values.service.port }}/admin?authSource=admin&directConnection=true"
             {{- else }}
             - name: MONGODB_URI
-              value: "mongodb://localhost:{{ $.Values.service.port }}"
+              value: "mongodb://localhost:{{ $.Values.service.port }}/?directConnection=true"
             {{- end }}
             {{- with .exporter.env }}
             {{- toYaml . | nindent 12 }}

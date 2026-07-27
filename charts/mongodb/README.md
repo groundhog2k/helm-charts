@@ -106,6 +106,8 @@ helm uninstall my-release
 
 Deploys a [mongodb_exporter](https://github.com/percona/mongodb_exporter) sidecar that exposes Prometheus metrics, together with an optional metrics `Service` and a Prometheus Operator `ServiceMonitor`. When `metrics.exporter.uri` is empty the connection string is built automatically from the chart's root credentials (or without authentication when none are set).
 
+The exporter runs on every data-bearing member: the primary/secondary StatefulSet and, when `replicaSet.hiddenSecondaries.instances > 0`, the hidden-secondary StatefulSet as well. Each set gets its own metrics `Service` (`<release>-mongodb-metrics` and `<release>-mongodb-metrics-hidden`) and `ServiceMonitor`, so per-member state (member role, oplog window, replication lag) is scraped from the node it actually runs on. Arbiters are intentionally not scraped — they hold no data, and their member state is already reported by the primary's `replSetGetStatus`. The auto-built URI pins `directConnection=true` so each sidecar reports its own node's metrics instead of being routed to the primary by replica-set discovery; set `metrics.exporter.uri` to override (for example, to monitor only the primary or to point at an external MongoDB). The hidden metrics `Service` inherits `metrics.service.type` but omits any fixed `nodePort` / `loadBalancerIP`, which can belong to only one `Service`.
+
 | Key | Type | Default | Description |
 | --- | --- | --- | --- |
 | metrics.enabled | bool | `false` | Enable metrics export via a mongodb_exporter sidecar |

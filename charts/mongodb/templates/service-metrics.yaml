@@ -36,3 +36,33 @@ spec:
     {{- include "mongodb.selectorLabels" . | nindent 4 }}
     service-type: primary-secondary
 {{- end }}
+{{- if and .Values.metrics.enabled .Values.metrics.service.enabled .Values.replicaSet.enabled (gt (int .Values.replicaSet.hiddenSecondaries.instances | default 0) 0) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mongodb.fullname" . }}-metrics-hidden
+  labels:
+    {{- include "mongodb.labels" . | nindent 4 }}
+    mongodb/metrics-service: {{ include "mongodb.fullname" . }}-metrics-hidden
+    {{- with .Values.metrics.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.metrics.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.metrics.service.type }}
+  ports:
+    - port: {{ .Values.metrics.service.servicePort }}
+      targetPort: exporter
+      protocol: TCP
+      name: exporter
+  {{- if .Values.metrics.service.clusterIP }}
+  clusterIP: {{ .Values.metrics.service.clusterIP }}
+  {{- end }}
+  selector:
+    {{- include "mongodb.selectorLabels" . | nindent 4 }}
+    service-type: hidden-secondary
+{{- end }}
