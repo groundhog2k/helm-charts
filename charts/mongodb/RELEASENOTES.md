@@ -115,5 +115,7 @@
 | 0.7.10 | 8.3.4 | Upgraded mongodb to 8.3.4 |
 | 0.7.11 | 8.3.4 | Fixed README.md markdown formatting |
 | 0.7.12 | 8.3.4 | Fixed mongodb backoff restart when using customConfig |
-| 0.8.0 | 8.3.4 | Implemented Prometheus metrics and ServiceMonitor support via a mongodb_exporter sidecar (covers primary/secondary and hidden-secondary members, with directConnection for per-member metrics) |
+| 0.7.13 | 8.3.4 | Fixed regression introduced in 0.7.12 (js-yaml.js) |
+| 0.7.14 | 8.3.7 | Upgraded mongodb to 8.3.7 |
+| 0.8.0 | 8.3.7 | Implemented Prometheus metrics and ServiceMonitor support via a mongodb_exporter sidecar (covers primary/secondary and hidden-secondary members, with directConnection for per-member metrics) |
 | | | |
