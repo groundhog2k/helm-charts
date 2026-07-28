@@ -41,7 +41,7 @@
     },
     {
       "matchDepNames": ["nextcloud"],
-      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+-apache$/"
+      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+$/"
     },
     {
       "matchDepNames": ["wordpress"],
