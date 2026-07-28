@@ -116,4 +116,5 @@
 | 0.13.4 | 7.1.3 | Fixed documentation |
 | 0.13.5 | 7.1.4 | Updated chart for Graylog 7.1.4, fixed PVC definition - thx @trandbert37 |
 | 0.13.6 | 7.1.5 | Upgraded graylog to 7.1.5 |
+| 0.13.7 | 7.1.6 | Upgraded graylog to 7.1.6 |
 | | | |
