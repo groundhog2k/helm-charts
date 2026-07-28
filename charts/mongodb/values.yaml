@@ -226,7 +226,16 @@ metrics:
       periodSeconds: 10
 
     ## Arguments for the exporter entrypoint process (see: https://github.com/percona/mongodb_exporter)
-    args: []
+    ## Every --collector.* flag is opt-in: with no flags the exporter only exposes
+    ## mongodb_up, so dashboards and alerts report missing metrics. The two defaults
+    ## below cover serverStatus and replSetGetStatus, which is what standard MongoDB
+    ## dashboards consume. Deliberately not --collect-all: that adds $collStats and
+    ## $indexStats, whose series count grows with the number of user collections.
+    ## Append --collector.dbstats / --collector.collstats / --collector.indexstats
+    ## (or replace with --collect-all) when that extra detail is worth the cardinality.
+    args:
+      - --collector.diagnosticdata
+      - --collector.replicasetstatus
     ## Additional environment variables (exporter only)
     env: []
     ## A list of existing secrets that will be mounted into the exporter container as environment variables

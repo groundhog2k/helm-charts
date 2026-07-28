@@ -108,6 +108,8 @@ Deploys a [mongodb_exporter](https://github.com/percona/mongodb_exporter) sideca
 
 The exporter runs on every data-bearing member: the primary/secondary StatefulSet and, when `replicaSet.hiddenSecondaries.instances > 0`, the hidden-secondary StatefulSet as well. Each set gets its own metrics `Service` (`<release>-mongodb-metrics` and `<release>-mongodb-metrics-hidden`) and `ServiceMonitor`, so per-member state (member role, oplog window, replication lag) is scraped from the node it actually runs on. Arbiters are intentionally not scraped — they hold no data, and their member state is already reported by the primary's `replSetGetStatus`. The auto-built URI pins `directConnection=true` so each sidecar reports its own node's metrics instead of being routed to the primary by replica-set discovery; set `metrics.exporter.uri` to override (for example, to monitor only the primary or to point at an external MongoDB). The hidden metrics `Service` inherits `metrics.service.type` but omits any fixed `nodePort` / `loadBalancerIP`, which can belong to only one `Service`.
 
+Every `--collector.*` flag of `mongodb_exporter` is opt-in — started with no arguments the exporter exposes only `mongodb_up`, which makes dashboards and alerts report missing metrics even though the scrape target is healthy. `metrics.exporter.args` therefore defaults to `--collector.diagnosticdata` (`serverStatus`, i.e. connections, opcounters, memory, WiredTiger cache) and `--collector.replicasetstatus` (`replSetGetStatus`, i.e. member state and replication lag) — the set standard MongoDB dashboards consume. `--collect-all` is deliberately not the default: it additionally enables `$collStats` and `$indexStats`, whose series count grows with the number of user collections. Add `--collector.dbstats`, `--collector.collstats` or `--collector.indexstats` (or switch to `--collect-all`) when that detail is worth the extra cardinality.
+
 | Key | Type | Default | Description |
 | --- | --- | --- | --- |
 | metrics.enabled | bool | `false` | Enable metrics export via a mongodb_exporter sidecar |
@@ -124,7 +126,7 @@ The exporter runs on every data-bearing member: the primary/secondary StatefulSe
 | metrics.exporter.livenessProbe | object | (enabled) | Default liveness probe |
 | metrics.exporter.customReadinessProbe | object | `{}` | Custom readiness probe (overwrites the default readiness probe) |
 | metrics.exporter.readinessProbe | object | (enabled) | Default readiness probe |
-| metrics.exporter.args | list | `[]` | Arguments for the exporter entrypoint process |
+| metrics.exporter.args | list | `["--collector.diagnosticdata","--collector.replicasetstatus"]` | Arguments for the exporter entrypoint process |
 | metrics.exporter.env | list | `[]` | Additional environment variables (exporter only) |
 | metrics.exporter.extraExporterEnvSecrets | list | `[]` | Existing secrets mounted into the exporter as environment variables |
 | metrics.service.enabled | bool | `true` | Enable the metrics service |
