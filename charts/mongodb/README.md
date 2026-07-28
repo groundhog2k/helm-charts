@@ -1,6 +1,6 @@
 # MongoDB
 
-![Version: 0.7.14](https://img.shields.io/badge/Version-0.7.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.3.7](https://img.shields.io/badge/AppVersion-8.3.7-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.3.7](https://img.shields.io/badge/AppVersion-8.3.7-informational?style=flat-square)
 
 ## Changelog
 
@@ -101,6 +101,53 @@ helm uninstall my-release
 | service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevent for type LoadBalancer) |
 | service.annotations | object | `{}` | Additional service annotations |
 | service.labels | object | `{}` | Additional service labels |
+
+## Metrics
+
+Deploys a [mongodb_exporter](https://github.com/percona/mongodb_exporter) sidecar that exposes Prometheus metrics, together with an optional metrics `Service` and a Prometheus Operator `ServiceMonitor`. When `metrics.exporter.uri` is empty the connection string is built automatically from the chart's root credentials (or without authentication when none are set).
+
+The exporter runs on every data-bearing member: the primary/secondary StatefulSet and, when `replicaSet.hiddenSecondaries.instances > 0`, the hidden-secondary StatefulSet as well. Each set gets its own metrics `Service` (`<release>-mongodb-metrics` and `<release>-mongodb-metrics-hidden`) and `ServiceMonitor`, so per-member state (member role, oplog window, replication lag) is scraped from the node it actually runs on. Arbiters are intentionally not scraped — they hold no data, and their member state is already reported by the primary's `replSetGetStatus`. The auto-built URI pins `directConnection=true` so each sidecar reports its own node's metrics instead of being routed to the primary by replica-set discovery; set `metrics.exporter.uri` to override (for example, to monitor only the primary or to point at an external MongoDB). The hidden metrics `Service` inherits `metrics.service.type` but omits any fixed `nodePort` / `loadBalancerIP`, which can belong to only one `Service`.
+
+Every `--collector.*` flag of `mongodb_exporter` is opt-in — started with no arguments the exporter exposes only `mongodb_up`, which makes dashboards and alerts report missing metrics even though the scrape target is healthy. `metrics.exporter.args` therefore defaults to `--collector.diagnosticdata` (`serverStatus`, i.e. connections, opcounters, memory, WiredTiger cache) and `--collector.replicasetstatus` (`replSetGetStatus`, i.e. member state and replication lag) — the set standard MongoDB dashboards consume. `--collect-all` is deliberately not the default: it additionally enables `$collStats` and `$indexStats`, whose series count grows with the number of user collections. Add `--collector.dbstats`, `--collector.collstats` or `--collector.indexstats` (or switch to `--collect-all`) when that detail is worth the extra cardinality.
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| metrics.enabled | bool | `false` | Enable metrics export via a mongodb_exporter sidecar |
+| metrics.exporter.image.registry | string | `"docker.io"` | Exporter image registry |
+| metrics.exporter.image.repository | string | `"percona/mongodb_exporter"` | Exporter image repository |
+| metrics.exporter.image.pullPolicy | string | `"IfNotPresent"` | Exporter image pull policy |
+| metrics.exporter.image.tag | string | `"0.51.0"` | Exporter image tag |
+| metrics.exporter.uri | string | `""` | MongoDB connection URI for the exporter (auto-built from root credentials when empty) |
+| metrics.exporter.securityContext | object | (non-root) | Security context for the exporter container |
+| metrics.exporter.resources | object | `{}` | Resource limits and requests for the exporter container |
+| metrics.exporter.customStartupProbe | object | `{}` | Custom startup probe (overwrites the default startup probe) |
+| metrics.exporter.startupProbe | object | (enabled) | Default startup probe |
+| metrics.exporter.customLivenessProbe | object | `{}` | Custom liveness probe (overwrites the default liveness probe) |
+| metrics.exporter.livenessProbe | object | (enabled) | Default liveness probe |
+| metrics.exporter.customReadinessProbe | object | `{}` | Custom readiness probe (overwrites the default readiness probe) |
+| metrics.exporter.readinessProbe | object | (enabled) | Default readiness probe |
+| metrics.exporter.args | list | `["--collector.diagnosticdata","--collector.replicasetstatus"]` | Arguments for the exporter entrypoint process |
+| metrics.exporter.env | list | `[]` | Additional environment variables (exporter only) |
+| metrics.exporter.extraExporterEnvSecrets | list | `[]` | Existing secrets mounted into the exporter as environment variables |
+| metrics.service.enabled | bool | `true` | Enable the metrics service |
+| metrics.service.type | string | `"ClusterIP"` | Metrics service type |
+| metrics.service.servicePort | int | `9216` | Metrics service port |
+| metrics.service.containerPort | int | `9216` | Exporter container port |
+| metrics.service.nodePort | int | `nil` | The node port (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.clusterIP | string | `nil` | The cluster ip address (only relevant for type LoadBalancer or NodePort) |
+| metrics.service.loadBalancerIP | string | `nil` | The load balancer ip address (only relevant for type LoadBalancer) |
+| metrics.service.loadBalancerSourceRanges | list | `[]` | The list of IP CIDR ranges that are allowed to access the load balancer (only relevant for type LoadBalancer) |
+| metrics.service.annotations | object | `{}` | Additional metrics service annotations |
+| metrics.service.labels | object | `{}` | Additional metrics service labels |
+| metrics.serviceMonitor.enabled | bool | `true` | Enable the Prometheus Operator ServiceMonitor |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Additional labels for the ServiceMonitor object |
+| metrics.serviceMonitor.annotations | object | `{}` | Annotations for the ServiceMonitor object |
+| metrics.serviceMonitor.interval | string | `nil` | The scrape interval for prometheus |
+| metrics.serviceMonitor.scrapeTimeout | string | `nil` | The scrape timeout value |
+| metrics.serviceMonitor.extraEndpointParameters | object | `{}` | Extra parameters rendered to the ServiceMonitor endpoint |
+| metrics.serviceMonitor.extraParameters | object | `{}` | Extra parameters rendered to the ServiceMonitor |
+| metrics.serviceMonitor.path | string | `"/metrics"` | Path to metrics |
+| metrics.serviceMonitor.scheme | string | `"http"` | Scheme to use for metrics endpoint |
 
 ## Network policies
 
