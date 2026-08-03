@@ -121,4 +121,5 @@
 | 2.4.3 | 8.8.0 | Updated logo |
 | 2.4.4 | 8.8.0 | Fixed logo |
 | 2.4.5 | 8.8.1 | Upgraded redis to 8.8.1 |
+| 2.4.6 | 8.10.0 | Upgraded redis to 8.10.0 |
 | | | |
