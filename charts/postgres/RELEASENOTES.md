@@ -119,4 +119,5 @@
 | 1.6.5 | 18.4 | Fixed PVC definition - thx @trandbert37 |
 | 1.6.6 | 18.4 | Fixed health probes - thx @Thesam1798 |
 | 1.6.7 | 18.4 | Fixed README.md markdown formatting |
+| 1.6.8 | 18.6 | Upgraded postgres to 18.6 |
 | | | |
