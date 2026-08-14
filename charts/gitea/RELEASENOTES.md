@@ -116,4 +116,5 @@
 | 0.15.5 | 1.26.4 | Fixed markdown in documentation |
 | 0.16.0 | 1.27.0 | Updated to Gitea 1.27.0 |
 | 0.16.1 | 1.27.1 | Upgraded gitea to 1.27.1 |
+| 0.16.2 | 1.27.2 | Upgraded gitea to 1.27.2 |
 | | | |
