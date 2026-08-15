@@ -115,4 +115,5 @@
 | 0.22.2 | 34.0.1-apache | Fixed webfinger access and .mjs MIME-type |
 | 0.22.3 | 34.0.1-apache | Set more nginx options similar to apache configuration |
 | 0.22.4 | 34.0.2 | Upgraded nextcloud to 34.0.2 |
+| 0.22.5 | 34.0.3 | Upgraded nextcloud to 34.0.3 |
 | | | |
