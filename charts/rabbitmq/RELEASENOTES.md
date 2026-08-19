@@ -170,4 +170,5 @@
 | 2.3.5 | 4.3.2 | Fixed PVC definition - thx @trandbert37 |
 | 2.3.6 | 4.3.3 | Upgraded rabbitmq to 4.3.3 |
 | 2.3.7 | 4.3.4 | Upgraded rabbitmq to 4.3.4 |
+| 2.3.8 | 4.3.5 | Upgraded rabbitmq to 4.3.5 |
 | | | |
