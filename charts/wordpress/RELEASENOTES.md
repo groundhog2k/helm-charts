@@ -61,4 +61,5 @@
 | 0.16.1 | 7.0.1-apache | Upgraded to Wordpress 7.0.1, Added support for Gateway API HTTPRoute and ListenerSet |
 | 0.16.2 | 7.0.2 | Upgraded wordpress to 7.0.2 |
 | 0.16.3 | 7.0.4 | Upgraded wordpress to 7.0.4 |
+| 0.16.4 | 7.1.0 | Upgraded wordpress to 7.1.0 |
 | | | |
