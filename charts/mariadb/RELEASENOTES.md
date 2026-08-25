@@ -140,4 +140,5 @@
 | 4.5.1 | 12.3.2 (LTS) | Fixed PVC definition - thx @trandbert37 |
 | 4.5.2 | 12.3.2 | Upgraded mariadb to 12.3.2 (renovate) |
 | 4.5.3 | 12.3.2 | Fixed README.md markdown formatting |
+| 4.5.4 | 12.3.3 | Upgraded mariadb to 12.3.3 |
 | | | |
