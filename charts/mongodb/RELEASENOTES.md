@@ -119,4 +119,5 @@
 | 0.7.14 | 8.3.7 | Upgraded mongodb to 8.3.7 |
 | 0.8.0 | 8.3.7 | Implemented Prometheus metrics and ServiceMonitor support via a mongodb_exporter sidecar (covers primary/secondary and hidden-secondary members, with directConnection for per-member metrics) |
 | 0.8.1 | 8.3.8 | Upgraded mongodb to 8.3.8 |
+| 0.8.2 | 8.3.9 | Upgraded mongodb to 8.3.9 |
 | | | |
