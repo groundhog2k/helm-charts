@@ -43,3 +43,4 @@
 | 0.11.2 | v1.16.1 | Added Gateway API HTTPRoute and ListenerSet support |
 | 0.11.3 | v1.16.4 | Upgraded to Remark42 v1.16.4 |
 | 0.11.4 | v1.17.0 | Upgraded remark42 to v1.17.0 |
+| 0.11.5 | v1.17.1 | Upgraded remark42 to v1.17.1 |
