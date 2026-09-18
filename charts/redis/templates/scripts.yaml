@@ -254,7 +254,14 @@ data:
       exit 1
     fi
 
-    MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s redis-cli -h {{ include "redis.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel get-master-addr-by-name {{ include "redis.masterGroupName" . }} | head -n 1)"
+    MASTER=""
+    if MASTER_REPLY="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s redis-cli --raw -e -h {{ include "redis.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel get-master-addr-by-name {{ include "redis.masterGroupName" . }})"; then
+      MASTER="$(printf '%s\n' "$MASTER_REPLY" | awk '
+        NR == 1 && /^[[:alnum:]_.:-]+$/ { address = $0 }
+        NR == 2 && /^[0-9]+$/ && $0 >= 1 && $0 <= 65535 { port = $0 }
+        END { if (NR == 2 && address != "" && port != "") print address }
+      ')"
+    fi
     if [ -z "$MASTER" ]; then
       log "No Redis master available - retrying after {{ .Values.haMode.dnsFailureWait }} seconds"
       sleep {{ .Values.haMode.dnsFailureWait }}
