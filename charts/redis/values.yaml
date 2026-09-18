@@ -392,8 +392,10 @@ haMode:
   useDnsNames: false
   ## Mandatory redis HA-master group name (default "redisha")
   masterGroupName: "redisha"
-  ## Number of replicas (minimum should be 3)
+  ## Number of Redis master/replica pods, each with a Sentinel sidecar (minimum should be 3 without sentinelOnlyReplicas)
   replicas: 3
+  ## Number of additional quorum-only Sentinel pods (total Sentinel count is replicas + sentinelOnlyReplicas)
+  sentinelOnlyReplicas: 0
   ## Quorum of sentinels that need to agree that a master node is not available
   quorum: 2
   ## Number of milliseconds after the master should be declared as unavailable
