@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.4.7](https://img.shields.io/badge/Version-2.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.1](https://img.shields.io/badge/AppVersion-8.10.1-informational?style=flat-square)
+![Version: 2.4.8](https://img.shields.io/badge/Version-2.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.2](https://img.shields.io/badge/AppVersion-8.10.2-informational?style=flat-square)
 
 ## Changelog
 
@@ -31,10 +31,10 @@ This will create one standalone Redis instance which can be reached based on the
 
 `haMode.enabled: true`
 
-This will create 3 pods by default, with 1 Redis master (M1) and 2 Redis replications (R1/R2). Every pod has 2 containers, one for the Redis server and one for the Redis sentinel (S1/S2/S3).
-The default quorom to decide for a new master is set to 2. Have a look at all configurable parameters in values section `haMode:`
+This will create 3 Redis data pods by default, with 1 Redis master (M1) and 2 Redis replicas (R1/R2). Every data pod has 2 containers, one for the Redis server and one for Redis Sentinel (S1/S2/S3). `haMode.replicas` controls the number of Redis data pods.
+The default quorum to decide on a new master is 2. Additional lightweight, quorum-only Sentinel pods can be added with `haMode.sentinelOnlyReplicas`; the total Sentinel count is `haMode.replicas + haMode.sentinelOnlyReplicas`. Have a look at all configurable parameters in values section `haMode:`.
 
-A Sentinal instance can be reached based on the `service:` configuration (ClusterIP & Sentinel port 26379 by default).
+A Sentinel instance can be reached based on the `service:` configuration (ClusterIP & Sentinel port 26379 by default). Sentinel-only pods participate in peer discovery but are deliberately not selected by this Service.
 
 ```draw
        +----+
@@ -46,6 +46,24 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 | R2 |----+----| R3 |
 | S2 |         | S3 |
 +----+         +----+
+```
+
+For example, this creates two Redis data nodes with Sentinel sidecars and one Sentinel-only pod:
+
+```yaml
+haMode:
+  enabled: true
+  replicas: 2
+  sentinelOnlyReplicas: 1
+  quorum: 2
+```
+
+```draw
++---------+       +---------+       +----------------+
+| M1 / S1 |-------| R1 / S2 |       | Sentinel S3    |
++---------+       +---------+       | (quorum only)  |
+      |                 |           +----------------+
+      +-----------------+-------------------+
 ```
 
 ## Introduction
@@ -243,7 +261,8 @@ The policyTypes will be automatically set
 | haMode.enabled | bool | `false` | Enable Redis high availibility mode with master-slave replication and sentinel |
 | haMode.useDnsNames | bool | `false` | Use DNS names instead of Pod IPs to build the cluster |
 | haMode.masterGroupName | string | `"redisha"` | Mandatory redis HA-master group name |
-| haMode.replicas | int | `3` | Number of replicas (minimum should be 3) |
+| haMode.replicas | int | `3` | Number of Redis master/replica pods, each with a Sentinel sidecar (minimum should be 3 without `sentinelOnlyReplicas`) |
+| haMode.sentinelOnlyReplicas | int | `0` | Number of additional quorum-only Sentinel pods; total Sentinel count is `replicas + sentinelOnlyReplicas` |
 | haMode.quorum | int | `2` | Quorum of sentinels that need to agree that a master node is not available |
 | haMode.downAfterMilliseconds | int | `30000` | Number of milliseconds after the master should be declared as unavailable |
 | haMode.failoverTimeout | int | `180000` | Timeout for a failover in milliseoncds |
