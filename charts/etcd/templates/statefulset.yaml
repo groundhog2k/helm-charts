@@ -2,6 +2,16 @@
 {{- $etcdInternalServiceName := printf "%s-internal" $fullname }}
 {{- $protocol := (or .Values.settings.https.enabled .Values.settings.https.autoTls) | ternary "https" "http" }}
 {{- $servicefqdn := printf "%s.%s.svc.%s" $etcdInternalServiceName .Release.Namespace .Values.clusterDomain }}
+{{- $advertiseClientUrls := list }}
+{{- if .Values.settings.advertiseClientUrls.internal }}
+  {{- $advertiseClientUrls = append $advertiseClientUrls (printf "%s://$(NODE_NAME).%s:2379" $protocol $servicefqdn) }}
+{{- end }}
+{{- range .Values.settings.advertiseClientUrls.extraDomains }}
+  {{- $advertiseClientUrls = append $advertiseClientUrls (printf "%s://$(NODE_NAME).%s:2379" $protocol .) }}
+{{- end }}
+{{- if not $advertiseClientUrls }}
+  {{- fail "settings.advertiseClientUrls: enable 'internal' or set at least one of 'extraDomains'" }}
+{{- end }}
 {{- $createPvc := and (empty .Values.storage.persistentVolumeClaimName) (.Values.storage.requestedSize) }}
 apiVersion: apps/v1
 kind: StatefulSet
@@ -173,7 +183,7 @@ spec:
             - name: ETCD_NAME
               value: $(NODE_NAME)
             - name: ETCD_ADVERTISE_CLIENT_URLS
-              value: "{{ $protocol }}://$(NODE_NAME).{{ $servicefqdn }}:2379"
+              value: {{ join "," $advertiseClientUrls | quote }}
             - name: ETCD_INITIAL_ADVERTISE_PEER_URLS
               value: "{{ $protocol }}://$(NODE_NAME).{{ $servicefqdn }}:2380"
           {{- with .Values.env }}

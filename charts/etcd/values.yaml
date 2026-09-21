@@ -233,6 +233,14 @@ settings:
   ## Delay after termination request to give etcd process time for graceful shutdown
   shutdownDelay: 3
 
+  ## Client URLs advertised by every etcd member (ETCD_ADVERTISE_CLIENT_URLS)
+  advertiseClientUrls:
+    ## Advertise the in-cluster URL <protocol>://<pod>.<fullname>-internal.<namespace>.svc.<clusterDomain>:2379
+    internal: true
+    ## Additional domains - every member is additionally advertised as <protocol>://<pod>.<domain>:2379
+    ## (f.e. to access the cluster from outside of Kubernetes via per-member LoadBalancer services and external DNS)
+    extraDomains: []
+
 ## Storage parameters
 storage:
   ##  Set persistentVolumenClaimName to reference an existing PVC
