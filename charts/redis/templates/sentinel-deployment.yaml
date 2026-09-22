@@ -1,0 +1,210 @@
+{{- if and .Values.haMode.enabled (gt (int .Values.haMode.sentinelOnlyReplicas) 0) }}
+{{- $fullname := include "redis.fullname" . }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "redis.sentinelOnlyFullname" . }}
+  labels:
+    {{- include "redis.sentinelOnlyLabels" . | nindent 4 }}
+    {{- with .Values.customLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.customAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.haMode.sentinelOnlyReplicas }}
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "redis.sentinelOnlySelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/customconfig: {{ include (print $.Template.BasePath "/customconfig.yaml") . | sha256sum }}
+        checksum/scripts: {{ include (print $.Template.BasePath "/scripts.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "redis.sentinelOnlySelectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "redis.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: {{ .Chart.Name }}-sentinel-init
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.extraInitEnvSecrets }}
+          envFrom:
+          {{- range .Values.extraInitEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: sentinel-data
+              mountPath: /data
+            - name: scripts
+              mountPath: /scripts
+          {{- if .Values.sentinelConfig }}
+            - name: config
+              mountPath: /usr/local/etc/redis/sentinel.conf
+              subPath: sentinel.conf
+          {{- end }}
+          {{- if .Values.extraSecretSentinelConfigs }}
+            - name: extrasentinelconfigs-volume
+              mountPath: /extrasentinelconfigs
+          {{- end }}
+          {{- with .Values.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command: [ "/scripts/sentinel-init.sh" ]
+      containers:
+        - name: {{ .Chart.Name }}-sentinel
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: sentinel
+              containerPort: 26379
+              protocol: TCP
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -p 26379 ping
+            {{- omit .Values.livenessProbe "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -p 26379 ping
+            {{- omit .Values.readinessProbe "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          {{- with .Values.sentinelResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - redis-sentinel
+          args:
+            - /data/conf/sentinel.conf
+            {{- range .Values.sentinelArgs }}
+            - {{ . }}
+            {{- end }}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.extraSentinelEnvSecrets }}
+          envFrom:
+          {{- range .Values.extraSentinelEnvSecrets }}
+            - secretRef:
+                name: {{ . }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: sentinel-data
+              mountPath: /data
+            {{- range $secret := .Values.extraSentinelSecrets }}
+            - name: {{ $secret.name }}-sentinel
+              mountPath: {{ $secret.mountPath }}
+            {{- end }}
+            {{- range $config := .Values.extraSentinelConfigs }}
+            - name: {{ $config.name }}-sentinel
+              mountPath: {{ $config.mountPath }}
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: sentinel-data
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: {{ $fullname }}-scripts
+            defaultMode: 0555
+        {{- if .Values.sentinelConfig }}
+        - name: config
+          configMap:
+            name: {{ $fullname }}
+        {{- end }}
+        {{- if .Values.extraSecretSentinelConfigs }}
+        - name: extrasentinelconfigs-volume
+          secret:
+            secretName: {{ .Values.extraSecretSentinelConfigs }}
+        {{- end }}
+        {{- range $secret := .Values.extraSentinelSecrets }}
+        - name: {{ $secret.name }}-sentinel
+          secret:
+            secretName: {{ $secret.name }}
+            defaultMode: {{ $secret.defaultMode | default 0440 }}
+        {{- end }}
+        {{- range $config := .Values.extraSentinelConfigs }}
+        - name: {{ $config.name }}-sentinel
+          configMap:
+            name: {{ $config.name }}
+            defaultMode: {{ $config.defaultMode | default 0440 }}
+        {{- end }}
+{{- end }}

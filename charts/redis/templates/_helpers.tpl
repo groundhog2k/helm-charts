@@ -51,6 +51,33 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector labels for Sentinel-only pods. These must not match the Redis services.
+*/}}
+{{- define "redis.sentinelOnlySelectorLabels" -}}
+app.kubernetes.io/name: {{ printf "%s-sentinel" (include "redis.name" . | trunc 54 | trimSuffix "-") }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of Sentinel-only resources.
+*/}}
+{{- define "redis.sentinelOnlyFullname" -}}
+{{- printf "%s-sentinel" (include "redis.fullname" . | trunc 54 | trimSuffix "-") }}
+{{- end }}
+
+{{/*
+Common labels for Sentinel-only resources.
+*/}}
+{{- define "redis.sentinelOnlyLabels" -}}
+helm.sh/chart: {{ include "redis.chart" . }}
+{{ include "redis.sentinelOnlySelectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "redis.serviceAccountName" -}}
