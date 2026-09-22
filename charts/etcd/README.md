@@ -1,6 +1,6 @@
 # Etcd
 
-![Version: 1.1.12](https://img.shields.io/badge/Version-1.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.7.1](https://img.shields.io/badge/AppVersion-v3.7.1-informational?style=flat-square)
+![Version: 1.1.13](https://img.shields.io/badge/Version-1.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.7.1](https://img.shields.io/badge/AppVersion-v3.7.1-informational?style=flat-square)
 
 ## Changelog
 
@@ -160,6 +160,10 @@ The policyTypes will be automatically set
 | settings.https.enabled | bool | `false` | Enable HTTPS |
 | settings.https.autoTls | bool | `false` | Automatic TLS mode of etcd (TLS certs. created automaically) |
 | settings.shutdownDelay | int | `3` | Delay after termination request to give etcd process time for graceful shutdown |
+| settings.advertiseClientUrls.internal | bool | `true` | Advertise the in-cluster client URL of every member (`<protocol>://<pod>.<fullname>-internal.<namespace>.svc.<clusterDomain>:2379`) |
+| settings.advertiseClientUrls.extraDomains | list | `[]` | Additional domains - every member is additionally advertised as `<protocol>://<pod>.<domain>:2379` (f.e. for access from outside of Kubernetes) |
+
+Clients which discover the cluster members via the member list use all advertised client URLs. If such clients run outside of Kubernetes and can't resolve the in-cluster names, set `settings.advertiseClientUrls.internal` to `false`. When TLS is enabled, the server certificates must contain the additional names as subject alternative names.
 
 ## Etcd secrets and configuration
 
