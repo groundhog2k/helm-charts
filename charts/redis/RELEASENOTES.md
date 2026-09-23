@@ -123,4 +123,5 @@
 | 2.4.5 | 8.8.1 | Upgraded redis to 8.8.1 |
 | 2.4.6 | 8.10.0 | Upgraded redis to 8.10.0 |
 | 2.4.7 | 8.10.1 | Upgraded redis to 8.10.1 |
+| 2.4.8 | 8.10.2 | Upgraded redis to 8.10.2 |
 | | | |
