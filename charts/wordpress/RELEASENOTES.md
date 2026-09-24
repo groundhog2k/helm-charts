@@ -63,4 +63,5 @@
 | 0.16.3 | 7.0.4 | Upgraded wordpress to 7.0.4 |
 | 0.16.4 | 7.1.0 | Upgraded wordpress to 7.1.0 |
 | 0.16.5 | 7.1.1 | Upgraded wordpress to 7.1.1 |
+| 0.16.6 | 7.1.2 | Upgraded wordpress to 7.1.2 |
 | | | |
