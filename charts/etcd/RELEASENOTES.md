@@ -36,4 +36,5 @@
 | 1.1.11 | v3.7.0 | Fixed README.md markdown formatting |
 | 1.1.12 | v3.7.1 | Upgraded etcd to v3.7.1 |
 | 1.1.13 | v3.7.1 | Added settings.advertiseClientUrls to advertise additional client URLs (f.e. for access from outside of Kubernetes) |
+| 1.1.14 | v3.7.2 | Upgraded etcd to v3.7.2 |
 | | | |
