@@ -511,6 +511,7 @@ spec:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
+        creationTimestamp: null
         name: {{ .volumeName }}
       {{- with .labels }}
         labels:

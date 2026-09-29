@@ -416,6 +416,7 @@ spec:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
+        creationTimestamp: null
         name: {{ $.Values.replicaSet.hiddenSecondaries.volumeName }}
       {{- with .labels }}
         labels:
