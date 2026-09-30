@@ -118,4 +118,5 @@
 | 0.22.5 | 34.0.3 | Upgraded nextcloud to 34.0.3 |
 | 0.22.6 | 34.0.4 | Upgraded nextcloud to 34.0.4 |
 | 0.22.7 | 35.0.0 | Upgraded nextcloud to 35.0.0 |
+| 0.22.8 | 35.0.1 | Upgraded nextcloud to 35.0.1 |
 | | | |
