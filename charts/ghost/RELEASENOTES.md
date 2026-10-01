@@ -376,4 +376,5 @@
 | 0.212.12 | 6.63.0 | Upgraded ghost to 6.63.0 |
 | 0.212.13 | 6.64.0 | Upgraded ghost to 6.64.0 |
 | 0.212.14 | 6.65.0 | Upgraded ghost to 6.65.0 |
+| 0.212.15 | 6.67.0 | Upgraded ghost to 6.67.0 |
 | | | |
