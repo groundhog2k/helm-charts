@@ -172,4 +172,5 @@
 | 2.3.7 | 4.3.4 | Upgraded rabbitmq to 4.3.4 |
 | 2.3.8 | 4.3.5 | Upgraded rabbitmq to 4.3.5 |
 | 2.3.9 | 4.3.6 | Upgraded rabbitmq to 4.3.6 |
+| 2.3.10 | 4.4.0 | Upgraded rabbitmq to 4.4.0 |
 | | | |
