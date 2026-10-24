@@ -48,4 +48,5 @@
 | 3.1.2 | 9.7.1 | Upgraded mysql to 9.7.1 (renovate) |
 | 3.1.3 | 9.7.1 | Fixed README.md markdown formatting |
 | 3.1.4 | 9.7.2 | Upgraded mysql to 9.7.2 |
+| 3.1.5 | 9.7.4 | Upgraded mysql to 9.7.4 |
 | | | |
