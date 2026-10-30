@@ -40,4 +40,5 @@
 | 2.3.2 | 9.1.0 | Fixed README.md markdown formatting |
 | 2.3.3 | 9.1.1 | Upgraded valkey to 9.1.1 |
 | 2.3.4 | 9.1.2 | Upgraded valkey to 9.1.2 |
+| 2.3.5 | 9.1.3 | Upgraded valkey to 9.1.3 |
 | | | |
