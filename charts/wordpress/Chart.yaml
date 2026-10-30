@@ -8,10 +8,10 @@ maintainers:
 type: application
 
 # This is the chart version.
-version: "0.16.7"
+version: "0.16.8"
 
 # This is the version number of the application being deployed.
-appVersion: "7.1.3-apache"
+appVersion: "7.1.4-apache"
 
 keywords:
   - wordpress
