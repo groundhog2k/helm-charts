@@ -121,4 +121,5 @@
 | 0.16.4 | 28.0.0 | Upgraded gitea to 28.0.0 |
 | 0.16.5 | 28.1.0 | Upgraded gitea to 28.1.0 |
 | 0.16.6 | 28.2.0 | Upgraded gitea to 28.2.0 |
+| 0.16.7 | 28.3.0 | Upgraded gitea to 28.3.0 |
 | | | |
