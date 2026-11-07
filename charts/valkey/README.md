@@ -104,6 +104,9 @@ helm uninstall my-release
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Valkey Sentinel - only when haMode is enabled) |
 | priorityClassName | string | `""` | Deployment priority class name |
+| terminationGracePeriodSeconds | int | `nil` | Pod termination grace period in seconds (Kubernetes default 30 when not set) |
+| lifecycle | object | `{}` | Lifecycle hooks for the Valkey server container (f.e. preStop) |
+| sentinelLifecycle | object | `{}` | Lifecycle hooks for the Valkey Sentinel container (only when haMode is enabled) |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |

@@ -41,4 +41,5 @@
 | 2.3.3 | 9.1.1 | Upgraded valkey to 9.1.1 |
 | 2.3.4 | 9.1.2 | Upgraded valkey to 9.1.2 |
 | 2.3.5 | 9.1.3 | Upgraded valkey to 9.1.3 |
+| 2.4.0 | 9.1.3 | Added lifecycle, sentinelLifecycle and terminationGracePeriodSeconds |
 | | | |

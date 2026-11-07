@@ -246,6 +246,21 @@ sentinelResources: {}
 ## Pod priority class name
 priorityClassName: ""
 
+## Pod termination grace period in seconds (uses Kubernetes default of 30 when not set)
+terminationGracePeriodSeconds:
+
+## Lifecycle hooks for the Valkey server container (f.e. a preStop hook to trigger a sentinel failover before shutdown)
+lifecycle: {}
+  # preStop:
+  #   exec:
+  #     command:
+  #       - sh
+  #       - -c
+  #       - <command>
+
+## Lifecycle hooks for the Valkey Sentinel container (only when haMode is enabled)
+sentinelLifecycle: {}
+
 ## Additional node selector
 nodeSelector: {}
 
