@@ -425,6 +425,13 @@ haMode:
   dnsFailureWait: 15
   ## Keep old init logs in /data/init.log after a successful initialization (use only for debugging)
   keepOldLogs: false
+  ## Trigger a sentinel failover in a preStop hook when the master pod shuts down (f.e. during a rolling update),
+  ## so clients don't have to wait for the master to be detected as down (downAfterMilliseconds)
+  ## (is ignored when a custom lifecycle is configured)
+  failoverOnShutdown: true
+  ## Maximum time in seconds the preStop hook waits for the failover to finish
+  ## (terminationGracePeriodSeconds defaults to this value + 30 when not set)
+  failoverOnShutdownTimeout: 20
 
 ## Storage parameters
 storage:

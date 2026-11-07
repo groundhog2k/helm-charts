@@ -67,6 +67,8 @@ spec:
       {{- end }}
       {{- if .Values.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- else if and .Values.haMode.enabled .Values.haMode.failoverOnShutdown }}
+      terminationGracePeriodSeconds: {{ add .Values.haMode.failoverOnShutdownTimeout 30 }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -201,9 +203,14 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.lifecycle }}
+          {{- if .Values.lifecycle }}
           lifecycle:
-            {{- toYaml . | nindent 12 }}
+            {{- toYaml .Values.lifecycle | nindent 12 }}
+          {{- else if and .Values.haMode.enabled .Values.haMode.failoverOnShutdown }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sh", "/scripts/prestop.sh" ]
           {{- end }}
           command:
             - valkey-server
@@ -224,6 +231,10 @@ spec:
           volumeMounts:
             - name: {{ .Values.storage.volumeName }}
               mountPath: /data
+            {{- if and .Values.haMode.enabled .Values.haMode.failoverOnShutdown }}
+            - name: scripts
+              mountPath: /scripts
+            {{- end }}
             {{- range $secret := .Values.extraValkeySecrets }}
             - name: {{ $secret.name }}-valkey
               mountPath: {{ $secret.mountPath }}

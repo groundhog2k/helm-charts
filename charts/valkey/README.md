@@ -255,3 +255,5 @@ The policyTypes will be automatically set
 | haMode.failoverWait | int | `35` | Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds) |
 | haMode.dnsFailureWait | int | `15` | Wait time in seconds before restart will be forced after a DNS failure during initialization |
 | haMode.keepOldLogs | bool | `false` | Keep old init logs in /data/init.log after a successful initialization (use only for debugging) |
+| haMode.failoverOnShutdown | bool | `true` | Trigger a sentinel failover in a preStop hook when the master pod shuts down (ignored when a custom `lifecycle` is configured) |
+| haMode.failoverOnShutdownTimeout | int | `20` | Maximum time in seconds the preStop hook waits for the failover to finish (`terminationGracePeriodSeconds` defaults to this value + 30) |
