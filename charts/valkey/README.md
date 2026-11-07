@@ -48,6 +48,12 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 +----+         +----+
 ```
 
+#### Failover on shutdown
+
+With `haMode.failoverOnShutdown: true` (default) the Valkey server container gets a preStop hook. When the master pod is stopped (f.e. during a rolling update or node drain), the hook asks a sentinel of another pod for a failover and waits until another pod is master (max. `haMode.failoverOnShutdownTimeout` seconds) before the server is shut down. Clients therefore don't have to wait until the master is detected as down (`haMode.downAfterMilliseconds`). Replicas shut down without delay. The hook output is logged to the Valkey server container (`preStop[<pod>]: ...`).
+
+Note: changing `haMode.failoverOnShutdown` on an existing release does not take effect for the rollout that applies the change. When enabling it, the old pods don't have the hook yet. When disabling it, the hook script is removed from the scripts ConfigMap before the old pods are stopped. A custom `lifecycle` replaces the built-in hook.
+
 ## Introduction
 
 This chart uses the original [Valkey image from Docker Hub](https://hub.docker.com/r/valkey/valkey) to deploy a stateful Valkey instance in a Kubernetes cluster.
