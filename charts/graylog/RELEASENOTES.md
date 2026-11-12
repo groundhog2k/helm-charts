@@ -123,4 +123,5 @@
 | 0.13.11 | 7.1.10 | Upgraded graylog to 7.1.10 |
 | 0.13.12 | 7.2.0 | Upgraded graylog to 7.2.0 |
 | 0.13.13 | 7.2.1 | Upgraded graylog to 7.2.1 |
+| 0.13.14 | 7.2.2 | Upgraded graylog to 7.2.2 |
 | | | |
