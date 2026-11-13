@@ -122,4 +122,5 @@
 | 0.8.2 | 8.3.9 | Upgraded mongodb to 8.3.9 |
 | 0.8.3 | 8.3.11 | Upgraded mongodb to 8.3.11 |
 | 0.8.4 | 8.3.13 | Upgraded mongodb to 8.3.13 |
+| 0.8.5 | 8.3.17 | Upgraded mongodb to 8.3.17 |
 | | | |
