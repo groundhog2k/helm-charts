@@ -120,4 +120,5 @@
 | 1.6.6 | 18.4 | Fixed health probes - thx @Thesam1798 |
 | 1.6.7 | 18.4 | Fixed README.md markdown formatting |
 | 1.6.8 | 18.6 | Upgraded postgres to 18.6 |
+| 1.6.9 | 18.7 | Upgraded postgres to 18.7 |
 | | | |
