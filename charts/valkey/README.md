@@ -1,6 +1,6 @@
 # Valkey
 
-![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.3](https://img.shields.io/badge/AppVersion-9.1.3-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.3](https://img.shields.io/badge/AppVersion-9.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -47,6 +47,12 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 | S2 |         | S3 |
 +----+         +----+
 ```
+
+#### Failover on shutdown
+
+With `haMode.failoverOnShutdown: true` (default) the Valkey server container gets a preStop hook. When the master pod is stopped (f.e. during a rolling update or node drain), the hook asks a sentinel of another pod for a failover and waits until another pod is master (max. `haMode.failoverOnShutdownTimeout` seconds) before the server is shut down. Clients therefore don't have to wait until the master is detected as down (`haMode.downAfterMilliseconds`). Replicas shut down without delay. The hook output is logged to the Valkey server container (`preStop[<pod>]: ...`).
+
+Note: the first upgrade from a chart version without this feature triggers a rollout, but the existing pods do not yet have the preStop hook; that rollout can therefore still incur the normal Sentinel detection delay when the master stops. The hook applies only to pods created from the updated pod template. Changing `haMode.failoverOnShutdown` on an existing release likewise does not affect the rollout that applies the change. When disabling it, the hook script is removed from the scripts ConfigMap before the old pods are stopped. A custom `lifecycle` replaces the built-in hook.
 
 ## Introduction
 
@@ -104,6 +110,9 @@ helm uninstall my-release
 | resources | object | `{}` | Resource limits and requests |
 | sentinelResources | object | `{}` | Resource limits and requests (for Valkey Sentinel - only when haMode is enabled) |
 | priorityClassName | string | `""` | Deployment priority class name |
+| terminationGracePeriodSeconds | int | `nil` | Pod termination grace period in seconds (Kubernetes default 30 when not set) |
+| lifecycle | object | `{}` | Lifecycle hooks for the Valkey server container (f.e. preStop) |
+| sentinelLifecycle | object | `{}` | Lifecycle hooks for the Valkey Sentinel container (only when haMode is enabled) |
 | nodeSelector | object | `{}` | Deployment node selector |
 | customLabels | object | `{}` | Additional labels for Deployment or StatefulSet |
 | customAnnotations | object | `{}` | Additional annotations for Deployment or StatefulSet |
@@ -252,3 +261,5 @@ The policyTypes will be automatically set
 | haMode.failoverWait | int | `35` | Assumed wait time in seconds until failover should be finished and before failover will be forced (should be greater than value of downAfterMilliseconds) |
 | haMode.dnsFailureWait | int | `15` | Wait time in seconds before restart will be forced after a DNS failure during initialization |
 | haMode.keepOldLogs | bool | `false` | Keep old init logs in /data/init.log after a successful initialization (use only for debugging) |
+| haMode.failoverOnShutdown | bool | `true` | Trigger a sentinel failover in a preStop hook when the master pod shuts down (ignored when a custom `lifecycle` is configured) |
+| haMode.failoverOnShutdownTimeout | int | `20` | Maximum time in seconds the preStop hook waits for the failover to finish (`terminationGracePeriodSeconds` defaults to this value + 30) |
