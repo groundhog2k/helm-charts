@@ -125,4 +125,5 @@
 | 2.4.7 | 8.10.1 | Upgraded redis to 8.10.1 |
 | 2.4.8 | 8.10.2 | Upgraded redis to 8.10.2 |
 | 2.4.9 | 8.10.3 | Upgraded redis to 8.10.3 |
+| 2.5.0 | 8.10.3 | Added lifecycle, sentinelLifecycle and terminationGracePeriodSeconds |
 | | | |
