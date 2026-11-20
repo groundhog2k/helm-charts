@@ -42,4 +42,5 @@
 | 2.3.4 | 9.1.2 | Upgraded valkey to 9.1.2 |
 | 2.3.5 | 9.1.3 | Upgraded valkey to 9.1.3 |
 | 2.4.0 | 9.1.3 | Added haMode.failoverOnShutdown (preStop sentinel failover, enabled by default), lifecycle, sentinelLifecycle and terminationGracePeriodSeconds |
+| 2.4.1 | 9.2.0 | Upgraded valkey to 9.2.0 |
 | | | |
