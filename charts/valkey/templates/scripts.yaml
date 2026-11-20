@@ -59,7 +59,7 @@ data:
     }
 
     test_master_alive() {
-      TEST="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h $MASTER -p 6379 $VALKEYUSER $VALKEYPWD ping)"
+      TEST="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli --no-auth-warning -h $MASTER -p 6379 $VALKEYUSER $VALKEYPWD ping)"
       if [ -z "$TEST" ]; then
         log "Master is not alive"
         return 1
@@ -152,7 +152,7 @@ data:
         log "Service resolved: ${SERVICE}"
       fi
       log "Try to detect cluster master.."
-      MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel get-master-addr-by-name {{ include "valkey.masterGroupName" . }} | head -n 1)"
+      MASTER="$(timeout {{ .Values.haMode.masterAliveTestTimeout }}s valkey-cli --no-auth-warning -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel get-master-addr-by-name {{ include "valkey.masterGroupName" . }} | head -n 1)"
       if [ -z "$MASTER" ]; then
         log "No master found - This instance ($HOSTNAME) will be master now"
       else
@@ -163,7 +163,7 @@ data:
           if [ -f "/data/failover_restart" ]; then
             rm /data/failover_restart
             log "Forcing failover now"
-            valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
+            valkey-cli --no-auth-warning -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
           else
             log "Waiting for failover before restart"
             sleep {{ .Values.haMode.failoverWait }}
@@ -179,7 +179,7 @@ data:
             if [ -f "/data/failover_restart" ]; then
               rm /data/failover_restart
               log "Master is still dead! - forcing failover and retry pod initialization"
-              valkey-cli -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
+              valkey-cli --no-auth-warning -h {{ template "valkey.fullname" . }} -p {{ .Values.service.sentinelPort }} $SENTINELUSER $SENTINELPWD sentinel failover {{ include "valkey.masterGroupName" . }}
             else
               log "Dead master at address $MASTER detected! - waiting for failover"
               sleep {{ .Values.haMode.failoverWait }}
@@ -223,6 +223,7 @@ data:
     # Log to the valkey-server container output (preStop output is not shown otherwise)
     log() {
       echo "$(date) preStop[$HOSTNAME]: $1" >>/proc/1/fd/1 2>/dev/null || echo "$(date) preStop[$HOSTNAME]: $1"
+      echo "$(date) preStop[$HOSTNAME]: $1" >>/data/init.log
     }
 
     # Read the last value of a config key, with optional surrounding quotes removed
@@ -232,27 +233,42 @@ data:
     }
 
     # Authentication for the local valkey server (replication user if configured, else default user)
-    LOCALUSER="$(conf_value $VALKEY_CONFIG masteruser)"
-    [ -z "$LOCALUSER" ] && LOCALUSER="$(conf_value $VALKEY_CONFIG primaryuser)"
-    LOCALPWD="$(conf_value $VALKEY_CONFIG masterauth)"
-    [ -z "$LOCALPWD" ] && LOCALPWD="$(conf_value $VALKEY_CONFIG primaryauth)"
-    if [ -z "$LOCALPWD" ]; then
-      LOCALUSER=""
-      LOCALPWD="$(conf_value $VALKEY_CONFIG requirepass)"
+    LOCALUSER="$(conf_value "$VALKEY_CONFIG" masteruser)"
+    LOCALPWD="$(conf_value "$VALKEY_CONFIG" masterauth)"
+    if [ -z "$LOCALUSER" ] || [ -z "$LOCALPWD" ]; then
+      LOCALUSER="$(conf_value "$VALKEY_CONFIG" primaryuser)"
+      LOCALPWD="$(conf_value "$VALKEY_CONFIG" primaryauth)"
     fi
-    # Authentication for sentinel
-    SENTINELUSER="$(conf_value $SENTINEL_CONFIG 'sentinel sentinel-user')"
-    SENTINELPWD="$(conf_value $SENTINEL_CONFIG 'sentinel sentinel-pass')"
+    if [ -z "$LOCALUSER" ] || [ -z "$LOCALPWD" ]; then
+      LOCALUSER=""
+      LOCALPWD="$(conf_value "$VALKEY_CONFIG" requirepass)"
+    fi
+    # Authenticate to Sentinel with its ACL user when configured, otherwise use requirepass.
+    SENTINELUSER="$(conf_value "$SENTINEL_CONFIG" 'sentinel sentinel-user')"
+    SENTINELPWD="$(conf_value "$SENTINEL_CONFIG" 'sentinel sentinel-pass')"
+    if [ -z "$SENTINELUSER" ] || [ -z "$SENTINELPWD" ]; then
+      SENTINELUSER=""
+      SENTINELPWD="$(conf_value "$SENTINEL_CONFIG" requirepass)"
+    fi
 
     local_cli() {
       timeout 2s valkey-cli --no-auth-warning ${LOCALUSER:+--user "$LOCALUSER"} ${LOCALPWD:+--pass "$LOCALPWD"} "$@"
     }
     sentinel_cli() {
-      SHOST=$1; shift
-      timeout 2s valkey-cli --no-auth-warning -h "$SHOST" -p 26379 ${SENTINELUSER:+--user "$SENTINELUSER"} ${SENTINELPWD:+--pass "$SENTINELPWD"} "$@"
+      SHOST=$1; CLI_TIMEOUT=$2; shift 2
+      timeout "${CLI_TIMEOUT}s" valkey-cli --no-auth-warning -h "$SHOST" -p 26379 ${SENTINELUSER:+--user "$SENTINELUSER"} ${SENTINELPWD:+--pass "$SENTINELPWD"} "$@"
     }
 
-    ROLE="$(local_cli info replication | sed -n 's/^role:\([a-z]*\).*/\1/p')"
+    REPLICATION_INFO="$(local_cli info replication)"
+    if [ $? -ne 0 ]; then
+      log "Could not query local Valkey role - shutting down without failover"
+      exit 0
+    fi
+    ROLE="$(printf '%s\n' "$REPLICATION_INFO" | sed -n 's/^role:\([a-z]*\).*/\1/p')"
+    if [ -z "$ROLE" ]; then
+      log "Could not determine local Valkey role - shutting down without failover"
+      exit 0
+    fi
     if [ "$ROLE" != "master" ]; then
       log "Role is '$ROLE' - nothing to do"
       exit 0
@@ -264,26 +280,40 @@ data:
     SELF="$(getent hosts $HOSTNAME | awk '{ print $1 }')"
     {{- end }}
     log "This instance is master - requesting sentinel failover"
+    START_TIME="$(date +%s)"
+    DEADLINE=$((START_TIME + {{ .Values.haMode.failoverOnShutdownTimeout }}))
     # Use a sentinel of another pod, the local sentinel is shutting down as well
     for i in $(seq 0 {{ sub (int .Values.haMode.replicas) 1 }}); do
       PEER="{{ include "valkey.fullname" . }}-${i}"
       [ "$PEER" = "$HOSTNAME" ] && continue
       PEER="${PEER}.${HEADLESS}"
-      if ! sentinel_cli $PEER sentinel failover $MASTERGROUP | grep -q OK; then
+      REMAINING=$((DEADLINE - $(date +%s)))
+      [ "$REMAINING" -le 0 ] && break
+      CLI_TIMEOUT=2
+      [ "$REMAINING" -lt "$CLI_TIMEOUT" ] && CLI_TIMEOUT="$REMAINING"
+      if ! sentinel_cli "$PEER" "$CLI_TIMEOUT" sentinel failover "$MASTERGROUP" | grep -q OK; then
         log "Sentinel $PEER did not accept failover - trying next"
         continue
       fi
       log "Failover requested via $PEER"
-      for t in $(seq 1 {{ .Values.haMode.failoverOnShutdownTimeout }}); do
-        MASTER="$(sentinel_cli $PEER sentinel get-master-addr-by-name $MASTERGROUP | head -n 1)"
-        if [ -n "$MASTER" ] && [ "$MASTER" != "$SELF" ]; then
-          log "Failover done after ${t}s - new master is $MASTER"
+      while :; do
+        REMAINING=$((DEADLINE - $(date +%s)))
+        if [ "$REMAINING" -le 0 ]; then
+          log "Timeout waiting for failover - shutting down anyway"
           exit 0
         fi
+        CLI_TIMEOUT=2
+        [ "$REMAINING" -lt "$CLI_TIMEOUT" ] && CLI_TIMEOUT="$REMAINING"
+        MASTER="$(sentinel_cli "$PEER" "$CLI_TIMEOUT" sentinel get-master-addr-by-name "$MASTERGROUP" | head -n 1)"
+        if [ -n "$MASTER" ] && [ "$MASTER" != "$SELF" ]; then
+          ELAPSED=$(( $(date +%s) - START_TIME ))
+          log "Failover done after ${ELAPSED}s - new master is $MASTER"
+          exit 0
+        fi
+        REMAINING=$((DEADLINE - $(date +%s)))
+        [ "$REMAINING" -le 0 ] && continue
         sleep 1
       done
-      log "Timeout waiting for failover - shutting down anyway"
-      exit 0
     done
     log "No sentinel accepted the failover - shutting down anyway"
     exit 0

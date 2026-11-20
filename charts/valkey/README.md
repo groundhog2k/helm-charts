@@ -1,6 +1,6 @@
 # Valkey
 
-![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.3](https://img.shields.io/badge/AppVersion-9.1.3-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9.1.3](https://img.shields.io/badge/AppVersion-9.1.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -52,7 +52,7 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 
 With `haMode.failoverOnShutdown: true` (default) the Valkey server container gets a preStop hook. When the master pod is stopped (f.e. during a rolling update or node drain), the hook asks a sentinel of another pod for a failover and waits until another pod is master (max. `haMode.failoverOnShutdownTimeout` seconds) before the server is shut down. Clients therefore don't have to wait until the master is detected as down (`haMode.downAfterMilliseconds`). Replicas shut down without delay. The hook output is logged to the Valkey server container (`preStop[<pod>]: ...`).
 
-Note: changing `haMode.failoverOnShutdown` on an existing release does not take effect for the rollout that applies the change. When enabling it, the old pods don't have the hook yet. When disabling it, the hook script is removed from the scripts ConfigMap before the old pods are stopped. A custom `lifecycle` replaces the built-in hook.
+Note: the first upgrade from a chart version without this feature triggers a rollout, but the existing pods do not yet have the preStop hook; that rollout can therefore still incur the normal Sentinel detection delay when the master stops. The hook applies only to pods created from the updated pod template. Changing `haMode.failoverOnShutdown` on an existing release likewise does not affect the rollout that applies the change. When disabling it, the hook script is removed from the scripts ConfigMap before the old pods are stopped. A custom `lifecycle` replaces the built-in hook.
 
 ## Introduction
 

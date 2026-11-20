@@ -65,7 +65,7 @@ spec:
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}
-      {{- if .Values.terminationGracePeriodSeconds }}
+      {{- if ne .Values.terminationGracePeriodSeconds nil }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- else if and .Values.haMode.enabled .Values.haMode.failoverOnShutdown }}
       terminationGracePeriodSeconds: {{ add .Values.haMode.failoverOnShutdownTimeout 30 }}
