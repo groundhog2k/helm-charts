@@ -383,4 +383,5 @@
 | 0.212.19 | 6.72.0 | Upgraded ghost to 6.72.0 |
 | 0.212.20 | 6.73.0 | Upgraded ghost to 6.73.0 |
 | 0.212.21 | 6.77.0 | Upgraded ghost to 6.77.0 |
+| 0.212.22 | 6.78.0 | Upgraded ghost to 6.78.0 |
 | | | |
