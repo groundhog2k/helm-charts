@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.3](https://img.shields.io/badge/AppVersion-8.10.3-informational?style=flat-square)
+![Version: 2.5.1](https://img.shields.io/badge/Version-2.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.3](https://img.shields.io/badge/AppVersion-8.10.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -47,6 +47,32 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 | S2 |         | S3 |
 +----+         +----+
 ```
+
+#### Spreading the pods across failure domains
+
+In HA mode every pod runs one Redis server and one Sentinel, so Sentinel availability is exactly the availability of the data pods. The chart does not add any spread or anti-affinity by default (`topologySpreadConstraints: {}`), and Kubernetes may place two or all three pods on nodes in the same availability zone.
+
+With the default `haMode.quorum: 2`, losing two of the three Sentinels also removes the quorum. If two pods (one of them possibly the master) were in the same zone, that single zone failure leaves one Sentinel, which reports `NOQUORUM` in `SENTINEL ckquorum` and cannot promote the surviving replica. The surviving pod keeps the role it had, so a replica rejects every write with `READONLY You can't write against a read only replica`, and because in HA mode the chart exposes only the Sentinel port on its Service there is no read-write Service endpoint to fall back to. The quorum requirement therefore means the three pods have to run in three independent failure domains. Sentinel only marks the lost Sentinels as down after `haMode.downAfterMilliseconds` (30s by default), so `SENTINEL ckquorum` still answers `OK 3 usable Sentinels` for that long after the failure.
+
+A soft constraint (`whenUnsatisfiable: ScheduleAnyway`) is only a scoring hint and does not prevent two pods from landing in the same zone. To make the scheduler wait instead of silently running without quorum protection, use `DoNotSchedule` together with `minDomains`:
+
+```yaml
+topologySpreadConstraints:
+  - maxSkew: 1
+    minDomains: 3
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/instance: my-release
+```
+
+The selector has to match the chart's `redis.selectorLabels`; replace `my-release` with the actual release name and `redis` with the `nameOverride` value when that is set. With `maxSkew: 1` and `minDomains: 3` the third pod stays `Pending` on a cluster with fewer than three zones that have schedulable nodes (`0/3 nodes are available: 3 node(s) didn't match pod topology spread constraints`), instead of silently running with a Sentinel quorum that one zone failure can take down. The StatefulSet then never gets ready, and `helm install --wait` or `helm upgrade --wait` fail with `resource StatefulSet/<name> not ready ... Ready: 2/3` after their timeout. `minDomains` requires Kubernetes v1.30 or later, or the `MinDomainsInPodTopologySpread` feature gate enabled on v1.28 and v1.29.
+
+Relaxing the constraint on an existing release does not reschedule the `Pending` pod by itself: the StatefulSet keeps that pod at its old revision while it is not ready, so the rollout does not get past it. Delete the `Pending` pod (f.e. `kubectl delete pod <release>-redis-<n>`) to let it be recreated with the new constraint.
+
+If the cluster cannot provide three failure domains, adjust `haMode.replicas` and `haMode.quorum` to the number of available zones instead of weakening the spread constraint.
 
 #### Failover on shutdown
 
