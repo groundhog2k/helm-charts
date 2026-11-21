@@ -70,6 +70,8 @@ topologySpreadConstraints:
 
 The selector has to match the chart's `redis.selectorLabels`; replace `my-release` with the actual release name and `redis` with the `nameOverride` value when that is set. With `maxSkew: 1` and `minDomains: 3` the third pod stays `Pending` on a cluster with fewer than three zones that have schedulable nodes (`0/3 nodes are available: 3 node(s) didn't match pod topology spread constraints`), instead of silently running with a Sentinel quorum that one zone failure can take down. The StatefulSet then never gets ready, and `helm install --wait` or `helm upgrade --wait` fail with `resource StatefulSet/<name> not ready ... Ready: 2/3` after their timeout. `minDomains` requires Kubernetes v1.30 or later, or the `MinDomainsInPodTopologySpread` feature gate enabled on v1.28 and v1.29.
 
+Relaxing the constraint on an existing release does not reschedule the `Pending` pod by itself: the StatefulSet keeps that pod at its old revision while it is not ready, so the rollout does not get past it. Delete the `Pending` pod (f.e. `kubectl delete pod <release>-redis-<n>`) to let it be recreated with the new constraint.
+
 If the cluster cannot provide three failure domains, adjust `haMode.replicas` and `haMode.quorum` to the number of available zones instead of weakening the spread constraint.
 
 #### Failover on shutdown
