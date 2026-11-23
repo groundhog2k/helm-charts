@@ -43,4 +43,5 @@
 | 2.3.5 | 9.1.3 | Upgraded valkey to 9.1.3 |
 | 2.4.0 | 9.1.3 | Added haMode.failoverOnShutdown (preStop sentinel failover, enabled by default), lifecycle, sentinelLifecycle and terminationGracePeriodSeconds |
 | 2.4.1 | 9.2.0 | Upgraded valkey to 9.2.0 |
+| 2.4.2 | 9.2.0 | Documented the Sentinel quorum and failure domain requirement and added a topology spread example - thx @patsevanton |
 | | | |

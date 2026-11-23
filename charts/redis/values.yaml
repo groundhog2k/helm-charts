@@ -271,6 +271,7 @@ tolerations: []
 affinity: {}
 
 ## Topology spread constraints for pods
+## (cluster-specific; see README section "Spreading the pods across failure domains")
 topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
@@ -410,6 +411,8 @@ haMode:
   ## Number of replicas (minimum should be 3)
   replicas: 3
   ## Quorum of sentinels that need to agree that a master node is not available
+  ## (for single-zone failure tolerance with the default three pods, spread across three independent zones;
+  ## see README section "Spreading the pods across failure domains")
   quorum: 2
   ## Number of milliseconds after the master should be declared as unavailable
   downAfterMilliseconds: 30000

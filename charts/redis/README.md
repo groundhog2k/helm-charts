@@ -1,6 +1,6 @@
 # Redis
 
-![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.3](https://img.shields.io/badge/AppVersion-8.10.3-informational?style=flat-square)
+![Version: 2.5.1](https://img.shields.io/badge/Version-2.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.10.3](https://img.shields.io/badge/AppVersion-8.10.3-informational?style=flat-square)
 
 ## Changelog
 
@@ -47,6 +47,26 @@ A Sentinal instance can be reached based on the `service:` configuration (Cluste
 | S2 |         | S3 |
 +----+         +----+
 ```
+
+#### Spreading the pods across failure domains
+
+Each pod in HA mode runs a Redis server and a Sentinel. The chart does not set pod spread constraints by default, so Kubernetes may place multiple pods in the same failure domain. With the default three pods and `haMode.quorum: 2`, tolerating the loss of any one zone requires placing one pod in each of three independent zones.
+
+Pod placement is cluster-specific. If zone-level spreading is appropriate for your cluster, a hard constraint can require three eligible zones for the default HA setup. For example:
+
+```yaml
+topologySpreadConstraints:
+  - maxSkew: 1
+    minDomains: 3
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/instance: my-release
+```
+
+This example assumes nodes have the `topology.kubernetes.io/zone` label and that the cluster supports `minDomains`. It leaves a pod Pending if three eligible zones are unavailable, which can prevent the release from becoming ready. Replace `my-release` with the Helm release name and `redis` with the `nameOverride` value if set. Adapt or omit the constraint to suit your cluster; fewer than three failure domains cannot provide the same single-zone failure tolerance with the default HA configuration.
 
 #### Failover on shutdown
 
