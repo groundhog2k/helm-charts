@@ -126,5 +126,5 @@
 | 2.4.8 | 8.10.2 | Upgraded redis to 8.10.2 |
 | 2.4.9 | 8.10.3 | Upgraded redis to 8.10.3 |
 | 2.5.0 | 8.10.3 | Added lifecycle, sentinelLifecycle and terminationGracePeriodSeconds |
-| 2.5.1 | 8.10.3 | Documented the Sentinel quorum and failure domain requirement and added a topology spread example |
+| 2.5.1 | 8.10.3 | Documented the Sentinel quorum and failure domain requirement and added a topology spread example - thx @patsevanton |
 | | | |

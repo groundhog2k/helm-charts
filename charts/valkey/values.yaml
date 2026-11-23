@@ -271,6 +271,7 @@ tolerations: []
 affinity: {}
 
 ## Topology spread constraints for pods
+## (cluster-specific; see README section "Spreading the pods across failure domains")
 topologySpreadConstraints: {}
 
 ## Maximum number of revisions maintained in revision history
